@@ -22,6 +22,11 @@ enum ContractType {
   Other
 }
 
+enum Role {
+  Hr
+  Other
+}
+
 model AuthorizedRepresentative {
   id           Int           @id @default(autoincrement())
   firstName    String
@@ -56,6 +61,7 @@ model Employee {
   phoneNumber String
   dateOfBirth DateTime
 
+  role             Role
   gender           Gender
   employeeInfo     EmployeeInfo?
   teams            Team[]        @relation("EmployeeTeams")
