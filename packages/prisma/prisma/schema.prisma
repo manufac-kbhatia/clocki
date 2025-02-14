@@ -7,7 +7,77 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Gender {
+  Male
+  Female
+  NonBinary
+  Other
+  PreferNotToSay
+}
+
+enum ContractType {
+  Permanent
+  Intern
+  Contract
+  Other
+}
+
+model AuthorizedRepresentative {
+  id           Int           @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  organisation Organisation?
+}
+
+model Organisation {
+  id        Int    @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  vatNumber String @unique
+
+  authorizedRepresentativeId Int                      @unique
+  authorizedRepresentative   AuthorizedRepresentative @relation(fields: [authorizedRepresentativeId], references: [id])
+
+  employees Employee[]
+}
+
 model Employee {
-  id           Int    @id @default(autoincrement())
-  employeeName String
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastname    String?
+  email       String   @unique
+  password    String
+  address     String
+  city        String
+  postalCode  String
+  phoneNumber String
+  dateOfBirth DateTime
+
+  gender           Gender
+  employeeInfo     EmployeeInfo?
+  teams            Team[]        @relation("EmployeeTeams")
+  responsibleTeams Team[]        @relation("TeamLead")
+  organisationId   Int           @unique
+  organisation     Organisation  @relation(fields: [organisationId], references: [id])
+}
+
+model EmployeeInfo {
+  id           Int          @id @default(autoincrement())
+  hireDate     DateTime
+  positon      String
+  contractType ContractType
+  vacationDays Int          @default(0)
+
+  employeeId Int      @unique
+  employee   Employee @relation(fields: [employeeId], references: [id])
+}
+
+model Team {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  members    Employee[] @relation("EmployeeTeams")
+  teamLeadId Int        @unique
+  teamLead   Employee   @relation("TeamLead", fields: [teamLeadId], references: [id])
 }
