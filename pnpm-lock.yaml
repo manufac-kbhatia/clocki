@@ -18,6 +18,16 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
 
+  apps/http-server:
+    dependencies:
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/prisma
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+
   apps/web:
     dependencies:
       '@repo/db':
