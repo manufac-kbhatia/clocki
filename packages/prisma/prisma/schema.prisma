@@ -26,6 +26,8 @@ model AuthorizedRepresentative {
   id           Int           @id @default(autoincrement())
   firstName    String
   lastName     String
+  eamil        String        @unique
+  password     String
   organisation Organisation?
 }
 
@@ -78,6 +80,6 @@ model Team {
   name String
 
   members    Employee[] @relation("EmployeeTeams")
-  teamLeadId Int        @unique
+  teamLeadId Int
   teamLead   Employee   @relation("TeamLead", fields: [teamLeadId], references: [id])
 }
