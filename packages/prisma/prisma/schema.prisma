@@ -24,6 +24,7 @@ enum ContractType {
 
 enum Role {
   Hr
+  Manager
   Other
 }
 
