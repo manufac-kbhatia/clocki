@@ -23,9 +23,6 @@ importers:
       '@repo/db':
         specifier: workspace:*
         version: link:../../packages/prisma
-      '@repo/schemas':
-        specifier: workspace:*
-        version: link:../../packages/schemas
       express:
         specifier: ^4.21.2
         version: 4.21.2

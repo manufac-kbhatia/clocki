@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@repo/db": "workspace:*",
-    "@repo/schemas": "workspace:*",
     "express": "^4.21.2",
     "zod": "^3.24.2"
   },
