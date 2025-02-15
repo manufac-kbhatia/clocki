@@ -23,18 +23,10 @@ enum ContractType {
 }
 
 enum Role {
+  Admin
   Hr
   Manager
   Other
-}
-
-model AuthorizedRepresentative {
-  id           Int           @id @default(autoincrement())
-  firstName    String
-  lastName     String
-  eamil        String        @unique
-  password     String
-  organisation Organisation?
 }
 
 model Organisation {
@@ -44,31 +36,31 @@ model Organisation {
   city      String
   vatNumber String @unique
 
-  authorizedRepresentativeId Int                      @unique
-  authorizedRepresentative   AuthorizedRepresentative @relation(fields: [authorizedRepresentativeId], references: [id])
-
-  employees Employee[]
+  employees   Employee[]
+  createdById Int        @unique
+  createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id])
 }
 
 model Employee {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   firstName   String
   lastname    String?
-  email       String   @unique
+  email       String    @unique
   password    String
-  address     String
-  city        String
-  postalCode  String
-  phoneNumber String
-  dateOfBirth DateTime
+  address     String?
+  city        String?
+  postalCode  String?
+  phoneNumber String?
+  dateOfBirth DateTime?
 
-  role             Role
-  gender           Gender
-  employeeInfo     EmployeeInfo?
-  teams            Team[]        @relation("EmployeeTeams")
-  responsibleTeams Team[]        @relation("TeamLead")
-  organisationId   Int           @unique
-  organisation     Organisation  @relation(fields: [organisationId], references: [id])
+  role                Role
+  gender              Gender
+  employeeInfo        EmployeeInfo?
+  teams               Team[]        @relation("EmployeeTeams")
+  responsibleTeams    Team[]        @relation("TeamLead")
+  organisationId      Int           @unique
+  organisation        Organisation  @relation(fields: [organisationId], references: [id])
+  createdOrganisation Organisation? @relation("OrganisationCreator")
 }
 
 model EmployeeInfo {
