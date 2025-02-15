@@ -54,12 +54,12 @@ model Employee {
   dateOfBirth DateTime?
 
   role                Role
-  gender              Gender
+  gender              Gender?
   employeeInfo        EmployeeInfo?
   teams               Team[]        @relation("EmployeeTeams")
   responsibleTeams    Team[]        @relation("TeamLead")
   organisationId      Int           @unique
-  organisation        Organisation  @relation(fields: [organisationId], references: [id])
+  organisation        Organisation? @relation(fields: [organisationId], references: [id])
   createdOrganisation Organisation? @relation("OrganisationCreator")
 }
 
