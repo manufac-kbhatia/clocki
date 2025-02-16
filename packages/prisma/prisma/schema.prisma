@@ -73,7 +73,7 @@ model EmployeeInfo {
   vacationDays Int          @default(0)
 
   employeeId Int      @unique
-  employee   Employee @relation(fields: [employeeId], references: [id])
+  employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
 model Team {
