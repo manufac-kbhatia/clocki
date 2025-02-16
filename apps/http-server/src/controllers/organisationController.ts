@@ -26,7 +26,7 @@ export const setupOrganisatipo = async (
         vatNumber: payload.vatNumber,
         createdBy: {
           connect: {
-            id: req.employeeId,
+            id: req.employee?.id,
           },
         },
       },

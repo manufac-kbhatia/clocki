@@ -2,6 +2,7 @@ import { ErrorResponse } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils";
+import { client, Role } from "@repo/db";
 
 export async function isAuthenticated(
   req: Request,
@@ -19,11 +20,29 @@ export async function isAuthenticated(
   const decoded = jwt.verify(token, JWT_SECRET);
 
   if (decoded && typeof decoded !== "string") {
-    req.employeeId = decoded.id;
+    const employee = await client.employee.findUnique({
+      where: {
+        id: decoded.id as number,
+      },
+    });
+    req.employee = employee;
     next();
   } else {
     res.status(403).json({
       error: "Unauthorized",
     });
   }
+}
+
+export function isAuthorized(roles: Role[]) {
+  return (req: Request, res: Response<ErrorResponse>, next: NextFunction) => {
+    const role = req.employee?.role;
+    if (role !== undefined && roles.includes(role)) {
+      next();
+    } else {
+      res.status(403).json({
+        error: "Unauthorized",
+      });
+    }
+  };
 }
