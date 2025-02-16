@@ -29,21 +29,9 @@ enum Role {
   Other
 }
 
-model Organisation {
-  id        Int    @id @default(autoincrement())
-  name      String
-  address   String
-  city      String
-  vatNumber String @unique
-
-  employees   Employee[]
-  createdById Int        @unique
-  createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id])
-}
-
 model Employee {
   id          Int       @id @default(autoincrement())
-  firstName   String
+  firstName   String?
   lastname    String?
   email       String    @unique
   password    String
@@ -53,14 +41,28 @@ model Employee {
   phoneNumber String?
   dateOfBirth DateTime?
 
-  role                Role
-  gender              Gender?
+  role   Role
+  gender Gender?
+
   employeeInfo        EmployeeInfo?
-  teams               Team[]        @relation("EmployeeTeams")
-  responsibleTeams    Team[]        @relation("TeamLead")
-  organisationId      Int           @unique
-  organisation        Organisation? @relation(fields: [organisationId], references: [id])
   createdOrganisation Organisation? @relation("OrganisationCreator")
+  teams               Team[]        @relation("EmployeeTeams")
+  responsibleTeams    Team[]        @relation("ResponsibleTeams")
+
+  organisationId Int?
+  organisation   Organisation? @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+}
+
+model Organisation {
+  id        Int    @id @default(autoincrement())
+  name      String
+  address   String
+  city      String
+  vatNumber String @unique
+
+  employees   Employee[]
+  createdById Int        @unique
+  createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id], onDelete: Cascade)
 }
 
 model EmployeeInfo {
@@ -78,7 +80,8 @@ model Team {
   id   Int    @id @default(autoincrement())
   name String
 
-  members    Employee[] @relation("EmployeeTeams")
   teamLeadId Int
-  teamLead   Employee   @relation("TeamLead", fields: [teamLeadId], references: [id])
+  teamLead   Employee @relation("ResponsibleTeams", fields: [teamLeadId], references: [id], onDelete: Cascade)
+
+  members Employee[] @relation("EmployeeTeams")
 }

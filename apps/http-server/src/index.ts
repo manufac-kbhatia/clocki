@@ -4,6 +4,7 @@ import employee from "./routes/employeeRoutes";
 const PORT = 3001;
 
 const app = express();
+app.use(express.json());
 
 app.use("/api/v1", employee);
 

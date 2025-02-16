@@ -1,36 +1,37 @@
 import { client, Role } from "@repo/db";
 import {
   ErrorResponse,
-  RegisterEmployeePayload,
-  RegisterEmployeeSchema,
-  RegisterEmployeeResponse,
+  RegisterOrganisationPayload,
+  RegisterOrganisationResponse,
+  RegisterOrganisationSchema,
 } from "@repo/schemas";
 import { Request, Response } from "express";
 
 export const register = async (
-  req: Request<unknown, unknown, RegisterEmployeePayload>,
-  res: Response<RegisterEmployeeResponse | ErrorResponse>
+  req: Request<unknown, unknown, RegisterOrganisationPayload>,
+  res: Response<RegisterOrganisationResponse | ErrorResponse>
 ) => {
   try {
     const payload = req.body;
-    const parseResult = RegisterEmployeeSchema.safeParse(payload);
+    const parseResult = RegisterOrganisationSchema.safeParse(payload);
     if (parseResult.success === false) {
       res.status(400).send({ error: "Invalid input" });
       return;
     }
     // Creates the employee first
-    const employee = await client.employee.create({
+    const organisation = await client.organisation.create({
       data: {
-        firstName: payload.firstName,
-        lastname: payload.lastName,
-        email: payload.email,
-        password: payload.password,
-        role: Role.Admin,
+        name: payload.companyName,
+        address: payload.address,
+        city: payload.city,
+        vatNumber: payload.vatNumber,
+        createdById: req.employeeId,
       },
     });
+
     res.status(200).json({
       message: "success",
-      employee,
+      organisation,
     });
   } catch (error: unknown) {
     res.status(411).json({
