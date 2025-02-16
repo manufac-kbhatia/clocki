@@ -18,7 +18,6 @@ export const register = async (
       res.status(400).send({ error: "Invalid input" });
       return;
     }
-    // Creates the employee first
     const employee = await client.employee.create({
       data: {
         firstName: payload.firstName,
