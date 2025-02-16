@@ -6,6 +6,8 @@ import {
   RegisterEmployeeResponse,
 } from "@repo/schemas";
 import { Request, Response } from "express";
+import { JWT_SECRET } from "../utils";
+import jwt from "jsonwebtoken";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
@@ -27,6 +29,13 @@ export const register = async (
         role: Role.Admin,
       },
     });
+
+    const token = jwt.sign({ id: employee.id }, JWT_SECRET);
+    res
+      .status(200)
+      .cookie("token", token, { httpOnly: true })
+      .json({ message: "success", employee });
+
     res.status(200).json({
       message: "success",
       employee,

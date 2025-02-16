@@ -18,14 +18,17 @@ export const register = async (
       res.status(400).send({ error: "Invalid input" });
       return;
     }
-    // Creates the employee first
     const organisation = await client.organisation.create({
       data: {
         name: payload.companyName,
         address: payload.address,
         city: payload.city,
         vatNumber: payload.vatNumber,
-        createdById: req.employeeId,
+        createdBy: {
+          connect: {
+            id: req.employeeId,
+          },
+        },
       },
     });
 
