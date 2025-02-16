@@ -4,6 +4,8 @@ import {
   RegisterEmployeePayload,
   RegisterEmployeeSchema,
   RegisterEmployeeResponse,
+  EmployeePayload,
+  EmployeeSchema,
 } from "@repo/schemas";
 import { Request, Response } from "express";
 import { JWT_SECRET } from "../utils";
@@ -43,6 +45,51 @@ export const register = async (
   } catch (error: unknown) {
     res.status(411).json({
       error: "User already exists with this email",
+    });
+  }
+};
+
+export const addEmployee = async (
+  req: Request<unknown, unknown, EmployeePayload>,
+  res: Response<RegisterEmployeeResponse | ErrorResponse>
+) => {
+  try {
+    const payload = req.body;
+    const parseResult = EmployeeSchema.safeParse(payload);
+    if (parseResult.success === false) {
+      res.status(400).send({ error: "Invalid input" });
+      return;
+    }
+    const { data } = parseResult;
+    const employee = await client.employee.create({
+      data: {
+        firstName: data.firstName,
+        lastname: data.lastName,
+        email: data.email,
+        password: data.password,
+        gender: data.gender,
+        dateOfBirth: data.dateOfBirth,
+        role: data.role ?? Role.Other,
+        phoneNumber: data.phoneNumber,
+        address: data.address,
+        city: data.city,
+        postalCode: data.postalCode,
+        employeeInfo: {
+          create: {
+            hireDate: data.hireDate,
+            positon: data.position,
+            contractType: data.contractType,
+          },
+        },
+      },
+    });
+    res.status(200).json({
+      message: "success",
+      employee,
+    });
+  } catch (error: unknown) {
+    res.status(411).json({
+      error: "Employee already exists with this email",
     });
   }
 };
