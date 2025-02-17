@@ -144,9 +144,47 @@ export const updateEmployee = async (
       employee,
     });
   } catch (error: unknown) {
+    res.status(400).json({
+      message: "fail",
+      error: "Unable to update the employee, please try again",
+    });
+  }
+};
+
+export const deleteEmployee = async (
+  req: Request<{ id: string }>,
+  res: Response
+) => {
+  try {
+    const employeeId = parseInt(req.params.id);
+    const employeeExist = await client.employee.findUnique({
+      where: {
+        id: employeeId,
+      },
+    });
+
+    if (employeeExist === null) {
+      res.status(404).json({
+        message: "fail",
+        error: "The employee you are trying do delete doesn't exist",
+      });
+      return;
+    }
+
+    await client.employee.delete({
+      where: {
+        id: employeeId,
+      },
+    });
+    res.status(200).json({
+      message: "success",
+      deletedEmployeeId: employeeId,
+    });
+  } catch (error: unknown) {
     res.status(500).json({
       message: "fail",
-      error: "Internal server error",
+      error:
+        "Something went wrong while deleting the employee, please try again",
     });
   }
 };

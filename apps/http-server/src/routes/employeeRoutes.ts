@@ -21,4 +21,12 @@ router
     employeeControllers.updateEmployee
   );
 
+router
+  .route("/employees/:id")
+  .delete(
+    isAuthenticated,
+    isAuthorized([Role.Admin, Role.Hr]),
+    employeeControllers.deleteEmployee
+  );
+
 export default router;
