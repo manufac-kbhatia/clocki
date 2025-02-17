@@ -7,11 +7,11 @@ const router: Router = express.Router();
 
 router.route("/register").post(employeeControllers.register);
 router
-  .route("/add/employee")
+  .route("/create/employee")
   .post(
     isAuthenticated,
     isAuthorized([Role.Admin, Role.Hr]),
-    employeeControllers.addEmployee
+    employeeControllers.createEmployee
   );
 
 export default router;

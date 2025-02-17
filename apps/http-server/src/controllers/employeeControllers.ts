@@ -44,7 +44,7 @@ export const register = async (
   }
 };
 
-export const addEmployee = async (
+export const createEmployee = async (
   req: Request<unknown, unknown, EmployeePayload>,
   res: Response<RegisterEmployeeResponse | ErrorResponse>
 ) => {
