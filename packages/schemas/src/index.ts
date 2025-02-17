@@ -46,7 +46,7 @@ export const EmployeeSchema = z.object({
   hireDate: z.date(),
   contractType: z.nativeEnum(ContractType),
   position: z.string(),
-  teamsId: z.array(z.number()).optional(),
+  teamsId: z.array(z.number()).nullable(),
   vacationDays: z.number().nullable(),
   role: z.nativeEnum(Role).nullable(),
 });

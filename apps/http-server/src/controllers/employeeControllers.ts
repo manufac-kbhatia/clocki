@@ -74,6 +74,9 @@ export const addEmployee = async (
         address: data.address,
         city: data.city,
         postalCode: data.postalCode,
+        teams: {
+          connect: data.teamsId?.map((id) => ({ id })),
+        },
         employeeInfo: {
           create: {
             hireDate: data.hireDate,
