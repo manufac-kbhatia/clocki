@@ -7,7 +7,7 @@ const router: Router = express.Router();
 
 router.route("/register").post(employeeControllers.register);
 router
-  .route("/create/employee")
+  .route("/employees")
   .post(
     isAuthenticated,
     isAuthorized([Role.Admin, Role.Hr]),

@@ -6,7 +6,7 @@ import { Role } from "@repo/db";
 const router: Router = express.Router();
 
 router
-  .route("/create/organisation")
+  .route("/organisations")
   .post(
     isAuthenticated,
     isAuthorized([Role.Admin]),

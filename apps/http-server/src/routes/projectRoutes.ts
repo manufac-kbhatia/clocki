@@ -7,7 +7,7 @@ import * as teamControllers from "../controllers/projectControllers";
 const router: Router = express.Router();
 
 router
-  .route("/create/project")
+  .route("/projects")
   .post(
     isAuthenticated,
     isAuthorized([Role.Admin, Role.Manager]),
