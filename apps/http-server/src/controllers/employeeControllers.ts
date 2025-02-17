@@ -66,7 +66,7 @@ export const addEmployee = async (
         firstName: data.firstName,
         lastname: data.lastName,
         email: data.email,
-        password: data.password,
+        password: data.password, // TODO: add random generated password and send the credentials to the employee via email telling that they can reset their password
         gender: data.gender,
         dateOfBirth: data.dateOfBirth,
         role: data.role ?? Role.Other,

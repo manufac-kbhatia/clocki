@@ -26,7 +26,7 @@ export type RegisterOrganisationPayload = z.infer<
 export const EmployeeSchema = z.object({
   // Personal information
   email: z.string().email("Invalid email format"),
-  password: z.string().min(8, "Password must be atleast 8 characters long"),
+  password: z.string().min(8, "Password must be atleast 8 characters long"), // TODO: Remove password from schema as it will be generated randomly on server side
   firstName: z
     .string()
     .min(1, "First name is requred to create a new Employee"),

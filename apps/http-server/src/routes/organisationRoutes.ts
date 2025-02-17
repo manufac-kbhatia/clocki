@@ -10,7 +10,7 @@ router
   .post(
     isAuthenticated,
     isAuthorized([Role.Admin]),
-    organisationControllers.setupOrganisatipo
+    organisationControllers.setupOrganisation
   );
 
 export default router;

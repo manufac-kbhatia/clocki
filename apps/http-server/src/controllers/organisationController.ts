@@ -7,7 +7,7 @@ import {
 } from "@repo/schemas";
 import { Request, Response } from "express";
 
-export const setupOrganisatipo = async (
+export const setupOrganisation = async (
   req: Request<unknown, unknown, RegisterOrganisationPayload>,
   res: Response<RegisterOrganisationResponse | ErrorResponse>
 ) => {
