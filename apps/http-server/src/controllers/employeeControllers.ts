@@ -6,6 +6,8 @@ import {
   RegisterEmployeeResponse,
   EmployeePayload,
   EmployeeSchema,
+  UpdateEmployeePayload,
+  UpdateEmployeeSchema,
 } from "@repo/schemas";
 import { Request, Response } from "express";
 import { JWT_SECRET } from "../utils";
@@ -92,6 +94,59 @@ export const createEmployee = async (
   } catch (error: unknown) {
     res.status(411).json({
       error: "Employee already exists with this email",
+    });
+  }
+};
+
+export const updateEmployee = async (
+  req: Request<{ id: string }, unknown, UpdateEmployeePayload>,
+  res: Response
+) => {
+  try {
+    const payload = req.body;
+    const parseResult = UpdateEmployeeSchema.safeParse(payload);
+    if (parseResult.success === false) {
+      res.status(400).json({ error: "Invalid input" });
+      return;
+    }
+    const employeeId = parseInt(req.params.id);
+    const data = parseResult.data;
+    const employee = client.employee.update({
+      where: {
+        id: employeeId,
+      },
+      data: {
+        firstName: data.firstName,
+        lastname: data.lastName,
+        address: data.address,
+        city: data.city,
+        postalCode: data.postalCode,
+        dateOfBirth: data.dateOfBirth,
+        phoneNumber: data.phoneNumber,
+        role: data.role ?? undefined,
+        gender: data.gender,
+        employeeInfo: {
+          update: {
+            hireDate: data.hireDate,
+            contractType: data.contractType,
+            positon: data.position,
+            vacationDays: data.vacationDays ?? undefined,
+          },
+        },
+      },
+      omit: {
+        password: true,
+      },
+    });
+
+    res.status(200).json({
+      message: "success",
+      employee,
+    });
+  } catch (error: unknown) {
+    res.status(500).json({
+      message: "fail",
+      error: "Internal server error",
     });
   }
 };

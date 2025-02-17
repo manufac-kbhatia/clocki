@@ -1,14 +1,13 @@
 import { z } from "zod";
 import { ContractType, Employee, Gender, Organisation, Role } from "@repo/db";
 
+// Zod Schemas
 export const RegisterEmployeeSchema = z.object({
   email: z.string().email("Please provide a valid email"),
   password: z.string().min(8, "Password must be atleast 8 characters long"),
   firstName: z.string().min(1, "Please provide your first name"),
   lastName: z.string().nullable(),
 });
-
-export type RegisterEmployeePayload = z.infer<typeof RegisterEmployeeSchema>;
 
 export const RegisterOrganisationSchema = z.object({
   companyName: z.string().min(1, "Organisation name is required"),
@@ -18,10 +17,6 @@ export const RegisterOrganisationSchema = z.object({
     .string()
     .min(1, "VAT number is required to register an Organisation"),
 });
-
-export type RegisterOrganisationPayload = z.infer<
-  typeof RegisterOrganisationSchema
->;
 
 export const EmployeeSchema = z.object({
   // Personal information
@@ -51,8 +46,6 @@ export const EmployeeSchema = z.object({
   role: z.nativeEnum(Role).nullable(),
 });
 
-export type EmployeePayload = z.infer<typeof EmployeeSchema>;
-
 export const TeamSchema = z.object({
   name: z.string().min(1, "Please provide a name to make team"),
   organisationId: z.number({
@@ -64,8 +57,6 @@ export const TeamSchema = z.object({
   members: z.array(z.number()).nullable(),
 });
 
-export type TeamPayload = z.infer<typeof TeamSchema>;
-
 export const ProjectSchema = z.object({
   name: z.string().min(1, "Please provide a name to create a project"),
   organisationId: z.number({
@@ -74,15 +65,28 @@ export const ProjectSchema = z.object({
   members: z.array(z.number()).nullable(),
 });
 
-export type ProjectPayload = z.infer<typeof ProjectSchema>;
-
 export const LoginSchema = z.object({
   email: z.string().email("Please provide a valid email"),
   password: z.string().min(1, "Please provide to password to login"),
 });
 
-export type LoginPayload = z.infer<typeof LoginSchema>;
+export const UpdateEmployeeSchema = EmployeeSchema.omit({
+  email: true,
+  password: true,
+});
 
+// Infered types from Zod Schemas
+export type RegisterOrganisationPayload = z.infer<
+  typeof RegisterOrganisationSchema
+>;
+export type RegisterEmployeePayload = z.infer<typeof RegisterEmployeeSchema>;
+export type EmployeePayload = z.infer<typeof EmployeeSchema>;
+export type TeamPayload = z.infer<typeof TeamSchema>;
+export type ProjectPayload = z.infer<typeof ProjectSchema>;
+export type LoginPayload = z.infer<typeof LoginSchema>;
+export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
+
+// Rest Types
 export interface RegisterEmployeeResponse {
   message: string;
   employee: Omit<Employee, "password">; // Ref: https://stackoverflow.com/a/50689136

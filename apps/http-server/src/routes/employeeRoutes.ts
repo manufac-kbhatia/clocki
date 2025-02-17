@@ -13,5 +13,12 @@ router
     isAuthorized([Role.Admin, Role.Hr]),
     employeeControllers.createEmployee
   );
+router
+  .route("/employees/:id")
+  .put(
+    isAuthenticated,
+    isAuthorized([Role.Admin, Role.Hr]),
+    employeeControllers.updateEmployee
+  );
 
 export default router;
