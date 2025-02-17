@@ -2,7 +2,7 @@ import { z } from "zod";
 import { ContractType, Employee, Gender, Organisation, Role } from "@repo/db";
 
 export const RegisterEmployeeSchema = z.object({
-  email: z.string().email("Invalid email format"),
+  email: z.string().email("Please provide a valid email"),
   password: z.string().min(8, "Password must be atleast 8 characters long"),
   firstName: z.string().min(1, "Please provide your first name"),
   lastName: z.string().nullable(),
@@ -25,7 +25,7 @@ export type RegisterOrganisationPayload = z.infer<
 
 export const EmployeeSchema = z.object({
   // Personal information
-  email: z.string().email("Invalid email format"),
+  email: z.string().email("Please provide a valid email"),
   password: z.string().min(8, "Password must be atleast 8 characters long"), // TODO: Remove password from schema as it will be generated randomly on server side
   firstName: z
     .string()
@@ -76,9 +76,16 @@ export const ProjectSchema = z.object({
 
 export type ProjectPayload = z.infer<typeof ProjectSchema>;
 
+export const LoginSchema = z.object({
+  email: z.string().email("Please provide a valid email"),
+  password: z.string().min(1, "Please provide to password to login"),
+});
+
+export type LoginPayload = z.infer<typeof LoginSchema>;
+
 export interface RegisterEmployeeResponse {
   message: string;
-  employee: Employee;
+  employee: Omit<Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
 }
 
 export interface RegisterOrganisationResponse {

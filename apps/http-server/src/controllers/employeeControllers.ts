@@ -30,6 +30,10 @@ export const register = async (
         password: payload.password,
         role: Role.Admin,
       },
+      // Ref: https://www.prisma.io/docs/orm/prisma-client/queries/excluding-fields#excluding-a-field-locally-using-omit
+      omit: {
+        password: true,
+      },
     });
 
     const token = jwt.sign({ id: employee.id }, JWT_SECRET);
