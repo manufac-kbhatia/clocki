@@ -66,6 +66,16 @@ export const TeamSchema = z.object({
 
 export type TeamPayload = z.infer<typeof TeamSchema>;
 
+export const ProjectSchema = z.object({
+  name: z.string().min(1, "Please provide a name to create a project"),
+  organisationId: z.number({
+    required_error: "Organisation Id is required to create a project",
+  }),
+  members: z.array(z.number()).nullable(),
+});
+
+export type ProjectPayload = z.infer<typeof ProjectSchema>;
+
 export interface RegisterEmployeeResponse {
   message: string;
   employee: Employee;
