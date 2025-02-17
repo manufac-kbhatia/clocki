@@ -47,6 +47,7 @@ model Employee {
   employeeInfo        EmployeeInfo?
   createdOrganisation Organisation? @relation("OrganisationCreator")
   teams               Team[]        @relation("EmployeeTeams")
+  projects            Project[]     @relation("AssignedProjects")
   responsibleTeams    Team[]        @relation("ResponsibleTeams")
 
   organisationId Int?
@@ -62,6 +63,7 @@ model Organisation {
 
   employees   Employee[]
   teams       Team[]
+  projects    Project[]
   createdById Int        @unique
   createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id], onDelete: Cascade)
 }
@@ -85,6 +87,14 @@ model Team {
   teamLead   Employee @relation("ResponsibleTeams", fields: [teamLeadId], references: [id], onDelete: Cascade)
 
   members        Employee[]   @relation("EmployeeTeams")
+  organisationId Int
+  Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id             Int          @id @default(autoincrement())
+  name           String
+  members        Employee[]   @relation("AssignedProjects")
   organisationId Int
   Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }
