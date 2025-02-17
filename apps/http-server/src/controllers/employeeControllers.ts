@@ -19,7 +19,7 @@ export const register = async (
     const payload = req.body;
     const parseResult = RegisterEmployeeSchema.safeParse(payload);
     if (parseResult.success === false) {
-      res.status(400).send({ error: "Invalid input" });
+      res.status(400).json({ error: "Invalid input" });
       return;
     }
     const employee = await client.employee.create({
@@ -57,7 +57,7 @@ export const addEmployee = async (
     const payload = req.body;
     const parseResult = EmployeeSchema.safeParse(payload);
     if (parseResult.success === false) {
-      res.status(400).send({ error: "Invalid input" });
+      res.status(400).json({ error: "Invalid input" });
       return;
     }
     const { data } = parseResult;

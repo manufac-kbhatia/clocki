@@ -53,6 +53,19 @@ export const EmployeeSchema = z.object({
 
 export type EmployeePayload = z.infer<typeof EmployeeSchema>;
 
+export const TeamSchema = z.object({
+  name: z.string().min(1, "Please provide a name to make team"),
+  organisationId: z.number({
+    required_error: "Organisation Id is required for team formation",
+  }),
+  teamLeadId: z.number({
+    required_error: "Team Lead is required for team formation",
+  }),
+  members: z.array(z.number()).nullable(),
+});
+
+export type TeamPayload = z.infer<typeof TeamSchema>;
+
 export interface RegisterEmployeeResponse {
   message: string;
   employee: Employee;

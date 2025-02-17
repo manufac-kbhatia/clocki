@@ -15,7 +15,7 @@ export const setupOrganisation = async (
     const payload = req.body;
     const parseResult = RegisterOrganisationSchema.safeParse(payload);
     if (parseResult.success === false) {
-      res.status(400).send({ error: "Invalid input" });
+      res.status(400).json({ error: "Invalid input" });
       return;
     }
     const organisation = await client.organisation.create({

@@ -61,6 +61,7 @@ model Organisation {
   vatNumber String @unique
 
   employees   Employee[]
+  teams       Team[]
   createdById Int        @unique
   createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id], onDelete: Cascade)
 }
@@ -83,5 +84,7 @@ model Team {
   teamLeadId Int
   teamLead   Employee @relation("ResponsibleTeams", fields: [teamLeadId], references: [id], onDelete: Cascade)
 
-  members Employee[] @relation("EmployeeTeams")
+  members        Employee[]   @relation("EmployeeTeams")
+  organisationId Int
+  Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }
