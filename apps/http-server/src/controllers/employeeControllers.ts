@@ -37,11 +37,6 @@ export const register = async (
       .status(200)
       .cookie("token", token, { httpOnly: true })
       .json({ message: "success", employee });
-
-    res.status(200).json({
-      message: "success",
-      employee,
-    });
   } catch (error: unknown) {
     res.status(411).json({
       error: "User already exists with this email",
