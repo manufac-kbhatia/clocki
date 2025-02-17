@@ -98,6 +98,32 @@ export const createEmployee = async (
   }
 };
 
+export const getEmployee = async (
+  req: Request<{ id: string }>,
+  res: Response
+) => {
+  try {
+    const employeeId = parseInt(req.params.id);
+    const employee = await client.employee.findUnique({
+      where: {
+        id: employeeId,
+      },
+      omit: {
+        password: true,
+      },
+    });
+    res.status(200).json({
+      message: "success",
+      employee,
+    });
+  } catch (error: unknown) {
+    res.status(404).json({
+      message: "fail",
+      error: "Unable to find employee",
+    });
+  }
+};
+
 export const updateEmployee = async (
   req: Request<{ id: string }, unknown, UpdateEmployeePayload>,
   res: Response
