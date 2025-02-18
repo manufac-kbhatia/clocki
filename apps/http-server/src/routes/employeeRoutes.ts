@@ -18,7 +18,7 @@ router
   .get(
     isAuthenticated,
     isAuthorized([Role.Admin, Role.Hr]),
-    employeeControllers.createEmployee
+    employeeControllers.getEmployee
   );
 router
   .route("/employees/:id")
