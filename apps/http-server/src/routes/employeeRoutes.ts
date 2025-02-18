@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import * as employeeControllers from "../controllers/employeeControllers";
-import { isAuthenticated, isAuthorized } from "../middlewares";
+import { isAuthenticated, isAuthorized, isMe } from "../middlewares";
 import { Role } from "@repo/db";
 
 const router: Router = express.Router();
@@ -30,10 +30,6 @@ router
 
 router
   .route("/employees/:id")
-  .delete(
-    isAuthenticated,
-    isAuthorized([Role.Admin, Role.Hr]),
-    employeeControllers.deleteEmployee
-  );
+  .get(isAuthenticated, isMe, employeeControllers.getMe);
 
 export default router;

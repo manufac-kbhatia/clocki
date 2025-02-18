@@ -46,3 +46,18 @@ export function isAuthorized(roles: Role[]) {
     }
   };
 }
+
+export async function isMe(
+  req: Request<{ id: string }>,
+  res: Response<ErrorResponse>,
+  next: NextFunction
+) {
+  const id = parseInt(req.params.id);
+  if (req.employee?.id === id) {
+    next();
+  } else {
+    res.status(403).json({
+      error: "Unauthorized",
+    });
+  }
+}

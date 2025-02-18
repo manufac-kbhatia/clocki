@@ -214,3 +214,26 @@ export const deleteEmployee = async (
     });
   }
 };
+
+export const getMe = async (req: Request, res: Response) => {
+  try {
+    const me = await client.employee.findUnique({
+      where: {
+        id: req.employee?.id,
+      },
+      omit: {
+        password: true,
+      },
+    });
+
+    res.status(200).json({
+      message: "success",
+      me,
+    });
+  } catch (error: unknown) {
+    res.status(500).json({
+      message: "fail",
+      error: "Somethin wernt wrong",
+    });
+  }
+};
