@@ -13,4 +13,20 @@ router
     organisationControllers.setupOrganisation
   );
 
+router
+  .route("/organisations/:id")
+  .delete(
+    isAuthenticated,
+    isAuthorized([Role.Admin]),
+    organisationControllers.deleteOrganisation
+  );
+
+router
+  .route("/organisations/:id")
+  .get(
+    isAuthenticated,
+    isAuthorized([Role.Admin]),
+    organisationControllers.deleteOrganisation
+  );
+
 export default router;

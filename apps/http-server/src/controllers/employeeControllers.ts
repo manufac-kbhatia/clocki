@@ -117,9 +117,9 @@ export const getEmployee = async (
       employee,
     });
   } catch (error: unknown) {
-    res.status(404).json({
+    res.status(500).json({
       message: "fail",
-      error: "Unable to find employee",
+      error: "Something went wrong",
     });
   }
 };

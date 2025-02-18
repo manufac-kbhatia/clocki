@@ -42,3 +42,64 @@ export const setupOrganisation = async (
     });
   }
 };
+
+export const deleteOrganisation = async (
+  req: Request<{ id: string }>,
+  res: Response
+) => {
+  try {
+    const organisationId = parseInt(req.params.id);
+    const organisationExist = await client.organisation.findUnique({
+      where: {
+        id: organisationId,
+      },
+    });
+    if (organisationExist === null) {
+      res.status(404).json({
+        message: "false",
+        error: "Organisation not found",
+      });
+      return;
+    }
+
+    await client.organisation.delete({
+      where: {
+        id: organisationExist.id,
+      },
+    });
+
+    res.status(200).json({
+      message: "success",
+      error: "Organisation deleted successfully",
+    });
+  } catch (error: unknown) {
+    res.status(500).json({
+      message: "false",
+      error: "Unable to delete the organisation, as something went wrong",
+    });
+  }
+};
+
+export const getOrganisation = async (
+  req: Request<{ id: string }>,
+  res: Response
+) => {
+  try {
+    const id = parseInt(req.params.id);
+    const organisation = await client.organisation.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    res.status(200).json({
+      message: "success",
+      organisation,
+    });
+  } catch (error: unknown) {
+    res.status(500).json({
+      message: "false",
+      error: "Something went wrong",
+    });
+  }
+};
