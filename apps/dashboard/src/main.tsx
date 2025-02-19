@@ -5,8 +5,11 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 
 const MantineTheme = createTheme({
-  fontFamily: "Ruda, san-serif",
-}); // Ref: https://mantine.dev/theming/theme-object/#store-theme-override-object-in-a-variable
+  // fontFamily: "Space Grotesk, sans-serif",
+});
+
+
+// Ref: https://mantine.dev/theming/theme-object/#store-theme-override-object-in-a-variable
 
 const root = createRoot(document.getElementById("root") as HTMLDivElement);
 root.render(
