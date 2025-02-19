@@ -1,19 +1,41 @@
-import { Header } from "./components/Header/index.tsx";
-import { AppShell, useMantineColorScheme } from "@mantine/core";
+// import { Header } from "./components/Header/index.tsx";
+import { AppShell, Burger, Group, Image, Skeleton, Title } from "@mantine/core";
 import { Outlet } from "react-router";
 import "@mantine/core/styles.css"; // Ref: https://mantine.dev/changelog/7-0-0/#global-styles
+import { useDisclosure } from "@mantine/hooks";
+import ClockSVG from "../public/clock.svg";
 
 export function App() {
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  // const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [opened, { toggle }] = useDisclosure();
+
   return (
-    <AppShell
-      padding="md" // It is important to use it instead of setting padding on the AppShell.Main directly because padding of the AppShell.Main is also used to offset AppShell.Header, AppShell.Navbar, AppShell.Aside and AppShell.Footer components. Ref: https://mantine.dev/core/app-shell/#padding-prop
-      header={{ height: 60 }}
-    >
-      <Header colorScheme={colorScheme} onToggleColorScheme={toggleColorScheme} />
-      <AppShell.Main>
-        <Outlet />
-      </AppShell.Main>
-    </AppShell>
+      <AppShell
+      header={{ height:  70 }}
+      navbar={{ width: 200, breakpoint: 'sm', collapsed: { mobile: !opened } }}
+      padding="md"
+      >
+        <AppShell.Header>
+          <Group h="100%" px="md">
+            <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+            <Group gap={0}>
+              <Title>CL</Title>
+              <Image src={ClockSVG} w={40} /> 
+              <Title>KI</Title>
+            </Group>
+          </Group>
+        </AppShell.Header>
+        <AppShell.Navbar p="md">
+          Navbar
+          {Array(15)
+            .fill(0)
+            .map((_, index) => (
+              <Skeleton key={index} h={28} mt="sm" animate={false} />
+            ))}
+        </AppShell.Navbar>
+        <AppShell.Main>
+          <Outlet />
+        </AppShell.Main>
+      </AppShell>
   );
 }
