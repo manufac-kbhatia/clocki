@@ -1,10 +1,18 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { Routers } from "./routes";
+import { MantineProvider, createTheme } from "@mantine/core";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { RouterProvider } from "react-router";
 
-createRoot(document.getElementById('root')!).render(
+const MantineTheme = createTheme({
+  fontFamily: "Ruda, san-serif",
+}); // Ref: https://mantine.dev/theming/theme-object/#store-theme-override-object-in-a-variable
+
+const root = createRoot(document.getElementById("root") as HTMLDivElement);
+root.render(
   <StrictMode>
-    <App />
+    <MantineProvider theme={MantineTheme}>
+      <RouterProvider router={Routers} />
+    </MantineProvider>
   </StrictMode>,
-)
+);
