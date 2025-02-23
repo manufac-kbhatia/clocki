@@ -20,13 +20,24 @@ export async function isAuthenticated(
   }
 
   const decoded = jwt.verify(token, JWT_SECRET);
+  console.log(decoded);
 
   if (decoded && typeof decoded !== "string") {
     const employee = await client.employee.findUnique({
       where: {
-        id: decoded.id as number,
+        id: decoded.id,
+      },
+      omit: {
+        password: true,
       },
     });
+    if (employee === null) {
+      res.status(StatusCodes.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized",
+      });
+      return;
+    }
     req.employee = employee;
     next();
   } else {
