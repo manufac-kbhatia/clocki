@@ -20,7 +20,6 @@ export async function isAuthenticated(
   }
 
   const decoded = jwt.verify(token, JWT_SECRET);
-  console.log(decoded);
 
   if (decoded && typeof decoded !== "string") {
     const employee = await client.employee.findUnique({
