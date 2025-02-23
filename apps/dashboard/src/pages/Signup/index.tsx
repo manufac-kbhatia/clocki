@@ -14,8 +14,10 @@ import {
   RegisterFormNames,
   RegisterFormPlaceholder,
 } from "./utils";
+import { useSignUp } from "../../hooks/api";
 
 export function SignUp() {
+  const {mutate: registerUser,} = useSignUp()
   const { getInputProps, key, onSubmit } = useForm<RegisterEmployeePayload>({
     initialValues: {
       email: "",
@@ -28,8 +30,8 @@ export function SignUp() {
     validateInputOnChange: true,
   });
 
-  const handlesubmit = (formData: RegisterEmployeePayload) => {
-    console.log(formData);
+  const handlesubmit = (payload: RegisterEmployeePayload) => {
+    registerUser(payload)
   }
   return (
     <Grid bd="2px solid red" h="100vh">

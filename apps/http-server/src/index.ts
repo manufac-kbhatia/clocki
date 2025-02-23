@@ -4,10 +4,12 @@ import organisationRoute from "./routes/organisationRoutes";
 import teamRoute from "./routes/teamRoutes";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/error";
+import cors from "cors";
 
-const PORT = 3001;
+const PORT = 8080;
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

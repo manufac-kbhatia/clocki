@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils";
 import { client, PrismaUtils } from "@repo/db";
+import { StatusCodes } from "http-status-codes";
 
 export async function isAuthenticated(
   req: Request,
@@ -11,8 +12,9 @@ export async function isAuthenticated(
 ) {
   const token = (req.cookies as { token?: string }).token;
   if (typeof token !== "string") {
-    res.status(403).json({
-      error: "Unauthorized",
+    res.status(StatusCodes.UNAUTHORIZED).json({
+      success: false,
+      message: "Unauthorized",
     });
     return;
   }
@@ -28,8 +30,9 @@ export async function isAuthenticated(
     req.employee = employee;
     next();
   } else {
-    res.status(403).json({
-      error: "Unauthorized",
+    res.status(StatusCodes.UNAUTHORIZED).json({
+      success: false,
+      message: "Unauthorized",
     });
   }
 }
@@ -40,8 +43,9 @@ export function isAuthorized(roles: PrismaUtils.Role[]) {
     if (role !== undefined && roles.includes(role)) {
       next();
     } else {
-      res.status(403).json({
-        error: "Unauthorized",
+      res.status(StatusCodes.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized",
       });
     }
   };
@@ -56,8 +60,9 @@ export async function isMe(
   if (req.employee?.id === id) {
     next();
   } else {
-    res.status(403).json({
-      error: "Unauthorized",
+    res.status(StatusCodes.UNAUTHORIZED).json({
+      success: false,
+      message: "Unauthorized",
     });
   }
 }

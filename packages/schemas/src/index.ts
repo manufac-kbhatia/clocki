@@ -98,5 +98,6 @@ export interface RegisterOrganisationResponse {
 }
 
 export interface ErrorResponse {
-  error: string;
+  success: boolean;
+  message: string;
 }

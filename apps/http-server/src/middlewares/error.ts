@@ -1,4 +1,5 @@
-import type { Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
+import { PrismaUtils } from "@repo/db";
 
 // Define a custom error class if needed (optional, but useful)
 class CustomError extends Error {
@@ -14,9 +15,19 @@ class CustomError extends Error {
 const errorMiddleware = (
   err: CustomError,
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): void => {
   // Default statusCode and message if not provided
+  if (err instanceof PrismaUtils.Prisma.PrismaClientKnownRequestError) {
+    console.log(
+      "-------------------------------------------------------------------------"
+    );
+    console.log(err);
+    console.log(
+      "-------------------------------------------------------------------------"
+    );
+  }
   err.statusCode = err.statusCode || 500;
   err.message = err.message || "Internal Server Error";
 

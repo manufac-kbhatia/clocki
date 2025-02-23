@@ -6,7 +6,7 @@ import catchAsync from "../middlewares/catchAsync";
 
 const router: Router = express.Router();
 
-router.route("/register").post(employeeControllers.register);
+router.route("/register").post(catchAsync(employeeControllers.register));
 router
   .route("/employees")
   .post(

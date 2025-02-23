@@ -4,6 +4,7 @@ import { PageA } from "./pages/Page-A";
 import { PageB } from "./pages/Page-B/index.tsx";
 import { ErrorPage } from "./pages/ErrorPage/index.tsx";
 import { SignUp } from "./pages/Signup";
+import { SetupOrganisation } from "./pages/Setup-Organisation/index.tsx";
 
 
 export const Routers = createBrowserRouter([
@@ -27,4 +28,10 @@ export const Routers = createBrowserRouter([
     element: <SignUp/>,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/setup-organisation",
+    element: <SetupOrganisation/>,
+    errorElement: <ErrorPage />,
+  },
+  
 ]);
