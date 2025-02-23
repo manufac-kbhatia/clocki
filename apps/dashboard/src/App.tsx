@@ -16,11 +16,11 @@ export function App() {
         <AppShell.Header>
           <Group h="100%" px="md">
             <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-            <Group gap={0} style={{
+            <Group gap={2} style={{
               color: "#1d2031" // TODO: use mantine theme
             }}>
               <Title>CL</Title>
-              <Image src="/clock.svg" w={35} /> 
+              <Image src="/clock.svg" w={30} /> 
               <Title>KI</Title>
             </Group>
           </Group>
