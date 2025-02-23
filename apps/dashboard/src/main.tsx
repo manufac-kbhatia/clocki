@@ -4,6 +4,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ContextProvider } from "./context";
 
 const queryClient = new QueryClient();
 
@@ -17,9 +18,11 @@ const root = createRoot(document.getElementById("root") as HTMLDivElement);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <MantineProvider theme={MantineTheme}>
-        <RouterProvider router={Routers} />
-      </MantineProvider>
+      <ContextProvider>
+        <MantineProvider theme={MantineTheme}>
+          <RouterProvider router={Routers} />
+        </MantineProvider>
+      </ContextProvider>
     </QueryClientProvider>
   </StrictMode>
 );
