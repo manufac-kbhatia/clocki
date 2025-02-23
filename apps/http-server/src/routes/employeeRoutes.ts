@@ -2,6 +2,7 @@ import express, { Router } from "express";
 import * as employeeControllers from "../controllers/employeeControllers";
 import { isAuthenticated, isAuthorized, isMe } from "../middlewares";
 import { PrismaUtils } from "@repo/db";
+import catchAsync from "../middlewares/catchAsync";
 
 const router: Router = express.Router();
 
@@ -11,25 +12,25 @@ router
   .post(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
-    employeeControllers.createEmployee
+    catchAsync(employeeControllers.createEmployee)
   );
 router
   .route("/employees/:id")
   .get(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
-    employeeControllers.getEmployee
+    catchAsync(employeeControllers.getEmployee)
   );
 router
   .route("/employees/:id")
   .put(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
-    employeeControllers.updateEmployee
+    catchAsync(employeeControllers.updateEmployee)
   );
 
 router
   .route("/employees/:id")
-  .get(isAuthenticated, isMe, employeeControllers.getMe);
+  .get(isAuthenticated, isMe, catchAsync(employeeControllers.getMe));
 
 export default router;
