@@ -158,7 +158,8 @@ export const updateEmployee = async (
 
 export const deleteEmployee = async (
   req: Request<{ id: string }>,
-  res: Response
+  res: Response,
+  next: NextFunction
 ) => {
   const employeeId = parseInt(req.params.id);
   const employeeExist = await client.employee.findUnique({
@@ -168,10 +169,12 @@ export const deleteEmployee = async (
   });
 
   if (employeeExist === null) {
-    res.status(404).json({
-      message: "fail",
-      error: "The employee you are trying do delete doesn't exist",
-    });
+    next(
+      new ErrorHandler(
+        "The employee you are trying do delete doesn't exist",
+        StatusCodes.NOT_FOUND
+      )
+    );
     return;
   }
 
