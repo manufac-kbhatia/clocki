@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as employeeControllers from "../controllers/employeeControllers";
 import { isAuthenticated, isAuthorized, isMe } from "../middlewares";
-import { Role } from "@repo/db";
+import { PrismaUtils } from "@repo/db";
 
 const router: Router = express.Router();
 
@@ -10,21 +10,21 @@ router
   .route("/employees")
   .post(
     isAuthenticated,
-    isAuthorized([Role.Admin, Role.Hr]),
+    isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
     employeeControllers.createEmployee
   );
 router
   .route("/employees/:id")
   .get(
     isAuthenticated,
-    isAuthorized([Role.Admin, Role.Hr]),
+    isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
     employeeControllers.getEmployee
   );
 router
   .route("/employees/:id")
   .put(
     isAuthenticated,
-    isAuthorized([Role.Admin, Role.Hr]),
+    isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
     employeeControllers.updateEmployee
   );
 

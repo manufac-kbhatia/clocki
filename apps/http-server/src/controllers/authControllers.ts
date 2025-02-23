@@ -1,6 +1,6 @@
 import { client } from "@repo/db";
 import { LoginPayload, LoginSchema } from "@repo/schemas";
-import { json, Request, Response } from "express";
+import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils";
 

@@ -1,4 +1,4 @@
-import { client, Role } from "@repo/db";
+import { client } from "@repo/db";
 import {
   ErrorResponse,
   RegisterOrganisationPayload,

@@ -2,7 +2,7 @@ import { ErrorResponse } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils";
-import { client, Role } from "@repo/db";
+import { client, PrismaUtils } from "@repo/db";
 
 export async function isAuthenticated(
   req: Request,
@@ -34,7 +34,7 @@ export async function isAuthenticated(
   }
 }
 
-export function isAuthorized(roles: Role[]) {
+export function isAuthorized(roles: PrismaUtils.Role[]) {
   return (req: Request, res: Response<ErrorResponse>, next: NextFunction) => {
     const role = req.employee?.role;
     if (role !== undefined && roles.includes(role)) {

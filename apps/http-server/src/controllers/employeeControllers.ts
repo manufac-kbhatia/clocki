@@ -1,4 +1,4 @@
-import { client, Role } from "@repo/db";
+import { client, PrismaUtils } from "@repo/db";
 import {
   ErrorResponse,
   RegisterEmployeePayload,
@@ -30,7 +30,7 @@ export const register = async (
         lastname: payload.lastName,
         email: payload.email,
         password: payload.password,
-        role: Role.Admin,
+        role: PrismaUtils.Role.Admin,
       },
       // Ref: https://www.prisma.io/docs/orm/prisma-client/queries/excluding-fields#excluding-a-field-locally-using-omit
       omit: {
@@ -70,7 +70,7 @@ export const createEmployee = async (
         password: data.password, // TODO: add random generated password and send the credentials to the employee via email telling that they can reset their password
         gender: data.gender,
         dateOfBirth: data.dateOfBirth,
-        role: data.role ?? Role.Other,
+        role: data.role ?? PrismaUtils.Role.Other,
         phoneNumber: data.phoneNumber,
         address: data.address,
         city: data.city,

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import express from "express";
 import { isAuthenticated, isAuthorized } from "../middlewares";
-import { Role } from "@repo/db";
+import { PrismaUtils } from "@repo/db";
 import * as teamControllers from "../controllers/projectControllers";
 
 const router: Router = express.Router();
@@ -10,7 +10,7 @@ router
   .route("/projects")
   .post(
     isAuthenticated,
-    isAuthorized([Role.Admin, Role.Manager]),
+    isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Manager]),
     teamControllers.createProject
   );
 
