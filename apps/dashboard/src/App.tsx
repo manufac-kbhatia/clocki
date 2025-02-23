@@ -1,9 +1,7 @@
-// import { Header } from "./components/Header/index.tsx";
 import { AppShell, Burger, Group, Image, Skeleton, Title } from "@mantine/core";
 import { Outlet } from "react-router";
 import "@mantine/core/styles.css"; // Ref: https://mantine.dev/changelog/7-0-0/#global-styles
 import { useDisclosure } from "@mantine/hooks";
-import ClockSVG from "../public/clock.svg";
 
 export function App() {
   // const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -22,7 +20,7 @@ export function App() {
               color: "#1d2031" // TODO: use mantine theme
             }}>
               <Title>CL</Title>
-              <Image src={ClockSVG} w={35} /> 
+              <Image src="/clock.svg" w={35} /> 
               <Title>KI</Title>
             </Group>
           </Group>

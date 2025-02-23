@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { ContractType, Employee, Gender, Organisation, Role } from "@repo/db";
+// import { ContractType, Gender, Role } from "@repo/db";
+import { PrismaUtils } from "@repo/db";
 
 // Zod Schemas
 export const RegisterEmployeeSchema = z.object({
@@ -34,16 +35,16 @@ export const EmployeeSchema = z.object({
     .min(10, "Phone number should include 10 digits")
     .max(10, "Phone number should include 10 digits")
     .nullable(),
-  gender: z.nativeEnum(Gender),
+  gender: z.nativeEnum(PrismaUtils.Gender),
   dateOfBirth: z.date(),
 
   // Emploment Info
   hireDate: z.date(),
-  contractType: z.nativeEnum(ContractType),
+  contractType: z.nativeEnum(PrismaUtils.ContractType),
   position: z.string(),
   teamsId: z.array(z.number()).nullable(),
   vacationDays: z.number().nullable(),
-  role: z.nativeEnum(Role).nullable(),
+  role: z.nativeEnum(PrismaUtils.Role).nullable(),
 });
 
 export const TeamSchema = z.object({
@@ -89,12 +90,12 @@ export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 // Rest Types
 export interface RegisterEmployeeResponse {
   message: string;
-  employee: Omit<Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
+  employee: Omit<PrismaUtils.Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
 }
 
 export interface RegisterOrganisationResponse {
   message: string;
-  organisation: Organisation;
+  organisation: PrismaUtils.Organisation;
 }
 
 export interface ErrorResponse {

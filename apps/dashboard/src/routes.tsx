@@ -3,6 +3,7 @@ import {App} from "./App.tsx";
 import { PageA } from "./pages/Page-A";
 import { PageB } from "./pages/Page-B/index.tsx";
 import { ErrorPage } from "./pages/ErrorPage/index.tsx";
+import { SignUp } from "./pages/Signup";
 
 
 export const Routers = createBrowserRouter([
@@ -20,5 +21,10 @@ export const Routers = createBrowserRouter([
         element: <PageB />,
       },
     ],
+  },
+  {
+    path: "/sign-up",
+    element: <SignUp/>,
+    errorElement: <ErrorPage />,
   },
 ]);

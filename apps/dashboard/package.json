@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@mantine/core": "^7.17.0",
+    "@mantine/form": "^7.17.0",
     "@mantine/hooks": "^7.17.0",
+    "@repo/schemas": "workspace:*",
     "@tabler/icons-react": "^3.30.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
