@@ -14,9 +14,12 @@ import {
   useMutation,
   UseMutationOptions,
   UseMutationResult,
+  useQuery,
+  UseQueryResult,
 } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../utils";
+import { PrismaUtils } from "@repo/db";
 
 // export function useCreateStitchFile(
 //     params?: UseMutationOptions<StitchItResponse, Error, StitchItPayload>,
@@ -45,4 +48,15 @@ export function useSignUp(
     ...params,
   });
   return mutation;
+}
+
+export function useGetMe(): UseQueryResult<PrismaUtils.Employee> {
+  const output = useQuery({
+    queryKey: ["getMe"],
+    queryFn: async () => {
+      const response = await axios.get<PrismaUtils.Employee>(`${API_URL}/me`);
+      return response.data;
+    },
+  });
+  return output;
 }

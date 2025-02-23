@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import * as employeeControllers from "../controllers/employeeControllers";
-import { isAuthenticated, isAuthorized, isMe } from "../middlewares";
+import { isAuthenticated, isAuthorized } from "../middlewares";
 import { PrismaUtils } from "@repo/db";
 import catchAsync from "../middlewares/catchAsync";
 
@@ -29,8 +29,6 @@ router
     catchAsync(employeeControllers.updateEmployee)
   );
 
-router
-  .route("/employees/:id")
-  .get(isAuthenticated, isMe, catchAsync(employeeControllers.getMe));
+router.route("/me").get(isAuthenticated, catchAsync(employeeControllers.getMe));
 
 export default router;

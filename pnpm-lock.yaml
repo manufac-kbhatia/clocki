@@ -29,6 +29,9 @@ importers:
       '@mantine/hooks':
         specifier: ^7.17.0
         version: 7.17.0(react@19.0.0)
+      '@repo/db':
+        specifier: workspace:*
+        version: link:../../packages/prisma
       '@repo/schemas':
         specifier: workspace:*
         version: link:../../packages/schemas

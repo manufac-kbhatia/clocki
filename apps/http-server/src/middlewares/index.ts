@@ -50,19 +50,3 @@ export function isAuthorized(roles: PrismaUtils.Role[]) {
     }
   };
 }
-
-export async function isMe(
-  req: Request<{ id: string }>,
-  res: Response<ErrorResponse>,
-  next: NextFunction
-) {
-  const id = parseInt(req.params.id);
-  if (req.employee?.id === id) {
-    next();
-  } else {
-    res.status(StatusCodes.UNAUTHORIZED).json({
-      success: false,
-      message: "Unauthorized",
-    });
-  }
-}
