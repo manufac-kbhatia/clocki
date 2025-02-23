@@ -21,7 +21,7 @@ export function SignUp() {
       email: "",
       firstName: "",
       password: "",
-      lastName: null,
+      lastName: "",
     },
     validate: zodResolver(RegisterEmployeeSchema),
     validateInputOnBlur: true,

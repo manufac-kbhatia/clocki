@@ -35,6 +35,9 @@ importers:
       '@tabler/icons-react':
         specifier: ^3.30.0
         version: 3.30.0(react@19.0.0)
+      '@tanstack/react-query':
+        specifier: ^5.66.9
+        version: 5.66.9(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -939,6 +942,14 @@ packages:
 
   '@tabler/icons@3.30.0':
     resolution: {integrity: sha512-c8OKLM48l00u9TFbh2qhSODMONIzML8ajtCyq95rW8vzkWcBrKRPM61tdkThz2j4kd5u17srPGIjqdeRUZdfdw==}
+
+  '@tanstack/query-core@5.66.4':
+    resolution: {integrity: sha512-skM/gzNX4shPkqmdTCSoHtJAPMTtmIJNS0hE+xwTTUVYwezArCT34NMermABmBVUg5Ls5aiUXEDXfqwR1oVkcA==}
+
+  '@tanstack/react-query@5.66.9':
+    resolution: {integrity: sha512-NRI02PHJsP5y2gAuWKP+awamTIBFBSKMnO6UVzi03GTclmHHHInH5UzVgzi5tpu4+FmGfsdT7Umqegobtsp23A==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
@@ -3756,6 +3767,13 @@ snapshots:
       react: 19.0.0
 
   '@tabler/icons@3.30.0': {}
+
+  '@tanstack/query-core@5.66.4': {}
+
+  '@tanstack/react-query@5.66.9(react@19.0.0)':
+    dependencies:
+      '@tanstack/query-core': 5.66.4
+      react: 19.0.0
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
 
