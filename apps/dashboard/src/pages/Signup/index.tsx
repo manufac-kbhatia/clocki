@@ -15,9 +15,15 @@ import {
   RegisterFormPlaceholder,
 } from "./utils";
 import { useSignUp } from "../../hooks/api";
+import { useClockiContext } from "../../context";
 
 export function SignUp() {
-  const {mutate: registerUser,} = useSignUp()
+  const {setIsAuthenticated} = useClockiContext();
+  const {mutate: registerUser,} = useSignUp({
+    onSuccess: () => {
+      setIsAuthenticated(true);
+    }
+  })
   const { getInputProps, key, onSubmit } = useForm<RegisterEmployeePayload>({
     initialValues: {
       email: "",

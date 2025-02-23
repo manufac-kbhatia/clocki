@@ -2,21 +2,21 @@ import { createContext, useContext, useMemo, useState } from "react";
 import type { PropsWithChildren, JSX, Dispatch, SetStateAction } from "react";
 
 interface Context {
-  user?: string;
-  setUser: Dispatch<SetStateAction<string | undefined>>;
+  isAuthenticated: boolean;
+  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 }
 
 const ContextInstance = createContext<Context | undefined>(undefined);
 
 export function ContextProvider({ children }: PropsWithChildren): JSX.Element {
-  const [user, setUser] = useState<string>();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const contextValue = useMemo(() => {
     return {
-      user,
-      setUser,
+      isAuthenticated,
+      setIsAuthenticated,
     };
-  }, [user]);
+  }, [isAuthenticated]);
 
   return (
     <ContextInstance.Provider value={contextValue}>
