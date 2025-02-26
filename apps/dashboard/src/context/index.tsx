@@ -9,7 +9,7 @@ interface Context {
 const ContextInstance = createContext<Context | undefined>(undefined);
 
 export function ContextProvider({ children }: PropsWithChildren): JSX.Element {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   const contextValue = useMemo(() => {
     return {

@@ -40,10 +40,10 @@ export function SignUp() {
     registerUser(payload)
   }
   return (
-    <Grid bd="2px solid red" h="100vh">
-      <Grid.Col span={6}>Banner</Grid.Col>
-      <Grid.Col span={6}>
-        <Stack>
+    <Grid h="100vh">
+      <Grid.Col visibleFrom="sm" span={{sm: 6}}>Banner</Grid.Col>
+      <Grid.Col span={{base: 12, sm: 6}} p={"md"} h="100vh" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <Stack w={{base: 400, sm: 500}}>
           <Stack>
             <Title>Welcome to clocki!</Title>
             <Text>Enter your details to create an account</Text>
