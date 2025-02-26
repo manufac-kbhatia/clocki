@@ -6,9 +6,11 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "pretty": "prettier --cache --write .",
     "check-types": "turbo check-types"
   },
   "devDependencies": {
+    "codepolish-prettier-config": "^1.0.0",
     "prettier": "^3.5.0",
     "turbo": "^2.4.2",
     "typescript": "5.7.3"

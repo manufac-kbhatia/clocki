@@ -12,21 +12,21 @@ router
   .post(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
-    catchAsync(employeeControllers.createEmployee)
+    catchAsync(employeeControllers.createEmployee),
   );
 router
   .route("/employees/:id")
   .get(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
-    catchAsync(employeeControllers.getEmployee)
+    catchAsync(employeeControllers.getEmployee),
   );
 router
   .route("/employees/:id")
   .put(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Hr]),
-    catchAsync(employeeControllers.updateEmployee)
+    catchAsync(employeeControllers.updateEmployee),
   );
 
 router.route("/me").get(isAuthenticated, catchAsync(employeeControllers.getMe));

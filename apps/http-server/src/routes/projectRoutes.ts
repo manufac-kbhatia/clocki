@@ -11,7 +11,7 @@ router
   .post(
     isAuthenticated,
     isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Manager]),
-    teamControllers.createProject
+    teamControllers.createProject,
   );
 
 export default router;

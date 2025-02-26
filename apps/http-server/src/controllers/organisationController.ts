@@ -12,7 +12,7 @@ import { StatusCodes } from "http-status-codes";
 export const setupOrganisation = async (
   req: Request<unknown, unknown, RegisterOrganisationPayload>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const payload = req.body;
   const parseResult = RegisterOrganisationSchema.safeParse(payload);
@@ -40,11 +40,7 @@ export const setupOrganisation = async (
   });
 };
 
-export const deleteOrganisation = async (
-  req: Request<{ id: string }>,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteOrganisation = async (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   const organisationId = parseInt(req.params.id);
   const organisationExist = await client.organisation.findUnique({
     where: {
@@ -68,10 +64,7 @@ export const deleteOrganisation = async (
   });
 };
 
-export const getOrganisation = async (
-  req: Request<{ id: string }>,
-  res: Response
-) => {
+export const getOrganisation = async (req: Request<{ id: string }>, res: Response) => {
   const id = parseInt(req.params.id);
   const organisation = await client.organisation.findUnique({
     where: {

@@ -1,0 +1,6 @@
+node_modules
+*.md
+*.png
+dist
+.eslintcache
+coverage

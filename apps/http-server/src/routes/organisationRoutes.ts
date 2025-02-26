@@ -7,26 +7,14 @@ const router: Router = express.Router();
 
 router
   .route("/organisations")
-  .post(
-    isAuthenticated,
-    isAuthorized([PrismaUtils.Role.Admin]),
-    organisationControllers.setupOrganisation
-  );
+  .post(isAuthenticated, isAuthorized([PrismaUtils.Role.Admin]), organisationControllers.setupOrganisation);
 
 router
   .route("/organisations/:id")
-  .delete(
-    isAuthenticated,
-    isAuthorized([PrismaUtils.Role.Admin]),
-    organisationControllers.deleteOrganisation
-  );
+  .delete(isAuthenticated, isAuthorized([PrismaUtils.Role.Admin]), organisationControllers.deleteOrganisation);
 
 router
   .route("/organisations/:id")
-  .get(
-    isAuthenticated,
-    isAuthorized([PrismaUtils.Role.Admin]),
-    organisationControllers.deleteOrganisation
-  );
+  .get(isAuthenticated, isAuthorized([PrismaUtils.Role.Admin]), organisationControllers.deleteOrganisation);
 
 export default router;

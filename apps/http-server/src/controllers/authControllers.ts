@@ -6,11 +6,7 @@ import { JWT_SECRET } from "../utils";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 
-export const login = async (
-  req: Request<unknown, unknown, LoginPayload>,
-  res: Response,
-  next: NextFunction
-) => {
+export const login = async (req: Request<unknown, unknown, LoginPayload>, res: Response, next: NextFunction) => {
   const payload = req.body;
   const parseResult = LoginSchema.safeParse(payload);
   if (parseResult.success === false) {
@@ -25,12 +21,7 @@ export const login = async (
     },
   });
   if (employee === null) {
-    next(
-      new ErrorHandler(
-        "Employee with this email not found",
-        StatusCodes.NOT_FOUND
-      )
-    );
+    next(new ErrorHandler("Employee with this email not found", StatusCodes.NOT_FOUND));
     return;
   }
   if (employee.password !== data.password) {
@@ -40,8 +31,11 @@ export const login = async (
 
   const token = jwt.sign({ id: employee.id }, JWT_SECRET);
   const { password, ...employeeWithoutPassword } = employee;
-  res.status(200).cookie("token", token, { httpOnly: true }).json({
-    message: "success",
-    employee: employeeWithoutPassword,
-  });
+  res
+    .status(200)
+    .cookie("token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 })
+    .json({
+      message: "success",
+      employee: employeeWithoutPassword,
+    });
 };

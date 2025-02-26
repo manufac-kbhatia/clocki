@@ -7,7 +7,7 @@ import { StatusCodes } from "http-status-codes";
 export const createProject = async (
   req: Request<unknown, unknown, ProjectPayload>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const payload = req.body;
   const parseResult = ProjectSchema.safeParse(payload);

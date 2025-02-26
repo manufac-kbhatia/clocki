@@ -8,7 +8,6 @@ import { ContextProvider } from "./context";
 
 const queryClient = new QueryClient();
 
-
 const MantineTheme = createTheme({
   // fontFamily: "Space Grotesk, sans-serif",
   primaryColor: "dark",
@@ -40,5 +39,5 @@ root.render(
         </MantineProvider>
       </ContextProvider>
     </QueryClientProvider>
-  </StrictMode>
+  </StrictMode>,
 );

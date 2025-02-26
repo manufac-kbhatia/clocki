@@ -13,18 +13,14 @@ export const RegisterOrganisationSchema = z.object({
   companyName: z.string().min(1, "Organisation name is required"),
   address: z.string().min(1, "Address is required to register an Organisation"),
   city: z.string().min(1, "City is required to register an Organisation"),
-  vatNumber: z
-    .string()
-    .min(1, "VAT number is required to register an Organisation"),
+  vatNumber: z.string().min(1, "VAT number is required to register an Organisation"),
 });
 
 export const EmployeeSchema = z.object({
   // Personal information
   email: z.string().email("Please provide a valid email"),
   password: z.string().min(8, "Password must be atleast 8 characters long"), // TODO: Remove password from schema as it will be generated randomly on server side
-  firstName: z
-    .string()
-    .min(1, "First name is requred to create a new Employee"),
+  firstName: z.string().min(1, "First name is requred to create a new Employee"),
   lastName: z.string().nullable(),
   address: z.string().min(1, "Address is required to create a new employee"),
   city: z.string().min(1, "City is required to create a new employee"),
@@ -76,9 +72,7 @@ export const UpdateEmployeeSchema = EmployeeSchema.omit({
 });
 
 // Infered types from Zod Schemas
-export type RegisterOrganisationPayload = z.infer<
-  typeof RegisterOrganisationSchema
->;
+export type RegisterOrganisationPayload = z.infer<typeof RegisterOrganisationSchema>;
 export type RegisterEmployeePayload = z.infer<typeof RegisterEmployeeSchema>;
 export type EmployeePayload = z.infer<typeof EmployeeSchema>;
 export type TeamPayload = z.infer<typeof TeamSchema>;

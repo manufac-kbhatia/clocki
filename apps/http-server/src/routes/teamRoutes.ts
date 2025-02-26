@@ -8,10 +8,6 @@ const router: Router = express.Router();
 
 router
   .route("/teams")
-  .post(
-    isAuthenticated,
-    isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Manager]),
-    teamControllers.createTeam
-  );
+  .post(isAuthenticated, isAuthorized([PrismaUtils.Role.Admin, PrismaUtils.Role.Manager]), teamControllers.createTeam);
 
 export default router;

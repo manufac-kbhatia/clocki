@@ -6,17 +6,8 @@
 //     return output;
 //   }
 
-import {
-  RegisterEmployeePayload,
-  RegisterEmployeeResponse,
-} from "@repo/schemas";
-import {
-  useMutation,
-  UseMutationOptions,
-  UseMutationResult,
-  useQuery,
-  UseQueryResult,
-} from "@tanstack/react-query";
+import { RegisterEmployeePayload, RegisterEmployeeResponse } from "@repo/schemas";
+import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../utils";
 import { PrismaUtils } from "@repo/db";
@@ -35,14 +26,11 @@ import { PrismaUtils } from "@repo/db";
 //   }
 
 export function useSignUp(
-  params?: UseMutationOptions<unknown, Error, RegisterEmployeePayload>
+  params?: UseMutationOptions<unknown, Error, RegisterEmployeePayload>,
 ): UseMutationResult<unknown, Error, RegisterEmployeePayload> {
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<RegisterEmployeeResponse>(
-        `${API_URL}/register`,
-        payload
-      );
+      const reponse = await axios.post<RegisterEmployeeResponse>(`${API_URL}/register`, payload);
       return reponse.data;
     },
     ...params,

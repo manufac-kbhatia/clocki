@@ -18,11 +18,7 @@ export function ContextProvider({ children }: PropsWithChildren): JSX.Element {
     };
   }, [isAuthenticated]);
 
-  return (
-    <ContextInstance.Provider value={contextValue}>
-      {children}
-    </ContextInstance.Provider>
-  );
+  return <ContextInstance.Provider value={contextValue}>{children}</ContextInstance.Provider>;
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

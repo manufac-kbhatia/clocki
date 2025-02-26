@@ -5,11 +5,7 @@ import { JWT_SECRET } from "../utils";
 import { client, PrismaUtils } from "@repo/db";
 import { StatusCodes } from "http-status-codes";
 
-export async function isAuthenticated(
-  req: Request,
-  res: Response<ErrorResponse>,
-  next: NextFunction
-) {
+export async function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
   const token = (req.cookies as { token?: string }).token;
   if (typeof token !== "string") {
     res.status(StatusCodes.UNAUTHORIZED).json({

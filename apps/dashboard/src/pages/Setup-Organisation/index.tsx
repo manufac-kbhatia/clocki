@@ -1,29 +1,20 @@
-import {
-  Button,
-  Grid,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Button, Grid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { RegisterOrganisationPayload } from "@repo/schemas";
 import {
-RegisterOrganisationFormLabels,
-RegisterOrganisationFormPlaceholder,
-RegisterOrgnisationFormNames
+  RegisterOrganisationFormLabels,
+  RegisterOrganisationFormPlaceholder,
+  RegisterOrgnisationFormNames,
 } from "./utils";
 import { RegisterOrganisationSchema } from "@repo/schemas";
 
-
 export function SetupOrganisation() {
-
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
     initialValues: {
-     companyName: "",
-     address: "",
-     city: "",
-     vatNumber: "",
+      companyName: "",
+      address: "",
+      city: "",
+      vatNumber: "",
     },
     validate: zodResolver(RegisterOrganisationSchema),
     validateInputOnBlur: true,
@@ -32,7 +23,7 @@ export function SetupOrganisation() {
 
   const handlesubmit = (payload: RegisterOrganisationPayload) => {
     console.log(payload);
-  }
+  };
   return (
     <Grid bd="2px solid red" h="100vh">
       <Grid.Col span={6}>Banner</Grid.Col>

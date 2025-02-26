@@ -18,7 +18,7 @@ import { StatusCodes } from "http-status-codes";
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
   res: Response<RegisterEmployeeResponse | ErrorResponse>,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const payload = req.body;
   const parseResult = RegisterEmployeeSchema.safeParse(payload);
@@ -26,12 +26,11 @@ export const register = async (
     next(new ErrorHandler("Invalid input", StatusCodes.BAD_REQUEST));
     return;
   }
+
+  const { data } = parseResult;
   const employee = await client.employee.create({
     data: {
-      firstName: payload.firstName,
-      lastname: payload.lastName,
-      email: payload.email,
-      password: payload.password,
+      ...data,
       role: PrismaUtils.Role.Admin,
     },
     // Ref: https://www.prisma.io/docs/orm/prisma-client/queries/excluding-fields#excluding-a-field-locally-using-omit
@@ -41,16 +40,13 @@ export const register = async (
   });
 
   const token = jwt.sign({ id: employee.id }, JWT_SECRET);
-  res
-    .status(200)
-    .cookie("token", token, { httpOnly: true })
-    .json({ message: "success", employee });
+  res.status(200).cookie("token", token, { httpOnly: true }).json({ message: "success", employee });
 };
 
 export const createEmployee = async (
   req: Request<unknown, unknown, EmployeePayload>,
   res: Response<RegisterEmployeeResponse | ErrorResponse>,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const payload = req.body;
   const parseResult = EmployeeSchema.safeParse(payload);
@@ -58,28 +54,19 @@ export const createEmployee = async (
     next(new ErrorHandler("Invalid input", StatusCodes.BAD_REQUEST));
     return;
   }
-  const { data } = parseResult;
+  const { hireDate, position, contractType, teamsId, role, ...rest } = parseResult.data;
   const employee = await client.employee.create({
     data: {
-      firstName: data.firstName,
-      lastname: data.lastName,
-      email: data.email,
-      password: data.password, // TODO: add random generated password and send the credentials to the employee via email telling that they can reset their password
-      gender: data.gender,
-      dateOfBirth: data.dateOfBirth,
-      role: data.role ?? PrismaUtils.Role.Other,
-      phoneNumber: data.phoneNumber,
-      address: data.address,
-      city: data.city,
-      postalCode: data.postalCode,
+      ...rest,
+      role: role ?? PrismaUtils.Role.Other,
       teams: {
-        connect: data.teamsId?.map((id) => ({ id })),
+        connect: teamsId?.map((id) => ({ id })),
       },
       employeeInfo: {
         create: {
-          hireDate: data.hireDate,
-          positon: data.position,
-          contractType: data.contractType,
+          hireDate: hireDate,
+          positon: position,
+          contractType: contractType,
         },
       },
     },
@@ -90,10 +77,7 @@ export const createEmployee = async (
   });
 };
 
-export const getEmployee = async (
-  req: Request<{ id: string }>,
-  res: Response
-) => {
+export const getEmployee = async (req: Request<{ id: string }>, res: Response) => {
   const employeeId = parseInt(req.params.id);
   const employee = await client.employee.findUnique({
     where: {
@@ -112,7 +96,7 @@ export const getEmployee = async (
 export const updateEmployee = async (
   req: Request<{ id: string }, unknown, UpdateEmployeePayload>,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const payload = req.body;
   const parseResult = UpdateEmployeeSchema.safeParse(payload);
@@ -121,27 +105,20 @@ export const updateEmployee = async (
     return;
   }
   const employeeId = parseInt(req.params.id);
-  const data = parseResult.data;
+  const { role, hireDate, contractType, vacationDays, position, teamsId, ...rest } = parseResult.data;
   const employee = client.employee.update({
     where: {
       id: employeeId,
     },
     data: {
-      firstName: data.firstName,
-      lastname: data.lastName,
-      address: data.address,
-      city: data.city,
-      postalCode: data.postalCode,
-      dateOfBirth: data.dateOfBirth,
-      phoneNumber: data.phoneNumber,
-      role: data.role ?? undefined,
-      gender: data.gender,
+      ...rest,
+      role: role ?? undefined,
       employeeInfo: {
         update: {
-          hireDate: data.hireDate,
-          contractType: data.contractType,
-          positon: data.position,
-          vacationDays: data.vacationDays ?? undefined,
+          hireDate: hireDate,
+          contractType: contractType,
+          positon: position,
+          vacationDays: vacationDays ?? undefined,
         },
       },
     },
@@ -156,11 +133,7 @@ export const updateEmployee = async (
   });
 };
 
-export const deleteEmployee = async (
-  req: Request<{ id: string }>,
-  res: Response,
-  next: NextFunction
-) => {
+export const deleteEmployee = async (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
   const employeeId = parseInt(req.params.id);
   const employeeExist = await client.employee.findUnique({
     where: {
@@ -169,12 +142,7 @@ export const deleteEmployee = async (
   });
 
   if (employeeExist === null) {
-    next(
-      new ErrorHandler(
-        "The employee you are trying do delete doesn't exist",
-        StatusCodes.NOT_FOUND
-      )
-    );
+    next(new ErrorHandler("The employee you are trying do delete doesn't exist", StatusCodes.NOT_FOUND));
     return;
   }
 

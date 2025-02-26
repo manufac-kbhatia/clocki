@@ -12,21 +12,12 @@ class CustomError extends Error {
 }
 
 // The error-handling middleware function
-const errorMiddleware = (
-  err: CustomError,
-  req: Request,
-  res: Response,
-  next: NextFunction
-): void => {
+const errorMiddleware = (err: CustomError, req: Request, res: Response, next: NextFunction): void => {
   // Default statusCode and message if not provided
   if (err instanceof PrismaUtils.Prisma.PrismaClientKnownRequestError) {
-    console.log(
-      "-------------------------------------------------------------------------"
-    );
+    console.log("-------------------------------------------------------------------------");
     console.log(err);
-    console.log(
-      "-------------------------------------------------------------------------"
-    );
+    console.log("-------------------------------------------------------------------------");
   }
   err.statusCode = err.statusCode || 500;
   err.message = err.message || "Internal Server Error";
