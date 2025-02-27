@@ -16,7 +16,8 @@ import "@fontsource/red-hat-display/900.css";
 const queryClient = new QueryClient();
 
 const MantineTheme = createTheme({
-  fontFamily: "Red Hat Display, Space Grotesk, sans-serif",
+  fontSmoothing: true,
+  fontFamily: "Red Hat Display, sans-serif",
   primaryColor: "dark",
   colors: {
     dark: [
@@ -32,7 +33,6 @@ const MantineTheme = createTheme({
       "#090a14", // Darkest (1000)
     ],
   },
-
   headings: {
     sizes: {
       h1: { fontSize: rem(20), fontWeight: "700" },
@@ -51,19 +51,19 @@ const MantineTheme = createTheme({
       styles: {
         input: {
           padding: "25px",
-          borderColor: "#E8ECEE"
-        }
+          borderColor: "#E8ECEE",
+        },
       },
     }),
     PasswordInput: PasswordInput.extend({
       styles: {
         input: {
           padding: "25px",
-          borderColor: "#E8ECEE"
-        }
+          borderColor: "#E8ECEE",
+        },
       },
-    })
-  }
+    }),
+  },
 });
 
 // Ref: https://mantine.dev/theming/theme-object/#store-theme-override-object-in-a-variable

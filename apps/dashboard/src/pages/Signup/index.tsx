@@ -1,4 +1,13 @@
-import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
+import {
+  Button,
+  Center,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { RegisterEmployeePayload, RegisterEmployeeSchema } from "@repo/schemas";
 import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "./utils";
@@ -7,6 +16,7 @@ import { useClockiContext } from "../../context";
 
 export function SignUp() {
   const { setIsAuthenticated } = useClockiContext();
+  const theme = useMantineTheme();
   const { mutate: registerUser } = useSignUp({
     onSuccess: () => {
       setIsAuthenticated(true);
@@ -31,7 +41,7 @@ export function SignUp() {
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
-          <Title size="h6" ta="center"> 
+          <Title size="h6" ta="center" c={theme.colors.dark[6]}>
             Clocki
           </Title>
           <Text size="lg" ta="center">
