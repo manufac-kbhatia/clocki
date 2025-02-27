@@ -37,7 +37,7 @@ export const createTeam = async (req: Request<unknown, unknown, TeamPayload>, re
   });
 
   res.status(200).json({
-    message: "success",
+    success: true,
     team,
   });
 };

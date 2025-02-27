@@ -35,7 +35,7 @@ export const login = async (req: Request<unknown, unknown, LoginPayload>, res: R
     .status(200)
     .cookie("token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 })
     .json({
-      message: "success",
+      success: true,
       employee: employeeWithoutPassword,
     });
 };

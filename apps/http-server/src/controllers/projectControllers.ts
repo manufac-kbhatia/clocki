@@ -35,7 +35,7 @@ export const createProject = async (
   });
 
   res.status(200).json({
-    message: "success",
+    success: true,
     project,
   });
 };

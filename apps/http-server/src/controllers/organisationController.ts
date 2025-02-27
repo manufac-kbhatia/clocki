@@ -59,8 +59,8 @@ export const deleteOrganisation = async (req: Request<{ id: string }>, res: Resp
   });
 
   res.status(200).json({
-    message: "success",
-    error: "Organisation deleted successfully",
+    success: true,
+    message: "Organisation deleted successfully",
   });
 };
 
@@ -73,7 +73,7 @@ export const getOrganisation = async (req: Request<{ id: string }>, res: Respons
   });
 
   res.status(200).json({
-    message: "success",
+    success: true,
     organisation,
   });
 };

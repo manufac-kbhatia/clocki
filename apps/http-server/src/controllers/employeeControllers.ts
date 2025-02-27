@@ -17,7 +17,7 @@ import { StatusCodes } from "http-status-codes";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
-  res: Response<RegisterEmployeeResponse | ErrorResponse>,
+  res: Response<RegisterEmployeeResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
@@ -40,12 +40,12 @@ export const register = async (
   });
 
   const token = jwt.sign({ id: employee.id }, JWT_SECRET);
-  res.status(200).cookie("token", token, { httpOnly: true }).json({ message: "success", employee });
+  res.status(200).cookie("token", token, { httpOnly: true }).json({ success: true, employee });
 };
 
 export const createEmployee = async (
   req: Request<unknown, unknown, EmployeePayload>,
-  res: Response<RegisterEmployeeResponse | ErrorResponse>,
+  res: Response<RegisterEmployeeResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
@@ -72,7 +72,7 @@ export const createEmployee = async (
     },
   });
   res.status(200).json({
-    message: "success",
+    success: true,
     employee,
   });
 };
@@ -88,7 +88,7 @@ export const getEmployee = async (req: Request<{ id: string }>, res: Response) =
     },
   });
   res.status(200).json({
-    message: "success",
+    success: true,
     employee,
   });
 };
@@ -128,7 +128,7 @@ export const updateEmployee = async (
   });
 
   res.status(200).json({
-    message: "success",
+    success: true,
     employee,
   });
 };
@@ -152,8 +152,8 @@ export const deleteEmployee = async (req: Request<{ id: string }>, res: Response
     },
   });
   res.status(200).json({
-    message: "success",
-    deletedEmployeeId: employeeId,
+    success: true,
+    employee: employeeId,
   });
 };
 
@@ -168,7 +168,7 @@ export const getMe = async (req: Request, res: Response) => {
   });
 
   res.status(200).json({
-    message: "success",
+    success: true,
     me,
   });
 };

@@ -82,7 +82,7 @@ export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 
 // Rest Types
 export interface RegisterEmployeeResponse {
-  message: string;
+  success: boolean;
   employee: Omit<PrismaUtils.Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
 }
 
