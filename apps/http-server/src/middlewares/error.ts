@@ -2,7 +2,6 @@ import type { NextFunction, Request, Response } from "express";
 import { PrismaUtils } from "@repo/db";
 import { ErrorResponse } from "@repo/schemas";
 
-// Define a custom error class if needed (optional, but useful)
 class CustomError extends Error {
   statusCode: number;
   constructor(message: string, statusCode: number) {
@@ -14,7 +13,6 @@ class CustomError extends Error {
 
 // The error-handling middleware function
 const errorMiddleware = (err: CustomError, req: Request, res: Response<ErrorResponse>, next: NextFunction): void => {
-  // Default statusCode and message if not provided
   if (err instanceof PrismaUtils.Prisma.PrismaClientKnownRequestError) {
     console.log("-------------------------------------------------------------------------");
     console.log(err);
