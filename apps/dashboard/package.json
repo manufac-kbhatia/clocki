@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/red-hat-display": "^5.1.1",
     "@mantine/core": "^7.17.0",
     "@mantine/form": "^7.17.0",
     "@mantine/hooks": "^7.17.0",
-    "@repo/schemas": "workspace:*",
     "@repo/db": "workspace:*",
+    "@repo/schemas": "workspace:*",
     "@tabler/icons-react": "^3.30.0",
     "@tanstack/react-query": "^5.66.9",
     "axios": "^1.7.9",

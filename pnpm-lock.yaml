@@ -22,6 +22,9 @@ importers:
 
   apps/dashboard:
     dependencies:
+      "@fontsource/red-hat-display":
+        specifier: ^5.1.1
+        version: 5.1.1
       "@mantine/core":
         specifier: ^7.17.0
         version: 7.17.0(@mantine/hooks@7.17.0(react@19.0.0))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -652,6 +655,10 @@ packages:
   "@floating-ui/utils@0.2.9":
     resolution:
       { integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg== }
+
+  "@fontsource/red-hat-display@5.1.1":
+    resolution:
+      { integrity: sha512-HnfLtd19JSMmw5q80b8iXRCTxeqPMD0Y0PUxwEJlh3Jarkpml4Pv+gQhGvllDEZef6ie8qLGE0XRwxcUqACv3A== }
 
   "@humanfs/core@0.19.1":
     resolution:
@@ -4253,6 +4260,8 @@ snapshots:
       tabbable: 6.2.0
 
   "@floating-ui/utils@0.2.9": {}
+
+  "@fontsource/red-hat-display@5.1.1": {}
 
   "@humanfs/core@0.19.1": {}
 
