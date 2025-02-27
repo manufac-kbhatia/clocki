@@ -32,7 +32,9 @@ export function SetupOrganisation() {
           <Title size="h6" ta="center" c={theme.colors.dark[6]}>
             Clocki
           </Title>
-          <Text size="lg" ta="center">Enter details to setup the company/organisation</Text>
+          <Text size="lg" ta="center">
+            Enter details to setup the company/organisation
+          </Text>
         </Stack>
         <form onSubmit={onSubmit(handlesubmit)}>
           <Stack>

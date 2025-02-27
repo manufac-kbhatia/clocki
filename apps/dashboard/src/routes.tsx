@@ -6,6 +6,7 @@ import { ErrorPage } from "./pages/ErrorPage/index.tsx";
 import { SignUp } from "./pages/Signup";
 import { SetupOrganisation } from "./pages/Setup-Organisation/index.tsx";
 import ProtectedRoute from "./pages/Protected-Route/index.tsx";
+import { SignIn } from "./pages/Signin/index.tsx";
 
 export const Routers = createBrowserRouter([
   {
@@ -35,6 +36,11 @@ export const Routers = createBrowserRouter([
         <SetupOrganisation />
       </ProtectedRoute>
     ),
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/sign-in",
+    element: <SignIn />,
     errorElement: <ErrorPage />,
   },
 ]);

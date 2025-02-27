@@ -63,7 +63,7 @@ export const ProjectSchema = z.object({
 
 export const LoginSchema = z.object({
   email: z.string().email("Please provide a valid email"),
-  password: z.string().min(1, "Please provide to password to login"),
+  password: z.string().min(1, "Please provide password to login"),
 });
 
 export const UpdateEmployeeSchema = EmployeeSchema.omit({
