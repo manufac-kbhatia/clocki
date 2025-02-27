@@ -1,9 +1,11 @@
 import { client } from "@repo/db";
 import {
-  ErrorResponse,
+  DeleteOrganisationResponse,
+  GetOrganisationResponse,
   RegisterOrganisationPayload,
   RegisterOrganisationResponse,
   RegisterOrganisationSchema,
+  SetupOrganisationResponse,
 } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
@@ -11,7 +13,7 @@ import { StatusCodes } from "http-status-codes";
 
 export const setupOrganisation = async (
   req: Request<unknown, unknown, RegisterOrganisationPayload>,
-  res: Response,
+  res: Response<SetupOrganisationResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
@@ -35,12 +37,16 @@ export const setupOrganisation = async (
   });
 
   res.status(200).json({
-    message: "success",
+    success: true,
     organisation,
   });
 };
 
-export const deleteOrganisation = async (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
+export const deleteOrganisation = async (
+  req: Request<{ id: string }>,
+  res: Response<DeleteOrganisationResponse>,
+  next: NextFunction,
+) => {
   const organisationId = parseInt(req.params.id);
   const organisationExist = await client.organisation.findUnique({
     where: {
@@ -52,7 +58,7 @@ export const deleteOrganisation = async (req: Request<{ id: string }>, res: Resp
     return;
   }
 
-  await client.organisation.delete({
+  const organisation = await client.organisation.delete({
     where: {
       id: organisationExist.id,
     },
@@ -60,17 +66,27 @@ export const deleteOrganisation = async (req: Request<{ id: string }>, res: Resp
 
   res.status(200).json({
     success: true,
+    organisationId,
     message: "Organisation deleted successfully",
   });
 };
 
-export const getOrganisation = async (req: Request<{ id: string }>, res: Response) => {
+export const getOrganisation = async (
+  req: Request<{ id: string }>,
+  res: Response<GetOrganisationResponse>,
+  next: NextFunction,
+) => {
   const id = parseInt(req.params.id);
   const organisation = await client.organisation.findUnique({
     where: {
       id,
     },
   });
+
+  if (organisation === null) {
+    next(new ErrorHandler("Organisation not found", StatusCodes.NOT_FOUND));
+    return;
+  }
 
   res.status(200).json({
     success: true,

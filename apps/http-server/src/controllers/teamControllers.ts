@@ -1,10 +1,14 @@
 import { client } from "@repo/db";
-import { TeamPayload, TeamSchema } from "@repo/schemas";
+import { CreateTeamResponse, TeamPayload, TeamSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 
-export const createTeam = async (req: Request<unknown, unknown, TeamPayload>, res: Response, next: NextFunction) => {
+export const createTeam = async (
+  req: Request<unknown, unknown, TeamPayload>,
+  res: Response<CreateTeamResponse>,
+  next: NextFunction,
+) => {
   const payload = req.body;
   const parseResult = TeamSchema.safeParse(payload);
   if (parseResult.success === false) {

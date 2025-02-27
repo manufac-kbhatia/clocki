@@ -81,14 +81,58 @@ export type LoginPayload = z.infer<typeof LoginSchema>;
 export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 
 // Rest Types
-export interface RegisterEmployeeResponse {
+
+export interface BaseResponseType {
   success: boolean;
+}
+export interface RegisterEmployeeResponse extends BaseResponseType {
   employee: Omit<PrismaUtils.Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
 }
 
-export interface RegisterOrganisationResponse {
-  message: string;
+export interface RegisterOrganisationResponse extends BaseResponseType {
   organisation: PrismaUtils.Organisation;
+}
+
+export interface DeleteEmployeeResponse extends BaseResponseType {
+  message: string;
+  employeeId: number;
+}
+
+export interface GetMeReponse extends BaseResponseType {
+  me: Omit<PrismaUtils.Employee, "password">;
+}
+
+export interface GetEmployeeResponse extends BaseResponseType {
+  employee: Omit<PrismaUtils.Employee, "password">;
+}
+
+// Check for this
+export interface UpdateEmployeeResponse extends BaseResponseType {
+  employee: Omit<PrismaUtils.Employee, "password">;
+}
+
+export interface SetupOrganisationResponse extends BaseResponseType {
+  organisation: PrismaUtils.Organisation;
+}
+
+export interface GetOrganisationResponse extends BaseResponseType {
+  organisation: PrismaUtils.Organisation;
+}
+
+export interface DeleteOrganisationResponse extends BaseResponseType {
+  message: string;
+  organisationId: number;
+}
+
+// Check for this
+export interface CreateProjectResponse extends BaseResponseType {
+  success: boolean;
+  project: PrismaUtils.Project;
+}
+
+export interface CreateTeamResponse extends BaseResponseType {
+  success: boolean;
+  team: PrismaUtils.Team;
 }
 
 export interface ErrorResponse {

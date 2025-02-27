@@ -8,6 +8,10 @@ import {
   EmployeeSchema,
   UpdateEmployeePayload,
   UpdateEmployeeSchema,
+  DeleteEmployeeResponse,
+  GetMeReponse,
+  GetEmployeeResponse,
+  UpdateEmployeeResponse,
 } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import { JWT_SECRET } from "../utils";
@@ -77,7 +81,11 @@ export const createEmployee = async (
   });
 };
 
-export const getEmployee = async (req: Request<{ id: string }>, res: Response) => {
+export const getEmployee = async (
+  req: Request<{ id: string }>,
+  res: Response<GetEmployeeResponse>,
+  next: NextFunction,
+) => {
   const employeeId = parseInt(req.params.id);
   const employee = await client.employee.findUnique({
     where: {
@@ -87,6 +95,11 @@ export const getEmployee = async (req: Request<{ id: string }>, res: Response) =
       password: true,
     },
   });
+
+  if (employee === null) {
+    next(new ErrorHandler("Employee with not found", StatusCodes.NOT_FOUND));
+    return;
+  }
   res.status(200).json({
     success: true,
     employee,
@@ -95,7 +108,7 @@ export const getEmployee = async (req: Request<{ id: string }>, res: Response) =
 
 export const updateEmployee = async (
   req: Request<{ id: string }, unknown, UpdateEmployeePayload>,
-  res: Response,
+  res: Response<UpdateEmployeeResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
@@ -106,7 +119,7 @@ export const updateEmployee = async (
   }
   const employeeId = parseInt(req.params.id);
   const { role, hireDate, contractType, vacationDays, position, teamsId, ...rest } = parseResult.data;
-  const employee = client.employee.update({
+  const employee = await client.employee.update({
     where: {
       id: employeeId,
     },
@@ -125,6 +138,9 @@ export const updateEmployee = async (
     omit: {
       password: true,
     },
+    include: {
+      employeeInfo: true,
+    },
   });
 
   res.status(200).json({
@@ -133,7 +149,11 @@ export const updateEmployee = async (
   });
 };
 
-export const deleteEmployee = async (req: Request<{ id: string }>, res: Response, next: NextFunction) => {
+export const deleteEmployee = async (
+  req: Request<{ id: string }>,
+  res: Response<DeleteEmployeeResponse>,
+  next: NextFunction,
+) => {
   const employeeId = parseInt(req.params.id);
   const employeeExist = await client.employee.findUnique({
     where: {
@@ -153,11 +173,12 @@ export const deleteEmployee = async (req: Request<{ id: string }>, res: Response
   });
   res.status(200).json({
     success: true,
-    employee: employeeId,
+    message: "Employee deleted successfully",
+    employeeId: employeeId,
   });
 };
 
-export const getMe = async (req: Request, res: Response) => {
+export const getMe = async (req: Request, res: Response<GetMeReponse>, next: NextFunction) => {
   const me = await client.employee.findUnique({
     where: {
       id: req.employee?.id,
@@ -166,6 +187,11 @@ export const getMe = async (req: Request, res: Response) => {
       password: true,
     },
   });
+
+  if (me === null) {
+    next(new ErrorHandler("Your accound doesn't exist", StatusCodes.NOT_FOUND));
+    return;
+  }
 
   res.status(200).json({
     success: true,

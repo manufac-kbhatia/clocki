@@ -1,12 +1,12 @@
 import { client } from "@repo/db";
-import { ProjectPayload, ProjectSchema } from "@repo/schemas";
+import { CreateProjectResponse, ProjectPayload, ProjectSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 
 export const createProject = async (
   req: Request<unknown, unknown, ProjectPayload>,
-  res: Response,
+  res: Response<CreateProjectResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
