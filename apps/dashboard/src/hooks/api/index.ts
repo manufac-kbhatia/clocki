@@ -1,29 +1,8 @@
-// export function useReadTags(): UseQueryResult<Tag[]> {
-//     const output = useQuery({
-//       queryKey: ["readTags"],
-//       queryFn: window.electronAPI?.readTags,
-//     });
-//     return output;
-//   }
-
-import { RegisterEmployeePayload, RegisterEmployeeResponse } from "@repo/schemas";
+import { RegisterEmployeePayload, RegisterEmployeeResponse } from "@repo/schemas/rest";
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../utils";
-import { Employee } from "@repo/db";
-
-// export function useCreateStitchFile(
-//     params?: UseMutationOptions<StitchItResponse, Error, StitchItPayload>,
-//   ): UseMutationResult<StitchItResponse, Error, StitchItPayload> {
-//     const mutation = useMutation({
-//       ...params,
-//       mutationFn: async (payload) => {
-//         const response = await axios.post<StitchItResponse>(${API_URL}/stitch, payload);
-//         return response.data;
-//       },
-//     });
-//     return mutation;
-//   }
+import type { Prisma } from "@repo/db";
 
 export function useSignUp(
   params?: UseMutationOptions<unknown, Error, RegisterEmployeePayload>,
@@ -38,11 +17,11 @@ export function useSignUp(
   return mutation;
 }
 
-export function useGetMe(): UseQueryResult<Employee> {
+export function useGetMe(): UseQueryResult<Prisma.EmployeeGetPayload<{ omit: { password: true } }>> {
   const output = useQuery({
     queryKey: ["getMe"],
     queryFn: async () => {
-      const response = await axios.get<Employee>(`${API_URL}/me`);
+      const response = await axios.get<Prisma.EmployeeGetPayload<{ omit: { password: true } }>>(`${API_URL}/me`);
       return response.data;
     },
   });

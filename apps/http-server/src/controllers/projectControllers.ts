@@ -1,8 +1,9 @@
 import { client } from "@repo/db";
-import { CreateProjectResponse, ProjectPayload, ProjectSchema } from "@repo/schemas";
+import { ProjectSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
+import { CreateProjectResponse, ProjectPayload } from "@repo/schemas/rest";
 
 export const createProject = async (
   req: Request<unknown, unknown, ProjectPayload>,

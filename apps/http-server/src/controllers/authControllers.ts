@@ -1,12 +1,17 @@
-import { client } from "@repo/db";
-import { LoginPayload, LoginSchema } from "@repo/schemas";
+import { client, Prisma } from "@repo/db";
+import { LoginSchema } from "@repo/schemas";
+import { LoginEmployeeResponse, LoginPayload } from "@repo/schemas/rest";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 
-export const login = async (req: Request<unknown, unknown, LoginPayload>, res: Response, next: NextFunction) => {
+export const login = async (
+  req: Request<unknown, unknown, LoginPayload>,
+  res: Response<LoginEmployeeResponse>,
+  next: NextFunction,
+) => {
   const payload = req.body;
   const parseResult = LoginSchema.safeParse(payload);
   if (parseResult.success === false) {

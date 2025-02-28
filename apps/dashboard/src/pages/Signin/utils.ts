@@ -1,4 +1,4 @@
-import { LoginPayload } from "@repo/schemas";
+import { LoginPayload } from "@repo/schemas/rest";
 
 export const SignInFormNames: Record<keyof LoginPayload, keyof LoginPayload> = {
   email: "email",

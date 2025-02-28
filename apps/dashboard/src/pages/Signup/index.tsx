@@ -1,9 +1,10 @@
 import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { RegisterEmployeePayload, RegisterEmployeeSchema } from "@repo/schemas";
+import { RegisterEmployeeSchema } from "@repo/schemas";
 import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "./utils";
 import { useSignUp } from "../../hooks/api";
 import { useClockiContext } from "../../context";
+import { RegisterEmployeePayload } from "@repo/schemas/rest";
 
 export function SignUp() {
   const { setIsAuthenticated } = useClockiContext();

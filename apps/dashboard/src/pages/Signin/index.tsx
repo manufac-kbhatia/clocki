@@ -1,7 +1,8 @@
 import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { LoginPayload, LoginSchema } from "@repo/schemas";
+import { LoginSchema } from "@repo/schemas";
 import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./utils";
+import { LoginPayload } from "@repo/schemas/rest";
 
 export function SignIn() {
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({

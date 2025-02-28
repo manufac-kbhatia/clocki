@@ -1,4 +1,4 @@
-import { RegisterEmployeePayload } from "@repo/schemas";
+import { RegisterEmployeePayload } from "@repo/schemas/rest";
 
 export const RegisterFormNames: Record<keyof RegisterEmployeePayload, keyof RegisterEmployeePayload> = {
   email: "email",

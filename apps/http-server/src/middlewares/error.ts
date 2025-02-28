@@ -1,5 +1,5 @@
+import { ErrorResponse } from "@repo/schemas/rest";
 import type { NextFunction, Request, Response } from "express";
-import { ErrorResponse } from "@repo/schemas";
 
 class CustomError extends Error {
   statusCode: number;

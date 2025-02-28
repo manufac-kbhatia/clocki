@@ -1,7 +1,5 @@
 import { z } from "zod";
-import type { Employee, Organisation, Project, Team } from "@repo/db";
 import { ContractType, Gender, Role } from "./utils";
-
 
 // Zod Schemas
 export const RegisterEmployeeSchema = z.object({
@@ -72,72 +70,3 @@ export const UpdateEmployeeSchema = EmployeeSchema.omit({
   email: true,
   password: true,
 });
-
-// Infered types from Zod Schemas
-export type RegisterOrganisationPayload = z.infer<typeof RegisterOrganisationSchema>;
-export type RegisterEmployeePayload = z.infer<typeof RegisterEmployeeSchema>;
-export type EmployeePayload = z.infer<typeof EmployeeSchema>;
-export type TeamPayload = z.infer<typeof TeamSchema>;
-export type ProjectPayload = z.infer<typeof ProjectSchema>;
-export type LoginPayload = z.infer<typeof LoginSchema>;
-export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
-
-// Rest Types
-
-export interface BaseResponseType {
-  success: boolean;
-}
-export interface RegisterEmployeeResponse extends BaseResponseType {
-  employee: Omit<Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
-}
-
-export interface RegisterOrganisationResponse extends BaseResponseType {
-  organisation: Organisation;
-}
-
-export interface DeleteEmployeeResponse extends BaseResponseType {
-  message: string;
-  employeeId: number;
-}
-
-export interface GetMeReponse extends BaseResponseType {
-  me: Omit<Employee, "password">;
-}
-
-export interface GetEmployeeResponse extends BaseResponseType {
-  employee: Omit<Employee, "password">;
-}
-
-// Check for this
-export interface UpdateEmployeeResponse extends BaseResponseType {
-  employee: Omit<Employee, "password">;
-}
-
-export interface SetupOrganisationResponse extends BaseResponseType {
-  organisation: Organisation;
-}
-
-export interface GetOrganisationResponse extends BaseResponseType {
-  organisation: Organisation;
-}
-
-export interface DeleteOrganisationResponse extends BaseResponseType {
-  message: string;
-  organisationId: number;
-}
-
-// Check for this
-export interface CreateProjectResponse extends BaseResponseType {
-  success: boolean;
-  project: Project;
-}
-
-export interface CreateTeamResponse extends BaseResponseType {
-  success: boolean;
-  team: Team;
-}
-
-export interface ErrorResponse {
-  success: boolean;
-  message: string;
-}

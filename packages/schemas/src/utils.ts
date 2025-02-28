@@ -1,6 +1,6 @@
 export enum Gender {
   Male = "Male",
-  Female  = "Female",
+  Female = "Female",
   NonBinary = "NonBinary",
   Other = "Other",
   PreferNotToSay = "PreferNotToSay",
@@ -19,5 +19,3 @@ export enum Role {
   Manager = "Manager",
   Other = "Other",
 }
-
-

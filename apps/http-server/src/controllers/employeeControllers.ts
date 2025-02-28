@@ -1,17 +1,8 @@
 import { client } from "@repo/db";
 import {
-  ErrorResponse,
-  RegisterEmployeePayload,
   RegisterEmployeeSchema,
-  RegisterEmployeeResponse,
-  EmployeePayload,
   EmployeeSchema,
-  UpdateEmployeePayload,
   UpdateEmployeeSchema,
-  DeleteEmployeeResponse,
-  GetMeReponse,
-  GetEmployeeResponse,
-  UpdateEmployeeResponse,
 } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import { JWT_SECRET } from "../utils";
@@ -19,7 +10,7 @@ import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 import { PrismaUtils } from "@repo/db";
-
+import { DeleteEmployeeResponse, EmployeePayload, GetEmployeeResponse, GetMeReponse, RegisterEmployeePayload, RegisterEmployeeResponse, UpdateEmployeePayload, UpdateEmployeeResponse } from "@repo/schemas/rest";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
@@ -64,7 +55,7 @@ export const createEmployee = async (
   const employee = await client.employee.create({
     data: {
       ...rest,
-      role: role as PrismaUtils.Role ?? PrismaUtils.Role,
+      role: (role as PrismaUtils.Role) ?? PrismaUtils.Role,
       teams: {
         connect: teamsId?.map((id) => ({ id })),
       },

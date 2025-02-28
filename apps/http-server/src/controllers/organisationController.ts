@@ -1,15 +1,11 @@
 import { client } from "@repo/db";
 import {
-  DeleteOrganisationResponse,
-  GetOrganisationResponse,
-  RegisterOrganisationPayload,
-  RegisterOrganisationResponse,
   RegisterOrganisationSchema,
-  SetupOrganisationResponse,
 } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
+import { DeleteOrganisationResponse, GetOrganisationResponse, RegisterOrganisationPayload, SetupOrganisationResponse } from "@repo/schemas/rest";
 
 export const setupOrganisation = async (
   req: Request<unknown, unknown, RegisterOrganisationPayload>,

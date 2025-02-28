@@ -1,10 +1,10 @@
-import { ErrorResponse } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../utils";
 import { client } from "@repo/db";
 import { Role } from "@repo/schemas/enum";
 import { StatusCodes } from "http-status-codes";
+import { ErrorResponse } from "@repo/schemas/rest";
 
 export async function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
   const token = (req.cookies as { token?: string }).token;

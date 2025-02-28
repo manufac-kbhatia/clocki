@@ -1,4 +1,5 @@
-import { RegisterOrganisationPayload } from "@repo/schemas";
+import { RegisterOrganisationPayload } from "@repo/schemas/rest";
+
 
 export const RegisterOrgnisationFormNames: Record<
   keyof RegisterOrganisationPayload,

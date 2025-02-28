@@ -1,12 +1,12 @@
 import { Button, Center, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { RegisterOrganisationPayload } from "@repo/schemas";
 import {
   RegisterOrganisationFormLabels,
   RegisterOrganisationFormPlaceholder,
   RegisterOrgnisationFormNames,
 } from "./utils";
 import { RegisterOrganisationSchema } from "@repo/schemas";
+import { RegisterOrganisationPayload } from "@repo/schemas/rest";
 
 export function SetupOrganisation() {
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
