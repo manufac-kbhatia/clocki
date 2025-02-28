@@ -3,7 +3,7 @@ import express from "express";
 import { isAuthenticated, isAuthorized } from "../middlewares";
 import * as teamControllers from "../controllers/projectControllers";
 import catchAsync from "../middlewares/catchAsync";
-import { Role } from "@repo/schemas/enum";
+import { Role } from "@repo/schemas";
 
 const router: Router = express.Router();
 

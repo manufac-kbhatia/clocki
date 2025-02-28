@@ -1,5 +1,33 @@
 import { z } from "zod";
-import { ContractType, Gender, Role } from "./utils";
+
+export const Gender =  {
+  Male : "Male",
+  Female : "Female",
+  NonBinary : "NonBinary",
+  Other : "Other",
+  PreferNotToSay : "PreferNotToSay",
+} as const;
+
+export type Gender = (typeof Gender)[keyof typeof Gender];
+
+export const ContractType =  {
+  Permanent : "Permanent",
+  Intern : "Intern",
+  Contract : "Contract",
+  Other : "Other",
+} as const
+
+export type ContractType = (typeof ContractType)[keyof typeof ContractType];
+
+export const Role = {
+  Admin : "Admin",
+  Hr : "Hr",
+  Manager : "Manager",
+  Other : "Other",
+} as const
+export type Role = (typeof Role)[keyof typeof Role];
+
+
 
 // Zod Schemas
 export const RegisterEmployeeSchema = z.object({
@@ -70,3 +98,4 @@ export const UpdateEmployeeSchema = EmployeeSchema.omit({
   email: true,
   password: true,
 });
+

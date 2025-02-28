@@ -1,4 +1,4 @@
-import { client, Prisma } from "@repo/db";
+import { client } from "@repo/db";
 import { LoginSchema } from "@repo/schemas";
 import { LoginEmployeeResponse, LoginPayload } from "@repo/schemas/rest";
 import { NextFunction, Request, Response } from "express";
