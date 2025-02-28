@@ -1,12 +1,4 @@
-import {
-  Button,
-  Center,
-  PasswordInput,
-  Stack,
-  Text,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { RegisterEmployeePayload, RegisterEmployeeSchema } from "@repo/schemas";
 import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "./utils";

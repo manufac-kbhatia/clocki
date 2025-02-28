@@ -1,5 +1,7 @@
 import { z } from "zod";
-import {ContractType, Employee, Gender, Organisation, Project, Role, Team} from "@repo/db";
+import type { Employee, Organisation, Project, Team } from "@repo/db";
+import { ContractType, Gender, Role } from "./utils";
+
 
 // Zod Schemas
 export const RegisterEmployeeSchema = z.object({

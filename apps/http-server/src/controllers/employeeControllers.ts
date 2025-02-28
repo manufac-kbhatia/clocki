@@ -1,4 +1,4 @@
-import { client, PrismaUtils } from "@repo/db";
+import { client } from "@repo/db";
 import {
   ErrorResponse,
   RegisterEmployeePayload,
@@ -18,6 +18,8 @@ import { JWT_SECRET } from "../utils";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
+import { PrismaUtils } from "@repo/db";
+
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
@@ -62,7 +64,7 @@ export const createEmployee = async (
   const employee = await client.employee.create({
     data: {
       ...rest,
-      role: role ?? PrismaUtils.Role.Other,
+      role: role as PrismaUtils.Role ?? PrismaUtils.Role,
       teams: {
         connect: teamsId?.map((id) => ({ id })),
       },

@@ -10,7 +10,7 @@ import { RegisterEmployeePayload, RegisterEmployeeResponse } from "@repo/schemas
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../utils";
-import { PrismaUtils } from "@repo/db";
+import { Employee } from "@repo/db";
 
 // export function useCreateStitchFile(
 //     params?: UseMutationOptions<StitchItResponse, Error, StitchItPayload>,
@@ -38,11 +38,11 @@ export function useSignUp(
   return mutation;
 }
 
-export function useGetMe(): UseQueryResult<PrismaUtils.Employee> {
+export function useGetMe(): UseQueryResult<Employee> {
   const output = useQuery({
     queryKey: ["getMe"],
     queryFn: async () => {
-      const response = await axios.get<PrismaUtils.Employee>(`${API_URL}/me`);
+      const response = await axios.get<Employee>(`${API_URL}/me`);
       return response.data;
     },
   });

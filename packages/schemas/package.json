@@ -10,7 +10,8 @@
     "@repo/db": "workspace:*"
   },
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./enum": "./src/utils.ts"
   },
   "keywords": [],
   "author": "",
