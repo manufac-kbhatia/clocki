@@ -1,16 +1,21 @@
 import { client } from "@repo/db";
-import {
-  RegisterEmployeeSchema,
-  EmployeeSchema,
-  UpdateEmployeeSchema,
-} from "@repo/schemas";
+import { RegisterEmployeeSchema, EmployeeSchema, UpdateEmployeeSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import { JWT_SECRET } from "../utils";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 import { PrismaUtils } from "@repo/db";
-import { DeleteEmployeeResponse, EmployeePayload, GetEmployeeResponse, GetMeReponse, RegisterEmployeePayload, RegisterEmployeeResponse, UpdateEmployeePayload, UpdateEmployeeResponse } from "@repo/schemas/rest";
+import {
+  DeleteEmployeeResponse,
+  EmployeePayload,
+  GetEmployeeResponse,
+  GetMeReponse,
+  RegisterEmployeePayload,
+  RegisterEmployeeResponse,
+  UpdateEmployeePayload,
+  UpdateEmployeeResponse,
+} from "@repo/schemas/rest";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,

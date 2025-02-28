@@ -30,9 +30,14 @@
         "command": "pnpm start:sb" // This is executed in the terminal.
       },
       {
-        "name": "Demo",
+        "name": "react-app",
         "singleInstance": true,
-        "command": "pnpm start" // This is executed in the terminal.
+        "command": "cd apps/dashboard && pnpm dev" // This is executed in the terminal.
+      },
+      {
+        "name": "express-app",
+        "singleInstance": true,
+        "command": "cd apps/http-server && pnpm dev" // This is executed in the terminal.
       }
     ]
   }

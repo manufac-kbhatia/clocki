@@ -5,12 +5,14 @@ import { SignUp } from "./pages/Signup";
 import { SetupOrganisation } from "./pages/Setup-Organisation/index.tsx";
 import ProtectedRoute from "./pages/Protected-Route/index.tsx";
 import { SignIn } from "./pages/Signin/index.tsx";
+import { Dashboard } from "./pages/Dashboard/index.tsx";
 
 export const Routers = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
+    children: [{ path: "/", element: <Dashboard />, errorElement: <ErrorPage /> }],
   },
   {
     path: "/sign-up",

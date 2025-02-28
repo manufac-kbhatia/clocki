@@ -1,5 +1,13 @@
 import z from "zod";
-import { EmployeeSchema, LoginSchema, ProjectSchema, RegisterEmployeeSchema, RegisterOrganisationSchema, TeamSchema, UpdateEmployeeSchema } from ".";
+import {
+  EmployeeSchema,
+  LoginSchema,
+  ProjectSchema,
+  RegisterEmployeeSchema,
+  RegisterOrganisationSchema,
+  TeamSchema,
+  UpdateEmployeeSchema,
+} from ".";
 import { Prisma } from "@repo/db";
 
 // Infered types from Zod Schemas
@@ -21,8 +29,8 @@ export interface RegisterEmployeeResponse extends BaseResponseType {
 }
 
 export interface LoginEmployeeResponse extends BaseResponseType {
-    employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
-  }
+  employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
+}
 
 export interface RegisterOrganisationResponse extends BaseResponseType {
   organisation: Prisma.OrganisationGetPayload<{}>;
