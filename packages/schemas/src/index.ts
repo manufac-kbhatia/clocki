@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PrismaUtils } from "@repo/db";
+import {ContractType, Employee, Gender, Organisation, Project, Role, Team} from "@repo/db";
 
 // Zod Schemas
 export const RegisterEmployeeSchema = z.object({
@@ -30,16 +30,16 @@ export const EmployeeSchema = z.object({
     .min(10, "Phone number should include 10 digits")
     .max(10, "Phone number should include 10 digits")
     .nullable(),
-  gender: z.nativeEnum(PrismaUtils.Gender),
+  gender: z.nativeEnum(Gender),
   dateOfBirth: z.date(),
 
   // Emploment Info
   hireDate: z.date(),
-  contractType: z.nativeEnum(PrismaUtils.ContractType),
+  contractType: z.nativeEnum(ContractType),
   position: z.string(),
   teamsId: z.array(z.number()).nullable(),
   vacationDays: z.number().nullable(),
-  role: z.nativeEnum(PrismaUtils.Role).nullable(),
+  role: z.nativeEnum(Role).nullable(),
 });
 
 export const TeamSchema = z.object({
@@ -86,11 +86,11 @@ export interface BaseResponseType {
   success: boolean;
 }
 export interface RegisterEmployeeResponse extends BaseResponseType {
-  employee: Omit<PrismaUtils.Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
+  employee: Omit<Employee, "password">; // Ref: https://stackoverflow.com/a/50689136
 }
 
 export interface RegisterOrganisationResponse extends BaseResponseType {
-  organisation: PrismaUtils.Organisation;
+  organisation: Organisation;
 }
 
 export interface DeleteEmployeeResponse extends BaseResponseType {
@@ -99,24 +99,24 @@ export interface DeleteEmployeeResponse extends BaseResponseType {
 }
 
 export interface GetMeReponse extends BaseResponseType {
-  me: Omit<PrismaUtils.Employee, "password">;
+  me: Omit<Employee, "password">;
 }
 
 export interface GetEmployeeResponse extends BaseResponseType {
-  employee: Omit<PrismaUtils.Employee, "password">;
+  employee: Omit<Employee, "password">;
 }
 
 // Check for this
 export interface UpdateEmployeeResponse extends BaseResponseType {
-  employee: Omit<PrismaUtils.Employee, "password">;
+  employee: Omit<Employee, "password">;
 }
 
 export interface SetupOrganisationResponse extends BaseResponseType {
-  organisation: PrismaUtils.Organisation;
+  organisation: Organisation;
 }
 
 export interface GetOrganisationResponse extends BaseResponseType {
-  organisation: PrismaUtils.Organisation;
+  organisation: Organisation;
 }
 
 export interface DeleteOrganisationResponse extends BaseResponseType {
@@ -127,12 +127,12 @@ export interface DeleteOrganisationResponse extends BaseResponseType {
 // Check for this
 export interface CreateProjectResponse extends BaseResponseType {
   success: boolean;
-  project: PrismaUtils.Project;
+  project: Project;
 }
 
 export interface CreateTeamResponse extends BaseResponseType {
   success: boolean;
-  team: PrismaUtils.Team;
+  team: Team;
 }
 
 export interface ErrorResponse {
