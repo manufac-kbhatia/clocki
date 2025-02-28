@@ -1,10 +1,17 @@
-import { Button, Center, PasswordInput, Stack, Text, TextInput, Title, useMantineTheme } from "@mantine/core";
+import {
+  Button,
+  Center,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { LoginPayload, LoginSchema } from "@repo/schemas";
-import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./utils"
+import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./utils";
 
 export function SignIn() {
-  const theme = useMantineTheme();
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({
     initialValues: {
       email: "",
@@ -22,7 +29,7 @@ export function SignIn() {
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
-          <Title size="h6" ta="center" c={theme.colors.dark[6]}>
+          <Title size="h6" ta="center">
             Clocki
           </Title>
           <Text size="lg" ta="center">

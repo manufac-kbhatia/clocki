@@ -4,5 +4,36 @@
       "mode": "auto"
     }
   ],
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "prettier.prettierPath": "./.prettierrc",
+  "actionButtons": {
+    "loadNpmCommands": false,
+    "commands": [
+      {
+        "name": "Compile",
+        "singleInstance": true,
+        "command": "pnpm compile" // This is executed in the terminal.
+      },
+      {
+        "name": "Lint",
+        "singleInstance": true,
+        "command": "pnpm lint" // This is executed in the terminal.
+      },
+      {
+        "name": "Prettify",
+        "singleInstance": true,
+        "command": "pnpm pretty" // This is executed in the terminal.
+      },
+      {
+        "name": "Stories",
+        "singleInstance": true,
+        "command": "pnpm start:sb" // This is executed in the terminal.
+      },
+      {
+        "name": "Demo",
+        "singleInstance": true,
+        "command": "pnpm start" // This is executed in the terminal.
+      }
+    ]
+  }
 }

@@ -1,4 +1,4 @@
-import { Button, Center, Stack, Text, TextInput, Title, useMantineTheme } from "@mantine/core";
+import { Button, Center, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { RegisterOrganisationPayload } from "@repo/schemas";
 import {
@@ -9,7 +9,6 @@ import {
 import { RegisterOrganisationSchema } from "@repo/schemas";
 
 export function SetupOrganisation() {
-  const theme = useMantineTheme();
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
     initialValues: {
       companyName: "",
@@ -29,7 +28,7 @@ export function SetupOrganisation() {
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
-          <Title size="h6" ta="center" c={theme.colors.dark[6]}>
+          <Title size="h6" ta="center">
             Clocki
           </Title>
           <Text size="lg" ta="center">
