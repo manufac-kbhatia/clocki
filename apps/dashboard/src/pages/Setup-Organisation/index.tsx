@@ -7,8 +7,16 @@ import {
 } from "./utils";
 import { RegisterOrganisationSchema } from "@repo/schemas";
 import { RegisterOrganisationPayload } from "@repo/schemas/rest";
+import { useSetupOrganisation } from "../../hooks/api";
+import { useNavigate } from "react-router";
 
 export function SetupOrganisation() {
+  const navigate = useNavigate();
+  const {mutate: setupOrganisation} = useSetupOrganisation({
+    onSuccess: () => {
+      navigate("/", {replace: true});
+    }
+  });
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
     initialValues: {
       companyName: "",
@@ -22,7 +30,7 @@ export function SetupOrganisation() {
   });
 
   const handlesubmit = (payload: RegisterOrganisationPayload) => {
-    console.log(payload);
+    setupOrganisation(payload);
   };
   return (
     <Center h="100vh" p="md">

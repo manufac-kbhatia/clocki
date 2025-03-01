@@ -1,15 +1,16 @@
-import { RegisterEmployeePayload, RegisterEmployeeResponse } from "@repo/schemas/rest";
+import { GetMeReponse, RegisterEmployeePayload, RegisterEmployeeResponse, RegisterOrganisationPayload, RegisterOrganisationResponse } from "@repo/schemas/rest";
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../utils";
-import type { Prisma } from "@repo/db";
 
 export function useSignUp(
-  params?: UseMutationOptions<unknown, Error, RegisterEmployeePayload>,
-): UseMutationResult<unknown, Error, RegisterEmployeePayload> {
+  params?: UseMutationOptions<RegisterEmployeeResponse, Error, RegisterEmployeePayload>,
+): UseMutationResult<RegisterEmployeeResponse, Error, RegisterEmployeePayload> {
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<RegisterEmployeeResponse>(`${API_URL}/register`, payload);
+      const reponse = await axios.post<RegisterEmployeeResponse>(`${API_URL}/register`, payload, {
+        withCredentials: true,
+      });
       return reponse.data;
     },
     ...params,
@@ -17,13 +18,31 @@ export function useSignUp(
   return mutation;
 }
 
-export function useGetMe(): UseQueryResult<Prisma.EmployeeGetPayload<{ omit: { password: true } }>> {
+export function useGetMe(): UseQueryResult<GetMeReponse> {
   const output = useQuery({
     queryKey: ["getMe"],
     queryFn: async () => {
-      const response = await axios.get<Prisma.EmployeeGetPayload<{ omit: { password: true } }>>(`${API_URL}/me`);
+      const response = await axios.get<GetMeReponse>(`${API_URL}/me`, {
+        withCredentials: true,
+      });
       return response.data;
     },
+    retry: false,
   });
   return output;
+}
+
+export function useSetupOrganisation(
+  params?: UseMutationOptions<RegisterOrganisationResponse, Error, RegisterOrganisationPayload>,
+): UseMutationResult<RegisterOrganisationResponse, Error, RegisterOrganisationPayload> {
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axios.post<RegisterOrganisationResponse>(`${API_URL}/organisations`, payload, {
+        withCredentials: true,
+      });
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
 }

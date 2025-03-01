@@ -30,6 +30,11 @@
         "command": "cd packages/prisma && npx prisma migrate dev" // This is executed in the terminal.
       },
       {
+        "name": "Prisma Reset",
+        "singleInstance": true,
+        "command": "cd packages/prisma && npx prisma migrate reset" // This is executed in the terminal.
+      },
+      {
         "name": "Studio",
         "singleInstance": true,
         "command": "cd packages/prisma && npx prisma studio" // This is executed in the terminal.

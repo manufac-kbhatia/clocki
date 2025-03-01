@@ -42,7 +42,10 @@ export const register = async (
   });
 
   const token = jwt.sign({ id: employee.id }, JWT_SECRET);
-  res.status(200).cookie("token", token, { httpOnly: true }).json({ success: true, employee });
+  res
+    .status(200)
+    .cookie("token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 })
+    .json({ success: true, employee });
 };
 
 export const createEmployee = async (
@@ -184,6 +187,7 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
     omit: {
       password: true,
     },
+    include: { createdOrganisation: true },
   });
 
   if (me === null) {

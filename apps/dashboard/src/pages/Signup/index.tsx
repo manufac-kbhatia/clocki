@@ -5,10 +5,15 @@ import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "
 import { useSignUp } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { RegisterEmployeePayload } from "@repo/schemas/rest";
+import { useLocation, useNavigate } from "react-router";
+import { useEffect } from "react";
+import { Loader } from "../../components/Loader";
 
 export function SignUp() {
-  const { setIsAuthenticated } = useClockiContext();
-  const { mutate: registerUser } = useSignUp({
+  const { isAuthenticated, setIsAuthenticated, isAuthLoading, user } = useClockiContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { mutate: registerUser, isPending } = useSignUp({
     onSuccess: () => {
       setIsAuthenticated(true);
     },
@@ -28,50 +33,60 @@ export function SignUp() {
   const handlesubmit = (payload: RegisterEmployeePayload) => {
     registerUser(payload);
   };
+
+  useEffect(() => {
+    if (isAuthenticated === true && !user?.createdOrganisation) {
+      navigate("/setup-organisation", { replace: true });
+    }
+  }, [isAuthenticated, location, navigate, user?.createdOrganisation]);
+
   return (
-    <Center h="100vh" p="md">
-      <Stack w={{ base: 400, sm: 400 }}>
-        <Stack>
-          <Title size="h6" ta="center">
-            Clocki
-          </Title>
-          <Text size="lg" ta="center">
-            Enter your details to create an account
-          </Text>
-        </Stack>
-        <form onSubmit={onSubmit(handlesubmit)}>
+    <>
+      <Loader isVisible={isPending || isAuthLoading} />
+      <Center h="100vh" p="md">
+        <Stack w={{ base: 400, sm: 400 }}>
           <Stack>
-            <TextInput
-              {...getInputProps(RegisterFormNames.firstName)}
-              key={key(RegisterFormNames.firstName)}
-              label={RegisterFormLabels.firstName}
-              placeholder={RegisterFormPlaceholder.firstName}
-            />
-            <TextInput
-              {...getInputProps(RegisterFormNames.lastName)}
-              key={key(RegisterFormNames.lastName)}
-              label={RegisterFormLabels.lastName}
-              placeholder={RegisterFormPlaceholder.lastName}
-            />
-
-            <TextInput
-              {...getInputProps(RegisterFormNames.email)}
-              key={key(RegisterFormNames.email)}
-              label={RegisterFormLabels.email}
-              placeholder={RegisterFormPlaceholder.email}
-            />
-
-            <PasswordInput
-              {...getInputProps(RegisterFormNames.password)}
-              key={key(RegisterFormNames.password)}
-              label={RegisterFormLabels.password}
-              placeholder={RegisterFormPlaceholder.password}
-            />
-
-            <Button type="submit">Sign up</Button>
+            <Title size="h6" ta="center">
+              Clocki
+            </Title>
+            <Text size="lg" ta="center">
+              Enter your details to create an account
+            </Text>
           </Stack>
-        </form>
-      </Stack>
-    </Center>
+          <form onSubmit={onSubmit(handlesubmit)}>
+            <Stack>
+              <TextInput
+                {...getInputProps(RegisterFormNames.firstName)}
+                key={key(RegisterFormNames.firstName)}
+                label={RegisterFormLabels.firstName}
+                placeholder={RegisterFormPlaceholder.firstName}
+              />
+              <TextInput
+                {...getInputProps(RegisterFormNames.lastName)}
+                key={key(RegisterFormNames.lastName)}
+                label={RegisterFormLabels.lastName}
+                placeholder={RegisterFormPlaceholder.lastName}
+              />
+
+              <TextInput
+                {...getInputProps(RegisterFormNames.email)}
+                key={key(RegisterFormNames.email)}
+                label={RegisterFormLabels.email}
+                placeholder={RegisterFormPlaceholder.email}
+              />
+
+              <PasswordInput
+                {...getInputProps(RegisterFormNames.password)}
+                key={key(RegisterFormNames.password)}
+                label={RegisterFormLabels.password}
+                placeholder={RegisterFormPlaceholder.password}
+              />
+
+              <Button type="submit">Sign up</Button>
+            </Stack>
+          </form>
+        </Stack>
+      </Center>
+    </>
   );
 }
