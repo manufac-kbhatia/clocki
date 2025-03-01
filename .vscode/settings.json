@@ -25,9 +25,14 @@
         "command": "pnpm pretty" // This is executed in the terminal.
       },
       {
-        "name": "Stories",
+        "name": "migrate",
         "singleInstance": true,
-        "command": "pnpm start:sb" // This is executed in the terminal.
+        "command": "cd packages/prisma && npx prisma migrate dev" // This is executed in the terminal.
+      },
+      {
+        "name": "Studio",
+        "singleInstance": true,
+        "command": "cd packages/prisma && npx prisma studio" // This is executed in the terminal.
       },
       {
         "name": "react-app",

@@ -32,7 +32,7 @@ enum Role {
 model Employee {
   id          Int       @id @default(autoincrement())
   firstName   String?
-  lastname    String?
+  lastName    String?
   email       String    @unique
   password    String
   address     String?
