@@ -12,10 +12,10 @@ import { useNavigate } from "react-router";
 
 export function SetupOrganisation() {
   const navigate = useNavigate();
-  const {mutate: setupOrganisation} = useSetupOrganisation({
+  const { mutate: setupOrganisation } = useSetupOrganisation({
     onSuccess: () => {
-      navigate("/", {replace: true});
-    }
+      navigate("/", { replace: true });
+    },
   });
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
     initialValues: {
@@ -37,7 +37,7 @@ export function SetupOrganisation() {
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
           <Title size="h6" ta="center">
-            Clocki
+            Cloki
           </Title>
           <Text size="lg" ta="center">
             Enter details to setup the company/organisation

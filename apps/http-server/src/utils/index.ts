@@ -1,1 +1,2 @@
-export const JWT_SECRET = "S3CR3T";
+export const REFRESH_JWT_SECRET = "S3CR3T_R";
+export const ACCESS_TOKEN_SECRET = "S3CRET_A";

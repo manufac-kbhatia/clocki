@@ -3,15 +3,11 @@ import { LoginSchema } from "@repo/schemas";
 import { LoginEmployeeResponse, LoginPayload } from "@repo/schemas/rest";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../utils";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
+import { getJWTTokens } from "../utils/jwt";
 
-export const login = async (
-  req: Request<unknown, unknown, LoginPayload>,
-  res: Response<LoginEmployeeResponse>,
-  next: NextFunction,
-) => {
+export const login = async (req: Request<unknown, unknown, LoginPayload>, res: Response, next: NextFunction) => {
   const payload = req.body;
   const parseResult = LoginSchema.safeParse(payload);
   if (parseResult.success === false) {
@@ -24,7 +20,12 @@ export const login = async (
     where: {
       email: data.email,
     },
+    include: {
+      createdOrganisation: true,
+      organisation: true,
+    },
   });
+
   if (employee === null) {
     next(new ErrorHandler("Employee with this email not found", StatusCodes.NOT_FOUND));
     return;
@@ -34,13 +35,13 @@ export const login = async (
     return;
   }
 
-  const token = jwt.sign({ id: employee.id }, JWT_SECRET);
-  const { password, ...employeeWithoutPassword } = employee;
-  res
-    .status(200)
-    .cookie("token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 })
-    .json({
-      success: true,
-      employee: employeeWithoutPassword,
-    });
+  const { accessToken, refreshToken } = getJWTTokens({ id: employee.id });
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  res.status(StatusCodes.OK).json({ accessToken });
 };

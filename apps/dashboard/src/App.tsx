@@ -22,9 +22,13 @@ export function App() {
               color: "#1d2031", // TODO: use mantine theme
             }}
           >
-            <Title>CL</Title>
-            <Image src="/clock.svg" w={30} />
-            <Title>KI</Title>
+            <Title size="h2" ta="center">
+              cl
+            </Title>
+            <Image src="/clock.svg" w={25} />
+            <Title size="h2" ta="center">
+              ki
+            </Title>
           </Group>
         </Group>
       </AppShell.Header>

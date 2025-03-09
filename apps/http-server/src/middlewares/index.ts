@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../utils";
+import { ACCESS_TOKEN_SECRET } from "../utils";
 import { client } from "@repo/db";
 import { StatusCodes } from "http-status-codes";
 import { ErrorResponse } from "@repo/schemas/rest";
 import type { Role } from "@repo/schemas";
 
 export async function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
-  const token = (req.cookies as { token?: string }).token;
-  if (typeof token !== "string") {
+  const authHeader = req.headers["Authorization"];
+  if (authHeader === undefined) {
     res.status(StatusCodes.UNAUTHORIZED).json({
       success: false,
       message: "Unauthorized",
@@ -16,37 +16,20 @@ export async function isAuthenticated(req: Request, res: Response<ErrorResponse>
     return;
   }
 
-  const decoded = jwt.verify(token, JWT_SECRET);
+  if (typeof authHeader === "string") {
+    const token = authHeader.split(" ")[1];
 
-  if (decoded && typeof decoded !== "string") {
-    const employee = await client.employee.findUnique({
-      where: {
-        id: decoded.id,
-      },
-      omit: {
-        password: true,
-      },
-    });
-    if (employee === null) {
-      res.status(StatusCodes.UNAUTHORIZED).json({
-        success: false,
-        message: "Unauthorized",
-      });
-      return;
+    if (typeof token === "string") {
+      const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as Record<string, string>;
+      req.employeeId = decoded.id;
+      next();
     }
-    req.employee = employee;
-    next();
-  } else {
-    res.status(StatusCodes.UNAUTHORIZED).json({
-      success: false,
-      message: "Unauthorized",
-    });
   }
 }
 
 export function isAuthorized(roles: Role[]) {
   return (req: Request, res: Response<ErrorResponse>, next: NextFunction) => {
-    const role = req.employee?.role as Role;
+    const role = req.role;
     if (role !== undefined && roles.includes(role)) {
       next();
     } else {

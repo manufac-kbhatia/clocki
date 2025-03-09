@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router";
 import { useEffect } from "react";
 import { Loader } from "../../components/Loader";
 
-export function SignUp() {
+export function Register() {
   const { isAuthenticated, setIsAuthenticated, isAuthLoading, user } = useClockiContext();
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,7 +47,7 @@ export function SignUp() {
         <Stack w={{ base: 400, sm: 400 }}>
           <Stack>
             <Title size="h6" ta="center">
-              Clocki
+              Cloki
             </Title>
             <Text size="lg" ta="center">
               Enter your details to create an account
@@ -82,7 +82,7 @@ export function SignUp() {
                 placeholder={RegisterFormPlaceholder.password}
               />
 
-              <Button type="submit">Sign up</Button>
+              <Button type="submit">Register</Button>
             </Stack>
           </form>
         </Stack>

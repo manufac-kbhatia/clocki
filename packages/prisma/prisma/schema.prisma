@@ -30,7 +30,7 @@ enum Role {
 }
 
 model Employee {
-  id          Int       @id @default(autoincrement())
+  id          String    @id @default(uuid())
   firstName   String?
   lastName    String?
   email       String    @unique
@@ -50,12 +50,12 @@ model Employee {
   projects            Project[]     @relation("AssignedProjects")
   responsibleTeams    Team[]        @relation("ResponsibleTeams")
 
-  organisationId Int?
+  organisationId String?
   organisation   Organisation? @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }
 
 model Organisation {
-  id        Int    @id @default(autoincrement())
+  id        String @id @default(uuid())
   name      String
   address   String
   city      String
@@ -64,37 +64,37 @@ model Organisation {
   employees   Employee[]
   teams       Team[]
   projects    Project[]
-  createdById Int        @unique
+  createdById String     @unique
   createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id], onDelete: Cascade)
 }
 
 model EmployeeInfo {
-  id           Int          @id @default(autoincrement())
+  id           String       @id @default(uuid())
   hireDate     DateTime
   positon      String
   contractType ContractType
   vacationDays Int          @default(0)
 
-  employeeId Int      @unique
+  employeeId String   @unique
   employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }
 
 model Team {
-  id   Int    @id @default(autoincrement())
+  id   String @id @default(uuid())
   name String
 
-  teamLeadId Int
+  teamLeadId String
   teamLead   Employee @relation("ResponsibleTeams", fields: [teamLeadId], references: [id], onDelete: Cascade)
 
   members        Employee[]   @relation("EmployeeTeams")
-  organisationId Int
+  organisationId String
   Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }
 
 model Project {
-  id             Int          @id @default(autoincrement())
+  id             String       @id @default(uuid())
   name           String
   members        Employee[]   @relation("AssignedProjects")
-  organisationId Int
+  organisationId String
   Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
 }

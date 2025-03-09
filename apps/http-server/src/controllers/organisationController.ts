@@ -29,7 +29,7 @@ export const setupOrganisation = async (
       vatNumber: payload.vatNumber,
       createdBy: {
         connect: {
-          id: req.employee?.id,
+          id: req.employeeId,
         },
       },
     },
@@ -46,7 +46,7 @@ export const deleteOrganisation = async (
   res: Response<DeleteOrganisationResponse>,
   next: NextFunction,
 ) => {
-  const organisationId = parseInt(req.params.id);
+  const organisationId = req.params.id;
   const organisationExist = await client.organisation.findUnique({
     where: {
       id: organisationId,
@@ -75,7 +75,7 @@ export const getOrganisation = async (
   res: Response<GetOrganisationResponse>,
   next: NextFunction,
 ) => {
-  const id = parseInt(req.params.id);
+  const id = req.params.id;
   const organisation = await client.organisation.findUnique({
     where: {
       id,

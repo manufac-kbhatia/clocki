@@ -63,28 +63,28 @@ export const EmployeeSchema = z.object({
   hireDate: z.date(),
   contractType: z.nativeEnum(ContractType),
   position: z.string(),
-  teamsId: z.array(z.number()).nullable(),
+  teamsId: z.array(z.string()).nullable(),
   vacationDays: z.number().nullable(),
   role: z.nativeEnum(Role).nullable(),
 });
 
 export const TeamSchema = z.object({
   name: z.string().min(1, "Please provide a name to make team"),
-  organisationId: z.number({
+  organisationId: z.string({
     required_error: "Organisation Id is required for team formation",
   }),
-  teamLeadId: z.number({
+  teamLeadId: z.string({
     required_error: "Team Lead is required for team formation",
   }),
-  members: z.array(z.number()).nullable(),
+  members: z.array(z.string()).nullable(),
 });
 
 export const ProjectSchema = z.object({
   name: z.string().min(1, "Please provide a name to create a project"),
-  organisationId: z.number({
+  organisationId: z.string({
     required_error: "Organisation Id is required to create a project",
   }),
-  members: z.array(z.number()).nullable(),
+  members: z.array(z.string()).nullable(),
 });
 
 export const LoginSchema = z.object({

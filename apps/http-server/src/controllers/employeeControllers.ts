@@ -1,7 +1,6 @@
 import { client } from "@repo/db";
 import { RegisterEmployeeSchema, EmployeeSchema, UpdateEmployeeSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
-import { JWT_SECRET } from "../utils";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
@@ -16,10 +15,11 @@ import {
   UpdateEmployeePayload,
   UpdateEmployeeResponse,
 } from "@repo/schemas/rest";
+import { getJWTTokens } from "../utils/jwt";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
-  res: Response<RegisterEmployeeResponse>,
+  res: Response,
   next: NextFunction,
 ) => {
   const payload = req.body;
@@ -41,11 +41,15 @@ export const register = async (
     },
   });
 
-  const token = jwt.sign({ id: employee.id }, JWT_SECRET);
-  res
-    .status(200)
-    .cookie("token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 })
-    .json({ success: true, employee });
+  const { accessToken, refreshToken } = getJWTTokens({ id: employee.id });
+
+  res.cookie("refreshToken", refreshToken, {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000,
+  });
+  res.status(StatusCodes.OK).json({ accessToken });
 };
 
 export const createEmployee = async (
@@ -87,7 +91,7 @@ export const getEmployee = async (
   res: Response<GetEmployeeResponse>,
   next: NextFunction,
 ) => {
-  const employeeId = parseInt(req.params.id);
+  const employeeId = req.params.id;
   const employee = await client.employee.findUnique({
     where: {
       id: employeeId,
@@ -118,7 +122,7 @@ export const updateEmployee = async (
     next(new ErrorHandler("Invalid input", StatusCodes.BAD_REQUEST));
     return;
   }
-  const employeeId = parseInt(req.params.id);
+  const employeeId = req.params.id;
   const { role, hireDate, contractType, vacationDays, position, teamsId, ...rest } = parseResult.data;
   const employee = await client.employee.update({
     where: {
@@ -155,7 +159,7 @@ export const deleteEmployee = async (
   res: Response<DeleteEmployeeResponse>,
   next: NextFunction,
 ) => {
-  const employeeId = parseInt(req.params.id);
+  const employeeId = req.params.id;
   const employeeExist = await client.employee.findUnique({
     where: {
       id: employeeId,
@@ -182,7 +186,7 @@ export const deleteEmployee = async (
 export const getMe = async (req: Request, res: Response<GetMeReponse>, next: NextFunction) => {
   const me = await client.employee.findUnique({
     where: {
-      id: req.employee?.id,
+      id: req.employeeId,
     },
     omit: {
       password: true,

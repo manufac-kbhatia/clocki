@@ -1,4 +1,12 @@
-import { GetMeReponse, RegisterEmployeePayload, RegisterEmployeeResponse, RegisterOrganisationPayload, RegisterOrganisationResponse } from "@repo/schemas/rest";
+import {
+  GetMeReponse,
+  LoginEmployeeResponse,
+  LoginPayload,
+  RegisterEmployeePayload,
+  RegisterEmployeeResponse,
+  RegisterOrganisationPayload,
+  RegisterOrganisationResponse,
+} from "@repo/schemas/rest";
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import axios from "axios";
 import { API_URL } from "../../utils";
@@ -9,6 +17,21 @@ export function useSignUp(
   const mutation = useMutation({
     mutationFn: async (payload) => {
       const reponse = await axios.post<RegisterEmployeeResponse>(`${API_URL}/register`, payload, {
+        withCredentials: true,
+      });
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
+}
+
+export function useLogin(
+  params?: UseMutationOptions<LoginEmployeeResponse, Error, LoginPayload>,
+): UseMutationResult<LoginEmployeeResponse, Error, LoginPayload> {
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axios.post<LoginEmployeeResponse>(`${API_URL}/auth/login`, payload, {
         withCredentials: true,
       });
       return reponse.data;

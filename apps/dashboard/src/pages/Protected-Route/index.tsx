@@ -9,7 +9,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { isAuthenticated, isAuthLoading } = useClockiContext();
   if (isAuthLoading === true) return <Loader />;
-  return isAuthenticated === false ? <Navigate to="/sign-up" replace={true} /> : <>{children}</>;
+  return isAuthenticated === false ? <Navigate to="/register" replace={true} /> : <>{children}</>;
 };
 
 export default ProtectedRoute;
