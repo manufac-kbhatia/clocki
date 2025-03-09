@@ -12,9 +12,7 @@ router
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.createEmployee));
 router
   .route("/employees/:id")
-  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.getEmployee));
-router
-  .route("/employees/:id")
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.getEmployee))
   .put(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.updateEmployee));
 
 router.route("/me").get(isAuthenticated, catchAsync(employeeControllers.getMe));
