@@ -41,7 +41,7 @@ export const register = async (
     },
   });
 
-  const { accessToken, refreshToken } = getJWTTokens({ id: employee.id });
+  const { accessToken, refreshToken } = getJWTTokens({ id: employee.id, role: employee.role });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,

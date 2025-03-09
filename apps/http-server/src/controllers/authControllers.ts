@@ -19,11 +19,7 @@ export const login = async (req: Request<unknown, unknown, LoginPayload>, res: R
   const employee = await client.employee.findUnique({
     where: {
       email: data.email,
-    },
-    include: {
-      createdOrganisation: true,
-      organisation: true,
-    },
+    }
   });
 
   if (employee === null) {
@@ -35,7 +31,7 @@ export const login = async (req: Request<unknown, unknown, LoginPayload>, res: R
     return;
   }
 
-  const { accessToken, refreshToken } = getJWTTokens({ id: employee.id });
+  const { accessToken, refreshToken } = getJWTTokens({ id: employee.id, role: employee.role });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,

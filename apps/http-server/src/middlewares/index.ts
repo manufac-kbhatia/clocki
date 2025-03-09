@@ -22,6 +22,7 @@ export async function isAuthenticated(req: Request, res: Response<ErrorResponse>
     if (typeof token === "string") {
       const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as Record<string, string>;
       req.employeeId = decoded.id;
+      req.role = decoded.role as Role;
       next();
     }
   }

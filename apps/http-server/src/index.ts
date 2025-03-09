@@ -5,17 +5,28 @@ import authRoutes from "./routes/authRoutes";
 import teamRoute from "./routes/teamRoutes";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/error";
-import cors from "cors";
+import cors, { CorsOptions } from "cors";
+import { StatusCodes } from "http-status-codes";
 
 const PORT = 8080;
 
 const app = express();
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  }),
-);
+
+const whitelist = ["http://localhost:5173"];
+
+const corsOptions: cors.CorsOptions = {
+  origin: (origin, callback) => {
+    if (!origin || whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: StatusCodes.OK,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
