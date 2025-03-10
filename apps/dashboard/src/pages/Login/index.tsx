@@ -7,9 +7,11 @@ import { useLogin } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { useLocation, useNavigate } from "react-router";
 import { LocatioState } from "../../utils";
+import { useEffect } from "react";
+import { Loader } from "../../components/Loader";
 
 export function Login() {
-  const { setAuth } = useClockiContext();
+  const { setAuth, auth } = useClockiContext();
 
   const navigate = useNavigate();
   const locatoin = useLocation();
@@ -17,6 +19,7 @@ export function Login() {
   const from = state?.from ?? "/";
   console.log("from", from);
 
+ 
   const { mutate: login } = useLogin({
     onSuccess: (data) => {
       console.log(data);
@@ -40,7 +43,18 @@ export function Login() {
     login(payload);
   };
 
+  useEffect(() => {
+    if (auth?.isAuthenticated) {
+      navigate(from, {replace: true});
+      return;
+    }
+  },[auth?.isAuthenticated, from, navigate])
+
+
+  console.log("status", auth?.isAuthenticated);
+
   return (
+    auth?.isAuthenticated ? <Loader isVisible={auth?.isAuthenticated} /> :
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
@@ -58,18 +72,19 @@ export function Login() {
               key={key(SignInFormNames.email)}
               label={SignInFormLabels.email}
               placeholder={SignInFormPlaceholder.email}
-            />
+              />
             <PasswordInput
               {...getInputProps(SignInFormNames.password)}
               key={key(SignInFormNames.password)}
               label={SignInFormLabels.password}
               placeholder={SignInFormPlaceholder.password}
-            />
+              />
 
             <Button type="submit">Login</Button>
           </Stack>
         </form>
       </Stack>
     </Center>
+
   );
 }
