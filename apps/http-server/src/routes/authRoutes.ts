@@ -5,5 +5,7 @@ import catchAsync from "../middlewares/catchAsync";
 const router: Router = express.Router();
 
 router.route("/auth/login").post(catchAsync(authControllers.login));
+router.route("/auth/logout").post(catchAsync(authControllers.logout));
+router.route("/auth/refresh").post(catchAsync(authControllers.refreshToken));
 
 export default router;

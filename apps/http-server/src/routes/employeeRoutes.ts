@@ -7,14 +7,14 @@ import { Role } from "@repo/schemas";
 const router: Router = express.Router();
 
 router.route("/register").post(catchAsync(employeeControllers.register));
+router.route("/employee/me").get(isAuthenticated, catchAsync(employeeControllers.getMe));
+
 router
-  .route("/employees")
+  .route("/employee")
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.createEmployee));
 router
-  .route("/employees/:id")
+  .route("/employee/:id")
   .get(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.getEmployee))
   .put(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.updateEmployee));
-
-router.route("/me").get(isAuthenticated, catchAsync(employeeControllers.getMe));
 
 export default router;

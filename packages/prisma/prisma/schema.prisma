@@ -30,16 +30,17 @@ enum Role {
 }
 
 model Employee {
-  id          String    @id @default(uuid())
-  firstName   String?
-  lastName    String?
-  email       String    @unique
-  password    String
-  address     String?
-  city        String?
-  postalCode  String?
-  phoneNumber String?
-  dateOfBirth DateTime?
+  id           String    @id @default(uuid())
+  firstName    String?
+  lastName     String?
+  email        String    @unique
+  password     String
+  address      String?
+  city         String?
+  postalCode   String?
+  phoneNumber  String?
+  dateOfBirth  DateTime?
+  refreshToken String?
 
   role   Role
   gender Gender?

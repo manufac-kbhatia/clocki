@@ -16,6 +16,6 @@ router
 
 router
   .route("/organisations/:id")
-  .get(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.deleteOrganisation));
+  .get(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.getOrganisation));
 
 export default router;

@@ -5,25 +5,33 @@ import { client } from "@repo/db";
 import { StatusCodes } from "http-status-codes";
 import { ErrorResponse } from "@repo/schemas/rest";
 import type { Role } from "@repo/schemas";
+import ErrorHandler from "../utils/errorHandler";
 
-export async function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
-  const authHeader = req.headers["Authorization"];
-  if (authHeader === undefined) {
-    res.status(StatusCodes.UNAUTHORIZED).json({
-      success: false,
-      message: "Unauthorized",
-    });
-    return;
-  }
+export function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
+  try {
+    const authHeader = req.headers["authorization"];
+    if (authHeader === undefined) {
+      res.status(StatusCodes.UNAUTHORIZED).json({
+        success: false,
+        message: "Unauthorized",
+      });
+      return;
+    }
 
-  if (typeof authHeader === "string") {
-    const token = authHeader.split(" ")[1];
+    if (typeof authHeader === "string") {
+      const token = authHeader.split(" ")[1];
 
-    if (typeof token === "string") {
-      const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as Record<string, string>;
-      req.employeeId = decoded.id;
-      req.role = decoded.role as Role;
-      next();
+      if (typeof token === "string") {
+        const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as Record<string, string>;
+        req.employeeId = decoded.id;
+        req.role = decoded.role as Role;
+        next();
+      }
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      next(new ErrorHandler(error.message, StatusCodes.UNAUTHORIZED));
+      return;
     }
   }
 }
