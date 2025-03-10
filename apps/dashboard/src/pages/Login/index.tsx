@@ -15,6 +15,7 @@ export function Login() {
   const locatoin = useLocation();
   const state = locatoin.state as LocatioState | null;
   const from = state?.from ?? "/";
+  console.log("from", from);
 
   const { mutate: login } = useLogin({
     onSuccess: (data) => {

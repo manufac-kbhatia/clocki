@@ -1,9 +1,7 @@
-import { Link } from 'react-router'
+import { Link } from "react-router";
 
 const PageA = () => {
-  return (
-    <Link to={"/"}>Dashboard</Link>
-  )
-}
+  return <Link to={"/"}>Home</Link>;
+};
 
-export default PageA
+export default PageA;
