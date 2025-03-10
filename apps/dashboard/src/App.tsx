@@ -28,5 +28,5 @@ export function App() {
     }
   }, [auth?.isAuthenticated, refresh]);
 
-  return <>{isLoading === true ? <Loader /> : <Outlet />}</>;
+  return isLoading === true ? <Loader /> : <Outlet />;
 }
