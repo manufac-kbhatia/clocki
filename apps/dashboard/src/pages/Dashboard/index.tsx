@@ -1,5 +1,8 @@
 import { Text } from "@mantine/core";
+import { useGetMe } from "../../hooks/api";
 
 export function Dashboard() {
-  return <Text>this is dashboard</Text>;
+  const {data} = useGetMe();
+
+  return <Text>{data?.me.firstName} : {data?.me.email}</Text>;
 }

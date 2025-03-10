@@ -42,7 +42,7 @@ export function useGetMe(): UseQueryResult<GetMeReponse> {
   const output = useQuery({
     queryKey: ["getMe"],
     queryFn: async () => {
-      const response = await axiosPrivate.get<GetMeReponse>("/me");
+      const response = await axiosPrivate.get<GetMeReponse>("/employee/me");
       return response.data;
     },
     retry: false,

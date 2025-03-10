@@ -13,8 +13,6 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = () => {
     from: pathname.length > 0 ? pathname : undefined,
   };
 
-  console.log("auth", auth);
-
   return auth?.isAuthenticated === true ? (
     <Outlet />
   ) : (
