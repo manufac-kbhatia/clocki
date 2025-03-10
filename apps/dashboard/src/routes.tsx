@@ -6,6 +6,7 @@ import { SetupOrganisation } from "./pages/Setup-Organisation/index.tsx";
 import ProtectedRoute from "./pages/Protected-Route/index.tsx";
 import { Login } from "./pages/Login/index.tsx";
 import { Dashboard } from "./pages/Dashboard/index.tsx";
+import PageA from "./pages/Page-A/index.tsx";
 
 export const Routers = createBrowserRouter([
   {
@@ -16,7 +17,10 @@ export const Routers = createBrowserRouter([
       </ProtectedRoute>
     ),
     errorElement: <ErrorPage />,
-    children: [{ path: "/", element: <Dashboard />, errorElement: <ErrorPage /> }],
+    children: [
+      { path: "/", element: <Dashboard />, errorElement: <ErrorPage /> },
+      { path: "/page", element: <PageA />, errorElement: <ErrorPage /> },
+    ],
   },
   {
     path: "/register",

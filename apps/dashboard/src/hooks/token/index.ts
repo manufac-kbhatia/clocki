@@ -4,7 +4,7 @@ import { RefreshTokenResponse } from "@repo/schemas/rest";
 const useRefreshToken = () => {
   const { setAuth } = useClockiContext();
   const refresh = async () => {
-    const response = await axios.get<RefreshTokenResponse>("/refresh", {
+    const response = await axios.get<RefreshTokenResponse>("/auth/refresh", {
       withCredentials: true,
     });
 

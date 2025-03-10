@@ -16,7 +16,7 @@ export function useSignUp(
 ): UseMutationResult<RegisterEmployeeResponse, Error, RegisterEmployeePayload> {
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<RegisterEmployeeResponse>("/register", payload);
+      const reponse = await axios.post<RegisterEmployeeResponse>("/register", payload, {withCredentials: true});
       return reponse.data;
     },
     ...params,
@@ -29,7 +29,7 @@ export function useLogin(
 ): UseMutationResult<LoginEmployeeResponse, Error, LoginPayload> {
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<LoginEmployeeResponse>("/auth/login", payload);
+      const reponse = await axios.post<LoginEmployeeResponse>("/auth/login", payload, {withCredentials: true});
       return reponse.data;
     },
     ...params,
