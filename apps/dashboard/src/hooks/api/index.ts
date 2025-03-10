@@ -8,17 +8,15 @@ import {
   RegisterOrganisationResponse,
 } from "@repo/schemas/rest";
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
-import axios from "axios";
-import { API_URL } from "../../utils";
+import useAxiosPrivate from "../axios/useAxiosPrivate";
+import axios from "../axios";
 
 export function useSignUp(
   params?: UseMutationOptions<RegisterEmployeeResponse, Error, RegisterEmployeePayload>,
 ): UseMutationResult<RegisterEmployeeResponse, Error, RegisterEmployeePayload> {
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<RegisterEmployeeResponse>(`${API_URL}/register`, payload, {
-        withCredentials: true,
-      });
+      const reponse = await axios.post<RegisterEmployeeResponse>("/register", payload);
       return reponse.data;
     },
     ...params,
@@ -31,9 +29,7 @@ export function useLogin(
 ): UseMutationResult<LoginEmployeeResponse, Error, LoginPayload> {
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<LoginEmployeeResponse>(`${API_URL}/auth/login`, payload, {
-        withCredentials: true,
-      });
+      const reponse = await axios.post<LoginEmployeeResponse>("/auth/login", payload);
       return reponse.data;
     },
     ...params,
@@ -42,12 +38,11 @@ export function useLogin(
 }
 
 export function useGetMe(): UseQueryResult<GetMeReponse> {
+  const axiosPrivate = useAxiosPrivate();
   const output = useQuery({
     queryKey: ["getMe"],
     queryFn: async () => {
-      const response = await axios.get<GetMeReponse>(`${API_URL}/me`, {
-        withCredentials: true,
-      });
+      const response = await axiosPrivate.get<GetMeReponse>("/me");
       return response.data;
     },
     retry: false,
@@ -58,11 +53,10 @@ export function useGetMe(): UseQueryResult<GetMeReponse> {
 export function useSetupOrganisation(
   params?: UseMutationOptions<RegisterOrganisationResponse, Error, RegisterOrganisationPayload>,
 ): UseMutationResult<RegisterOrganisationResponse, Error, RegisterOrganisationPayload> {
+  const axiosPrivate = useAxiosPrivate();
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axios.post<RegisterOrganisationResponse>(`${API_URL}/organisations`, payload, {
-        withCredentials: true,
-      });
+      const reponse = await axiosPrivate.post<RegisterOrganisationResponse>("/organisations", payload);
       return reponse.data;
     },
     ...params,

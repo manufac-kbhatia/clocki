@@ -8,10 +8,10 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = () => {
   const { auth } = useClockiContext();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   const state: LocatioState = {
     from: pathname.length > 0 ? pathname : undefined,
-  }
+  };
 
   console.log("auth", auth);
 

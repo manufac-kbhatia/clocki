@@ -40,6 +40,10 @@ export interface LoginEmployeeResponse extends BaseResponseType {
   accessToken: string;
 }
 
+export interface RefreshTokenResponse extends BaseResponseType {
+  accessToken: string;
+}
+
 export interface RegisterOrganisationResponse extends BaseResponseType {
   organisation: Prisma.OrganisationGetPayload<{}>;
 }

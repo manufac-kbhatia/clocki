@@ -1,6 +1,6 @@
 import { client } from "@repo/db";
 import { LoginSchema } from "@repo/schemas";
-import { LoginEmployeeResponse, LoginPayload } from "@repo/schemas/rest";
+import { LoginEmployeeResponse, LoginPayload, RefreshTokenResponse } from "@repo/schemas/rest";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
@@ -49,7 +49,7 @@ export const login = async (
   res.status(StatusCodes.OK).json({ success: true, accessToken });
 };
 
-export const refreshToken = async (req: Request, res: Response, next: NextFunction) => {
+export const refreshToken = async (req: Request, res: Response<RefreshTokenResponse>, next: NextFunction) => {
   const { refreshToken } = req.cookies;
   if (refreshToken === undefined) {
     next(new ErrorHandler("Unauthorized", StatusCodes.UNAUTHORIZED));
@@ -67,7 +67,7 @@ export const refreshToken = async (req: Request, res: Response, next: NextFuncti
       const decoded = jwt.verify(refreshToken, REFRESH_JWT_SECRET) as Record<string, string>;
       const payload = { id: decoded.id, role: decoded.role };
       const accessToken = getAccessToken(payload);
-      res.status(StatusCodes.OK).json({ accessToken });
+      res.status(StatusCodes.OK).json({ success: true, accessToken });
     } catch (error: unknown) {
       if (error instanceof Error) {
         next(new ErrorHandler(error.message, StatusCodes.UNAUTHORIZED));
