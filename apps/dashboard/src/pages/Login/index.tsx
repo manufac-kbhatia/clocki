@@ -5,15 +5,24 @@ import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./util
 import { LoginPayload } from "@repo/schemas/rest";
 import { useLogin } from "../../hooks/api";
 import { useClockiContext } from "../../context";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { LocatioState } from "../../utils";
 
 export function Login() {
-  const { isAuthenticated, setIsAuthenticated, user } = useClockiContext();
+  const { setAuth } = useClockiContext();
+
   const navigate = useNavigate();
+  const locatoin = useLocation();
+  const state = locatoin.state as LocatioState | null;
+  const from = state?.from ?? "/";
+
   const { mutate: login } = useLogin({
-    onSuccess: () => {
-      setIsAuthenticated(true);
+    onSuccess: (data) => {
+      console.log(data);
+      setAuth((prev) => {
+        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success };
+      });
+      navigate(from, { replace: true });
     },
   });
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({
@@ -30,11 +39,6 @@ export function Login() {
     login(payload);
   };
 
-  useEffect(() => {
-    if (isAuthenticated === true && !user?.createdOrganisation) {
-      navigate("/setup-organisation", { replace: true });
-    }
-  }, [isAuthenticated, navigate, user?.createdOrganisation]);
   return (
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>

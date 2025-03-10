@@ -5,17 +5,15 @@ import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "
 import { useSignUp } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { RegisterEmployeePayload } from "@repo/schemas/rest";
-import { useLocation, useNavigate } from "react-router";
-import { useEffect } from "react";
-import { Loader } from "../../components/Loader";
 
 export function Register() {
-  const { isAuthenticated, setIsAuthenticated, isAuthLoading, user } = useClockiContext();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { mutate: registerUser, isPending } = useSignUp({
-    onSuccess: () => {
-      setIsAuthenticated(true);
+  const {setAuth} = useClockiContext();
+
+  const { mutate: registerUser } = useSignUp({
+    onSuccess: (data) => {
+      setAuth((prev) => {
+        return {...prev, accessToken: data.accessToken, isAuthenticated: data.success}
+      });
     },
   });
   const { getInputProps, key, onSubmit } = useForm<RegisterEmployeePayload>({
@@ -34,15 +32,8 @@ export function Register() {
     registerUser(payload);
   };
 
-  useEffect(() => {
-    if (isAuthenticated === true && !user?.createdOrganisation) {
-      navigate("/setup-organisation", { replace: true });
-    }
-  }, [isAuthenticated, location, navigate, user?.createdOrganisation]);
-
   return (
-    <>
-      <Loader isVisible={isPending || isAuthLoading} />
+
       <Center h="100vh" p="md">
         <Stack w={{ base: 400, sm: 400 }}>
           <Stack>
@@ -87,6 +78,5 @@ export function Register() {
           </form>
         </Stack>
       </Center>
-    </>
   );
 }

@@ -6,6 +6,7 @@ import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 import { PrismaUtils } from "@repo/db";
 import {
+  CreateEmployeeResponse,
   DeleteEmployeeResponse,
   EmployeePayload,
   GetEmployeeResponse,
@@ -19,7 +20,7 @@ import { getJWTTokens } from "../utils/jwt";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
-  res: Response,
+  res: Response<RegisterEmployeeResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
@@ -49,12 +50,12 @@ export const register = async (
     secure: true,
     maxAge: 24 * 60 * 60 * 1000,
   });
-  res.status(StatusCodes.OK).json({ accessToken });
+  res.status(StatusCodes.OK).json({ success: true, accessToken });
 };
 
 export const createEmployee = async (
   req: Request<unknown, unknown, EmployeePayload>,
-  res: Response<RegisterEmployeeResponse>,
+  res: Response<CreateEmployeeResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;

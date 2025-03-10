@@ -21,18 +21,23 @@ export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 
 // Rest Types
 
+interface Auth {
+  accessToken: string;
+}
+
 export interface BaseResponseType {
   success: boolean;
 }
 export interface RegisterEmployeeResponse extends BaseResponseType {
-  employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
+  accessToken: string;
+}
+
+export interface CreateEmployeeResponse extends BaseResponseType {
+  employee: Prisma.EmployeeGetPayload<{}>;
 }
 
 export interface LoginEmployeeResponse extends BaseResponseType {
-  employee: Prisma.EmployeeGetPayload<{
-    omit: { password: true };
-    include: { createdOrganisation: true; organisation: true };
-  }>;
+  accessToken: string;
 }
 
 export interface RegisterOrganisationResponse extends BaseResponseType {

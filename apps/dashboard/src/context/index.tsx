@@ -1,37 +1,26 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import type { PropsWithChildren, JSX, Dispatch, SetStateAction } from "react";
-import { useGetMe } from "../hooks/api";
-import { GetMeReponse } from "@repo/schemas/rest";
 
+interface Auth {
+  accessToken: string;
+  isAuthenticated: boolean;
+}
 interface Context {
-  isAuthenticated?: boolean;
-  setIsAuthenticated: Dispatch<SetStateAction<boolean | undefined>>;
-  user?: GetMeReponse["me"];
-  setUser: Dispatch<SetStateAction<GetMeReponse["me"] | undefined>>;
-  isAuthLoading: boolean;
+  auth?: Auth;
+  setAuth: Dispatch<SetStateAction<Auth | undefined>>;
 }
 
 const ContextInstance = createContext<Context | undefined>(undefined);
 
 export function ContextProvider({ children }: PropsWithChildren): JSX.Element {
-  const { isError, data, isPending: isAuthLoading } = useGetMe();
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>();
-  const [user, setUser] = useState<GetMeReponse["me"]>();
-
-  useEffect(() => {
-    setUser(data?.me);
-    setIsAuthenticated(!isError);
-  }, [data, isError]);
+  const [auth, setAuth] = useState<Auth>();
 
   const contextValue = useMemo(() => {
     return {
-      isAuthenticated,
-      isAuthLoading,
-      setIsAuthenticated,
-      user,
-      setUser,
+      auth,
+      setAuth,
     };
-  }, [isAuthenticated, isAuthLoading, user, setIsAuthenticated, setUser]);
+  }, [auth, setAuth]);
 
   return <ContextInstance.Provider value={contextValue}>{children}</ContextInstance.Provider>;
 }
