@@ -7,39 +7,26 @@ import { Loader } from "./components/Loader";
 
 export function App() {
   const [isLoading, setIsLoading] = useState(true);
-    const refresh = useRefreshToken();
-    const { auth } = useClockiContext();
+  const refresh = useRefreshToken();
+  const { auth } = useClockiContext();
 
-    useEffect(() => {
+  useEffect(() => {
+    const verifyRefreshToken = async () => {
+      try {
+        await refresh();
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-        const verifyRefreshToken = async () => {
-            try {
-                await refresh();
-            }
-            catch (err) {
-                console.error(err);
-            }
-            finally {
-                setIsLoading(false);
-            }
-        }
+    if (auth?.isAuthenticated === false || auth?.isAuthenticated === undefined) {
+      verifyRefreshToken();
+    } else {
+      setIsLoading(false);
+    }
+  }, [auth?.isAuthenticated, refresh]);
 
-        // persist added here AFTER tutorial video
-        // Avoids unwanted call to verifyRefreshToken
-        if (auth?.isAuthenticated === false || auth?.isAuthenticated === undefined) {
-            verifyRefreshToken();
-        } else {
-            setIsLoading(false);
-        }
-
-    }, [auth?.isAuthenticated, refresh])
-
-    return (
-        <>
-            {isLoading === true
-                    ? <Loader />
-                    : <Outlet />
-            }
-        </>
-    )
+  return <>{isLoading === true ? <Loader /> : <Outlet />}</>;
 }

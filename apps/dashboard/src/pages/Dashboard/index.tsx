@@ -44,17 +44,17 @@ export function Dashboard() {
         </Group>
       </AppShell.Header>
       <AppShell.Navbar p="md">
-      {NavLinks.map(({ path, label }) => {
-            return (
-              <MantineNavLink
-                key={path}
-                component={NavLink}
-                active={location.pathname === path}
-                to={path}
-                label={label}
-              />
-            );
-          })}
+        {NavLinks.map(({ path, label }) => {
+          return (
+            <MantineNavLink
+              key={path}
+              component={NavLink}
+              active={location.pathname === path}
+              to={path}
+              label={label}
+            />
+          );
+        })}
       </AppShell.Navbar>
       <AppShell.Main>
         <Outlet />

@@ -64,7 +64,15 @@ export const Routers = createBrowserRouter([
         ],
       },
       { path: "/register", element: <Register />, errorElement: <ErrorPage /> },
-      { path: "/setup-organisation", element: <ProtectedRoute><SetupOrganisation /></ProtectedRoute>, errorElement: <ErrorPage /> },
+      {
+        path: "/setup-organisation",
+        element: (
+          <ProtectedRoute>
+            <SetupOrganisation />
+          </ProtectedRoute>
+        ),
+        errorElement: <ErrorPage />,
+      },
       { path: "/login", element: <Login />, errorElement: <ErrorPage /> },
     ],
   },

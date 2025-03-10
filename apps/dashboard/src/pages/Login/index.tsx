@@ -19,7 +19,6 @@ export function Login() {
   const from = state?.from ?? "/";
   console.log("from", from);
 
- 
   const { mutate: login } = useLogin({
     onSuccess: (data) => {
       console.log(data);
@@ -45,16 +44,16 @@ export function Login() {
 
   useEffect(() => {
     if (auth?.isAuthenticated) {
-      navigate(from, {replace: true});
+      navigate(from, { replace: true });
       return;
     }
-  },[auth?.isAuthenticated, from, navigate])
-
+  }, [auth?.isAuthenticated, from, navigate]);
 
   console.log("status", auth?.isAuthenticated);
 
-  return (
-    auth?.isAuthenticated ? <Loader isVisible={auth?.isAuthenticated} /> :
+  return auth?.isAuthenticated ? (
+    <Loader isVisible={auth?.isAuthenticated} />
+  ) : (
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
@@ -72,19 +71,18 @@ export function Login() {
               key={key(SignInFormNames.email)}
               label={SignInFormLabels.email}
               placeholder={SignInFormPlaceholder.email}
-              />
+            />
             <PasswordInput
               {...getInputProps(SignInFormNames.password)}
               key={key(SignInFormNames.password)}
               label={SignInFormLabels.password}
               placeholder={SignInFormPlaceholder.password}
-              />
+            />
 
             <Button type="submit">Login</Button>
           </Stack>
         </form>
       </Stack>
     </Center>
-
   );
 }
