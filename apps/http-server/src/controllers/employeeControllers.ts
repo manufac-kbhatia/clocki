@@ -192,7 +192,7 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
     omit: {
       password: true,
     },
-    include: { createdOrganisation: true },
+    include: { createdOrganisation: true, organisation: true },
   });
 
   if (me === null) {

@@ -54,7 +54,10 @@ export interface DeleteEmployeeResponse extends BaseResponseType {
 }
 
 export interface GetMeReponse extends BaseResponseType {
-  me: Prisma.EmployeeGetPayload<{ omit: { password: true }; include: { createdOrganisation: true } }>;
+  me: Prisma.EmployeeGetPayload<{
+    omit: { password: true };
+    include: { createdOrganisation: true; organisation: true };
+  }>;
 }
 
 export interface GetEmployeeResponse extends BaseResponseType {
