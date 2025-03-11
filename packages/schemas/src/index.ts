@@ -45,7 +45,6 @@ export const RegisterOrganisationSchema = z.object({
 export const EmployeeSchema = z.object({
   // Personal information
   email: z.string().email("Please provide a valid email"),
-  password: z.string().min(8, "Password must be atleast 8 characters long"), // TODO: Remove password from schema as it will be generated randomly on server side
   firstName: z.string().min(1, "First name is requred to create a new Employee"),
   lastName: z.string().nullable(),
   address: z.string().min(1, "Address is required to create a new employee"),
@@ -94,5 +93,4 @@ export const LoginSchema = z.object({
 
 export const UpdateEmployeeSchema = EmployeeSchema.omit({
   email: true,
-  password: true,
 });

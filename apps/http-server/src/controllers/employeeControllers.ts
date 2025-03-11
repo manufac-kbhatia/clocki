@@ -66,9 +66,11 @@ export const createEmployee = async (
     return;
   }
   const { hireDate, position, contractType, teamsId, role, ...rest } = parseResult.data;
+  const password = "123456789"; // TODO: generate random password
   const employee = await client.employee.create({
     data: {
       ...rest,
+      password,
       role: (role as PrismaUtils.Role) ?? PrismaUtils.Role,
       teams: {
         connect: teamsId?.map((id) => ({ id })),
