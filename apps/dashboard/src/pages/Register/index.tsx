@@ -5,9 +5,17 @@ import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "
 import { useSignUp } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { RegisterEmployeePayload } from "@repo/schemas/rest";
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router";
+import { LocatioState } from "../../utils";
+import { Loader } from "../../components/Loader";
 
 export function Register() {
-  const { setAuth } = useClockiContext();
+  const { setAuth, auth } = useClockiContext();
+  const navigate = useNavigate();
+  const locatoin = useLocation();
+  const state = locatoin.state as LocatioState | null;
+  const from = state?.from ?? "/";
 
   const { mutate: registerUser } = useSignUp({
     onSuccess: (data) => {
@@ -32,7 +40,16 @@ export function Register() {
     registerUser(payload);
   };
 
-  return (
+  useEffect(() => {
+    if (auth?.isAuthenticated) {
+      navigate(from, { replace: true });
+      return;
+    }
+  }, [auth?.isAuthenticated, from, navigate]);
+
+  return auth?.isAuthenticated ? (
+    <Loader isVisible={auth?.isAuthenticated} />
+  ) : (
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
