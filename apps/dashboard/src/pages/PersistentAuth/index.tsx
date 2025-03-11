@@ -28,7 +28,8 @@ export const PersistentAuth: React.FC<PersistentAuthProps> = ({ children }) => {
     } else {
       setIsLoading(false);
     }
-  }, [auth?.isAuthenticated, refresh]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return isLoading === true ? <Loader /> : children;
 };

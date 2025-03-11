@@ -21,7 +21,7 @@ export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 
 // Rest Types
 
-interface Auth {
+export interface Auth {
   accessToken: string;
 }
 

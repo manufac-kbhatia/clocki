@@ -48,17 +48,19 @@ import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 export const Routers = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <PersistentAuth>
+        <App />
+      </PersistentAuth>
+    ),
     errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
         element: (
-          <PersistentAuth>
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          </PersistentAuth>
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
         ),
         errorElement: <ErrorPage />,
         children: [
@@ -70,11 +72,9 @@ export const Routers = createBrowserRouter([
       {
         path: "/setup-organisation",
         element: (
-          <PersistentAuth>
-            <ProtectedRoute>
-              <SetupOrganisation />
-            </ProtectedRoute>
-          </PersistentAuth>
+          <ProtectedRoute>
+            <SetupOrganisation />
+          </ProtectedRoute>
         ),
         errorElement: <ErrorPage />,
       },

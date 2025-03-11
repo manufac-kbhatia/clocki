@@ -12,7 +12,7 @@ const PORT = 8080;
 
 const app = express();
 
-const whitelist = ["http://localhost:5173"];
+const whitelist = ["http://localhost:5173", "http://localhost:4173"];
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
