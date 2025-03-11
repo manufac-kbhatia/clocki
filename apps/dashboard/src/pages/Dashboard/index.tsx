@@ -1,5 +1,5 @@
 import { AppShell, Burger, Group, Image, NavLink as MantineNavLink, Title } from "@mantine/core";
-import { NavLink } from "react-router";
+import { NavLink, useLocation } from "react-router";
 import { Outlet } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -17,6 +17,7 @@ const NavLinks: { path: string; label: string }[] = [
 export function Dashboard() {
   // const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [opened, { toggle }] = useDisclosure();
+  const location = useLocation();
 
   return (
     <AppShell
