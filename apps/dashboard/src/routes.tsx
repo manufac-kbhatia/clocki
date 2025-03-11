@@ -8,6 +8,7 @@ import { Login } from "./pages/Login/index.tsx";
 import { Dashboard } from "./pages/Dashboard/index.tsx";
 import PageA from "./pages/Page-A/index.tsx";
 import { Home } from "./pages/Home/index.tsx";
+import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 
 // export const Routers = createBrowserRouter([
 //   {
@@ -53,9 +54,11 @@ export const Routers = createBrowserRouter([
       {
         path: "/",
         element: (
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
+          <PersistentAuth>
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          </PersistentAuth>
         ),
         errorElement: <ErrorPage />,
         children: [

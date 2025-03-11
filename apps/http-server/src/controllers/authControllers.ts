@@ -51,7 +51,7 @@ export const login = async (
 
 export const refreshToken = async (req: Request, res: Response<RefreshTokenResponse>, next: NextFunction) => {
   const { refreshToken } = req.cookies;
-  console.log("refreshToken", refreshToken);
+
   if (refreshToken === undefined) {
     next(new ErrorHandler("Unauthorized", StatusCodes.UNAUTHORIZED));
     return;
@@ -71,7 +71,7 @@ export const refreshToken = async (req: Request, res: Response<RefreshTokenRespo
       res.status(StatusCodes.OK).json({ success: true, accessToken });
     } catch (error: unknown) {
       if (error instanceof Error) {
-        next(new ErrorHandler(error.message, StatusCodes.UNAUTHORIZED));
+        next(new ErrorHandler(error.message, StatusCodes.FORBIDDEN));
         return;
       }
     }

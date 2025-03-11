@@ -14,6 +14,7 @@ import "@fontsource/red-hat-display/800.css";
 import "@fontsource/red-hat-display/900.css";
 import { MantineTheme } from "./theme";
 import "./index.css";
+import { Notifications } from "@mantine/notifications";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <ContextProvider>
         <MantineProvider theme={MantineTheme}>
+          <Notifications />
           <RouterProvider router={Routers} />
         </MantineProvider>
       </ContextProvider>
