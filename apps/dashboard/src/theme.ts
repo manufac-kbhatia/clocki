@@ -1,23 +1,24 @@
-import { createTheme, PasswordInput, rem, TextInput } from "@mantine/core";
+import { createTheme, PasswordInput, rem, Select, TextInput } from "@mantine/core";
+import { DateInput } from "@mantine/dates";
 
 export const MantineTheme = createTheme({
   fontSmoothing: true,
   fontFamily: "Red Hat Display, sans-serif",
-  primaryColor: "dark",
-  colors: {
-    dark: [
-      "#f0f1f5", // Lightest (100)
-      "#d9dbe5", // 200
-      "#b4b8c7", // 300
-      "#8d91a7", // 400
-      "#666a88", // 500
-      "#666a88",
-      "#212B36", // 700 (Primary shage)
-      "#3c4a59", // 800 (Primay shade when hover)
-      "#0e101d", // 900
-      "#090a14", // Darkest (1000)
-    ],
-  },
+  // primaryColor: "dark",
+  // colors: {
+  //   dark: [
+  //     "#f0f1f5", // Lightest (100)
+  //     "#d9dbe5", // 200
+  //     "#b4b8c7", // 300
+  //     "#8d91a7", // 400
+  //     "#666a88", // 500
+  //     "#666a88",
+  //     "#212B36", // 700 (Primary shage)
+  //     "#3c4a59", // 800 (Primay shade when hover)
+  //     "#0e101d", // 900
+  //     "#090a14", // Darkest (1000)
+  //   ],
+  // },
   headings: {
     sizes: {
       h1: { fontSize: rem(20), fontWeight: "700" },
@@ -41,6 +42,22 @@ export const MantineTheme = createTheme({
       },
     }),
     PasswordInput: PasswordInput.extend({
+      styles: {
+        input: {
+          padding: "25px",
+          borderColor: "#E8ECEE",
+        },
+      },
+    }),
+    Select: Select.extend({
+      styles: {
+        input: {
+          padding: "25px",
+          borderColor: "#E8ECEE",
+        },
+      },
+    }),
+    DateInput: DateInput.extend({
       styles: {
         input: {
           padding: "25px",

@@ -1,56 +1,54 @@
-import { AppShell, ActionIcon, Group, NavLink as MantineNavLink, Title } from "@mantine/core";
+import { AppShell, ActionIcon, Group, Title, Burger, Image, Text } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
-import { NavLink, useLocation } from "react-router";
 import type { MantineColorScheme } from "@mantine/core";
 import type React from "react";
+import { useClockiContext } from "../../context";
+import CustomAvatar from "../Avatar";
 
 export interface HeaderProps {
   colorScheme: MantineColorScheme;
   onToggleColorScheme: () => void;
+  opened: boolean;
+  onToggleNavBaar: () => void;
 }
 
-const NavLinks: { path: string; label: string }[] = [
-  {
-    path: "/",
-    label: "Home",
-  },
-  {
-    path: "/page-a",
-    label: "PageA",
-  },
-  {
-    path: "/page-b",
-    label: "PageB",
-  },
-  {
-    path: "/broken",
-    label: "Broken",
-  },
-];
+export function Header({
+  colorScheme,
+  onToggleColorScheme,
+  opened,
+  onToggleNavBaar,
+}: HeaderProps): React.JSX.Element {
+  const { auth } = useClockiContext();
 
-export function Header({ colorScheme, onToggleColorScheme }: HeaderProps): React.JSX.Element {
-  const location = useLocation();
+  const name = `${auth?.employee?.firstName} ${auth?.employee?.lastName}`;
 
   return (
-    <AppShell.Header p="xs">
-      <Group justify="space-between" align="center">
-        <Title order={5}>Header</Title>
-        <Group wrap="nowrap">
-          {NavLinks.map(({ path, label }) => {
-            return (
-              <MantineNavLink
-                key={path}
-                component={NavLink}
-                active={location.pathname === path}
-                to={path}
-                label={label}
-              />
-            );
-          })}
+    <AppShell.Header>
+      <Group h="100%" px="sm">
+        <Group w={{ base: "fit-content", xs: 200 }}>
+          <Burger opened={opened} onClick={onToggleNavBaar} hiddenFrom="sm" size="sm" />
+          <Group gap={2} visibleFrom="xs">
+            <Title size="h2" ta="center">
+              cl
+            </Title>
+            <Image src="/clock.svg" w={25} />
+            <Title size="h2" ta="center">
+              ki
+            </Title>
+          </Group>
         </Group>
-        <ActionIcon onClick={onToggleColorScheme} variant="default">
-          {colorScheme === "dark" ? <IconSun /> : <IconMoonStars />}
-        </ActionIcon>
+        <Group flex={1} justify="space-between">
+          <Title order={1}>{auth?.employee?.createdOrganisation?.name}</Title>
+          <Group gap="xl">
+            <Text>{new Date().toLocaleString("default", { dateStyle: "full" })}</Text>
+            <Group>
+              <ActionIcon size="lg" onClick={onToggleColorScheme} variant="default">
+                {colorScheme === "dark" ? <IconSun /> : <IconMoonStars />}
+              </ActionIcon>
+              <CustomAvatar name={name} />
+            </Group>
+          </Group>
+        </Group>
       </Group>
     </AppShell.Header>
   );

@@ -89,7 +89,9 @@ export function SetupOrganisation() {
               placeholder={RegisterOrganisationFormPlaceholder.vatNumber}
             />
 
-            <Button type="submit" loading={isPending}>Complete setup</Button>
+            <Button type="submit" loading={isPending}>
+              Complete setup
+            </Button>
           </Stack>
         </form>
       </Stack>

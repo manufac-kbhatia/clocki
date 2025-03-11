@@ -87,7 +87,9 @@ export function Register() {
               placeholder={RegisterFormPlaceholder.password}
             />
 
-            <Button type="submit" loading={isPending}>Register</Button>
+            <Button type="submit" loading={isPending}>
+              Register
+            </Button>
           </Stack>
         </form>
       </Stack>
