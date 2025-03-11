@@ -13,7 +13,7 @@ const CheckCompanyStatus: React.FC<CheckCompanyStatusProps> = ({ children }) => 
     from: pathname.length > 0 ? pathname : undefined,
   };
 
-  return auth?.employee?.createdOrganisation || auth?.employee?.organisation  ? (
+  return auth?.employee?.createdOrganisation || auth?.employee?.organisation ? (
     children
   ) : (
     <Navigate to="/setup-organisation" state={state} replace={true} />

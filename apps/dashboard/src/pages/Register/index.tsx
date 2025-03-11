@@ -12,12 +12,13 @@ import { useCustomNavigate } from "../../hooks/location";
 export function Register() {
   const { setAuth, auth } = useClockiContext();
   const navigate = useCustomNavigate();
-  
 
-  const { mutate: registerUser } = useSignUp({
+  const { mutate: registerUser, isPending } = useSignUp({
     onSuccess: (data) => {
-      setAuth((prev) => {
-        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success, employee: data.employeeData };
+      setAuth({
+        accessToken: data.accessToken,
+        isAuthenticated: data.success,
+        employee: data.employeeData,
       });
     },
   });
@@ -39,7 +40,7 @@ export function Register() {
 
   useEffect(() => {
     if (auth?.isAuthenticated) {
-      navigate()
+      navigate();
       return;
     }
   }, [auth?.isAuthenticated, navigate]);
@@ -86,7 +87,7 @@ export function Register() {
               placeholder={RegisterFormPlaceholder.password}
             />
 
-            <Button type="submit">Register</Button>
+            <Button type="submit" loading={isPending}>Register</Button>
           </Stack>
         </form>
       </Stack>

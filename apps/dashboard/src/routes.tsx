@@ -61,7 +61,7 @@ export const Routers = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CheckCompanyStatus>
-            <Dashboard />
+              <Dashboard />
             </CheckCompanyStatus>
           </ProtectedRoute>
         ),

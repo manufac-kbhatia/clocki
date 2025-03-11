@@ -13,15 +13,19 @@ export function Login() {
   const { setAuth, auth } = useClockiContext();
   const navigate = useCustomNavigate();
 
-  const { mutate: login } = useLogin({
+  const { mutate: login, isPending } = useLogin({
     onSuccess: (data) => {
       setAuth((prev) => {
-        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success, employee: data.employeeData };
+        return {
+          ...prev,
+          accessToken: data.accessToken,
+          isAuthenticated: data.success,
+          employee: data.employeeData,
+        };
       });
-      navigate();
     },
   });
-  
+
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({
     initialValues: {
       email: "bhatiakbkb@gmail.com",
@@ -71,7 +75,9 @@ export function Login() {
               placeholder={SignInFormPlaceholder.password}
             />
 
-            <Button type="submit">Login</Button>
+            <Button type="submit" loading={isPending}>
+              Login
+            </Button>
           </Stack>
         </form>
       </Stack>

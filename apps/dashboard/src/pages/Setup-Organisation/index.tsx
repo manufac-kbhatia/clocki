@@ -13,19 +13,17 @@ import { useEffect } from "react";
 import { useClockiContext } from "../../context";
 import { useCustomNavigate } from "../../hooks/location";
 
-
 export function SetupOrganisation() {
-  const {auth, setAuth} = useClockiContext();
+  const { auth, setAuth } = useClockiContext();
   const navigate = useCustomNavigate();
 
-  const {refetch} = useGetMe()
-  const { mutate: setupOrganisation } = useSetupOrganisation({
+  const { refetch } = useGetMe();
+  const { mutate: setupOrganisation, isPending } = useSetupOrganisation({
     onSuccess: async () => {
-      const {data} = await refetch();
+      const { data } = await refetch();
       setAuth((prev) => {
-        return {...prev , employee: data?.employeeData}
-      })
-      navigate();
+        return { ...prev, employee: data?.employeeData };
+      });
     },
   });
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
@@ -45,15 +43,15 @@ export function SetupOrganisation() {
   };
 
   useEffect(() => {
-      if (auth?.employee?.createdOrganisation || auth?.employee?.organisation) {
-        navigate();
-        return;
-      }
-    }, [auth?.employee?.createdOrganisation, auth?.employee?.organisation, navigate]);
-  
-    return auth?.employee?.createdOrganisation || auth?.employee?.organisation ? (
-      <Loader />
-    ) : (
+    if (auth?.employee?.createdOrganisation || auth?.employee?.organisation) {
+      navigate();
+      return;
+    }
+  }, [auth?.employee?.createdOrganisation, auth?.employee?.organisation, navigate]);
+
+  return auth?.employee?.createdOrganisation || auth?.employee?.organisation ? (
+    <Loader />
+  ) : (
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
@@ -91,7 +89,7 @@ export function SetupOrganisation() {
               placeholder={RegisterOrganisationFormPlaceholder.vatNumber}
             />
 
-            <Button type="submit">Complete setup</Button>
+            <Button type="submit" loading={isPending}>Complete setup</Button>
           </Stack>
         </form>
       </Stack>
