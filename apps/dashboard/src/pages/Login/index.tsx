@@ -5,27 +5,23 @@ import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./util
 import { LoginPayload } from "@repo/schemas/rest";
 import { useLogin } from "../../hooks/api";
 import { useClockiContext } from "../../context";
-import { useLocation, useNavigate } from "react-router";
-import { LocatioState } from "../../utils";
 import { useEffect } from "react";
 import { Loader } from "../../components/Loader";
+import { useCustomNavigate } from "../../hooks/location";
 
 export function Login() {
   const { setAuth, auth } = useClockiContext();
-
-  const navigate = useNavigate();
-  const locatoin = useLocation();
-  const state = locatoin.state as LocatioState | null;
-  const from = state?.from ?? "/";
+  const navigate = useCustomNavigate();
 
   const { mutate: login } = useLogin({
     onSuccess: (data) => {
       setAuth((prev) => {
-        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success };
+        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success, employee: data.employeeData };
       });
-      navigate(from, { replace: true });
+      navigate();
     },
   });
+  
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({
     initialValues: {
       email: "bhatiakbkb@gmail.com",
@@ -42,10 +38,10 @@ export function Login() {
 
   useEffect(() => {
     if (auth?.isAuthenticated) {
-      navigate(from, { replace: true });
+      navigate();
       return;
     }
-  }, [auth?.isAuthenticated, from, navigate]);
+  }, [auth?.isAuthenticated, navigate]);
 
   return auth?.isAuthenticated ? (
     <Loader isVisible={auth?.isAuthenticated} />

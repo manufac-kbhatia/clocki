@@ -25,6 +25,7 @@ export const login = async (
     where: {
       email: data.email,
     },
+    include: { createdOrganisation: true, organisation: true },
   });
 
   if (employee === null) {
@@ -46,7 +47,7 @@ export const login = async (
     secure: true,
     maxAge: 24 * 60 * 60 * 1000,
   });
-  res.status(StatusCodes.OK).json({ success: true, accessToken });
+  res.status(StatusCodes.OK).json({ success: true, accessToken, employeeData: employee });
 };
 
 export const refreshToken = async (req: Request, res: Response<RefreshTokenResponse>, next: NextFunction) => {
@@ -58,7 +59,11 @@ export const refreshToken = async (req: Request, res: Response<RefreshTokenRespo
   }
 
   if (typeof refreshToken === "string") {
-    const employee = await client.employee.findFirst({ where: { refreshToken } });
+    const employee = await client.employee.findFirst({
+      where: { refreshToken },
+      omit: { password: true },
+      include: { createdOrganisation: true, organisation: true },
+    });
     if (employee === null) {
       next(new ErrorHandler("Unauthorized", StatusCodes.UNAUTHORIZED));
       return;
@@ -68,7 +73,7 @@ export const refreshToken = async (req: Request, res: Response<RefreshTokenRespo
       const decoded = jwt.verify(refreshToken, REFRESH_JWT_SECRET) as Record<string, string>;
       const payload = { id: decoded.id, role: decoded.role };
       const accessToken = getAccessToken(payload);
-      res.status(StatusCodes.OK).json({ success: true, accessToken });
+      res.status(StatusCodes.OK).json({ success: true, accessToken, employeeData: employee });
     } catch (error: unknown) {
       if (error instanceof Error) {
         next(new ErrorHandler(error.message, StatusCodes.FORBIDDEN));

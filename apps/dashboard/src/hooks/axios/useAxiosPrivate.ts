@@ -39,7 +39,7 @@ const useAxiosPrivate = () => {
             color: "red",
           });
           setAuth((prev) => {
-            return { ...prev, accessToken: "", isAuthenticated: false };
+            return { ...prev, accessToken: undefined, isAuthenticated: false, employee: undefined };
           });
           navigate("/login");
         }

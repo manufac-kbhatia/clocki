@@ -40,6 +40,7 @@ export const register = async (
     omit: {
       password: true,
     },
+    include: { createdOrganisation: true, organisation: true },
   });
 
   const { accessToken, refreshToken } = getJWTTokens({ id: employee.id, role: employee.role });
@@ -50,7 +51,7 @@ export const register = async (
     secure: true,
     maxAge: 24 * 60 * 60 * 1000,
   });
-  res.status(StatusCodes.OK).json({ success: true, accessToken });
+  res.status(StatusCodes.OK).json({ success: true, accessToken, employeeData: employee });
 };
 
 export const createEmployee = async (
@@ -202,6 +203,6 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
 
   res.status(200).json({
     success: true,
-    me,
+    employeeData: me,
   });
 };

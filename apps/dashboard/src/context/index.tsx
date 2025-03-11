@@ -1,9 +1,14 @@
+import { Prisma } from "@repo/db";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { PropsWithChildren, JSX, Dispatch, SetStateAction } from "react";
 
 interface Auth {
-  accessToken: string;
-  isAuthenticated: boolean;
+  accessToken?: string;
+  isAuthenticated?: boolean;
+  employee?: Prisma.EmployeeGetPayload<{
+    omit: { password: true };
+    include: { createdOrganisation: true; organisation: true };
+  }>;
 }
 interface Context {
   auth?: Auth;

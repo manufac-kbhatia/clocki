@@ -30,6 +30,10 @@ export interface BaseResponseType {
 }
 export interface RegisterEmployeeResponse extends BaseResponseType {
   accessToken: string;
+  employeeData: Prisma.EmployeeGetPayload<{
+    omit: { password: true };
+    include: { createdOrganisation: true; organisation: true };
+  }>;
 }
 
 export interface CreateEmployeeResponse extends BaseResponseType {
@@ -37,11 +41,19 @@ export interface CreateEmployeeResponse extends BaseResponseType {
 }
 
 export interface LoginEmployeeResponse extends BaseResponseType {
+  employeeData: Prisma.EmployeeGetPayload<{
+    omit: { password: true };
+    include: { createdOrganisation: true; organisation: true };
+  }>;
   accessToken: string;
 }
 
 export interface RefreshTokenResponse extends BaseResponseType {
   accessToken: string;
+  employeeData: Prisma.EmployeeGetPayload<{
+    omit: { password: true };
+    include: { createdOrganisation: true; organisation: true };
+  }>;
 }
 
 export interface RegisterOrganisationResponse extends BaseResponseType {
@@ -54,7 +66,7 @@ export interface DeleteEmployeeResponse extends BaseResponseType {
 }
 
 export interface GetMeReponse extends BaseResponseType {
-  me: Prisma.EmployeeGetPayload<{
+  employeeData: Prisma.EmployeeGetPayload<{
     omit: { password: true };
     include: { createdOrganisation: true; organisation: true };
   }>;

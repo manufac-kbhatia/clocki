@@ -46,6 +46,7 @@ export function useGetMe(): UseQueryResult<GetMeReponse> {
       return response.data;
     },
     retry: false,
+    enabled: false,
   });
   return output;
 }

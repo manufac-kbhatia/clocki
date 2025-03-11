@@ -6,21 +6,18 @@ import { useSignUp } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { RegisterEmployeePayload } from "@repo/schemas/rest";
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router";
-import { LocatioState } from "../../utils";
 import { Loader } from "../../components/Loader";
+import { useCustomNavigate } from "../../hooks/location";
 
 export function Register() {
   const { setAuth, auth } = useClockiContext();
-  const navigate = useNavigate();
-  const locatoin = useLocation();
-  const state = locatoin.state as LocatioState | null;
-  const from = state?.from ?? "/";
+  const navigate = useCustomNavigate();
+  
 
   const { mutate: registerUser } = useSignUp({
     onSuccess: (data) => {
       setAuth((prev) => {
-        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success };
+        return { ...prev, accessToken: data.accessToken, isAuthenticated: data.success, employee: data.employeeData };
       });
     },
   });
@@ -42,10 +39,10 @@ export function Register() {
 
   useEffect(() => {
     if (auth?.isAuthenticated) {
-      navigate(from, { replace: true });
+      navigate()
       return;
     }
-  }, [auth?.isAuthenticated, from, navigate]);
+  }, [auth?.isAuthenticated, navigate]);
 
   return auth?.isAuthenticated ? (
     <Loader isVisible={auth?.isAuthenticated} />

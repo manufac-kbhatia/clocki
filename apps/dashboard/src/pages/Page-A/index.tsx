@@ -5,6 +5,7 @@ const PageA = () => {
     <>
       <Link to={"/"}>Home</Link>
       <Link to={"/login"}>Login</Link>
+      <Link to={"/setup-organisation"}>company</Link>
     </>
   );
 };

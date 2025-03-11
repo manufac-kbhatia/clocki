@@ -9,7 +9,12 @@ const useRefreshToken = () => {
     });
 
     setAuth((prev) => {
-      return { ...prev, accessToken: response.data.accessToken, isAuthenticated: response.data.success };
+      return {
+        ...prev,
+        accessToken: response.data.accessToken,
+        isAuthenticated: response.data.success,
+        employee: response.data.employeeData,
+      };
     });
 
     return response.data.accessToken;

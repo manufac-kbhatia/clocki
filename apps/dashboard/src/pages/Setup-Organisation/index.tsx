@@ -7,14 +7,25 @@ import {
 } from "./utils";
 import { RegisterOrganisationSchema } from "@repo/schemas";
 import { RegisterOrganisationPayload } from "@repo/schemas/rest";
-import { useSetupOrganisation } from "../../hooks/api";
-import { useNavigate } from "react-router";
+import { useGetMe, useSetupOrganisation } from "../../hooks/api";
+import { Loader } from "../../components/Loader";
+import { useEffect } from "react";
+import { useClockiContext } from "../../context";
+import { useCustomNavigate } from "../../hooks/location";
+
 
 export function SetupOrganisation() {
-  const navigate = useNavigate();
+  const {auth, setAuth} = useClockiContext();
+  const navigate = useCustomNavigate();
+
+  const {refetch} = useGetMe()
   const { mutate: setupOrganisation } = useSetupOrganisation({
-    onSuccess: () => {
-      navigate("/", { replace: true });
+    onSuccess: async () => {
+      const {data} = await refetch();
+      setAuth((prev) => {
+        return {...prev , employee: data?.employeeData}
+      })
+      navigate();
     },
   });
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({
@@ -32,7 +43,17 @@ export function SetupOrganisation() {
   const handlesubmit = (payload: RegisterOrganisationPayload) => {
     setupOrganisation(payload);
   };
-  return (
+
+  useEffect(() => {
+      if (auth?.employee?.createdOrganisation || auth?.employee?.organisation) {
+        navigate();
+        return;
+      }
+    }, [auth?.employee?.createdOrganisation, auth?.employee?.organisation, navigate]);
+  
+    return auth?.employee?.createdOrganisation || auth?.employee?.organisation ? (
+      <Loader />
+    ) : (
     <Center h="100vh" p="md">
       <Stack w={{ base: 400, sm: 400 }}>
         <Stack>
