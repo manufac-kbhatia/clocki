@@ -3,10 +3,13 @@ import { axiosPrivate } from ".";
 import { useClockiContext } from "../../context";
 import useRefreshToken from "../token";
 import { AxiosError, HttpStatusCode, InternalAxiosRequestConfig } from "axios";
+import { useNavigate } from "react-router";
+import { notifications } from "@mantine/notifications";
 
 const useAxiosPrivate = () => {
   const refresh = useRefreshToken();
-  const { auth } = useClockiContext();
+  const { auth, setAuth } = useClockiContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const requestInterceptors = axiosPrivate.interceptors.request.use(
@@ -28,6 +31,17 @@ const useAxiosPrivate = () => {
           const newAccessToken = await refresh();
           prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
           return axiosPrivate(prevRequest);
+        } else if (error.response?.status === HttpStatusCode.Forbidden) {
+          notifications.show({
+            title: "Session Expired",
+            message: "Please login again",
+            autoClose: 4000,
+            color: "red",
+          })
+          setAuth((prev) => {
+            return {...prev, accessToken: "", isAuthenticated: false}
+          })
+          navigate("/login");
         }
         return Promise.reject(error);
       },
@@ -37,7 +51,7 @@ const useAxiosPrivate = () => {
       axiosPrivate.interceptors.response.eject(responseInterceptors);
       axiosPrivate.interceptors.request.eject(requestInterceptors);
     };
-  }, [auth, refresh]);
+  }, [auth, navigate, refresh]);
   return axiosPrivate;
 };
 
