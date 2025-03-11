@@ -37,10 +37,10 @@ const useAxiosPrivate = () => {
             message: "Please login again",
             autoClose: 4000,
             color: "red",
-          })
+          });
           setAuth((prev) => {
-            return {...prev, accessToken: "", isAuthenticated: false}
-          })
+            return { ...prev, accessToken: "", isAuthenticated: false };
+          });
           navigate("/login");
         }
         return Promise.reject(error);

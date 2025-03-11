@@ -70,9 +70,11 @@ export const Routers = createBrowserRouter([
       {
         path: "/setup-organisation",
         element: (
-          <ProtectedRoute>
-            <SetupOrganisation />
-          </ProtectedRoute>
+          <PersistentAuth>
+            <ProtectedRoute>
+              <SetupOrganisation />
+            </ProtectedRoute>
+          </PersistentAuth>
         ),
         errorElement: <ErrorPage />,
       },
