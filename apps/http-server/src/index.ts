@@ -5,14 +5,14 @@ import authRoutes from "./routes/authRoutes";
 import teamRoute from "./routes/teamRoutes";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/error";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
 import { StatusCodes } from "http-status-codes";
 
 const PORT = 8080;
 
 const app = express();
 
-const whitelist = ["http://localhost:5173", "http://localhost:4173"];
+const whitelist = ["http://localhost:5173", "http://localhost:4173", "http://localhost:5174"];
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
