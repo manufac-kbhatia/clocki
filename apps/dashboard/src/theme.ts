@@ -1,4 +1,4 @@
-import { createTheme, PasswordInput, rem, Select, TextInput } from "@mantine/core";
+import { createTheme, MultiSelect, NumberInput, PasswordInput, rem, Select, TextInput } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 
 export const MantineTheme = createTheme({
@@ -61,6 +61,24 @@ export const MantineTheme = createTheme({
       styles: {
         input: {
           padding: "25px",
+          borderColor: "#E8ECEE",
+        },
+      },
+    }),
+
+    NumberInput: NumberInput.extend({
+      styles: {
+        input: {
+          padding: "25px",
+          borderColor: "#E8ECEE",
+        },
+      },
+    }),
+
+    MultiSelect: MultiSelect.extend({
+      styles: {
+        input: {
+          padding: "15px",
           borderColor: "#E8ECEE",
         },
       },

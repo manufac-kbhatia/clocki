@@ -31,7 +31,7 @@ enum Role {
 
 model Employee {
   id           String    @id @default(uuid())
-  firstName    String?
+  firstName    String
   lastName     String?
   email        String    @unique
   password     String
@@ -70,11 +70,11 @@ model Organisation {
 }
 
 model EmployeeInfo {
-  id           String       @id @default(uuid())
-  hireDate     DateTime
-  positon      String
-  contractType ContractType
-  vacationDays Int          @default(0)
+  id           String        @id @default(uuid())
+  hireDate     DateTime?
+  positon      String?
+  contractType ContractType?
+  vacationDays Int           @default(0)
 
   employeeId String   @unique
   employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)

@@ -23,7 +23,6 @@ const ManageEmployee = () => {
       <Tabs.Panel value="teams">Teams</Tabs.Panel>
 
       <Tabs.Panel value="create">
-        {" "}
         <EmployeeTabs />
       </Tabs.Panel>
     </Tabs>

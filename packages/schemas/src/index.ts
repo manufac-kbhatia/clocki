@@ -32,7 +32,7 @@ export const RegisterEmployeeSchema = z.object({
   email: z.string().email("Please provide a valid email"),
   password: z.string().min(8, "Password must be atleast 8 characters long"),
   firstName: z.string().min(1, "Please provide your first name"),
-  lastName: z.string().nullable(),
+  lastName: z.string().optional(),
 });
 
 export const RegisterOrganisationSchema = z.object({
@@ -46,25 +46,25 @@ export const EmployeeSchema = z.object({
   // Personal information
   email: z.string().email("Please provide a valid email"),
   firstName: z.string().min(1, "First name is requred to create a new Employee"),
-  lastName: z.string().nullable(),
+  lastName: z.string().optional(),
   address: z.string().min(1, "Address is required to create a new employee"),
   city: z.string().min(1, "City is required to create a new employee"),
-  postalCode: z.string().nullable(),
+  postalCode: z.string().optional(),
   phoneNumber: z
     .string()
     .min(10, "Phone number should include 10 digits")
     .max(10, "Phone number should include 10 digits")
-    .nullable(),
+    .optional(),
   gender: z.nativeEnum(Gender),
-  dateOfBirth: z.date(),
+  dateOfBirth: z.date().optional(),
 
   // Emploment Info
-  hireDate: z.date(),
-  contractType: z.nativeEnum(ContractType),
-  position: z.string(),
-  teamsId: z.array(z.string()).nullable(),
-  vacationDays: z.number().nullable(),
-  role: z.nativeEnum(Role).nullable(),
+  hireDate: z.date().optional(),
+  contractType: z.nativeEnum(ContractType).optional(),
+  position: z.string().optional(),
+  teamsId: z.array(z.string()).optional(),
+  vacationDays: z.number().optional(),
+  role: z.nativeEnum(Role).optional(),
 });
 
 export const TeamSchema = z.object({
@@ -75,7 +75,7 @@ export const TeamSchema = z.object({
   teamLeadId: z.string({
     required_error: "Team Lead is required for team formation",
   }),
-  members: z.array(z.string()).nullable(),
+  members: z.array(z.string()).optional(),
 });
 
 export const ProjectSchema = z.object({
@@ -83,7 +83,7 @@ export const ProjectSchema = z.object({
   organisationId: z.string({
     required_error: "Organisation Id is required to create a project",
   }),
-  members: z.array(z.string()).nullable(),
+  members: z.array(z.string()).optional(),
 });
 
 export const LoginSchema = z.object({

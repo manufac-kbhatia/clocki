@@ -47,7 +47,7 @@ export const CreateEmployeeFormPlaceholder: Record<keyof EmployeePayload, string
   gender: "Select Gender",
   hireDate: "Select hire date",
   phoneNumber: "Enter phone number",
-  position: "Select position",
+  position: "Enter position",
   postalCode: "Enter postal code",
   role: "Select role",
   vacationDays: "Enter vacation days",
