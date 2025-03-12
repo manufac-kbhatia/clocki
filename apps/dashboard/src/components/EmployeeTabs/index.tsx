@@ -1,7 +1,7 @@
 import { Button, Card, Group, MultiSelect, NumberInput, Select, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { ContractType, EmployeeSchema, Gender, Role } from "@repo/schemas";
-import { EmployeePayload } from "@repo/schemas/rest";
+import { ContractType, CreateEmployeeSchema, Gender, Role } from "@repo/schemas";
+import { CreateEmployeePayload } from "@repo/schemas/rest";
 import {
   CreateEmployeeFormLabels,
   CreateEmployeeFormNames,
@@ -11,12 +11,12 @@ import { DateInput } from '@mantine/dates';
 import { IconCalendar } from "@tabler/icons-react";
 
 const EmployeeTabs = () => {
-  const { getInputProps, key, onSubmit } = useForm<EmployeePayload>({
+  const { getInputProps, key, onSubmit } = useForm<CreateEmployeePayload>({
     mode: "uncontrolled",
-    validate: zodResolver(EmployeeSchema),
+    validate: zodResolver(CreateEmployeeSchema),
   });
 
-  const handleSubmit = (data: EmployeePayload) => {
+  const handleSubmit = (data: CreateEmployeePayload) => {
     console.group(data);
   }
   

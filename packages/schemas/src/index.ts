@@ -42,7 +42,7 @@ export const RegisterOrganisationSchema = z.object({
   vatNumber: z.string().min(1, "VAT number is required to register an Organisation"),
 });
 
-export const EmployeeSchema = z.object({
+export const CreateEmployeeSchema = z.object({
   // Personal information
   email: z.string().email("Please provide a valid email"),
   firstName: z.string().min(1, "First name is requred to create a new Employee"),
@@ -91,6 +91,6 @@ export const LoginSchema = z.object({
   password: z.string().min(1, "Please provide password to login"),
 });
 
-export const UpdateEmployeeSchema = EmployeeSchema.omit({
+export const UpdateEmployeeSchema = CreateEmployeeSchema.omit({
   email: true,
 });

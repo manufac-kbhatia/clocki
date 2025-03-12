@@ -1,6 +1,6 @@
 import z from "zod";
 import {
-  EmployeeSchema,
+  CreateEmployeeSchema,
   LoginSchema,
   ProjectSchema,
   RegisterEmployeeSchema,
@@ -13,7 +13,7 @@ import { Prisma } from "@repo/db";
 // Infered types from Zod Schemas
 export type RegisterOrganisationPayload = z.infer<typeof RegisterOrganisationSchema>;
 export type RegisterEmployeePayload = z.infer<typeof RegisterEmployeeSchema>;
-export type EmployeePayload = z.infer<typeof EmployeeSchema>;
+export type CreateEmployeePayload = z.infer<typeof CreateEmployeeSchema>;
 export type TeamPayload = z.infer<typeof TeamSchema>;
 export type ProjectPayload = z.infer<typeof ProjectSchema>;
 export type LoginPayload = z.infer<typeof LoginSchema>;

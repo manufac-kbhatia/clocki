@@ -1,6 +1,6 @@
-import { EmployeePayload } from "@repo/schemas/rest";
+import { CreateEmployeePayload } from "@repo/schemas/rest";
 
-export const CreateEmployeeFormNames: Record<keyof EmployeePayload, keyof EmployeePayload> = {
+export const CreateEmployeeFormNames: Record<keyof CreateEmployeePayload, keyof CreateEmployeePayload> = {
   firstName: "firstName",
   lastName: "lastName",
   email: "email",
@@ -18,7 +18,7 @@ export const CreateEmployeeFormNames: Record<keyof EmployeePayload, keyof Employ
   teamsId: "teamsId",
 };
 
-export const CreateEmployeeFormLabels: Record<keyof EmployeePayload, string> = {
+export const CreateEmployeeFormLabels: Record<keyof CreateEmployeePayload, string> = {
   firstName: "First name",
   lastName: "Last Name",
   email: "Email",
@@ -36,7 +36,7 @@ export const CreateEmployeeFormLabels: Record<keyof EmployeePayload, string> = {
   teamsId: "Teams",
 };
 
-export const CreateEmployeeFormPlaceholder: Record<keyof EmployeePayload, string> = {
+export const CreateEmployeeFormPlaceholder: Record<keyof CreateEmployeePayload, string> = {
   firstName: "Enter first name",
   lastName: "Enter last Name",
   email: "Enter email",

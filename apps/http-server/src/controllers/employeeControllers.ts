@@ -1,5 +1,5 @@
 import { client } from "@repo/db";
-import { RegisterEmployeeSchema, EmployeeSchema, UpdateEmployeeSchema } from "@repo/schemas";
+import { RegisterEmployeeSchema, CreateEmployeeSchema, UpdateEmployeeSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
@@ -8,7 +8,7 @@ import { PrismaUtils } from "@repo/db";
 import {
   CreateEmployeeResponse,
   DeleteEmployeeResponse,
-  EmployeePayload,
+  CreateEmployeePayload,
   GetEmployeeResponse,
   GetMeReponse,
   RegisterEmployeePayload,
@@ -55,12 +55,12 @@ export const register = async (
 };
 
 export const createEmployee = async (
-  req: Request<unknown, unknown, EmployeePayload>,
+  req: Request<unknown, unknown, CreateEmployeePayload>,
   res: Response<CreateEmployeeResponse>,
   next: NextFunction,
 ) => {
   const payload = req.body;
-  const parseResult = EmployeeSchema.safeParse(payload);
+  const parseResult = CreateEmployeeSchema.safeParse(payload);
   if (parseResult.success === false) {
     next(new ErrorHandler("Invalid input", StatusCodes.BAD_REQUEST));
     return;
