@@ -39,7 +39,7 @@ export function Dashboard() {
         {NavLinks.map(({ path, label, icon }) => {
           return (
             <MantineNavLink
-              styles={{root: {borderRadius: "10px"}}}
+              styles={{ root: { borderRadius: "10px" } }}
               leftSection={icon}
               key={path}
               component={NavLink}

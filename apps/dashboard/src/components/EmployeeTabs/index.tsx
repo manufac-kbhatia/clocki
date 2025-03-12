@@ -1,4 +1,16 @@
-import { Button, Card, Group, MultiSelect, NumberInput, Select, SimpleGrid, Stack, Text, TextInput, Title } from "@mantine/core";
+import {
+  Button,
+  Card,
+  Group,
+  MultiSelect,
+  NumberInput,
+  Select,
+  SimpleGrid,
+  Stack,
+  Text,
+  TextInput,
+  Title,
+} from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { ContractType, CreateEmployeeSchema, Gender, Role } from "@repo/schemas";
 import { CreateEmployeePayload } from "@repo/schemas/rest";
@@ -7,7 +19,7 @@ import {
   CreateEmployeeFormNames,
   CreateEmployeeFormPlaceholder,
 } from "./utils";
-import { DateInput } from '@mantine/dates';
+import { DateInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
 
 const EmployeeTabs = () => {
@@ -18,15 +30,19 @@ const EmployeeTabs = () => {
 
   const handleSubmit = (data: CreateEmployeePayload) => {
     console.group(data);
-  }
-  
+  };
+
   return (
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xl">
-    <Title order={1} fw={800} mb="xs">Add new user</Title>
+      <Title order={1} fw={800} mb="xs">
+        Add new user
+      </Title>
       <form onSubmit={onSubmit(handleSubmit)}>
         <Stack gap={50}>
           <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Text fw={700} mb="xs">Personal info</Text>
+            <Text fw={700} mb="xs">
+              Personal info
+            </Text>
             <SimpleGrid
               cols={{ base: 1, md: 2, lg: 3 }}
               spacing={{ base: 10, sm: "lg" }}
@@ -92,13 +108,15 @@ const EmployeeTabs = () => {
           </Card>
 
           <Card shadow="sm" padding="lg" radius="md" withBorder>
-          <Text fw={700} mb="xs">Employment info</Text>
+            <Text fw={700} mb="xs">
+              Employment info
+            </Text>
             <SimpleGrid
               cols={{ base: 1, md: 2, lg: 3 }}
               spacing={{ base: 10, sm: "lg" }}
               verticalSpacing={{ base: "md", sm: "xs" }}
             >
-             <DateInput
+              <DateInput
                 rightSection={<IconCalendar size={20} />}
                 {...getInputProps(CreateEmployeeFormNames.hireDate)}
                 key={key(CreateEmployeeFormNames.hireDate)}
@@ -138,12 +156,15 @@ const EmployeeTabs = () => {
                 label={CreateEmployeeFormLabels.vacationDays}
                 placeholder={CreateEmployeeFormPlaceholder.vacationDays}
               />
-              
             </SimpleGrid>
           </Card>
           <Group justify="center">
-            <Button variant="outline" type="button">Cancel</Button>
-            <Button variant="filled" type="submit">Save</Button>
+            <Button variant="outline" type="button">
+              Cancel
+            </Button>
+            <Button variant="filled" type="submit">
+              Save
+            </Button>
           </Group>
         </Stack>
       </form>
