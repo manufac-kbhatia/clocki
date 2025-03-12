@@ -72,7 +72,7 @@ model Organisation {
 model EmployeeInfo {
   id           String        @id @default(uuid())
   hireDate     DateTime?
-  positon      String?
+  position     String?
   contractType ContractType?
   vacationDays Int           @default(0)
 

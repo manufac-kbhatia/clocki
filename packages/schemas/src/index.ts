@@ -56,10 +56,10 @@ export const CreateEmployeeSchema = z.object({
     .max(10, "Phone number should include 10 digits")
     .optional(),
   gender: z.nativeEnum(Gender),
-  dateOfBirth: z.date().optional(),
+  dateOfBirth: z.union([z.date(), z.string().transform((str) => new Date(str))]).optional(),
 
   // Emploment Info
-  hireDate: z.date().optional(),
+  hireDate: z.union([z.date(), z.string().transform((str) => new Date(str))]).optional(),
   contractType: z.nativeEnum(ContractType).optional(),
   position: z.string().optional(),
   teamsId: z.array(z.string()).optional(),

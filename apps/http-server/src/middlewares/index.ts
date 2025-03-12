@@ -7,7 +7,7 @@ import { ErrorResponse } from "@repo/schemas/rest";
 import type { Role } from "@repo/schemas";
 import ErrorHandler from "../utils/errorHandler";
 
-export function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
+export async function isAuthenticated(req: Request, res: Response<ErrorResponse>, next: NextFunction) {
   try {
     const authHeader = req.headers["authorization"];
     if (authHeader === undefined) {
@@ -23,8 +23,14 @@ export function isAuthenticated(req: Request, res: Response<ErrorResponse>, next
 
       if (typeof token === "string") {
         const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as Record<string, string>;
+        const employee = await client.employee.findUnique({where: {id: decoded.id}, include: {createdOrganisation: true}})
+        if (employee === null) {
+          next(new ErrorHandler("User not found", StatusCodes.NOT_FOUND));
+          return;
+        }
         req.employeeId = decoded.id;
         req.role = decoded.role as Role;
+        req.employee = employee;
         next();
       }
     }

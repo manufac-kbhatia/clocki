@@ -1,5 +1,5 @@
 import { client } from "@repo/db";
-import { RegisterEmployeeSchema, CreateEmployeeSchema, UpdateEmployeeSchema } from "@repo/schemas";
+import { RegisterEmployeeSchema, CreateEmployeeSchema, UpdateEmployeeSchema, Role } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import ErrorHandler from "../utils/errorHandler";
@@ -59,29 +59,32 @@ export const createEmployee = async (
   res: Response<CreateEmployeeResponse>,
   next: NextFunction,
 ) => {
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
   const payload = req.body;
   const parseResult = CreateEmployeeSchema.safeParse(payload);
   if (parseResult.success === false) {
-    next(new ErrorHandler("Invalid input", StatusCodes.BAD_REQUEST));
+    next(new ErrorHandler(`${parseResult.error.errors[0]?.message} field: ${parseResult.error.errors[0]?.path}`, StatusCodes.BAD_REQUEST));
     return;
   }
-  const { hireDate, position, contractType, teamsId, role, ...rest } = parseResult.data;
+  const { hireDate, position, vacationDays, contractType, teamsId, role, ...rest } = parseResult.data;
   const password = "123456789"; // TODO: generate random password
   const employee = await client.employee.create({
     data: {
       ...rest,
       password,
-      role: (role as PrismaUtils.Role) ?? PrismaUtils.Role,
+      role: (role as PrismaUtils.Role) ?? PrismaUtils.Role.Other,
       teams: {
         connect: teamsId?.map((id) => ({ id })),
       },
       employeeInfo: {
         create: {
-          hireDate: hireDate,
-          positon: position,
-          contractType: contractType,
+          hireDate,
+          position,
+          contractType,
+          vacationDays,
         },
       },
+      organisationId,
     },
   });
   res.status(200).json({
@@ -137,10 +140,10 @@ export const updateEmployee = async (
       role: role ?? undefined,
       employeeInfo: {
         update: {
-          hireDate: hireDate,
-          contractType: contractType,
-          positon: position,
-          vacationDays: vacationDays ?? undefined,
+          hireDate,
+          contractType,
+          position,
+          vacationDays,
         },
       },
     },
@@ -208,3 +211,4 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
     employeeData: me,
   });
 };
+    

@@ -1,4 +1,6 @@
 import {
+  CreateEmployeePayload,
+  CreateEmployeeResponse,
   GetMeReponse,
   LoginEmployeeResponse,
   LoginPayload,
@@ -58,6 +60,20 @@ export function useSetupOrganisation(
   const mutation = useMutation({
     mutationFn: async (payload) => {
       const reponse = await axiosPrivate.post<RegisterOrganisationResponse>("/organisations", payload);
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
+}
+
+export function useCreateEmployee(
+  params?: UseMutationOptions<CreateEmployeeResponse, Error, CreateEmployeePayload>,
+): UseMutationResult<CreateEmployeeResponse, Error, CreateEmployeePayload> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axiosPrivate.post<CreateEmployeeResponse>("/employee", payload);
       return reponse.data;
     },
     ...params,

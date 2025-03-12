@@ -21,15 +21,21 @@ import {
 } from "./utils";
 import { DateInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
+import { useCreateEmployee } from "../../hooks/api";
 
 const EmployeeTabs = () => {
+  const {mutate: createEmployee} = useCreateEmployee({
+    onSuccess: (data) => {
+      console.log(data);
+    }
+  });
   const { getInputProps, key, onSubmit } = useForm<CreateEmployeePayload>({
     mode: "uncontrolled",
     validate: zodResolver(CreateEmployeeSchema),
   });
 
   const handleSubmit = (data: CreateEmployeePayload) => {
-    console.group(data);
+    createEmployee(data);
   };
 
   return (
