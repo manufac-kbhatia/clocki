@@ -1,43 +1,31 @@
-import { Tabs } from "@mantine/core";
-import { IconUser, IconUserPlus, IconUsersGroup, IconUsersPlus } from "@tabler/icons-react";
-import EmployeeTabs from "../../components/EmployeeTabs";
 import { useState } from "react";
 import { TabNames } from "./utils";
+import type { TabNames as TabNamesType } from "./utils";
+import { Button, Group, SegmentedControl, Stack, useMantineTheme } from "@mantine/core";
+import { ManageTabs } from "./ManageTabs";
 
 const ManageEmployee = () => {
-  const [activeTab, setActiveTab] = useState<string | null>(TabNames[0]);
+  const theme = useMantineTheme();
+  const [activeTab, setActiveTab] = useState<TabNamesType>(TabNames.Users);
 
   return (
-    <Tabs variant="pills" value={activeTab} onChange={setActiveTab}>
-      <Tabs.List>
-        <Tabs.Tab value={TabNames[0]} leftSection={<IconUser size={18} />}>
-          User
-        </Tabs.Tab>
-        <Tabs.Tab value={TabNames[1]} leftSection={<IconUsersGroup size={18} />}>
-          Teams
-        </Tabs.Tab>
-
-        {activeTab === TabNames[0] || activeTab === TabNames[2] ? (
-          <Tabs.Tab value={TabNames[2]} ml="auto" leftSection={<IconUserPlus size={18} />}>
-            New User
-          </Tabs.Tab>
+    <Stack>
+      <Group justify="space-between">
+        <SegmentedControl
+          color={theme.colors.blue[6]}
+          value={activeTab}
+          onChange={(value) => setActiveTab(value as TabNamesType)}
+          data={[TabNames.Users, TabNames.Teams]}
+        />
+        {activeTab === TabNames.Users ? (
+          <Button onClick={() => setActiveTab(TabNames.NewUser)}>New User</Button>
         ) : (
-          <Tabs.Tab value={TabNames[3]} ml="auto" leftSection={<IconUsersPlus size={18} />}>
-            New Team
-          </Tabs.Tab>
+          <Button onClick={() => setActiveTab(TabNames.NewTeam)}>New Team</Button>
         )}
-      </Tabs.List>
+      </Group>
 
-      <Tabs.Panel value={TabNames[0]}>Users</Tabs.Panel>
-
-      <Tabs.Panel value={TabNames[1]}>Teams</Tabs.Panel>
-
-      <Tabs.Panel value={TabNames[2]}>
-        <EmployeeTabs />
-      </Tabs.Panel>
-
-      <Tabs.Panel value={TabNames[3]}>Add Teams here</Tabs.Panel>
-    </Tabs>
+      {ManageTabs[activeTab]}
+    </Stack>
   );
 };
 

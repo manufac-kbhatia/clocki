@@ -23,7 +23,10 @@ export async function isAuthenticated(req: Request, res: Response<ErrorResponse>
 
       if (typeof token === "string") {
         const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET) as Record<string, string>;
-        const employee = await client.employee.findUnique({where: {id: decoded.id}, include: {createdOrganisation: true}})
+        const employee = await client.employee.findUnique({
+          where: { id: decoded.id },
+          include: { createdOrganisation: true },
+        });
         if (employee === null) {
           next(new ErrorHandler("User not found", StatusCodes.NOT_FOUND));
           return;

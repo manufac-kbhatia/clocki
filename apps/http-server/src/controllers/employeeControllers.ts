@@ -15,6 +15,7 @@ import {
   RegisterEmployeeResponse,
   UpdateEmployeePayload,
   UpdateEmployeeResponse,
+  GetEmployeesResponse,
 } from "@repo/schemas/rest";
 import { getJWTTokens } from "../utils/jwt";
 
@@ -63,7 +64,12 @@ export const createEmployee = async (
   const payload = req.body;
   const parseResult = CreateEmployeeSchema.safeParse(payload);
   if (parseResult.success === false) {
-    next(new ErrorHandler(`${parseResult.error.errors[0]?.message} field: ${parseResult.error.errors[0]?.path}`, StatusCodes.BAD_REQUEST));
+    next(
+      new ErrorHandler(
+        `${parseResult.error.errors[0]?.message} field: ${parseResult.error.errors[0]?.path}`,
+        StatusCodes.BAD_REQUEST,
+      ),
+    );
     return;
   }
   const { hireDate, position, vacationDays, contractType, teamsId, role, ...rest } = parseResult.data;
@@ -85,6 +91,9 @@ export const createEmployee = async (
         },
       },
       organisationId,
+    },
+    omit: {
+      password: true,
     },
   });
   res.status(200).json({
@@ -115,6 +124,23 @@ export const getEmployee = async (
   res.status(200).json({
     success: true,
     employee,
+  });
+};
+
+export const getEmployees = async (req: Request, res: Response<GetEmployeesResponse>, next: NextFunction) => {
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  const employees = await client.employee.findMany({
+    where: {
+      organisationId,
+    },
+    omit: {
+      password: true,
+    },
+  });
+
+  res.status(200).json({
+    success: true,
+    employees,
   });
 };
 
@@ -211,4 +237,3 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
     employeeData: me,
   });
 };
-    

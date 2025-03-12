@@ -11,7 +11,8 @@ router.route("/employee/me").get(isAuthenticated, catchAsync(employeeControllers
 
 router
   .route("/employee")
-  .post(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.createEmployee));
+  .post(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.createEmployee))
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.getEmployees));
 router
   .route("/employee/:id")
   .get(isAuthenticated, isAuthorized([Role.Admin, Role.Hr]), catchAsync(employeeControllers.getEmployee))

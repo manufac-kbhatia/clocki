@@ -1,6 +1,7 @@
 import {
   CreateEmployeePayload,
   CreateEmployeeResponse,
+  GetEmployeesResponse,
   GetMeReponse,
   LoginEmployeeResponse,
   LoginPayload,
@@ -79,4 +80,17 @@ export function useCreateEmployee(
     ...params,
   });
   return mutation;
+}
+
+export function useGetEmployees(): UseQueryResult<GetEmployeesResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["employees"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetEmployeesResponse>("/employee");
+      return response.data;
+    },
+    retry: false,
+  });
+  return output;
 }

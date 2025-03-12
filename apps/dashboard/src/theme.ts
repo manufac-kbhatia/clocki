@@ -1,5 +1,4 @@
-import { createTheme, MultiSelect, NumberInput, PasswordInput, rem, Select, TextInput } from "@mantine/core";
-import { DateInput } from "@mantine/dates";
+import { createTheme, rem } from "@mantine/core";
 
 export const MantineTheme = createTheme({
   fontSmoothing: true,
@@ -33,55 +32,61 @@ export const MantineTheme = createTheme({
   defaultRadius: "md",
 
   components: {
-    TextInput: TextInput.extend({
-      styles: {
-        input: {
-          padding: "25px",
-          borderColor: "#E8ECEE",
-        },
-      },
-    }),
-    PasswordInput: PasswordInput.extend({
-      styles: {
-        input: {
-          padding: "25px",
-          borderColor: "#E8ECEE",
-        },
-      },
-    }),
-    Select: Select.extend({
-      styles: {
-        input: {
-          padding: "25px",
-          borderColor: "#E8ECEE",
-        },
-      },
-    }),
-    DateInput: DateInput.extend({
-      styles: {
-        input: {
-          padding: "25px",
-          borderColor: "#E8ECEE",
-        },
-      },
-    }),
-
-    NumberInput: NumberInput.extend({
-      styles: {
-        input: {
-          padding: "25px",
-          borderColor: "#E8ECEE",
-        },
-      },
-    }),
-
-    MultiSelect: MultiSelect.extend({
-      styles: {
-        input: {
-          padding: "15px",
-          borderColor: "#E8ECEE",
-        },
-      },
-    }),
+    // TextInput: TextInput.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
+    // PasswordInput: PasswordInput.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
+    // Select: Select.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
+    // DateInput: DateInput.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
+    // NumberInput: NumberInput.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
+    // MultiSelect: MultiSelect.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
+    // DatePickerInput: DatePickerInput.extend({
+    //   styles: {
+    //     input: {
+    //       padding: "25px",
+    //       borderColor: "#E8ECEE",
+    //     },
+    //   },
+    // }),
   },
 });

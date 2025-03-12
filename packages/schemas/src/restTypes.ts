@@ -37,7 +37,7 @@ export interface RegisterEmployeeResponse extends BaseResponseType {
 }
 
 export interface CreateEmployeeResponse extends BaseResponseType {
-  employee: Prisma.EmployeeGetPayload<{}>;
+  employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
 }
 
 export interface LoginEmployeeResponse extends BaseResponseType {
@@ -74,6 +74,10 @@ export interface GetMeReponse extends BaseResponseType {
 
 export interface GetEmployeeResponse extends BaseResponseType {
   employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
+}
+
+export interface GetEmployeesResponse extends BaseResponseType {
+  employees: Prisma.EmployeeGetPayload<{ omit: { password: true } }>[];
 }
 
 // Check for this
