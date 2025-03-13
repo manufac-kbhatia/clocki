@@ -39,7 +39,7 @@ const AddEmployeeTab = () => {
   };
 
   return (
-    <Card shadow="sm" padding="xl" radius="md" withBorder m="xl">
+    <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
       <Title order={1} fw={800} mb="xs">
         Add new user
       </Title>

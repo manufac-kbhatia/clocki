@@ -78,7 +78,7 @@ const EmployeeTab = () => {
     getPaginationRowModel: getPaginationRowModel(),
   });
   return (
-    <Card shadow="sm" padding="xl" radius="md" withBorder m="xl">
+    <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Group justify="space-between">
           <Title>Users</Title>

@@ -12,4 +12,8 @@ router
   .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.getTeams))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.createTeam));
 
+router
+  .route("/team/:id")
+  .delete(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.deleteTeam));
+
 export default router;

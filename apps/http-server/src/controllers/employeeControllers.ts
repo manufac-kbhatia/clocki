@@ -37,10 +37,6 @@ export const register = async (
       ...data,
       role: PrismaUtils.Role.Admin,
     },
-    // Ref: https://www.prisma.io/docs/orm/prisma-client/queries/excluding-fields#excluding-a-field-locally-using-omit
-    omit: {
-      password: true,
-    },
     include: { createdOrganisation: true, organisation: true },
   });
 
@@ -91,10 +87,7 @@ export const createEmployee = async (
         },
       },
       organisationId,
-    },
-    omit: {
-      password: true,
-    },
+    }
   });
   res.status(200).json({
     success: true,
@@ -112,9 +105,9 @@ export const getEmployee = async (
     where: {
       id: employeeId,
     },
-    omit: {
-      password: true,
-    },
+    include: {
+      employeeInfo: true,
+    }
   });
 
   if (employee === null) {
@@ -133,9 +126,9 @@ export const getEmployees = async (req: Request, res: Response<GetEmployeesRespo
     where: {
       organisationId,
     },
-    omit: {
-      password: true,
-    },
+    include: {
+      employeeInfo: true,
+    }
   });
 
   res.status(200).json({
@@ -172,9 +165,6 @@ export const updateEmployee = async (
           vacationDays,
         },
       },
-    },
-    omit: {
-      password: true,
     },
     include: {
       employeeInfo: true,
@@ -220,9 +210,6 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
   const me = await client.employee.findUnique({
     where: {
       id: req.employeeId,
-    },
-    omit: {
-      password: true,
     },
     include: { createdOrganisation: true, organisation: true },
   });

@@ -31,18 +31,18 @@ export interface BaseResponseType {
 export interface RegisterEmployeeResponse extends BaseResponseType {
   accessToken: string;
   employeeData: Prisma.EmployeeGetPayload<{
-    omit: { password: true };
+    omit: { password: true, refreshToken: true };
     include: { createdOrganisation: true; organisation: true };
   }>;
 }
 
 export interface CreateEmployeeResponse extends BaseResponseType {
-  employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
+  employee: Prisma.EmployeeGetPayload<{ omit: { password: true, refreshToken: true } }>;
 }
 
 export interface LoginEmployeeResponse extends BaseResponseType {
   employeeData: Prisma.EmployeeGetPayload<{
-    omit: { password: true };
+    omit: { password: true, refreshToken: true };
     include: { createdOrganisation: true; organisation: true };
   }>;
   accessToken: string;
@@ -51,7 +51,7 @@ export interface LoginEmployeeResponse extends BaseResponseType {
 export interface RefreshTokenResponse extends BaseResponseType {
   accessToken: string;
   employeeData: Prisma.EmployeeGetPayload<{
-    omit: { password: true };
+    omit: { password: true, refreshToken: true };
     include: { createdOrganisation: true; organisation: true };
   }>;
 }
@@ -67,22 +67,22 @@ export interface DeleteEmployeeResponse extends BaseResponseType {
 
 export interface GetMeReponse extends BaseResponseType {
   employeeData: Prisma.EmployeeGetPayload<{
-    omit: { password: true };
+    omit: { password: true, refreshToken: true };
     include: { createdOrganisation: true; organisation: true };
   }>;
 }
 
 export interface GetEmployeeResponse extends BaseResponseType {
-  employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
+  employee: Prisma.EmployeeGetPayload<{ omit: { password: true, refreshToken: true }, include: {employeeInfo: true} }>;
 }
 
 export interface GetEmployeesResponse extends BaseResponseType {
-  employees: Prisma.EmployeeGetPayload<{ omit: { password: true } }>[];
+  employees: Prisma.EmployeeGetPayload<{ omit: { password: true, refreshToken: true }, include: {employeeInfo: true} }>[];
 }
 
 // Check for this
 export interface UpdateEmployeeResponse extends BaseResponseType {
-  employee: Prisma.EmployeeGetPayload<{ omit: { password: true } }>;
+  employee: Prisma.EmployeeGetPayload<{omit: { password: true, refreshToken: true }, include: {employeeInfo: true}}>;
 }
 
 export interface SetupOrganisationResponse extends BaseResponseType {
@@ -100,18 +100,19 @@ export interface DeleteOrganisationResponse extends BaseResponseType {
 
 // Check for this
 export interface CreateProjectResponse extends BaseResponseType {
-  success: boolean;
   project: Prisma.ProjectGetPayload<{}>;
 }
 
 export interface CreateTeamResponse extends BaseResponseType {
-  success: boolean;
   team: Prisma.TeamGetPayload<{}>;
 }
 
 export interface GetTeamsResponse extends BaseResponseType {
-  success: boolean;
-  teams: Prisma.TeamGetPayload<{ include: { members: true; teamLead: true } }>[];
+  teams: Prisma.TeamGetPayload<{ include: { members: {omit: { password: true, refreshToken: true}}; teamLead: {omit: {password: true, refreshToken: true}} } }>[];
+}
+
+export interface DeleteTeamsResponse extends BaseResponseType {
+  teamId: string;
 }
 
 export interface ErrorResponse {

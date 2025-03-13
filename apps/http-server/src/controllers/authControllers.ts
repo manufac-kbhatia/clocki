@@ -25,6 +25,9 @@ export const login = async (
     where: {
       email: data.email,
     },
+    omit: {
+      password: false // The password field is now selected.
+    },
     include: { createdOrganisation: true, organisation: true },
   });
 
@@ -39,7 +42,7 @@ export const login = async (
 
   const { accessToken, refreshToken } = getJWTTokens({ id: employee.id, role: employee.role });
 
-  await client.employee.update({ where: { email: data.email }, data: { refreshToken } });
+  const updatedEmployee = await client.employee.update({ where: { email: data.email }, data: { refreshToken }, include: {createdOrganisation: true, organisation: true} });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
@@ -47,7 +50,7 @@ export const login = async (
     secure: true,
     maxAge: 24 * 60 * 60 * 1000,
   });
-  res.status(StatusCodes.OK).json({ success: true, accessToken, employeeData: employee });
+  res.status(StatusCodes.OK).json({ success: true, accessToken, employeeData: updatedEmployee });
 };
 
 export const refreshToken = async (req: Request, res: Response<RefreshTokenResponse>, next: NextFunction) => {

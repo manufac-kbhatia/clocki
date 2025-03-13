@@ -3,7 +3,7 @@ import { Role, TeamSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
-import { CreateTeamResponse, GetTeamsResponse, TeamPayload } from "@repo/schemas/rest";
+import { CreateTeamResponse, DeleteTeamsResponse, GetTeamsResponse, TeamPayload } from "@repo/schemas/rest";
 
 export const createTeam = async (
   req: Request<unknown, unknown, TeamPayload>,
@@ -55,5 +55,14 @@ export const getTeams = async (req: Request, res: Response<GetTeamsResponse>) =>
       include: { members: true, teamLead: true },
     });
     res.status(StatusCodes.OK).json({ success: true, teams });
+  }
+};
+
+export const deleteTeam = async (req: Request<{ id: string }>, res: Response<DeleteTeamsResponse>) => {
+  const id = req.params.id;
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  if (organisationId) {
+    const deletedTeam = await client.team.delete({ where: { id, organisationId } });
+    res.status(StatusCodes.OK).json({ success: true, teamId: deletedTeam.id });
   }
 };

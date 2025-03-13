@@ -2,6 +2,7 @@ import {
   CreateEmployeePayload,
   CreateEmployeeResponse,
   CreateTeamResponse,
+  DeleteTeamsResponse,
   GetEmployeesResponse,
   GetMeReponse,
   GetTeamsResponse,
@@ -123,4 +124,18 @@ export function useGetTeams(): UseQueryResult<GetTeamsResponse> {
     retry: false,
   });
   return output;
+}
+
+export function useDeleteTeam(
+  params?: UseMutationOptions<DeleteTeamsResponse, Error, string>,
+): UseMutationResult<DeleteTeamsResponse, Error, string> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async (id) => {
+      const reponse = await axiosPrivate.delete<DeleteTeamsResponse>(`/team/${id}`);
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
 }
