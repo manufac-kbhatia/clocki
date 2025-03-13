@@ -1,6 +1,6 @@
 export const Section = {
   Candidate: "Candidate",
-  Team_Lead: "Team Lead",
+  TeamLead: "Team Lead",
   Members: "Members",
 } as const;
 

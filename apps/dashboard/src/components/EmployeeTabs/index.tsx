@@ -3,6 +3,7 @@ import {
   Card,
   Group,
   MultiSelect,
+  Paper,
   SimpleGrid,
   Stack,
   Table,
@@ -78,7 +79,6 @@ const EmployeeTab = () => {
   });
   return (
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xl">
-      {/* TODO: Add border radius */}
       <Stack>
         <Group justify="space-between">
           <Title>Users</Title>
@@ -126,16 +126,9 @@ const EmployeeTab = () => {
             </SimpleGrid>
           )}
         </Transition>
-        {/* ) : null} */}
+        <Paper withBorder> {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
         <Table
-          withTableBorder
           highlightOnHover
-          styles={{
-            table: {
-              borderCollapse: "separate", // Needed for borderRadius to work
-              borderRadius: "8px",
-            },
-          }}
         >
           <Table.Thead>
             {getHeaderGroups().map(({ id, headers }) => {
@@ -143,11 +136,7 @@ const EmployeeTab = () => {
                 <Table.Tr key={id}>
                   {headers.map(({ id: headerID, column, getContext }) => {
                     return (
-                      <Table.Th
-                        key={headerID}
-                        onClick={column.getToggleSortingHandler()}
-                        style={{ cursor: "pointer" }}
-                      >
+                      <Table.Th key={headerID} onClick={column.getToggleSortingHandler()}>
                         <Group wrap="nowrap">
                           <Text size="md" fw="bold">
                             {flexRender(column.columnDef.header, getContext())}
@@ -176,6 +165,7 @@ const EmployeeTab = () => {
             })}
           </Table.Tbody>
         </Table>
+        </Paper>
       </Stack>
     </Card>
   );

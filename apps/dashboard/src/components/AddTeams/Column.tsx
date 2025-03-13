@@ -1,7 +1,7 @@
 import { GetEmployeesResponse } from "@repo/schemas/rest";
 import { SectionType } from "./utils";
 import { useDroppable } from "@dnd-kit/core";
-import { Stack, Title } from "@mantine/core";
+import { Paper, Stack, Title } from "@mantine/core";
 import { EmployeeCard } from "./EmployeeCard";
 
 type ColumnProps = {
@@ -15,16 +15,17 @@ export function Column({ section, employees }: ColumnProps) {
     data: employees,
   });
 
-  // console.log(`${column.title}`, handler);
 
   return (
-    <Stack  bd={"2px solid red"} mih={200} ref={handler.setNodeRef} >
+    <Stack>
       <Title>{section}</Title>
-      <Stack>
-      {employees?.map((employee) => {
-          return <EmployeeCard key={employee.id} employee={employee} section={section}/>;
-        })}
-      </Stack>
+      <Paper shadow="xl" withBorder p="xl" mih={200} ref={handler.setNodeRef}>
+        <Stack>
+          {employees?.map((employee) => {
+            return <EmployeeCard key={employee.id} employee={employee} section={section} />;
+          })}
+        </Stack>
+      </Paper>
     </Stack>
   );
 }
