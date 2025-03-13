@@ -26,7 +26,7 @@ export const login = async (
       email: data.email,
     },
     omit: {
-      password: false // The password field is now selected.
+      password: false, // The password field is now selected.
     },
     include: { createdOrganisation: true, organisation: true },
   });
@@ -42,7 +42,11 @@ export const login = async (
 
   const { accessToken, refreshToken } = getJWTTokens({ id: employee.id, role: employee.role });
 
-  const updatedEmployee = await client.employee.update({ where: { email: data.email }, data: { refreshToken }, include: {createdOrganisation: true, organisation: true} });
+  const updatedEmployee = await client.employee.update({
+    where: { email: data.email },
+    data: { refreshToken },
+    include: { createdOrganisation: true, organisation: true },
+  });
 
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,

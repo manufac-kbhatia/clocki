@@ -23,9 +23,9 @@ const TeamTab = () => {
   const [deletedTeamId, setDeleteTeamId] = useState<string | null>(null);
 
   const handleDelete = (id: string) => {
-    setDeleteTeamId(id)
+    setDeleteTeamId(id);
     open();
-  }
+  };
 
   return (
     <>
@@ -39,11 +39,7 @@ const TeamTab = () => {
                   <Group justify="space-between">
                     <Text>{team.name}</Text>
                     <Group>
-                      <ActionIcon
-                        variant="white"
-                        size="xs"
-                        onClick={() => handleDelete(team.id)}
-                      >
+                      <ActionIcon variant="white" size="xs" onClick={() => handleDelete(team.id)}>
                         <IconTrash />
                       </ActionIcon>
                       <ActionIcon variant="white" size="xs">
@@ -65,7 +61,7 @@ const TeamTab = () => {
                     <Text>Members</Text>
                     <ScrollArea h={200} scrollbars="y">
                       {team.members.map((member) => {
-                        const name = `${member.firstName} ${member.lastName ??  ""}`;
+                        const name = `${member.firstName} ${member.lastName ?? ""}`;
                         return (
                           <Card m="xs" withBorder p={5}>
                             <Group>
@@ -83,21 +79,32 @@ const TeamTab = () => {
           );
         })}
       </Grid>
-      <Modal opened={opened} onClose={close} title={<Text fw={700}>Delete Confirmation</Text>} centered withCloseButton overlayProps={{
+      <Modal
+        opened={opened}
+        onClose={close}
+        title={<Text fw={700}>Delete Confirmation</Text>}
+        centered
+        withCloseButton
+        overlayProps={{
           backgroundOpacity: 0.55,
           blur: 4,
-        }}> 
+        }}
+      >
         <Stack>
-        <Text>This action cannot be undone.</Text>
-        <Group justify="end" gap={5}>
-          <Button variant="outline" onClick={close}>
-            Cancel
-          </Button>
-          <Button onClick={() => {
-            deleteTeam(deletedTeamId ?? "");
-            close();
-          }}>Delete</Button>
-        </Group>
+          <Text>This action cannot be undone.</Text>
+          <Group justify="end" gap={5}>
+            <Button variant="outline" onClick={close}>
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                deleteTeam(deletedTeamId ?? "");
+                close();
+              }}
+            >
+              Delete
+            </Button>
+          </Group>
         </Stack>
       </Modal>
     </>

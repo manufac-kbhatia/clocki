@@ -101,15 +101,25 @@ export interface DeleteTeamResponse extends BaseResponseType {
   teamId: string;
 }
 
-
 export type EmployeeInfo = Prisma.EmployeeInfoGetPayload<{}>;
-export type Employee = Prisma.EmployeeGetPayload<{omit: { password: true, refreshToken: true}}>;
-export type EmployeeWithEmployeeInfo = Prisma.EmployeeGetPayload<{omit: { password: true, refreshToken: true}, include: {employeeInfo: true}}>;
-export type EmployeeWithOrganisation = Prisma.EmployeeGetPayload<{omit: { password: true, refreshToken: true}, include: {createdOrganisation: true, organisation: true}}>;
+export type Employee = Prisma.EmployeeGetPayload<{ omit: { password: true; refreshToken: true } }>;
+export type EmployeeWithEmployeeInfo = Prisma.EmployeeGetPayload<{
+  omit: { password: true; refreshToken: true };
+  include: { employeeInfo: true };
+}>;
+export type EmployeeWithOrganisation = Prisma.EmployeeGetPayload<{
+  omit: { password: true; refreshToken: true };
+  include: { createdOrganisation: true; organisation: true };
+}>;
 
-export type Team = Prisma.TeamGetPayload<{ include: { members: {omit: { password: true, refreshToken: true}}; teamLead: {omit: {password: true, refreshToken: true}} } }>;
+export type Team = Prisma.TeamGetPayload<{
+  include: {
+    members: { omit: { password: true; refreshToken: true } };
+    teamLead: { omit: { password: true; refreshToken: true } };
+  };
+}>;
 export type Project = Prisma.ProjectGetPayload<{}>;
-export type Organisation = Prisma.OrganisationGetPayload<{}>
+export type Organisation = Prisma.OrganisationGetPayload<{}>;
 export interface ErrorResponse {
   success: boolean;
   message: string;

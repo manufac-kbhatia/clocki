@@ -87,7 +87,7 @@ export const createEmployee = async (
         },
       },
       organisationId,
-    }
+    },
   });
   res.status(200).json({
     success: true,
@@ -107,7 +107,7 @@ export const getEmployee = async (
     },
     include: {
       employeeInfo: true,
-    }
+    },
   });
 
   if (employee === null) {
@@ -128,7 +128,7 @@ export const getEmployees = async (req: Request, res: Response<GetEmployeesRespo
     },
     include: {
       employeeInfo: true,
-    }
+    },
   });
 
   res.status(200).json({

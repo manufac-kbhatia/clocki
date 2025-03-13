@@ -12,9 +12,7 @@ const AddTeam = () => {
   const { auth } = useClockiContext();
   const { data } = useGetEmployees();
   const { mutate: createTeam } = useCreateTeam();
-  const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>(
-    data?.employees ?? [],
-  );
+  const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>(data?.employees ?? []);
   const [teamLead, setTeamLead] = useState<EmployeeWithEmployeeInfo | null>(null);
   const [members, setMembers] = useState<EmployeeWithEmployeeInfo[]>([]);
 
@@ -43,10 +41,7 @@ const AddTeam = () => {
     if (to === from) return; // If to and from drop location is same then return
     if (to === Section.TeamLead && teamLead !== null) return; // If the team lead is already selected, return
 
-    const removeFrom: Record<
-      SectionType,
-      (employee?: EmployeeWithEmployeeInfo) => void
-    > = {
+    const removeFrom: Record<SectionType, (employee?: EmployeeWithEmployeeInfo) => void> = {
       [Section.Candidate]: (employee) =>
         setCandidate((prev) => prev.filter((ele) => ele.id !== employee?.id)),
       [Section.Members]: (employee) =>
@@ -54,10 +49,7 @@ const AddTeam = () => {
       [Section.TeamLead]: () => setTeamLead(null),
     };
 
-    const addTo: Record<
-      SectionType,
-      (employee: EmployeeWithEmployeeInfo) => void
-    > = {
+    const addTo: Record<SectionType, (employee: EmployeeWithEmployeeInfo) => void> = {
       [Section.Candidate]: (employee) => setCandidate((prev) => [...prev, employee]),
       [Section.Members]: (employee) => setMembers((prev) => [...prev, employee]),
       [Section.TeamLead]: (employee) => setTeamLead(employee),

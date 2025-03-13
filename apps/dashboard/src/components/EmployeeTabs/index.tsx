@@ -29,47 +29,104 @@ const EmployeeTab = () => {
   const [roles, setRoles] = useState<string[]>([]);
   const [positions, setPositions] = useState<string[]>([]);
   const [showFilter, toggleFilter] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetEmployees();
 
-  const employees = useMemo(() => {
-    return data?.employees ?? [];
-  }, [data?.employees]);
+  const filteredEmployees: EmployeeWithEmployeeInfo[] = useMemo(() => {
+    let result: EmployeeWithEmployeeInfo[] = data?.employees ?? [];
+    if (
+      hireDateFilter[0] === null &&
+      hireDateFilter[1] === null &&
+      roles.length === 0 &&
+      positions.length === 0 &&
+      searchQuery === null
+    ) {
+      return result;
+    }
+    const startDate = hireDateFilter[0];
+    const endDate = hireDateFilter[1];
+    if (startDate !== null && endDate !== null) {
+      result = result.filter((employee) => {
+        const hireDate = employee.employeeInfo?.hireDate;
+        return hireDate && hireDate >= startDate && hireDate <= endDate;
+      });
+    }
+
+    if (searchQuery && searchQuery.length > 0) {
+      result = result.filter((employee) => {
+        return (
+          employee.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          employee.lastName?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          employee.email.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      });
+    }
+
+    if (positions.length > 0) {
+      result = result.filter((employee) => {
+        const position = employee.employeeInfo?.position;
+        return position && positions.includes(position);
+      });
+    }
+
+    if (roles.length > 0) {
+      result = result.filter((employee) => {
+        const role = employee.role;
+        return positions.includes(role);
+      });
+    }
+
+    return result;
+  }, [data, hireDateFilter, positions, roles, searchQuery]);
+
+  const handleResetFilter = () => {
+    setSearchQuery(null);
+    setHireDateFilter([null, null]);
+    setRoles([]);
+    setPositions([]);
+  };
 
   const columnHelper = createColumnHelper<EmployeeWithEmployeeInfo>();
   const columns = useMemo(() => {
     return [
       columnHelper.accessor("firstName", {
+        id: "firstName",
         header: "First Name",
         cell: ({ getValue }) => {
           return getValue();
         },
       }),
       columnHelper.accessor("lastName", {
+        id: "lastName",
         header: "Last Name",
         cell: ({ getValue }) => {
           return getValue() ?? "-";
         },
       }),
       columnHelper.accessor("phoneNumber", {
+        id: "phoneNumber",
         header: "Phone number",
         cell: ({ getValue }) => {
           return getValue() ?? "-";
         },
       }),
       columnHelper.accessor("email", {
+        id: "email",
         header: "Email",
         cell: ({ getValue }) => {
           return getValue();
         },
       }),
       columnHelper.accessor("employeeInfo", {
+        id: "position",
         header: "Position",
         cell: ({ getValue }) => {
           return getValue()?.position ?? "-";
         },
       }),
       columnHelper.accessor("employeeInfo", {
-        header: "hireDate",
+        id: "hireDate",
+        header: "Hire Date",
         cell: ({ getValue }) => {
           return getValue()?.hireDate ?? "-";
         },
@@ -78,18 +135,21 @@ const EmployeeTab = () => {
   }, [columnHelper]);
 
   const { getRowModel, getHeaderGroups } = useReactTable({
-    data: employees,
+    data: filteredEmployees,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
+
   return (
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Group justify="space-between">
           <Title>Users</Title>
           <Group gap={5}>
-            <Button variant="light">Clear</Button>
+            <Button variant="light" onClick={handleResetFilter}>
+              Clear
+            </Button>
             <Button onClick={() => toggleFilter(!showFilter)}>Filter</Button>
           </Group>
         </Group>
@@ -107,7 +167,12 @@ const EmployeeTab = () => {
               cols={{ base: 1, xs: 2, md: 4 }}
               style={{ ...transitionStyle }}
             >
-              <TextInput placeholder="Search employee by name" label="Employee" />
+              <TextInput
+                placeholder="Search"
+                label="Employee"
+                value={searchQuery ?? ""}
+                onChange={(event) => setSearchQuery(event.currentTarget.value)}
+              />
               <DatePickerInput
                 type="range"
                 label="Hire date"

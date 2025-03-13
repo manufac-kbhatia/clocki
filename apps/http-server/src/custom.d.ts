@@ -7,7 +7,10 @@ declare global {
     interface Request {
       employeeId?: string;
       role?: Role;
-      employee?: Prisma.EmployeeGetPayload<{ include: { createdOrganisation: true }, omit: {password: true, refreshToken: true} }>;
+      employee?: Prisma.EmployeeGetPayload<{
+        include: { createdOrganisation: true };
+        omit: { password: true; refreshToken: true };
+      }>;
     }
   }
 }
