@@ -68,6 +68,12 @@ const EmployeeTab = () => {
           return getValue()?.position ?? "-";
         },
       }),
+      columnHelper.accessor("employeeInfo", {
+        header: "hireDate",
+        cell: ({ getValue }) => {
+          return getValue()?.hireDate ?? "-";
+        },
+      }),
     ];
   }, [columnHelper]);
 
