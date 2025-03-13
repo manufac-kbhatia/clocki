@@ -34,7 +34,7 @@ const TeamTab = () => {
           const teamLeadName = `${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`;
           return (
             <Grid.Col span={4}>
-              <Card withBorder shadow="md" mih={500}>
+              <Card withBorder shadow="md" mih={500} radius="lg">
                 <Stack>
                   <Group justify="space-between">
                     <Text>{team.name}</Text>
