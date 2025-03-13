@@ -82,7 +82,7 @@ const EmployeeTab = () => {
       <Stack>
         <Group justify="space-between">
           <Title>Users</Title>
-          <Group>
+          <Group gap={5}>
             <Button variant="light">Clear</Button>
             <Button onClick={() => toggleFilter(!showFilter)}>Filter</Button>
           </Group>
