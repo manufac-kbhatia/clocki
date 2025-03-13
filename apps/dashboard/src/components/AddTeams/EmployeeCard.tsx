@@ -1,10 +1,10 @@
 import { useDraggable } from "@dnd-kit/core";
 import { Card, Text } from "@mantine/core";
-import { GetEmployeesResponse } from "@repo/schemas/rest";
+import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
 import { SectionType } from "./utils";
 
 type EmployeeCardProps = {
-  employee: GetEmployeesResponse["employees"][number];
+  employee: EmployeeWithEmployeeInfo;
   section: SectionType;
 };
 

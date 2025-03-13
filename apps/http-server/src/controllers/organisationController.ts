@@ -66,7 +66,6 @@ export const deleteOrganisation = async (
   res.status(200).json({
     success: true,
     organisationId,
-    message: "Organisation deleted successfully",
   });
 };
 

@@ -1,4 +1,4 @@
-import { GetEmployeesResponse } from "@repo/schemas/rest";
+import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
 import { SectionType } from "./utils";
 import { useDroppable } from "@dnd-kit/core";
 import { Paper, Stack, Title } from "@mantine/core";
@@ -6,7 +6,7 @@ import { EmployeeCard } from "./EmployeeCard";
 
 type ColumnProps = {
   section: SectionType;
-  employees?: GetEmployeesResponse["employees"];
+  employees?: EmployeeWithEmployeeInfo[];
 };
 
 export function Column({ section, employees }: ColumnProps) {

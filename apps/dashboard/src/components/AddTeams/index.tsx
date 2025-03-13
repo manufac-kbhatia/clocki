@@ -2,7 +2,7 @@ import { Button, Card, Grid, Group, Stack, Text, TextInput, Title } from "@manti
 import { useState } from "react";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import { useCreateTeam, useGetEmployees } from "../../hooks/api";
-import { GetEmployeesResponse, TeamPayload } from "@repo/schemas/rest";
+import { EmployeeWithEmployeeInfo, TeamPayload } from "@repo/schemas/rest";
 import { Section, SectionType } from "./utils";
 import { Column } from "./Column";
 import { useForm } from "@mantine/form";
@@ -12,11 +12,11 @@ const AddTeam = () => {
   const { auth } = useClockiContext();
   const { data } = useGetEmployees();
   const { mutate: createTeam } = useCreateTeam();
-  const [candidate, setCandidate] = useState<GetEmployeesResponse["employees"]>(
+  const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>(
     data?.employees ?? [],
   );
-  const [teamLead, setTeamLead] = useState<GetEmployeesResponse["employees"][number] | null>(null);
-  const [members, setMembers] = useState<GetEmployeesResponse["employees"]>([]);
+  const [teamLead, setTeamLead] = useState<EmployeeWithEmployeeInfo | null>(null);
+  const [members, setMembers] = useState<EmployeeWithEmployeeInfo[]>([]);
 
   const { getInputProps, onSubmit, setFieldError, errors } = useForm<TeamPayload>({
     mode: "uncontrolled",
@@ -38,14 +38,14 @@ const AddTeam = () => {
     const to = over.id as SectionType;
     const { employee, from } = active.data.current as {
       from: SectionType;
-      employee: GetEmployeesResponse["employees"][number];
+      employee: EmployeeWithEmployeeInfo;
     };
     if (to === from) return; // If to and from drop location is same then return
     if (to === Section.TeamLead && teamLead !== null) return; // If the team lead is already selected, return
 
     const removeFrom: Record<
       SectionType,
-      (employee?: GetEmployeesResponse["employees"][number]) => void
+      (employee?: EmployeeWithEmployeeInfo) => void
     > = {
       [Section.Candidate]: (employee) =>
         setCandidate((prev) => prev.filter((ele) => ele.id !== employee?.id)),
@@ -56,7 +56,7 @@ const AddTeam = () => {
 
     const addTo: Record<
       SectionType,
-      (employee: GetEmployeesResponse["employees"][number]) => void
+      (employee: EmployeeWithEmployeeInfo) => void
     > = {
       [Section.Candidate]: (employee) => setCandidate((prev) => [...prev, employee]),
       [Section.Members]: (employee) => setMembers((prev) => [...prev, employee]),

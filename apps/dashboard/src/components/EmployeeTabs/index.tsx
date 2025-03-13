@@ -21,7 +21,7 @@ import {
 } from "@tanstack/react-table";
 import { useGetEmployees } from "../../hooks/api";
 import { useMemo, useState } from "react";
-import { GetEmployeesResponse } from "@repo/schemas/rest";
+import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
 import { DatePickerInput } from "@mantine/dates";
 
 const EmployeeTab = () => {
@@ -35,7 +35,7 @@ const EmployeeTab = () => {
     return data?.employees ?? [];
   }, [data?.employees]);
 
-  const columnHelper = createColumnHelper<GetEmployeesResponse["employees"][number]>();
+  const columnHelper = createColumnHelper<EmployeeWithEmployeeInfo>();
   const columns = useMemo(() => {
     return [
       columnHelper.accessor("firstName", {
@@ -53,7 +53,7 @@ const EmployeeTab = () => {
       columnHelper.accessor("phoneNumber", {
         header: "Phone number",
         cell: ({ getValue }) => {
-          return getValue();
+          return getValue() ?? "-";
         },
       }),
       columnHelper.accessor("email", {
@@ -62,10 +62,10 @@ const EmployeeTab = () => {
           return getValue();
         },
       }),
-      columnHelper.accessor("role", {
-        header: "Role",
+      columnHelper.accessor("employeeInfo", {
+        header: "Position",
         cell: ({ getValue }) => {
-          return getValue();
+          return getValue()?.position ?? "-";
         },
       }),
     ];
