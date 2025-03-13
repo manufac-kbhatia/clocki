@@ -23,10 +23,11 @@ import { useGetEmployees } from "../../hooks/api";
 import { useMemo, useState } from "react";
 import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
 import { DatePickerInput } from "@mantine/dates";
+import { Role } from "@repo/schemas";
 
 const EmployeeTab = () => {
   const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);
-  const [roles, setRoles] = useState<string[]>([]);
+  const [roles, setRoles] = useState<Role[]>([]);
   const [positions, setPositions] = useState<string[]>([]);
   const [showFilter, toggleFilter] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
@@ -72,7 +73,7 @@ const EmployeeTab = () => {
     if (roles.length > 0) {
       result = result.filter((employee) => {
         const role = employee.role;
-        return positions.includes(role);
+        return roles.includes(role);
       });
     }
 
@@ -183,9 +184,9 @@ const EmployeeTab = () => {
               <MultiSelect
                 placeholder="Select roles"
                 label="Roles"
-                data={["a", "b"]}
+                data={[Role.Admin, Role.Other, Role.Hr, Role.Manager]}
                 value={roles}
-                onChange={setRoles}
+                onChange={(value) => setRoles(value as Role[])}
               />
               <MultiSelect
                 data={["a"]}
