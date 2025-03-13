@@ -127,7 +127,16 @@ const EmployeeTab = () => {
           )}
         </Transition>
         {/* ) : null} */}
-        <Table withTableBorder highlightOnHover>
+        <Table
+          withTableBorder
+          highlightOnHover
+          styles={{
+            table: {
+              borderCollapse: "separate", // Needed for borderRadius to work
+              borderRadius: "8px",
+            },
+          }}
+        >
           <Table.Thead>
             {getHeaderGroups().map(({ id, headers }) => {
               return (
