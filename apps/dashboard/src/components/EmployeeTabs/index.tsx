@@ -1,4 +1,16 @@
-import { Card, Group, MultiSelect, SimpleGrid, Stack, Table, Text, TextInput } from "@mantine/core";
+import {
+  Button,
+  Card,
+  Group,
+  MultiSelect,
+  SimpleGrid,
+  Stack,
+  Table,
+  Text,
+  TextInput,
+  Title,
+  Transition,
+} from "@mantine/core";
 import {
   createColumnHelper,
   flexRender,
@@ -15,6 +27,7 @@ const EmployeeTab = () => {
   const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);
   const [roles, setRoles] = useState<string[]>([]);
   const [positions, setPositions] = useState<string[]>([]);
+  const [showFilter, toggleFilter] = useState(false);
   const { data } = useGetEmployees();
 
   const employees = useMemo(() => {
@@ -67,30 +80,53 @@ const EmployeeTab = () => {
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xl">
       {/* TODO: Add border radius */}
       <Stack>
-        <SimpleGrid spacing="xs" verticalSpacing="xs" cols={{ base: 1, xs: 2, md: 4 }}>
-          <TextInput placeholder="Search employee by name" label="Employee" />
-          <DatePickerInput
-            type="range"
-            label="Hire date"
-            placeholder="Filter by hire date"
-            value={hireDateFilter}
-            onChange={setHireDateFilter}
-          />
-          <MultiSelect
-            placeholder="Select roles"
-            label="Roles"
-            data={["a", "b"]}
-            value={roles}
-            onChange={setRoles}
-          />
-          <MultiSelect
-            data={["a"]}
-            placeholder="Select positions"
-            label="Positions"
-            value={positions}
-            onChange={setPositions}
-          />
-        </SimpleGrid>
+        <Group justify="space-between">
+          <Title>Users</Title>
+          <Group>
+            <Button variant="light">Clear</Button>
+            <Button onClick={() => toggleFilter(!showFilter)}>Filter</Button>
+          </Group>
+        </Group>
+        <Transition
+          mounted={showFilter}
+          transition="pop"
+          duration={50}
+          timingFunction="ease-in-out"
+          keepMounted
+        >
+          {(transitionStyle) => (
+            <SimpleGrid
+              spacing="xs"
+              verticalSpacing="xs"
+              cols={{ base: 1, xs: 2, md: 4 }}
+              style={{ ...transitionStyle }}
+            >
+              <TextInput placeholder="Search employee by name" label="Employee" />
+              <DatePickerInput
+                type="range"
+                label="Hire date"
+                placeholder="Filter by hire date"
+                value={hireDateFilter}
+                onChange={setHireDateFilter}
+              />
+              <MultiSelect
+                placeholder="Select roles"
+                label="Roles"
+                data={["a", "b"]}
+                value={roles}
+                onChange={setRoles}
+              />
+              <MultiSelect
+                data={["a"]}
+                placeholder="Select positions"
+                label="Positions"
+                value={positions}
+                onChange={setPositions}
+              />
+            </SimpleGrid>
+          )}
+        </Transition>
+        {/* ) : null} */}
         <Table withTableBorder highlightOnHover>
           <Table.Thead>
             {getHeaderGroups().map(({ id, headers }) => {
