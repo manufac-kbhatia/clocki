@@ -109,6 +109,11 @@ export interface CreateTeamResponse extends BaseResponseType {
   team: Prisma.TeamGetPayload<{}>;
 }
 
+export interface GetTeamsResponse extends BaseResponseType {
+  success: boolean;
+  teams: Prisma.TeamGetPayload<{ include: { members: true; teamLead: true } }>[];
+}
+
 export interface ErrorResponse {
   success: boolean;
   message: string;

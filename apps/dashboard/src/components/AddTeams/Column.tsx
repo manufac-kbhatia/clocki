@@ -15,7 +15,6 @@ export function Column({ section, employees }: ColumnProps) {
     data: employees,
   });
 
-
   return (
     <Stack>
       <Title>{section}</Title>

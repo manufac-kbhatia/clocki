@@ -1,14 +1,17 @@
 import {
   CreateEmployeePayload,
   CreateEmployeeResponse,
+  CreateTeamResponse,
   GetEmployeesResponse,
   GetMeReponse,
+  GetTeamsResponse,
   LoginEmployeeResponse,
   LoginPayload,
   RegisterEmployeePayload,
   RegisterEmployeeResponse,
   RegisterOrganisationPayload,
   RegisterOrganisationResponse,
+  TeamPayload,
 } from "@repo/schemas/rest";
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery, UseQueryResult } from "@tanstack/react-query";
 import useAxiosPrivate from "../axios/useAxiosPrivate";
@@ -88,6 +91,33 @@ export function useGetEmployees(): UseQueryResult<GetEmployeesResponse> {
     queryKey: ["employees"],
     queryFn: async () => {
       const response = await axiosPrivate.get<GetEmployeesResponse>("/employee");
+      return response.data;
+    },
+    retry: false,
+  });
+  return output;
+}
+
+export function useCreateTeam(
+  params?: UseMutationOptions<CreateTeamResponse, Error, TeamPayload>,
+): UseMutationResult<CreateTeamResponse, Error, TeamPayload> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axiosPrivate.post<CreateTeamResponse>("/team", payload);
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
+}
+
+export function useGetTeams(): UseQueryResult<GetTeamsResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["teams"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetTeamsResponse>("/team");
       return response.data;
     },
     retry: false,

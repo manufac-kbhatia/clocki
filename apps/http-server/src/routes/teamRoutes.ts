@@ -8,7 +8,8 @@ import { Role } from "@repo/schemas";
 const router: Router = express.Router();
 
 router
-  .route("/teams")
+  .route("/team")
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.getTeams))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.createTeam));
 
 export default router;
