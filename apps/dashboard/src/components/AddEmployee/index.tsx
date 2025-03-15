@@ -23,7 +23,7 @@ import { DateInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
 import { useCreateEmployee } from "../../hooks/api";
 
-const AddEmployeeTab = () => {
+const AddEmployee = () => {
   const { mutate: createEmployee } = useCreateEmployee({
     onSuccess: (data) => {
       console.log(data);
@@ -178,4 +178,4 @@ const AddEmployeeTab = () => {
   );
 };
 
-export default AddEmployeeTab;
+export default AddEmployee;

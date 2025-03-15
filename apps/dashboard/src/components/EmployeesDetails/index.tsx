@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Button,
   Card,
   Group,
@@ -24,14 +25,17 @@ import { useMemo, useState } from "react";
 import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
 import { DatePickerInput } from "@mantine/dates";
 import { Role } from "@repo/schemas";
+import { useNavigate } from "react-router";
+import { IconEdit } from "@tabler/icons-react";
 
-const EmployeeTab = () => {
+const EmployeesDetails = () => {
   const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);
   const [roles, setRoles] = useState<Role[]>([]);
   const [positions, setPositions] = useState<string[]>([]);
   const [showFilter, toggleFilter] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetEmployees();
+  const navigate = useNavigate();
 
   const filteredEmployees: EmployeeWithEmployeeInfo[] = useMemo(() => {
     let result: EmployeeWithEmployeeInfo[] = data?.employees ?? [];
@@ -57,7 +61,7 @@ const EmployeeTab = () => {
       result = result.filter((employee) => {
         return (
           employee.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          employee.lastName?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          employee.lastName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
           employee.email.toLowerCase().includes(searchQuery.toLowerCase())
         );
       });
@@ -132,8 +136,22 @@ const EmployeeTab = () => {
           return getValue()?.hireDate ?? "-";
         },
       }),
+      columnHelper.display({
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+          return (
+            <ActionIcon
+              variant="white"
+              onClick={() => navigate(`/manage-users/employee/${row.original.id}`)}
+            >
+              <IconEdit size={16} />
+            </ActionIcon>
+          );
+        },
+      }),
     ];
-  }, [columnHelper]);
+  }, [columnHelper, navigate]);
 
   const { getRowModel, getHeaderGroups } = useReactTable({
     data: filteredEmployees,
@@ -243,4 +261,4 @@ const EmployeeTab = () => {
   );
 };
 
-export default EmployeeTab;
+export default EmployeesDetails;

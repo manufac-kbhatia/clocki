@@ -16,7 +16,7 @@ import CustomAvatar from "../Avatar";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 
-const TeamTab = () => {
+const TeamsDetails = () => {
   const { data } = useGetTeams();
   const { mutate: deleteTeam } = useDeleteTeam();
   const [opened, { open, close }] = useDisclosure(false);
@@ -111,4 +111,4 @@ const TeamTab = () => {
   );
 };
 
-export default TeamTab;
+export default TeamsDetails;

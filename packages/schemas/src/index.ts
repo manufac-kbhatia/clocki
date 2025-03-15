@@ -93,4 +93,4 @@ export const LoginSchema = z.object({
 
 export const UpdateEmployeeSchema = CreateEmployeeSchema.omit({
   email: true,
-});
+}).partial();

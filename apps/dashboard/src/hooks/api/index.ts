@@ -3,6 +3,7 @@ import {
   CreateEmployeeResponse,
   CreateTeamResponse,
   DeleteTeamResponse,
+  GetEmployeeResponse,
   GetEmployeesResponse,
   GetMeReponse,
   GetTeamsResponse,
@@ -138,4 +139,19 @@ export function useDeleteTeam(
     ...params,
   });
   return mutation;
+}
+
+export function useGetEmployee(id: string | undefined): UseQueryResult<GetEmployeeResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery<GetEmployeeResponse, Error, GetEmployeeResponse, [string, string | undefined]>({
+    queryKey: ["employee", id],
+    queryFn: async ({ queryKey }) => {
+      const [, employeeId] = queryKey;
+      const response = await axiosPrivate.get<GetEmployeeResponse>(`/employee/${employeeId}`);
+      return response.data;
+    },
+    retry: false,
+    enabled: id === undefined ? false : true,
+  });
+  return output;
 }
