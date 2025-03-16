@@ -12,9 +12,9 @@ export const MantineTheme = createTheme({
       "#696969", // 3
       "#424242", // 4 - Card border, separator
       "#3b3b3b", // 5 - Button background
-      "#2e2e2e", // 6 - Card background
-      "#121212", // 7 - Primary background (updated to match screenshot)
-      "#1f1f1f", // 8
+      "#141414", // 6 - Card background
+      "#1f1f1f", // 7 - Primary background (updated to match screenshot)
+      "#2e2e2e", // 8
       "#141414", // 9 - Darkest background
     ],
   },
