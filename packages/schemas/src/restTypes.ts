@@ -99,6 +99,10 @@ export interface CreateProjectResponse extends BaseResponseType {
   project: ProjectWithInfo;
 }
 
+export interface GetProjectsResponse extends BaseResponseType {
+  projects: ProjectWithInfo[];
+}
+
 export interface CreateClientResponse extends BaseResponseType {
   client: Client;
 }

@@ -12,9 +12,8 @@ const ManageProjects = () => {
   const [activeTab, setActiveTab] = useState<ProjectTabNamesType>(ProjectTabNames.Projects);
   const [isClientModalOpen, { open: openClientModal, close: closeClientModal }] =
     useDisclosure(false);
-    const [isProjectModalOpen, { open: openProjectModal, close: closeProjectModal }] =
+  const [isProjectModalOpen, { open: openProjectModal, close: closeProjectModal }] =
     useDisclosure(false);
-
 
   return (
     <Stack>

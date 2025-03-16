@@ -1,9 +1,9 @@
 import { client } from "@repo/db";
-import { ProjectSchema } from "@repo/schemas";
+import { ProjectSchema, Role } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
-import { CreateProjectResponse, ProjectPayload } from "@repo/schemas/rest";
+import { CreateProjectResponse, GetClientsResponse, GetProjectsResponse, ProjectPayload } from "@repo/schemas/rest";
 
 export const createProject = async (
   req: Request<unknown, unknown, ProjectPayload>,
@@ -36,4 +36,26 @@ export const createProject = async (
     success: true,
     project,
   });
+};
+
+
+export const getProjects = async (req: Request, res: Response<GetProjectsResponse>, next: NextFunction) => {
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+
+  if (organisationId !== null) {
+    const projects = await client.project.findMany({
+      where: {
+        organisationId: organisationId,
+      },
+      include: {
+        members: true,
+        Client: true,
+      }
+    });
+
+    res.status(200).json({
+      success: true,
+      projects,
+    });
+  }
 };

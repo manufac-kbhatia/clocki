@@ -1,12 +1,16 @@
 import {
+  ClientPayload,
+  CreateClientResponse,
   CreateEmployeePayload,
   CreateEmployeeResponse,
   CreateTeamResponse,
   DeleteTeamResponse,
+  GetClientsResponse,
   GetEmployeeResponse,
   GetEmployeesResponse,
   GetMeReponse,
   GetOrganisationResponse,
+  GetProjectsResponse,
   GetTeamResponse,
   GetTeamsResponse,
   LoginEmployeeResponse,
@@ -179,6 +183,47 @@ export function useGetOrganisation(): UseQueryResult<GetOrganisationResponse> {
     queryKey: ["organisation"],
     queryFn: async () => {
       const response = await axiosPrivate.get<GetOrganisationResponse>("/organisation");
+      return response.data;
+    },
+    retry: false,
+  });
+  return output;
+}
+
+export function useCreateClient(
+  params?: UseMutationOptions<CreateClientResponse, Error, ClientPayload>,
+): UseMutationResult<CreateClientResponse, Error, ClientPayload> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axiosPrivate.post<CreateClientResponse>("/client", payload);
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
+}
+
+export function useGetClients(): UseQueryResult<GetClientsResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["clients"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetClientsResponse>("/client");
+      return response.data;
+    },
+    retry: false,
+  });
+  return output;
+}
+
+
+export function useGetProjects(): UseQueryResult<GetProjectsResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["projects"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetProjectsResponse>("/project");
       return response.data;
     },
     retry: false,

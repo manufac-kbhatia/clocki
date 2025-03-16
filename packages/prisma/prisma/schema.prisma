@@ -108,6 +108,7 @@ model Client {
   name           String
   email          String
   address        String?
+  city           String?
   phoneNumber    String?
   organisationId String
   organisation   Organisation @relation(fields: [organisationId], references: [id])

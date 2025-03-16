@@ -1,8 +1,12 @@
-import { Button, Group, Modal, MultiSelect, Select, Stack, TextInput, Title } from "@mantine/core";
+import { Button, Group, Modal, MultiSelect, Select, Stack, Text, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { ProjectSchema } from "@repo/schemas";
 import { ProjectPayload } from "@repo/schemas/rest";
-import { CreateProjectFormLabels, CreateProjectFormNames, CreateProjectFormPlaceholder } from "./utils";
+import {
+  CreateProjectFormLabels,
+  CreateProjectFormNames,
+  CreateProjectFormPlaceholder,
+} from "./utils";
 
 export interface AddProjectModalProps {
   opened: boolean;
@@ -22,7 +26,7 @@ const AddProjectModal = ({ opened, onClose }: AddProjectModalProps) => {
     <Modal
       opened={opened}
       onClose={onClose}
-      title={<Title>Add new project</Title>}
+      title={<Text fw={600}>Add new project</Text>}
       centered
       overlayProps={{
         backgroundOpacity: 0.55,
