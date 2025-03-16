@@ -49,8 +49,8 @@ const CompanySettings = () => {
       companyName: data?.organisation.name,
       vatNumber: data?.organisation.vatNumber,
     };
-    setValues(values)
-  },[data, setValues])
+    setValues(values);
+  }, [data, setValues]);
 
   return (
     <Card withBorder shadow="xl">
@@ -68,7 +68,7 @@ const CompanySettings = () => {
                       </Text>
                       <ActionIcon
                         size="md"
-                      variant="default"
+                        variant="default"
                         onClick={() => setOrganisationEdit(!organisationEdit)}
                       >
                         <IconEdit size={16} />

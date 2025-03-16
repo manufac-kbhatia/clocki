@@ -66,7 +66,7 @@ const EmployeeDetails = () => {
       postalCode: data?.employee.postalCode ?? undefined,
     };
     setValues(values);
-  },[data, setValues])
+  }, [data, setValues]);
 
   return (
     <Stack>
@@ -194,7 +194,7 @@ const EmployeeDetails = () => {
                       <Text>Employment info</Text>
                       <ActionIcon
                         size="md"
-                      variant="default"
+                        variant="default"
                         onClick={() => setEmployeeInfoDetailEdit(!employeeInfoDetailEdit)}
                       >
                         <IconEdit size={16} />
@@ -253,7 +253,7 @@ const EmployeeDetails = () => {
                       <Text>Address</Text>
                       <ActionIcon
                         size="md"
-                      variant="default"
+                        variant="default"
                         onClick={() => setAddressDetailEdit(!addressDetailEdit)}
                       >
                         <IconEdit size={16} />

@@ -72,8 +72,11 @@ const MySettings = () => {
                       <Text size="xl" fw={700}>
                         Personal details
                       </Text>
-                      <ActionIcon size="md"
-                      variant="default" onClick={() => setInfoEdit(!infoEdit)}>
+                      <ActionIcon
+                        size="md"
+                        variant="default"
+                        onClick={() => setInfoEdit(!infoEdit)}
+                      >
                         <IconEdit size={16} />
                       </ActionIcon>
                     </Group>

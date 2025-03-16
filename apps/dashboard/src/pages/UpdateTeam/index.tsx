@@ -10,10 +10,10 @@ import { Column } from "../../components/DnDCards/Column";
 import { useParams } from "react-router";
 
 const UpdateTeam = () => {
-    const { id } = useParams<{ id: string | undefined }>();
+  const { id } = useParams<{ id: string | undefined }>();
   const { auth } = useClockiContext();
   const { data } = useGetEmployees();
-  const {data: teamData} = useGetTeam(id);
+  const { data: teamData } = useGetTeam(id);
 
   const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>([]);
   const [teamLead, setTeamLead] = useState<EmployeeWithEmployeeInfo | null>(null);
@@ -71,23 +71,29 @@ const UpdateTeam = () => {
       const teamLeadId = teamLead.id;
       const membersId = members.map((member) => member.id);
       value = { ...value, organisationId: organisationId, teamLeadId, members: membersId };
-    //   createTeam(value);
-    console.log(value);
+      //   createTeam(value);
+      console.log(value);
     }
   };
 
   useEffect(() => {
     const membersId = teamData?.team.members.map((member) => member.id);
-  const possibleCandidate = data?.employees.filter((employee) => membersId?.includes(employee.id) === false && (employee.id !== teamData?.team.teamLeadId))
-  const teamLeadWithEmployeeInfo = data?.employees.find((employee) => employee.id === teamData?.team.teamLeadId);
-  const membersWithEmployeeInfo = data?.employees.filter((employee) => membersId?.includes(employee.id));
+    const possibleCandidate = data?.employees.filter(
+      (employee) =>
+        membersId?.includes(employee.id) === false && employee.id !== teamData?.team.teamLeadId,
+    );
+    const teamLeadWithEmployeeInfo = data?.employees.find(
+      (employee) => employee.id === teamData?.team.teamLeadId,
+    );
+    const membersWithEmployeeInfo = data?.employees.filter((employee) =>
+      membersId?.includes(employee.id),
+    );
 
-  setCandidate(possibleCandidate ?? []);
-  setTeamLead(teamLeadWithEmployeeInfo ?? null);
-  setMembers(membersWithEmployeeInfo ?? []);
-  setFieldValue("name", teamData?.team.name ?? "");
-
-  },[data, setFieldValue, teamData])
+    setCandidate(possibleCandidate ?? []);
+    setTeamLead(teamLeadWithEmployeeInfo ?? null);
+    setMembers(membersWithEmployeeInfo ?? []);
+    setFieldValue("name", teamData?.team.name ?? "");
+  }, [data, setFieldValue, teamData]);
 
   return (
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">

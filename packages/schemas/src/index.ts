@@ -97,8 +97,8 @@ export const ClientSchema = z.object({
   phoneNumber: z.string().optional(),
   organisationId: z.string({
     required_error: "Organisation id is required to add a client",
-  })
-})
+  }),
+});
 
 export const LoginSchema = z.object({
   email: z.string().email("Please provide a valid email"),

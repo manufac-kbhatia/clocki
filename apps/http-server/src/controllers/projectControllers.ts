@@ -18,20 +18,17 @@ export const createProject = async (
   }
 
   const { data } = parseResult;
+  const { members, ...rest } = data;
   const project = await client.project.create({
     data: {
-      name: data.name,
-      Organisation: {
-        connect: {
-          id: data.organisationId,
-        },
-      },
+      ...rest,
       members: {
         connect: data.members?.map((id) => ({ id })),
       },
     },
     include: {
       members: true,
+      Client: true,
     },
   });
 

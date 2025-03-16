@@ -129,7 +129,6 @@ export function useGetTeams(): UseQueryResult<GetTeamsResponse> {
   return output;
 }
 
-
 export function useGetTeam(id: string | undefined): UseQueryResult<GetTeamResponse> {
   const axiosPrivate = useAxiosPrivate();
   const output = useQuery<GetTeamResponse, Error, GetTeamResponse, [string, string | undefined]>({
@@ -144,7 +143,6 @@ export function useGetTeam(id: string | undefined): UseQueryResult<GetTeamRespon
   });
   return output;
 }
-
 
 export function useDeleteTeam(
   params?: UseMutationOptions<DeleteTeamResponse, Error, string>,

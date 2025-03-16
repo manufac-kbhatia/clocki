@@ -96,7 +96,7 @@ export interface DeleteOrganisationResponse extends BaseResponseType {
 
 // Check for this
 export interface CreateProjectResponse extends BaseResponseType {
-  project: Project;
+  project: ProjectWithInfo;
 }
 
 export interface CreateClientResponse extends BaseResponseType {
@@ -137,11 +137,16 @@ export type Team = Prisma.TeamGetPayload<{
   };
 }>;
 export type Project = Prisma.ProjectGetPayload<{}>;
+export type ProjectWithInfo = Prisma.ProjectGetPayload<{
+  include: {
+    members: { omit: { password: true; refreshToken: true } };
+    Client: true;
+  };
+}>;
 export type Organisation = Prisma.OrganisationGetPayload<{
   include: { employees: { omit: { password: true; refreshToken: true } } };
 }>;
 export type Client = Prisma.ClientGetPayload<{}>;
-
 
 export interface ErrorResponse {
   success: boolean;

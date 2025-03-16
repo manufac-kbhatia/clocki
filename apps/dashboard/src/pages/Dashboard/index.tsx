@@ -39,8 +39,8 @@ export function Dashboard() {
       navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !opened } }}
       padding="md"
       styles={{
-        header: {backgroundColor: colorScheme === "dark" ? "#141414" : undefined },
-        navbar: {backgroundColor: colorScheme === "dark" ? "#141414" : undefined },
+        header: { backgroundColor: colorScheme === "dark" ? "#141414" : undefined },
+        navbar: { backgroundColor: colorScheme === "dark" ? "#141414" : undefined },
       }}
     >
       <Header
@@ -49,7 +49,7 @@ export function Dashboard() {
         opened={opened}
         onToggleNavBaar={toggle}
       />
-      <AppShell.Navbar p="md" >
+      <AppShell.Navbar p="md">
         {NavLinks.map(({ path, label, icon }) => {
           return (
             <MantineNavLink

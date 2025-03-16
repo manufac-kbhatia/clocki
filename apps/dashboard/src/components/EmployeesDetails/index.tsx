@@ -217,7 +217,9 @@ const EmployeesDetails = () => {
             </SimpleGrid>
           )}
         </Transition>
-        <Paper withBorder> {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
+        <Paper withBorder>
+          {" "}
+          {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
           <Table highlightOnHover>
             <Table.Thead>
               {getHeaderGroups().map(({ id, headers }) => {
