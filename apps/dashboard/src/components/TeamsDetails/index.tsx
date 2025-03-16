@@ -15,12 +15,14 @@ import { useDeleteTeam, useGetTeams } from "../../hooks/api";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const TeamsDetails = () => {
   const { data } = useGetTeams();
   const { mutate: deleteTeam } = useDeleteTeam();
   const [opened, { open, close }] = useDisclosure(false);
   const [deletedTeamId, setDeleteTeamId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleDelete = (id: string) => {
     setDeleteTeamId(id);
@@ -42,7 +44,7 @@ const TeamsDetails = () => {
                       <ActionIcon variant="white" size="xs" onClick={() => handleDelete(team.id)}>
                         <IconTrash />
                       </ActionIcon>
-                      <ActionIcon variant="white" size="xs">
+                      <ActionIcon variant="white" size="xs" onClick={() => navigate(`/manage-users/team/${team.id}`)}>
                         <IconEdit />
                       </ActionIcon>
                     </Group>

@@ -105,6 +105,10 @@ export interface GetTeamsResponse extends BaseResponseType {
   teams: Team[];
 }
 
+export interface GetTeamResponse extends BaseResponseType {
+  team: Team;
+}
+
 export interface DeleteTeamResponse extends BaseResponseType {
   teamId: string;
 }

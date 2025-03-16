@@ -1,29 +1,26 @@
 import { Button, Card, Grid, Group, Stack, Text, TextInput, Title } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
-import { useCreateTeam, useGetEmployees } from "../../hooks/api";
+import { useGetEmployees, useGetTeam } from "../../hooks/api";
 import { EmployeeWithEmployeeInfo, TeamPayload } from "@repo/schemas/rest";
-import { Section, SectionType } from "../DnDCards/utils";
-import { Column } from "../DnDCards/Column";
 import { useForm } from "@mantine/form";
 import { useClockiContext } from "../../context";
+import { Section, SectionType } from "../../components/DnDCards/utils";
+import { Column } from "../../components/DnDCards/Column";
+import { useParams } from "react-router";
 
-const AddTeam = () => {
+const UpdateTeam = () => {
+    const { id } = useParams<{ id: string | undefined }>();
   const { auth } = useClockiContext();
   const { data } = useGetEmployees();
-  const { mutate: createTeam } = useCreateTeam();
-  const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>(data?.employees ?? []);
+  const {data: teamData} = useGetTeam(id);
+
+  const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>([]);
   const [teamLead, setTeamLead] = useState<EmployeeWithEmployeeInfo | null>(null);
   const [members, setMembers] = useState<EmployeeWithEmployeeInfo[]>([]);
 
-  const { getInputProps, onSubmit, setFieldError, errors } = useForm<TeamPayload>({
+  const { getInputProps, onSubmit, setFieldError, errors, setFieldValue } = useForm<TeamPayload>({
     mode: "uncontrolled",
-    initialValues: {
-      name: "",
-      organisationId: "",
-      teamLeadId: "",
-      members: [],
-    },
     validate: { name: (value) => (value.trim().length < 2 ? "Value is too short" : null) },
   });
 
@@ -74,9 +71,23 @@ const AddTeam = () => {
       const teamLeadId = teamLead.id;
       const membersId = members.map((member) => member.id);
       value = { ...value, organisationId: organisationId, teamLeadId, members: membersId };
-      createTeam(value);
+    //   createTeam(value);
+    console.log(value);
     }
   };
+
+  useEffect(() => {
+    const membersId = teamData?.team.members.map((member) => member.id);
+  const possibleCandidate = data?.employees.filter((employee) => membersId?.includes(employee.id) === false && (employee.id !== teamData?.team.teamLeadId))
+  const teamLeadWithEmployeeInfo = data?.employees.find((employee) => employee.id === teamData?.team.teamLeadId);
+  const membersWithEmployeeInfo = data?.employees.filter((employee) => membersId?.includes(employee.id));
+
+  setCandidate(possibleCandidate ?? []);
+  setTeamLead(teamLeadWithEmployeeInfo ?? null);
+  setMembers(membersWithEmployeeInfo ?? []);
+  setFieldValue("name", teamData?.team.name ?? "");
+
+  },[data, setFieldValue, teamData])
 
   return (
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
@@ -108,4 +119,4 @@ const AddTeam = () => {
   );
 };
 
-export default AddTeam;
+export default UpdateTeam;

@@ -3,7 +3,7 @@ import { Role, TeamSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
-import { CreateTeamResponse, DeleteTeamResponse, GetTeamsResponse, TeamPayload } from "@repo/schemas/rest";
+import { CreateTeamResponse, DeleteTeamResponse, GetTeamResponse, GetTeamsResponse, TeamPayload } from "@repo/schemas/rest";
 
 export const createTeam = async (
   req: Request<unknown, unknown, TeamPayload>,
@@ -55,6 +55,23 @@ export const getTeams = async (req: Request, res: Response<GetTeamsResponse>) =>
       include: { members: true, teamLead: true },
     });
     res.status(StatusCodes.OK).json({ success: true, teams });
+  }
+};
+
+export const getTeam = async (req: Request<{id: string}>, res: Response<GetTeamResponse>, next: NextFunction) => {
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  const teamId = req.params.id;
+  if (organisationId) {
+    const team = await client.team.findUnique({
+      where: { id: teamId, organisationId: organisationId },
+      include: { members: true, teamLead: true },
+    });
+
+    if (team === null) {
+      next(new ErrorHandler("Team with given id not found", StatusCodes.NOT_FOUND));
+      return;
+    }
+    res.status(StatusCodes.OK).json({ success: true, team});
   }
 };
 

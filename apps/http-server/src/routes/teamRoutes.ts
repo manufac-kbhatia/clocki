@@ -14,6 +14,7 @@ router
 
 router
   .route("/team/:id")
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.getTeam))
   .delete(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(teamControllers.deleteTeam));
 
 export default router;

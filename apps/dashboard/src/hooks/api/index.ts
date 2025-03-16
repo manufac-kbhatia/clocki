@@ -7,6 +7,7 @@ import {
   GetEmployeesResponse,
   GetMeReponse,
   GetOrganisationResponse,
+  GetTeamResponse,
   GetTeamsResponse,
   LoginEmployeeResponse,
   LoginPayload,
@@ -127,6 +128,23 @@ export function useGetTeams(): UseQueryResult<GetTeamsResponse> {
   });
   return output;
 }
+
+
+export function useGetTeam(id: string | undefined): UseQueryResult<GetTeamResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery<GetTeamResponse, Error, GetTeamResponse, [string, string | undefined]>({
+    queryKey: ["team", id],
+    queryFn: async ({ queryKey }) => {
+      const [, teamId] = queryKey;
+      const response = await axiosPrivate.get<GetTeamResponse>(`/team/${teamId}`);
+      return response.data;
+    },
+    retry: false,
+    enabled: id === undefined ? false : true,
+  });
+  return output;
+}
+
 
 export function useDeleteTeam(
   params?: UseMutationOptions<DeleteTeamResponse, Error, string>,

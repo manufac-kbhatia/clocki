@@ -46,6 +46,7 @@ const MySettings = () => {
   const handleCancel = () => {
     setInfoEdit(false);
   };
+
   return (
     <Card withBorder shadow="xl">
       <Stack>

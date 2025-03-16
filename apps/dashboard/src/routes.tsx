@@ -14,6 +14,7 @@ import ManageEmployee from "./pages/ManageEmployee/index.tsx";
 import EmployeeDetails from "./components/EmployeeDetails/index.tsx";
 import CompanySettings from "./pages/CompanySettings/index.tsx";
 import MySettings from "./pages/MySettings/index.tsx";
+import UpdateTeam from "./pages/UpdateTeam/index.tsx";
 
 // export const Routers = createBrowserRouter([
 //   {
@@ -77,6 +78,11 @@ export const Routers = createBrowserRouter([
           {
             path: "/manage-users/employee/:id",
             element: <EmployeeDetails />,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: "/manage-users/team/:id",
+            element: <UpdateTeam />,
             errorElement: <ErrorPage />,
           },
           { path: "/settings", element: <CompanySettings />, errorElement: <ErrorPage /> },

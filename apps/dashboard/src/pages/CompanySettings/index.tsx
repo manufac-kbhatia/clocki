@@ -17,7 +17,7 @@ import { useForm, zodResolver } from "@mantine/form";
 import { UpdateOrganisationPayload } from "@repo/schemas/rest";
 import { UpdateOrganisationSchema } from "@repo/schemas";
 import { IconEdit } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   UpdateOrganisationFormLabels,
   UpdateOrganisationFormNames,
@@ -29,14 +29,8 @@ const CompanySettings = () => {
   const { auth } = useClockiContext();
   const [organisationEdit, setOrganisationEdit] = useState(false);
 
-  const { getInputProps, key, onSubmit } = useForm<UpdateOrganisationPayload>({
+  const { getInputProps, key, onSubmit, setValues } = useForm<UpdateOrganisationPayload>({
     mode: "uncontrolled",
-    initialValues: {
-      address: data?.organisation.address,
-      city: data?.organisation.city,
-      companyName: data?.organisation.name,
-      vatNumber: data?.organisation.vatNumber,
-    },
     validate: zodResolver(UpdateOrganisationSchema),
   });
 
@@ -47,6 +41,16 @@ const CompanySettings = () => {
   const handleCancel = () => {
     setOrganisationEdit(false);
   };
+
+  useEffect(() => {
+    const values: UpdateOrganisationPayload = {
+      address: data?.organisation.address,
+      city: data?.organisation.city,
+      companyName: data?.organisation.name,
+      vatNumber: data?.organisation.vatNumber,
+    };
+    setValues(values)
+  },[data, setValues])
 
   return (
     <Card withBorder shadow="xl">

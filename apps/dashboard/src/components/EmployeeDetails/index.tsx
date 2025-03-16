@@ -24,7 +24,7 @@ import {
   UpdateEmployeeFormPlaceholder,
 } from "./utils";
 import { DateInput } from "@mantine/dates";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const EmployeeDetails = () => {
   const { id } = useParams<{ id: string | undefined }>();
@@ -33,22 +33,8 @@ const EmployeeDetails = () => {
   const [employeeInfoDetailEdit, setEmployeeInfoDetailEdit] = useState(false);
   const [addressDetailEdit, setAddressDetailEdit] = useState(false);
 
-  const { getInputProps, key, onSubmit } = useForm<UpdateEmployeePayload>({
+  const { getInputProps, key, onSubmit, setValues } = useForm<UpdateEmployeePayload>({
     mode: "uncontrolled",
-    initialValues: {
-      firstName: data?.employee.firstName,
-      lastName: data?.employee.lastName ?? undefined,
-      address: data?.employee.address ?? undefined,
-      city: data?.employee.city ?? undefined,
-      gender: data?.employee.gender ?? undefined,
-      role: data?.employee.role,
-      contractType: data?.employee.employeeInfo?.contractType ?? undefined,
-      dateOfBirth: data?.employee.dateOfBirth ?? undefined,
-      hireDate: data?.employee.employeeInfo?.hireDate ?? undefined,
-      phoneNumber: data?.employee.phoneNumber ?? undefined,
-      position: data?.employee.employeeInfo?.position ?? undefined,
-      postalCode: data?.employee.postalCode ?? undefined,
-    },
     validate: zodResolver(UpdateEmployeeSchema),
   });
 
@@ -63,6 +49,24 @@ const EmployeeDetails = () => {
     setEmployeeInfoDetailEdit(false);
     setAddressDetailEdit(false);
   };
+
+  useEffect(() => {
+    const values: UpdateEmployeePayload = {
+      firstName: data?.employee.firstName,
+      lastName: data?.employee.lastName ?? undefined,
+      address: data?.employee.address ?? undefined,
+      city: data?.employee.city ?? undefined,
+      gender: data?.employee.gender ?? undefined,
+      role: data?.employee.role,
+      contractType: data?.employee.employeeInfo?.contractType ?? undefined,
+      dateOfBirth: data?.employee.dateOfBirth ?? undefined,
+      hireDate: data?.employee.employeeInfo?.hireDate ?? undefined,
+      phoneNumber: data?.employee.phoneNumber ?? undefined,
+      position: data?.employee.employeeInfo?.position ?? undefined,
+      postalCode: data?.employee.postalCode ?? undefined,
+    };
+    setValues(values);
+  },[data, setValues])
 
   return (
     <Stack>
