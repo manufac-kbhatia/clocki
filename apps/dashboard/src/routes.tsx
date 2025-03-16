@@ -10,11 +10,12 @@ import PageA from "./pages/Page-A/index.tsx";
 import { Home } from "./pages/Home/index.tsx";
 import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 import CheckCompanyStatus from "./pages/CheckCompanyStatus/index.tsx";
-import ManageEmployee from "./pages/ManageEmployee/index.tsx";
+import ManageEmployee from "./pages/ManageEmployees/index.tsx";
 import EmployeeDetails from "./components/EmployeeDetails/index.tsx";
 import CompanySettings from "./pages/CompanySettings/index.tsx";
 import MySettings from "./pages/MySettings/index.tsx";
 import UpdateTeam from "./pages/UpdateTeam/index.tsx";
+import ManageProjects from "./pages/ManageProjects/index.tsx";
 
 // export const Routers = createBrowserRouter([
 //   {
@@ -85,6 +86,7 @@ export const Routers = createBrowserRouter([
             element: <UpdateTeam />,
             errorElement: <ErrorPage />,
           },
+          { path: "/manage-projects", element: <ManageProjects />, errorElement: <ErrorPage /> },
           { path: "/settings", element: <CompanySettings />, errorElement: <ErrorPage /> },
           { path: "/my-settings", element: <MySettings />, errorElement: <ErrorPage /> },
         ],

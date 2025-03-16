@@ -63,6 +63,7 @@ model Organisation {
   vatNumber String @unique
 
   employees   Employee[]
+  clients     Client[]
   teams       Team[]
   projects    Project[]
   createdById String     @unique
@@ -98,4 +99,19 @@ model Project {
   members        Employee[]   @relation("AssignedProjects")
   organisationId String
   Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+  Client         Client       @relation(fields: [clientId], references: [id])
+  clientId       String
+}
+
+model Client {
+  id             String       @id @default(uuid())
+  name           String
+  email          String
+  address        String?
+  phoneNumber    String?
+  organisationId String
+  organisation   Organisation @relation(fields: [organisationId], references: [id])
+  projects       Project[]
+
+  @@unique([email, organisationId])
 }
