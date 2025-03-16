@@ -223,3 +223,4 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
     employeeData: me,
   });
 };
+

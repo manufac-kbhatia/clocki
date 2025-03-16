@@ -1,5 +1,5 @@
 import { client } from "@repo/db";
-import { RegisterOrganisationSchema } from "@repo/schemas";
+import { RegisterOrganisationSchema, Role, UpdateOrganisationSchema } from "@repo/schemas";
 import { NextFunction, Request, Response } from "express";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
@@ -8,6 +8,8 @@ import {
   GetOrganisationResponse,
   RegisterOrganisationPayload,
   SetupOrganisationResponse,
+  UpdateOrganisationPayload,
+  UpdateOrganisationResponse,
 } from "@repo/schemas/rest";
 
 export const setupOrganisation = async (
@@ -30,6 +32,13 @@ export const setupOrganisation = async (
       createdBy: {
         connect: {
           id: req.employeeId,
+        },
+      },
+    },
+    include: {
+      employees: {
+        where: {
+          role: "Admin",
         },
       },
     },
@@ -69,25 +78,62 @@ export const deleteOrganisation = async (
   });
 };
 
-export const getOrganisation = async (
-  req: Request<{ id: string }>,
-  res: Response<GetOrganisationResponse>,
+export const getOrganisation = async (req: Request, res: Response<GetOrganisationResponse>, next: NextFunction) => {
+  const id = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  if (id !== null) {
+    const organisation = await client.organisation.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        employees: {
+          where: {
+            role: "Admin",
+          },
+        },
+      },
+    });
+
+    if (organisation === null) {
+      next(new ErrorHandler("Organisation not found", StatusCodes.NOT_FOUND));
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      organisation,
+    });
+  }
+};
+
+export const updateOrganisation = async (
+  req: Request<UpdateOrganisationPayload>,
+  res: Response<UpdateOrganisationResponse>,
   next: NextFunction,
 ) => {
-  const id = req.params.id;
-  const organisation = await client.organisation.findUnique({
-    where: {
-      id,
-    },
-  });
+  const id = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  if (id !== null) {
+    const payload = req.body;
+    const parseResult = UpdateOrganisationSchema.safeParse(payload);
+    if (parseResult.success === false) {
+      next(new ErrorHandler("Invalid Input", StatusCodes.BAD_REQUEST));
+      return;
+    }
 
-  if (organisation === null) {
-    next(new ErrorHandler("Organisation not found", StatusCodes.NOT_FOUND));
-    return;
+    const { data } = payload;
+    const organisation = await client.organisation.update({
+      where: {
+        id,
+      },
+      data,
+      include: {
+        employees: { where: { role: "Admin" } },
+      },
+    });
+
+    res.status(StatusCodes.OK).json({
+      success: true,
+      organisation,
+    });
   }
-
-  res.status(200).json({
-    success: true,
-    organisation,
-  });
 };

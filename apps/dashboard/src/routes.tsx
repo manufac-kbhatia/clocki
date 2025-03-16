@@ -12,6 +12,8 @@ import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 import CheckCompanyStatus from "./pages/CheckCompanyStatus/index.tsx";
 import ManageEmployee from "./pages/ManageEmployee/index.tsx";
 import EmployeeDetails from "./components/EmployeeDetails/index.tsx";
+import CompanySettings from "./pages/CompanySettings/index.tsx";
+import MySettings from "./pages/MySettings/index.tsx";
 
 // export const Routers = createBrowserRouter([
 //   {
@@ -77,6 +79,8 @@ export const Routers = createBrowserRouter([
             element: <EmployeeDetails />,
             errorElement: <ErrorPage />,
           },
+          { path: "/settings", element: <CompanySettings />, errorElement: <ErrorPage /> },
+          { path: "/my-settings", element: <MySettings />, errorElement: <ErrorPage /> },
         ],
       },
       { path: "/register", element: <Register />, errorElement: <ErrorPage /> },

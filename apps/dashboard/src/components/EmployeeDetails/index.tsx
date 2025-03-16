@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Avatar,
   Button,
   Card,
   Grid,
@@ -13,7 +14,6 @@ import {
 } from "@mantine/core";
 import { IconArrowNarrowLeft, IconCalendar, IconEdit } from "@tabler/icons-react";
 import { Link, useParams } from "react-router";
-import CustomAvatar from "../Avatar";
 import { useGetEmployee } from "../../hooks/api";
 import { UpdateEmployeePayload } from "@repo/schemas/rest";
 import { useForm, zodResolver } from "@mantine/form";
@@ -36,18 +36,18 @@ const EmployeeDetails = () => {
   const { getInputProps, key, onSubmit } = useForm<UpdateEmployeePayload>({
     mode: "uncontrolled",
     initialValues: {
-        firstName: data?.employee.firstName,
-        lastName: data?.employee.lastName ?? undefined,
-        address: data?.employee.address ?? undefined,
-        city: data?.employee.city ?? undefined,
-        gender: data?.employee.gender ?? undefined,
-        role: data?.employee.role,
-        contractType: data?.employee.employeeInfo?.contractType ?? undefined,
-        dateOfBirth: data?.employee.dateOfBirth ?? undefined,
-        hireDate: data?.employee.employeeInfo?.hireDate ?? undefined,
-        phoneNumber: data?.employee.phoneNumber ?? undefined,
-        position: data?.employee.employeeInfo?.position ?? undefined,
-        postalCode: data?.employee.postalCode ?? undefined,
+      firstName: data?.employee.firstName,
+      lastName: data?.employee.lastName ?? undefined,
+      address: data?.employee.address ?? undefined,
+      city: data?.employee.city ?? undefined,
+      gender: data?.employee.gender ?? undefined,
+      role: data?.employee.role,
+      contractType: data?.employee.employeeInfo?.contractType ?? undefined,
+      dateOfBirth: data?.employee.dateOfBirth ?? undefined,
+      hireDate: data?.employee.employeeInfo?.hireDate ?? undefined,
+      phoneNumber: data?.employee.phoneNumber ?? undefined,
+      position: data?.employee.employeeInfo?.position ?? undefined,
+      postalCode: data?.employee.postalCode ?? undefined,
     },
     validate: zodResolver(UpdateEmployeeSchema),
   });
@@ -62,7 +62,7 @@ const EmployeeDetails = () => {
     setEmployeeDetailEdit(false);
     setEmployeeInfoDetailEdit(false);
     setAddressDetailEdit(false);
-  }
+  };
 
   return (
     <Stack>
@@ -79,7 +79,7 @@ const EmployeeDetails = () => {
       </Link>
       <Card shadow="xl" withBorder>
         <Group>
-          <CustomAvatar name={name} size="xl" radius={500} />
+          <Avatar variant="filled" radius={500} name={name} size={"xl"} />
           <Title>{name}</Title>
         </Group>
       </Card>
@@ -294,7 +294,9 @@ const EmployeeDetails = () => {
             </Grid.Col>
           </Grid>
           <Group>
-            <Button variant="outline" onClick={() => handleCancel()}>Cancel</Button>
+            <Button variant="outline" onClick={() => handleCancel()}>
+              Cancel
+            </Button>
             <Button type="submit">Save</Button>
           </Group>
         </form>

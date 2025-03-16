@@ -7,6 +7,8 @@ import {
   RegisterOrganisationSchema,
   TeamSchema,
   UpdateEmployeeSchema,
+  UpdateOrganisationSchema,
+  UpdatePersonalInfoSchema,
 } from ".";
 import { Prisma } from "@repo/db";
 
@@ -18,6 +20,8 @@ export type TeamPayload = z.infer<typeof TeamSchema>;
 export type ProjectPayload = z.infer<typeof ProjectSchema>;
 export type LoginPayload = z.infer<typeof LoginSchema>;
 export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
+export type UpdateOrganisationPayload = z.infer<typeof UpdateOrganisationSchema>;
+export type UpdatePersonalInfoPayload = z.infer<typeof UpdatePersonalInfoSchema>;
 
 // Rest Types
 
@@ -80,6 +84,10 @@ export interface GetOrganisationResponse extends BaseResponseType {
   organisation: Organisation;
 }
 
+export interface UpdateOrganisationResponse extends BaseResponseType {
+  organisation: Organisation;
+}
+
 export interface DeleteOrganisationResponse extends BaseResponseType {
   organisationId: string;
 }
@@ -119,7 +127,9 @@ export type Team = Prisma.TeamGetPayload<{
   };
 }>;
 export type Project = Prisma.ProjectGetPayload<{}>;
-export type Organisation = Prisma.OrganisationGetPayload<{}>;
+export type Organisation = Prisma.OrganisationGetPayload<{
+  include: { employees: { omit: { password: true; refreshToken: true } } };
+}>;
 export interface ErrorResponse {
   success: boolean;
   message: string;

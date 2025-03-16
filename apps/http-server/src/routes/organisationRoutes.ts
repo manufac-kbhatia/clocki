@@ -7,15 +7,17 @@ import { Role } from "@repo/schemas";
 const router: Router = express.Router();
 
 router
-  .route("/organisations")
-  .post(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.setupOrganisation));
+  .route("/organisation")
+  .post(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.setupOrganisation))
+  .get(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.getOrganisation))
+  .patch(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.updateOrganisation));
 
 router
-  .route("/organisations/:id")
+  .route("/organisation/:id")
   .delete(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.deleteOrganisation));
 
 router
-  .route("/organisations/:id")
+  .route("/organisation")
   .get(isAuthenticated, isAuthorized([Role.Admin]), catchAsync(organisationControllers.getOrganisation));
 
 export default router;

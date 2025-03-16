@@ -6,6 +6,7 @@ import {
   GetEmployeeResponse,
   GetEmployeesResponse,
   GetMeReponse,
+  GetOrganisationResponse,
   GetTeamsResponse,
   LoginEmployeeResponse,
   LoginPayload,
@@ -65,7 +66,7 @@ export function useSetupOrganisation(
   const axiosPrivate = useAxiosPrivate();
   const mutation = useMutation({
     mutationFn: async (payload) => {
-      const reponse = await axiosPrivate.post<RegisterOrganisationResponse>("/organisations", payload);
+      const reponse = await axiosPrivate.post<RegisterOrganisationResponse>("/organisation", payload);
       return reponse.data;
     },
     ...params,
@@ -152,6 +153,19 @@ export function useGetEmployee(id: string | undefined): UseQueryResult<GetEmploy
     },
     retry: false,
     enabled: id === undefined ? false : true,
+  });
+  return output;
+}
+
+export function useGetOrganisation(): UseQueryResult<GetOrganisationResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["organisation"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetOrganisationResponse>("/organisation");
+      return response.data;
+    },
+    retry: false,
   });
   return output;
 }

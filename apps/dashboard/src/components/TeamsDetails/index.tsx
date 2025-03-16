@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Avatar,
   Button,
   Card,
   Divider,
@@ -12,7 +13,6 @@ import {
 } from "@mantine/core";
 import { useDeleteTeam, useGetTeams } from "../../hooks/api";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
-import CustomAvatar from "../Avatar";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 
@@ -51,7 +51,8 @@ const TeamsDetails = () => {
                     <Text>Team Lead</Text>
                     <Card m="xs" withBorder p={5}>
                       <Group>
-                        <CustomAvatar name={teamLeadName} />
+                        <Avatar variant="filled" radius="xl" name={teamLeadName} size="md" />
+
                         <Text>{teamLeadName}</Text>
                       </Group>
                     </Card>
@@ -65,7 +66,7 @@ const TeamsDetails = () => {
                         return (
                           <Card m="xs" withBorder p={5}>
                             <Group>
-                              <CustomAvatar name={name} />
+                              <Avatar variant="filled" radius="xl" name={name} size="md" />
                               <Text>{name}</Text>
                             </Group>
                           </Card>

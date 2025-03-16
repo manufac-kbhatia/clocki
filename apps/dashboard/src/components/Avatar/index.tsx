@@ -1,5 +1,6 @@
 import { Avatar, Menu, Text, useMantineTheme } from "@mantine/core";
 import { IconLogout, IconQuestionMark, IconSettings } from "@tabler/icons-react";
+import { Link } from "react-router";
 
 export interface AvatarProps {
   name: string;
@@ -28,7 +29,9 @@ const CustomAvatar = ({ name, size = "md", radius = "xl" }: AvatarProps) => {
           <Text>Help</Text>
         </Menu.Item>
         <Menu.Item leftSection={<IconSettings size={14} />}>
-          <Text>My settings</Text>
+          <Link to="/my-settings" style={{ textDecoration: "none", color: "inherit" }}>
+            <Text>My settings</Text>
+          </Link>
         </Menu.Item>
         <Menu.Divider />
         <Menu.Item leftSection={<IconLogout size={14} />}>

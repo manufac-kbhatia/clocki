@@ -94,3 +94,17 @@ export const LoginSchema = z.object({
 export const UpdateEmployeeSchema = CreateEmployeeSchema.omit({
   email: true,
 }).partial();
+
+export const UpdateOrganisationSchema = RegisterOrganisationSchema.partial();
+
+export const UpdatePersonalInfoSchema = z.object({
+  // Personal information
+  firstName: z.string().min(1, "Please provide first name").optional(),
+  lastName: z.string().min(1, "Please provide last name").optional(),
+  address: z.string().min(1, "Please provide address").optional(),
+  city: z.string().min(1, "Please provide city").optional(),
+  postalCode: z.string().optional(),
+  phoneNumber: z.string().length(10, "Phone number should be of 10 digits").optional(),
+  gender: z.nativeEnum(Gender).optional(),
+  dateOfBirth: z.union([z.date(), z.string().transform((str) => new Date(str))]).optional(),
+});
