@@ -12,7 +12,7 @@ const ManageEmployee = () => {
     <Stack>
       <Group justify="space-between">
         <SegmentedControl
-          color={theme.colors.blue[6]}
+          color={theme.colors.oceanBlue[7]}
           value={activeTab}
           onChange={(value) => setActiveTab(value as TabNamesType)}
           data={[TabNames.Users, TabNames.Teams]}

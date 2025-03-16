@@ -3,7 +3,7 @@ import { createTheme, rem } from "@mantine/core";
 export const MantineTheme = createTheme({
   fontSmoothing: true,
   fontFamily: "Red Hat Display, sans-serif",
-  // primaryColor: "dark",
+  primaryColor: "oceanBlue",
   colors: {
     dark: [
       "#C9C9C9", // 0 - Lightest gray (Text color)
@@ -17,6 +17,7 @@ export const MantineTheme = createTheme({
       "#2e2e2e", // 8
       "#141414", // 9 - Darkest backgrounds
     ],
+    oceanBlue: ['#7AD1DD', '#5FCCDB', '#44CADC', '#2AC9DE', '#1AC2D9', '#11B7CD', '#09ADC3', '#0E99AC', '#128797', '#147885'],
   },
   headings: {
     sizes: {
