@@ -1,23 +1,23 @@
-import { createTheme, rem } from "@mantine/core";
+import { createTheme, rem, Table } from "@mantine/core";
 
 export const MantineTheme = createTheme({
   fontSmoothing: true,
   fontFamily: "Red Hat Display, sans-serif",
   // primaryColor: "dark",
-  // colors: {
-  //   dark: [
-  //     "#f0f1f5", // Lightest (100)
-  //     "#d9dbe5", // 200
-  //     "#b4b8c7", // 300
-  //     "#8d91a7", // 400
-  //     "#666a88", // 500
-  //     "#666a88",
-  //     "#212B36", // 700 (Primary shage)
-  //     "#3c4a59", // 800 (Primay shade when hover)
-  //     "#0e101d", // 900
-  //     "#090a14", // Darkest (1000)
-  //   ],
-  // },
+  colors: {
+    dark: [
+      "#C9C9C9", // 0 - Lightest gray (Text color)
+      "#b8b8b8", // 1
+      "#828282", // 2
+      "#696969", // 3
+      "#424242", // 4 - Card border, separator
+      "#3b3b3b", // 5 - Button background
+      "#2e2e2e", // 6 - Card background
+      "#121212", // 7 - Primary background (updated to match screenshot)
+      "#1f1f1f", // 8
+      "#141414", // 9 - Darkest background
+    ],
+  },
   headings: {
     sizes: {
       h1: { fontSize: rem(20), fontWeight: "700" },
@@ -32,6 +32,14 @@ export const MantineTheme = createTheme({
   defaultRadius: "md",
 
   components: {
+    Table: Table.extend({
+      styles: (theme) => ({
+        table: {
+          backgroundColor: theme.colors.dark[6], // Background color of table
+          color: theme.colors.dark[0], // Text color in table
+        },
+      }),
+    }),
     // TextInput: TextInput.extend({
     //   styles: {
     //     input: {
