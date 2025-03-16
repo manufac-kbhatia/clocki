@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router";
 import { Outlet } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 import { Header } from "../../components/Header";
-import { IconLayout2, IconSettings, IconUsersGroup } from "@tabler/icons-react";
+import { IconLayout2, IconSettings, IconTools, IconUsersGroup } from "@tabler/icons-react";
 
 const NavLinks = [
   {
@@ -15,6 +15,11 @@ const NavLinks = [
     path: "/manage-users",
     label: "Manage users",
     icon: <IconUsersGroup size={18} />,
+  },
+  {
+    path: "/manage-projects",
+    label: "Manage projects",
+    icon: <IconTools size={18} />,
   },
   {
     path: "/settings",
