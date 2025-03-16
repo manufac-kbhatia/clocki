@@ -1,4 +1,4 @@
-import { createTheme, rem, Table } from "@mantine/core";
+import { createTheme, rem } from "@mantine/core";
 
 export const MantineTheme = createTheme({
   fontSmoothing: true,
@@ -31,70 +31,4 @@ export const MantineTheme = createTheme({
 
   defaultRadius: "md",
 
-  components: {
-    Table: Table.extend({
-      styles: (theme) => ({
-        table: {
-          backgroundColor: theme.colors.dark[6], // Background color of table
-          color: theme.colors.dark[0], // Text color in table
-        },
-      }),
-    }),
-    // TextInput: TextInput.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-    // PasswordInput: PasswordInput.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-    // Select: Select.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-    // DateInput: DateInput.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-    // NumberInput: NumberInput.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-    // MultiSelect: MultiSelect.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-    // DatePickerInput: DatePickerInput.extend({
-    //   styles: {
-    //     input: {
-    //       padding: "25px",
-    //       borderColor: "#E8ECEE",
-    //     },
-    //   },
-    // }),
-  },
 });
