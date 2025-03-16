@@ -98,11 +98,11 @@ const EmployeeDetails = () => {
                   <Group justify="space-between">
                     <Text>Personal info</Text>
                     <ActionIcon
-                      size="xs"
-                      variant="white"
+                      size="md"
+                      variant="default"
                       onClick={() => setEmployeeDetailEdit(!employeeDetailEdit)}
                     >
-                      <IconEdit />
+                      <IconEdit size={16} />
                     </ActionIcon>
                   </Group>
                   <Group>
@@ -193,11 +193,11 @@ const EmployeeDetails = () => {
                     <Group justify="space-between">
                       <Text>Employment info</Text>
                       <ActionIcon
-                        size="xs"
-                        variant="white"
+                        size="md"
+                      variant="default"
                         onClick={() => setEmployeeInfoDetailEdit(!employeeInfoDetailEdit)}
                       >
-                        <IconEdit />
+                        <IconEdit size={16} />
                       </ActionIcon>
                     </Group>
                     <Group>
@@ -252,11 +252,11 @@ const EmployeeDetails = () => {
                     <Group justify="space-between">
                       <Text>Address</Text>
                       <ActionIcon
-                        size="xs"
-                        variant="white"
+                        size="md"
+                      variant="default"
                         onClick={() => setAddressDetailEdit(!addressDetailEdit)}
                       >
-                        <IconEdit />
+                        <IconEdit size={16} />
                       </ActionIcon>
                     </Group>
                     <Group>

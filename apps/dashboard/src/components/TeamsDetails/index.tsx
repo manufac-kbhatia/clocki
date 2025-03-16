@@ -41,11 +41,13 @@ const TeamsDetails = () => {
                   <Group justify="space-between">
                     <Text>{team.name}</Text>
                     <Group>
-                      <ActionIcon variant="white" size="xs" onClick={() => handleDelete(team.id)}>
-                        <IconTrash />
+                      <ActionIcon size="md"
+                      variant="default" onClick={() => handleDelete(team.id)}>
+                        <IconTrash size={16} />
                       </ActionIcon>
-                      <ActionIcon variant="white" size="xs" onClick={() => navigate(`/manage-users/team/${team.id}`)}>
-                        <IconEdit />
+                      <ActionIcon size="md"
+                      variant="default" onClick={() => navigate(`/manage-users/team/${team.id}`)}>
+                        <IconEdit size={16} />
                       </ActionIcon>
                     </Group>
                   </Group>

@@ -142,7 +142,8 @@ const EmployeesDetails = () => {
         cell: ({ row }) => {
           return (
             <ActionIcon
-              variant="white"
+              size="md"
+              variant="default"
               onClick={() => navigate(`/manage-users/employee/${row.original.id}`)}
             >
               <IconEdit size={16} />

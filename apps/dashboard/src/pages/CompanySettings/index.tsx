@@ -67,11 +67,11 @@ const CompanySettings = () => {
                         Details
                       </Text>
                       <ActionIcon
-                        size="xs"
-                        variant="white"
+                        size="md"
+                      variant="default"
                         onClick={() => setOrganisationEdit(!organisationEdit)}
                       >
-                        <IconEdit />
+                        <IconEdit size={16} />
                       </ActionIcon>
                     </Group>
                     <Group>

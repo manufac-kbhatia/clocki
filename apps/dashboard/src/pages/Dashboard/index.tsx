@@ -44,7 +44,7 @@ export function Dashboard() {
         opened={opened}
         onToggleNavBaar={toggle}
       />
-      <AppShell.Navbar p="md">
+      <AppShell.Navbar p="md" >
         {NavLinks.map(({ path, label, icon }) => {
           return (
             <MantineNavLink
