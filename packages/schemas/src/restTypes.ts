@@ -1,5 +1,6 @@
 import z from "zod";
 import {
+  ClientSchema,
   CreateEmployeeSchema,
   LoginSchema,
   ProjectSchema,
@@ -18,6 +19,7 @@ export type RegisterEmployeePayload = z.infer<typeof RegisterEmployeeSchema>;
 export type CreateEmployeePayload = z.infer<typeof CreateEmployeeSchema>;
 export type TeamPayload = z.infer<typeof TeamSchema>;
 export type ProjectPayload = z.infer<typeof ProjectSchema>;
+export type ClientPayload = z.infer<typeof ClientSchema>;
 export type LoginPayload = z.infer<typeof LoginSchema>;
 export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 export type UpdateOrganisationPayload = z.infer<typeof UpdateOrganisationSchema>;
@@ -97,6 +99,10 @@ export interface CreateProjectResponse extends BaseResponseType {
   project: Project;
 }
 
+export interface CreateClientResponse extends BaseResponseType {
+  client: Client;
+}
+
 export interface CreateTeamResponse extends BaseResponseType {
   team: Team;
 }
@@ -134,6 +140,9 @@ export type Project = Prisma.ProjectGetPayload<{}>;
 export type Organisation = Prisma.OrganisationGetPayload<{
   include: { employees: { omit: { password: true; refreshToken: true } } };
 }>;
+export type Client = Prisma.ClientGetPayload<{}>;
+
+
 export interface ErrorResponse {
   success: boolean;
   message: string;

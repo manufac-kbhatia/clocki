@@ -81,10 +81,24 @@ export const TeamSchema = z.object({
 export const ProjectSchema = z.object({
   name: z.string().min(1, "Please provide a name to create a project"),
   organisationId: z.string({
-    required_error: "Organisation Id is required to create a project",
+    required_error: "Organisation id is required to create a project",
   }),
   members: z.array(z.string()).optional(),
+  clientId: z.string({
+    required_error: "Client id is required to create a project",
+  }),
 });
+
+export const ClientSchema = z.object({
+  name: z.string().min(1, "Please provide a name to add a client"),
+  email: z.string().email("Please provide a valid email"),
+  address: z.string().min(1, "Please provide valid addredd").optional(),
+  city: z.string().min(1, "Please provide valid city").optional(),
+  phoneNumber: z.string().optional(),
+  organisationId: z.string({
+    required_error: "Organisation id is required to add a client",
+  })
+})
 
 export const LoginSchema = z.object({
   email: z.string().email("Please provide a valid email"),
