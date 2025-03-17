@@ -11,7 +11,7 @@ import { Home } from "./pages/Home/index.tsx";
 import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 import CheckCompanyStatus from "./pages/CheckCompanyStatus/index.tsx";
 import ManageEmployee from "./pages/ManageEmployees/index.tsx";
-import EmployeeDetails from "./components/EmployeeDetails/index.tsx";
+import EmployeeDetails from "./components/ManageEmployees/EmployeeDetails/index.tsx";
 import CompanySettings from "./pages/CompanySettings/index.tsx";
 import MySettings from "./pages/MySettings/index.tsx";
 import UpdateTeam from "./pages/UpdateTeam/index.tsx";

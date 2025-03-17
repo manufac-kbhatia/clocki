@@ -3,13 +3,13 @@ import { Button, Group, SegmentedControl, Stack, useMantineTheme } from "@mantin
 import { ProjectTabNames } from "./utilts";
 import { ProjectTabNames as ProjectTabNamesType } from "./utilts";
 import { useDisclosure } from "@mantine/hooks";
-import ClientModal from "../../components/AddClientModal";
-import { ClientModalMode } from "../../components/AddClientModal/utils";
-import ProjectsDetails from "../../components/ProjectsDetails";
-import ClientDetails from "../../components/ClientsDetails";
-import { ProjectModalMode } from "../../components/AddProjectModal/utils";
+import ClientModal from "../../components/ManageProjects/AddClientModal";
+import { ClientModalMode } from "../../components/ManageProjects/AddClientModal/utils";
+import ProjectsDetails from "../../components/ManageProjects/ProjectsDetails";
+import ClientDetails from "../../components/ManageProjects/ClientsDetails";
+import { ProjectModalMode } from "../../components/ManageProjects/AddProjectModal/utils";
 import { Client, ProjectWithInfo } from "@repo/schemas/rest";
-import ProjectModal from "../../components/AddProjectModal";
+import ProjectModal from "../../components/ManageProjects/AddProjectModal";
 
 const ManageProjects = () => {
   const theme = useMantineTheme();

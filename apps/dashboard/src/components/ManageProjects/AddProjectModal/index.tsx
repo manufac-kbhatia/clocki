@@ -9,13 +9,13 @@ import {
   ProjectModalMode,
 } from "./utils";
 import { useEffect } from "react";
-import { useClockiContext } from "../../context";
+import { useClockiContext } from "../../../context";
 import {
   useCreateProject,
   useGetClients,
   useGetEmployees,
   useUpdateProject,
-} from "../../hooks/api";
+} from "../../../hooks/api";
 
 export interface ProjectModalProps {
   opened: boolean;

@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import { IconArrowNarrowLeft, IconCalendar, IconEdit } from "@tabler/icons-react";
 import { Link, useParams } from "react-router";
-import { useGetEmployee } from "../../hooks/api";
+import { useGetEmployee } from "../../../hooks/api";
 import { UpdateEmployeePayload } from "@repo/schemas/rest";
 import { useForm, zodResolver } from "@mantine/form";
 import { Gender, Role, UpdateEmployeeSchema } from "@repo/schemas";

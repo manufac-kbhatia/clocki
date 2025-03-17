@@ -5,8 +5,8 @@ import { useGetEmployees, useGetTeam } from "../../hooks/api";
 import { EmployeeWithEmployeeInfo, TeamPayload } from "@repo/schemas/rest";
 import { useForm } from "@mantine/form";
 import { useClockiContext } from "../../context";
-import { Section, SectionType } from "../../components/DnDCards/utils";
-import { Column } from "../../components/DnDCards/Column";
+import { Section, SectionType } from "../../components/ManageEmployees/DnDCards/utils";
+import { Column } from "../../components/ManageEmployees/DnDCards/Column";
 import { useParams } from "react-router";
 
 const UpdateTeam = () => {

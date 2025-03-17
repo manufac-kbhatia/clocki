@@ -11,7 +11,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import { useDeleteTeam, useGetTeams } from "../../hooks/api";
+import { useDeleteTeam, useGetTeams } from "../../../hooks/api";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
