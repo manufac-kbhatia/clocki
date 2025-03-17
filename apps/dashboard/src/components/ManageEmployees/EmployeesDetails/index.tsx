@@ -20,13 +20,13 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useGetEmployees } from "../../hooks/api";
 import { useMemo, useState } from "react";
 import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
 import { DatePickerInput } from "@mantine/dates";
 import { Role } from "@repo/schemas";
 import { useNavigate } from "react-router";
 import { IconEdit } from "@tabler/icons-react";
+import { useGetEmployees } from "../../../hooks/api";
 
 const EmployeesDetails = () => {
   const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);

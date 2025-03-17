@@ -16,10 +16,10 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useGetClients } from "../../hooks/api";
 import { useMemo, useState } from "react";
 import { Client } from "@repo/schemas/rest";
 import { IconEdit, IconX } from "@tabler/icons-react";
+import { useGetClients } from "../../../hooks/api";
 
 export interface ClientDetailsProps {
   onEdit: (client: Client) => void;

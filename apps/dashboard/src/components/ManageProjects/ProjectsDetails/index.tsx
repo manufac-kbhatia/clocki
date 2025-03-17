@@ -18,7 +18,7 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useGetProjects } from "../../hooks/api";
+import { useGetProjects } from "../../../hooks/api";
 import { useMemo, useState } from "react";
 import { ProjectWithInfo } from "@repo/schemas/rest";
 import { IconEdit, IconX } from "@tabler/icons-react";
