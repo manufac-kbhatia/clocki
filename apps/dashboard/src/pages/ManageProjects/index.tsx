@@ -45,8 +45,6 @@ const ManageProjects = () => {
     openProjectModal();
   };
 
-  console.log(activeTab);
-
   return (
     <Stack>
       <Group justify="space-between">

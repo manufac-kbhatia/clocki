@@ -6,13 +6,13 @@ export const MantineTheme = createTheme({
   primaryColor: "oceanBlue",
   colors: {
     dark: [
-      "#C9C9C9", // 0 - Lightest gray (Text color)
+      "#eeeeee", // 0 - Lightest gray (Text color)
       "#b8b8b8", // 1
       "#828282", // 2
       "#696969", // 3
       "#424242", // 4 - Card border, separator
       "#3b3b3b", // 5 - Button background
-      "#141414", // 6 - Card background
+      "#000000", // 6 - Card background
       "#1f1f1f", // 7 - Primary background (updated to match screenshot)
       "#2e2e2e", // 8
       "#141414", // 9 - Darkest backgrounds
@@ -24,7 +24,7 @@ export const MantineTheme = createTheme({
       "#2AC9DE",
       "#1AC2D9",
       "#11B7CD",
-      "#09ADC3",
+      "#09ADC3",  
       "#0E99AC",
       "#128797",
       "#147885",
