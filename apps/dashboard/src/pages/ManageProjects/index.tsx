@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Group, SegmentedControl, Stack, useMantineTheme } from "@mantine/core";
+import { Button, Group, SegmentedControl, Stack } from "@mantine/core";
 import { ProjectTabNames } from "./utilts";
 import { ProjectTabNames as ProjectTabNamesType } from "./utilts";
 import { useDisclosure } from "@mantine/hooks";
@@ -12,7 +12,6 @@ import { Client, ProjectWithInfo } from "@repo/schemas/rest";
 import ProjectModal from "../../components/ManageProjects/AddProjectModal";
 
 const ManageProjects = () => {
-  const theme = useMantineTheme();
   const [activeTab, setActiveTab] = useState<ProjectTabNamesType>(ProjectTabNames.Projects);
   const [isClientModalOpen, { open: openClientModal, close: closeClientModal }] =
     useDisclosure(false);
@@ -49,7 +48,7 @@ const ManageProjects = () => {
     <Stack>
       <Group justify="space-between">
         <SegmentedControl
-          color={theme.colors.oceanBlue[7]}
+          color="#09ADC3"
           value={activeTab}
           onChange={(value) => setActiveTab(value as ProjectTabNamesType)}
           data={[ProjectTabNames.Projects, ProjectTabNames.Clients]}
