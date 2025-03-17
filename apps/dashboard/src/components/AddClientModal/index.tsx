@@ -12,13 +12,13 @@ import { useCreateClient, useGetClient, useUpdateClient } from "../../hooks/api"
 import { useClockiContext } from "../../context";
 import { useEffect } from "react";
 
-export interface AddClientModalProps {
+export interface ClientModalProps {
   opened: boolean;
   onClose: () => void;
   mode?: ClientModalMode;
   editId?: string;
 }
-const AddClientModal = ({ opened, onClose, mode, editId }: AddClientModalProps) => {
+const ClientModal = ({ opened, onClose, mode, editId }: ClientModalProps) => {
   const { auth } = useClockiContext();
   const { mutate: createClient } = useCreateClient();
   const { mutate: updateClient } = useUpdateClient();
@@ -115,4 +115,4 @@ const AddClientModal = ({ opened, onClose, mode, editId }: AddClientModalProps) 
   );
 };
 
-export default AddClientModal;
+export default ClientModal;

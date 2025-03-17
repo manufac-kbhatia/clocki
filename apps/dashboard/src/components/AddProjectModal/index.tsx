@@ -17,13 +17,13 @@ import {
   useUpdateProject,
 } from "../../hooks/api";
 
-export interface AddProjectModalProps {
+export interface ProjectModalProps {
   opened: boolean;
   onClose: () => void;
   mode?: ProjectModalMode;
   editProject?: ProjectWithInfo;
 }
-const AddProjectModal = ({ opened, onClose, editProject, mode }: AddProjectModalProps) => {
+const ProjectModal = ({ opened, onClose, editProject, mode }: ProjectModalProps) => {
   const { auth } = useClockiContext();
   const { data: employeeData } = useGetEmployees();
   const { data: clientData } = useGetClients();
@@ -121,4 +121,4 @@ const AddProjectModal = ({ opened, onClose, editProject, mode }: AddProjectModal
   );
 };
 
-export default AddProjectModal;
+export default ProjectModal;
