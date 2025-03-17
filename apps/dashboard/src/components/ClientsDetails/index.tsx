@@ -21,7 +21,10 @@ import { useMemo, useState } from "react";
 import { Client } from "@repo/schemas/rest";
 import { IconEdit, IconX } from "@tabler/icons-react";
 
-const ClientDetails = () => {
+export interface ClientDetailsProps {
+  onEdit: (id: string) => void;
+}
+const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetClients();
 
@@ -87,14 +90,14 @@ const ClientDetails = () => {
         header: "Actions",
         cell: ({ row }) => {
           return (
-            <ActionIcon size="md" variant="default" onClick={() => console.log("row", row)}>
+            <ActionIcon size="md" variant="default" onClick={() => onEdit(row.original.id)}>
               <IconEdit size={16} />
             </ActionIcon>
           );
         },
       }),
     ];
-  }, [columnHelper]);
+  }, [columnHelper, onEdit]);
 
   const { getRowModel, getHeaderGroups } = useReactTable({
     data: filteredClients,

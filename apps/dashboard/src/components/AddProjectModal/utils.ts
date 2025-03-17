@@ -20,3 +20,10 @@ export const CreateProjectFormPlaceholder: Record<keyof ProjectPayload, string> 
   members: "Select members for the project",
   organisationId: "-",
 };
+
+export const ProjectModalMode = {
+  Add: "Add",
+  Edit: "Edit",
+} as const;
+
+export type ProjectModalMode = (typeof ProjectModalMode)[keyof typeof ProjectModalMode];

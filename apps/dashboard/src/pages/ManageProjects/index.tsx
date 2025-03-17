@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Button, Group, SegmentedControl, Stack, useMantineTheme } from "@mantine/core";
 import { ProjectTabNames } from "./utilts";
 import { ProjectTabNames as ProjectTabNamesType } from "./utilts";
-import { ManageProjectTabs } from "./ManageProjects";
 import { useDisclosure } from "@mantine/hooks";
 import AddClientModal from "../../components/AddClientModal";
 import AddProjectModal from "../../components/AddProjectModal";
+import { ClientModalMode } from "../../components/AddClientModal/utils";
+import ProjectsDetails from "../../components/ProjectsDetails";
+import ClientDetails from "../../components/ClientsDetails";
+import { ProjectModalMode } from "../../components/AddProjectModal/utils";
+import { ProjectWithInfo } from "@repo/schemas/rest";
 
 const ManageProjects = () => {
   const theme = useMantineTheme();
@@ -14,6 +18,34 @@ const ManageProjects = () => {
     useDisclosure(false);
   const [isProjectModalOpen, { open: openProjectModal, close: closeProjectModal }] =
     useDisclosure(false);
+  const [clientModalMode, setClientModalMode] = useState<ClientModalMode>(ClientModalMode.Add);
+  const [clientEditId, setClientEditId] = useState<string>();
+  const [projectModalMode, setProjectModalMode] = useState<ProjectModalMode>(ProjectModalMode.Add);
+  const [projectEdit, setProjectEditProject] = useState<ProjectWithInfo>();
+
+  const handleClientEdit = (id: string) => {
+    setClientModalMode(ClientModalMode.Edit);
+    setClientEditId(id);
+    openClientModal();
+  };
+
+  const handleProjectEdit = (project: ProjectWithInfo) => {
+    setProjectModalMode(ProjectModalMode.Edit);
+    setProjectEditProject(project);
+    openProjectModal();
+  };
+
+  const handleOpenClientModal = () => {
+    setClientModalMode(ClientModalMode.Add);
+    openClientModal();
+  };
+
+  const handleOpenProjectModal = () => {
+    setProjectModalMode(ProjectModalMode.Add);
+    openProjectModal();
+  };
+
+  console.log(activeTab);
 
   return (
     <Stack>
@@ -25,15 +57,31 @@ const ManageProjects = () => {
           data={[ProjectTabNames.Projects, ProjectTabNames.Clients]}
         />
         {activeTab === ProjectTabNames.Projects ? (
-          <Button onClick={openProjectModal}>New Project</Button>
+          <Button onClick={handleOpenProjectModal}>New Project</Button>
         ) : (
-          <Button onClick={openClientModal}>New Client</Button>
+          <Button onClick={handleOpenClientModal}>New Client</Button>
         )}
       </Group>
 
-      {ManageProjectTabs[activeTab]}
-      <AddClientModal opened={isClientModalOpen} onClose={closeClientModal} />
-      <AddProjectModal opened={isProjectModalOpen} onClose={closeProjectModal} />
+      {activeTab === ProjectTabNames.Projects && <ProjectsDetails onEdit={handleProjectEdit} />}
+      {activeTab === ProjectTabNames.Clients && <ClientDetails onEdit={handleClientEdit} />}
+
+      {isClientModalOpen && (
+        <AddClientModal
+          opened={isClientModalOpen}
+          onClose={closeClientModal}
+          mode={clientModalMode}
+          editId={clientEditId}
+        />
+      )}
+      {isProjectModalOpen && (
+        <AddProjectModal
+          opened={isProjectModalOpen}
+          onClose={closeProjectModal}
+          mode={projectModalMode}
+          editProject={projectEdit}
+        />
+      )}
     </Stack>
   );
 };

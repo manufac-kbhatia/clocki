@@ -1,32 +1,50 @@
 import { Button, Group, Modal, MultiSelect, Select, Stack, Text, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { ProjectSchema } from "@repo/schemas";
-import { ProjectPayload } from "@repo/schemas/rest";
+import { ProjectPayload, ProjectWithInfo, UpdateProjectPayload } from "@repo/schemas/rest";
 import {
   CreateProjectFormLabels,
   CreateProjectFormNames,
   CreateProjectFormPlaceholder,
+  ProjectModalMode,
 } from "./utils";
 import { useEffect } from "react";
 import { useClockiContext } from "../../context";
-import { useCreateProject, useGetClients, useGetEmployees } from "../../hooks/api";
+import {
+  useCreateProject,
+  useGetClients,
+  useGetEmployees,
+  useUpdateProject,
+} from "../../hooks/api";
 
 export interface AddProjectModalProps {
   opened: boolean;
   onClose: () => void;
+  mode?: ProjectModalMode;
+  editProject?: ProjectWithInfo;
 }
-const AddProjectModal = ({ opened, onClose }: AddProjectModalProps) => {
+const AddProjectModal = ({ opened, onClose, editProject, mode }: AddProjectModalProps) => {
   const { auth } = useClockiContext();
   const { data: employeeData } = useGetEmployees();
   const { data: clientData } = useGetClients();
   const { mutate: createProject } = useCreateProject();
-  const { getInputProps, key, onSubmit, setFieldValue } = useForm<ProjectPayload>({
+  const { mutate: updateProject } = useUpdateProject();
+  const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ProjectPayload>({
     mode: "uncontrolled",
     validate: zodResolver(ProjectSchema),
   });
 
   const handleSubmit = (values: ProjectPayload) => {
-    createProject(values);
+    if (mode === ProjectModalMode.Add) {
+      createProject(values);
+    } else if (mode === ProjectModalMode.Edit && editProject !== undefined) {
+      const payload: UpdateProjectPayload = {
+        clientId: values.clientId,
+        name: values.name,
+        members: values.members,
+      };
+      updateProject({ payload, id: editProject.id });
+    }
   };
 
   useEffect(() => {
@@ -34,6 +52,20 @@ const AddProjectModal = ({ opened, onClose }: AddProjectModalProps) => {
       auth?.employee?.createdOrganisation?.id ?? auth?.employee?.organisationId;
     setFieldValue("organisationId", organisationId ?? "");
   }, [auth, setFieldValue]);
+
+  useEffect(() => {
+    const organisationId =
+      auth?.employee?.createdOrganisation?.id ?? auth?.employee?.organisationId;
+    if (mode === ProjectModalMode.Edit) {
+      const values: ProjectPayload = {
+        name: editProject?.name ?? "",
+        clientId: editProject?.clientId ?? "",
+        members: editProject?.members.map((member) => member.id),
+        organisationId: organisationId ?? "",
+      };
+      setValues(values);
+    }
+  }, [auth, mode, setValues, editProject]);
 
   return (
     <Modal

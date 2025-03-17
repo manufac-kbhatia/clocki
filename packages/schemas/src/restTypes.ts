@@ -7,9 +7,11 @@ import {
   RegisterEmployeeSchema,
   RegisterOrganisationSchema,
   TeamSchema,
+  UpdateClientSchema,
   UpdateEmployeeSchema,
   UpdateOrganisationSchema,
   UpdatePersonalInfoSchema,
+  UpdateProjectSchema,
 } from ".";
 import { Prisma } from "@repo/db";
 
@@ -24,6 +26,8 @@ export type LoginPayload = z.infer<typeof LoginSchema>;
 export type UpdateEmployeePayload = z.infer<typeof UpdateEmployeeSchema>;
 export type UpdateOrganisationPayload = z.infer<typeof UpdateOrganisationSchema>;
 export type UpdatePersonalInfoPayload = z.infer<typeof UpdatePersonalInfoSchema>;
+export type UpdateClientPayload = z.infer<typeof UpdateClientSchema>;
+export type UpdateProjectPayload = z.infer<typeof UpdateProjectSchema>;
 
 // Rest Types
 
@@ -103,6 +107,14 @@ export interface GetProjectsResponse extends BaseResponseType {
   projects: ProjectWithInfo[];
 }
 
+export interface GetProjectResponse extends BaseResponseType {
+  project: ProjectWithInfo;
+}
+
+export interface UpdateProjectResponse extends BaseResponseType {
+  project: ProjectWithInfo;
+}
+
 export interface CreateClientResponse extends BaseResponseType {
   client: Client;
 }
@@ -121,6 +133,14 @@ export interface GetTeamResponse extends BaseResponseType {
 
 export interface GetClientsResponse extends BaseResponseType {
   clients: Client[];
+}
+
+export interface GetClientResponse extends BaseResponseType {
+  client: Client;
+}
+
+export interface UpdateClientResponse extends BaseResponseType {
+  client: Client;
 }
 
 export interface DeleteTeamResponse extends BaseResponseType {

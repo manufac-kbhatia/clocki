@@ -12,4 +12,9 @@ router
   .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(clientControllers.getClients))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(clientControllers.createClient));
 
+router
+  .route("/client/:id")
+  .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(clientControllers.updateClient))
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(clientControllers.getClient));
+
 export default router;

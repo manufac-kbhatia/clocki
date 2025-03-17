@@ -122,3 +122,12 @@ export const UpdatePersonalInfoSchema = z.object({
   gender: z.nativeEnum(Gender).optional(),
   dateOfBirth: z.union([z.date(), z.string().transform((str) => new Date(str))]).optional(),
 });
+
+export const UpdateClientSchema = ClientSchema.partial();
+export const UpdateProjectSchema = z.object({
+  name: z.string().min(1, "Please provide a name to create a project"),
+  members: z.array(z.string()).optional(),
+  clientId: z.string({
+    required_error: "Client id is required to create a project",
+  }),
+});

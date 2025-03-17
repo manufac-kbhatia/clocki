@@ -26,3 +26,10 @@ export const CreateClientFormPlaceholder: Record<keyof ClientPayload, string> = 
   organisationId: "-",
   phoneNumber: "Enter phone number",
 };
+
+export const ClientModalMode = {
+  Add: "Add",
+  Edit: "Edit",
+} as const;
+
+export type ClientModalMode = (typeof ClientModalMode)[keyof typeof ClientModalMode];

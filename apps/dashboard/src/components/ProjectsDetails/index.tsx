@@ -23,7 +23,11 @@ import { useMemo, useState } from "react";
 import { ProjectWithInfo } from "@repo/schemas/rest";
 import { IconEdit, IconX } from "@tabler/icons-react";
 
-const ProjectDetails = () => {
+export interface ProjectDetailsProps {
+  onEdit: (id: ProjectWithInfo) => void;
+}
+
+const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetProjects();
 
@@ -86,14 +90,14 @@ const ProjectDetails = () => {
         header: "Actions",
         cell: ({ row }) => {
           return (
-            <ActionIcon size="md" variant="default" onClick={() => console.log("row", row)}>
+            <ActionIcon size="md" variant="default" onClick={() => onEdit(row.original)}>
               <IconEdit size={16} />
             </ActionIcon>
           );
         },
       }),
     ];
-  }, [columnHelper]);
+  }, [columnHelper, onEdit]);
 
   const { getRowModel, getHeaderGroups } = useReactTable({
     data: filteredClients,

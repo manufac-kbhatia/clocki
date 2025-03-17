@@ -3,28 +3,37 @@ import { useForm, zodResolver } from "@mantine/form";
 import { ClientSchema } from "@repo/schemas";
 import { ClientPayload } from "@repo/schemas/rest";
 import {
+  ClientModalMode,
   CreateClientFormLabels,
   CreateClientFormNames,
   CreateClientFormPlaceholder,
 } from "./utils";
-import { useCreateClient } from "../../hooks/api";
+import { useCreateClient, useGetClient, useUpdateClient } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { useEffect } from "react";
 
 export interface AddClientModalProps {
   opened: boolean;
   onClose: () => void;
+  mode?: ClientModalMode;
+  editId?: string;
 }
-const AddClientModal = ({ opened, onClose }: AddClientModalProps) => {
+const AddClientModal = ({ opened, onClose, mode, editId }: AddClientModalProps) => {
   const { auth } = useClockiContext();
   const { mutate: createClient } = useCreateClient();
-  const { getInputProps, key, onSubmit, setFieldValue } = useForm<ClientPayload>({
+  const { mutate: updateClient } = useUpdateClient();
+  const { data: clientData } = useGetClient(editId);
+  const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ClientPayload>({
     mode: "uncontrolled",
     validate: zodResolver(ClientSchema),
   });
 
   const handleSubmit = (values: ClientPayload) => {
-    createClient(values);
+    if (mode === ClientModalMode.Add) {
+      createClient(values);
+    } else if (mode === ClientModalMode.Edit && typeof editId === "string") {
+      updateClient({ payload: values, id: editId });
+    }
   };
 
   useEffect(() => {
@@ -32,6 +41,22 @@ const AddClientModal = ({ opened, onClose }: AddClientModalProps) => {
       auth?.employee?.createdOrganisation?.id ?? auth?.employee?.organisationId;
     setFieldValue("organisationId", organisationId ?? "");
   }, [auth, setFieldValue]);
+
+  useEffect(() => {
+    const organisationId =
+      auth?.employee?.createdOrganisation?.id ?? auth?.employee?.organisationId;
+    if (mode === ClientModalMode.Edit) {
+      const values: ClientPayload = {
+        name: clientData?.client.name ?? "",
+        address: clientData?.client.address ?? "",
+        organisationId: organisationId ?? "",
+        email: clientData?.client.email ?? "",
+        city: clientData?.client.city ?? "",
+        phoneNumber: clientData?.client.phoneNumber ?? "",
+      };
+      setValues(values);
+    }
+  }, [clientData, auth, mode, setValues]);
 
   return (
     <Modal

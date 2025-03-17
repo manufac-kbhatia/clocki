@@ -12,4 +12,9 @@ router
   .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(projectControllers.getProjects))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(projectControllers.createProject));
 
+router
+  .route("/project/:id")
+  .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(projectControllers.updateProject))
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(projectControllers.getProject));
+
 export default router;
