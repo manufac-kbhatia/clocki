@@ -7,20 +7,33 @@ import {
   CreateProjectFormNames,
   CreateProjectFormPlaceholder,
 } from "./utils";
+import { useEffect } from "react";
+import { useClockiContext } from "../../context";
+import { useCreateProject, useGetClients, useGetEmployees } from "../../hooks/api";
 
 export interface AddProjectModalProps {
   opened: boolean;
   onClose: () => void;
 }
 const AddProjectModal = ({ opened, onClose }: AddProjectModalProps) => {
-  const { getInputProps, key, onSubmit } = useForm<ProjectPayload>({
+  const { auth } = useClockiContext();
+  const { data: employeeData } = useGetEmployees();
+  const { data: clientData } = useGetClients();
+  const { mutate: createProject } = useCreateProject();
+  const { getInputProps, key, onSubmit, setFieldValue } = useForm<ProjectPayload>({
     mode: "uncontrolled",
     validate: zodResolver(ProjectSchema),
   });
 
   const handleSubmit = (values: ProjectPayload) => {
-    console.log(values);
+    createProject(values);
   };
+
+  useEffect(() => {
+    const organisationId =
+      auth?.employee?.createdOrganisation?.id ?? auth?.employee?.organisationId;
+    setFieldValue("organisationId", organisationId ?? "");
+  }, [auth, setFieldValue]);
 
   return (
     <Modal
@@ -46,12 +59,21 @@ const AddProjectModal = ({ opened, onClose }: AddProjectModalProps) => {
             key={key(CreateProjectFormNames.clientId)}
             label={CreateProjectFormLabels.clientId}
             placeholder={CreateProjectFormPlaceholder.clientId}
+            data={clientData?.clients.map((client) => {
+              return { label: client.name, value: client.id };
+            })}
           />
           <MultiSelect
             {...getInputProps(CreateProjectFormNames.members)}
             key={key(CreateProjectFormNames.members)}
             label={CreateProjectFormLabels.members}
             placeholder={CreateProjectFormPlaceholder.members}
+            data={employeeData?.employees.map((employee) => {
+              return {
+                label: `${employee.firstName} ${employee.lastName ?? ""}`,
+                value: employee.id,
+              };
+            })}
           />
           <Group justify="center">
             <Button variant="outline" onClick={onClose}>

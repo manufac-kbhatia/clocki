@@ -38,7 +38,6 @@ export const createProject = async (
   });
 };
 
-
 export const getProjects = async (req: Request, res: Response<GetProjectsResponse>, next: NextFunction) => {
   const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
 
@@ -50,7 +49,7 @@ export const getProjects = async (req: Request, res: Response<GetProjectsRespons
       include: {
         members: true,
         Client: true,
-      }
+      },
     });
 
     res.status(200).json({

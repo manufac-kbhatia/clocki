@@ -3,6 +3,7 @@ import {
   CreateClientResponse,
   CreateEmployeePayload,
   CreateEmployeeResponse,
+  CreateProjectResponse,
   CreateTeamResponse,
   DeleteTeamResponse,
   GetClientsResponse,
@@ -15,6 +16,7 @@ import {
   GetTeamsResponse,
   LoginEmployeeResponse,
   LoginPayload,
+  ProjectPayload,
   RegisterEmployeePayload,
   RegisterEmployeeResponse,
   RegisterOrganisationPayload,
@@ -217,7 +219,6 @@ export function useGetClients(): UseQueryResult<GetClientsResponse> {
   return output;
 }
 
-
 export function useGetProjects(): UseQueryResult<GetProjectsResponse> {
   const axiosPrivate = useAxiosPrivate();
   const output = useQuery({
@@ -229,4 +230,18 @@ export function useGetProjects(): UseQueryResult<GetProjectsResponse> {
     retry: false,
   });
   return output;
+}
+
+export function useCreateProject(
+  params?: UseMutationOptions<CreateProjectResponse, Error, ProjectPayload>,
+): UseMutationResult<CreateProjectResponse, Error, ProjectPayload> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axiosPrivate.post<CreateProjectResponse>("/project", payload);
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
 }

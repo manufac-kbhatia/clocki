@@ -107,15 +107,19 @@ const ClientDetails = () => {
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Title>Clients</Title>
-          <TextInput
-            maw={300}
-            placeholder="Search"
-            value={searchQuery ?? ""}
-            onChange={(event) => setSearchQuery(event.currentTarget.value)}
-            rightSection={
-              searchQuery !== null ? <ActionIcon size="sm" variant="light" onClick={handleResetFilter}><IconX size={16}/></ActionIcon> : null
-            }
-          />
+        <TextInput
+          maw={300}
+          placeholder="Search"
+          value={searchQuery ?? ""}
+          onChange={(event) => setSearchQuery(event.currentTarget.value)}
+          rightSection={
+            searchQuery !== null ? (
+              <ActionIcon size="sm" variant="light" onClick={handleResetFilter}>
+                <IconX size={16} />
+              </ActionIcon>
+            ) : null
+          }
+        />
         <Paper withBorder>
           {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
           <Table highlightOnHover>

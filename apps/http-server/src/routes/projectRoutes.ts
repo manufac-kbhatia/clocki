@@ -9,7 +9,7 @@ const router: Router = express.Router();
 
 router
   .route("/project")
-  .get(isAuthenticated,isAuthorized([Role.Admin,Role.Manager]), catchAsync(projectControllers.getProjects))
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(projectControllers.getProjects))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(projectControllers.createProject));
 
 export default router;

@@ -1,6 +1,6 @@
 import { Button, Group, Modal, Stack, Text, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
-import { ClientSchema, Role } from "@repo/schemas";
+import { ClientSchema } from "@repo/schemas";
 import { ClientPayload } from "@repo/schemas/rest";
 import {
   CreateClientFormLabels,

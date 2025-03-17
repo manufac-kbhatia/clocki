@@ -9,6 +9,7 @@ import {
   Text,
   TextInput,
   Title,
+  Tooltip,
 } from "@mantine/core";
 import {
   createColumnHelper,
@@ -66,17 +67,17 @@ const ProjectDetails = () => {
         id: "members",
         header: "Members",
         cell: ({ row }) => {
-          const totalCount = row.original.members.length;
           return (
             <Avatar.Group>
-              {
-                row.original.members.map((member) => {
-                  const name = `${member.firstName} ${member.lastName ?? ""}`
-                  return <Avatar name={name} />
-                })
-              }
-            {totalCount > 3 ? <Avatar>+5</Avatar> : null}
-    </Avatar.Group>
+              {row.original.members.map((member) => {
+                const name = `${member.firstName} ${member.lastName ?? ""}`;
+                return (
+                  <Tooltip label={name}>
+                    <Avatar variant="filled" color="initials" name={name} />
+                  </Tooltip>
+                );
+              })}
+            </Avatar.Group>
           );
         },
       }),
@@ -105,15 +106,19 @@ const ProjectDetails = () => {
     <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Title>Clients</Title>
-          <TextInput
-            maw={300}
-            placeholder="Search"
-            value={searchQuery ?? ""}
-            onChange={(event) => setSearchQuery(event.currentTarget.value)}
-            rightSection={
-              searchQuery !== null ? <ActionIcon size="sm" variant="light" onClick={handleResetFilter}><IconX size={16}/></ActionIcon> : null
-            }
-          />
+        <TextInput
+          maw={300}
+          placeholder="Search"
+          value={searchQuery ?? ""}
+          onChange={(event) => setSearchQuery(event.currentTarget.value)}
+          rightSection={
+            searchQuery !== null ? (
+              <ActionIcon size="sm" variant="light" onClick={handleResetFilter}>
+                <IconX size={16} />
+              </ActionIcon>
+            ) : null
+          }
+        />
         <Paper withBorder>
           {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
           <Table highlightOnHover>
