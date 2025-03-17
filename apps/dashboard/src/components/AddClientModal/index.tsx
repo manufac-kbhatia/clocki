@@ -1,14 +1,14 @@
 import { Button, Group, Modal, Stack, Text, TextInput } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { ClientSchema } from "@repo/schemas";
-import { ClientPayload } from "@repo/schemas/rest";
+import { Client, ClientPayload } from "@repo/schemas/rest";
 import {
   ClientModalMode,
   CreateClientFormLabels,
   CreateClientFormNames,
   CreateClientFormPlaceholder,
 } from "./utils";
-import { useCreateClient, useGetClient, useUpdateClient } from "../../hooks/api";
+import { useCreateClient, useUpdateClient } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { useEffect } from "react";
 
@@ -16,13 +16,12 @@ export interface ClientModalProps {
   opened: boolean;
   onClose: () => void;
   mode?: ClientModalMode;
-  editId?: string;
+  editClient?: Client;
 }
-const ClientModal = ({ opened, onClose, mode, editId }: ClientModalProps) => {
+const ClientModal = ({ opened, onClose, mode, editClient }: ClientModalProps) => {
   const { auth } = useClockiContext();
   const { mutate: createClient } = useCreateClient();
   const { mutate: updateClient } = useUpdateClient();
-  const { data: clientData } = useGetClient(editId);
   const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ClientPayload>({
     mode: "uncontrolled",
     validate: zodResolver(ClientSchema),
@@ -31,8 +30,8 @@ const ClientModal = ({ opened, onClose, mode, editId }: ClientModalProps) => {
   const handleSubmit = (values: ClientPayload) => {
     if (mode === ClientModalMode.Add) {
       createClient(values);
-    } else if (mode === ClientModalMode.Edit && typeof editId === "string") {
-      updateClient({ payload: values, id: editId });
+    } else if (mode === ClientModalMode.Edit && typeof editClient === "string") {
+      updateClient({ payload: values, id: editClient });
     }
   };
 
@@ -47,16 +46,16 @@ const ClientModal = ({ opened, onClose, mode, editId }: ClientModalProps) => {
       auth?.employee?.createdOrganisation?.id ?? auth?.employee?.organisationId;
     if (mode === ClientModalMode.Edit) {
       const values: ClientPayload = {
-        name: clientData?.client.name ?? "",
-        address: clientData?.client.address ?? "",
+        name: editClient?.name ?? "",
+        address: editClient?.address ?? "",
         organisationId: organisationId ?? "",
-        email: clientData?.client.email ?? "",
-        city: clientData?.client.city ?? "",
-        phoneNumber: clientData?.client.phoneNumber ?? "",
+        email: editClient?.email ?? "",
+        city: editClient?.city ?? "",
+        phoneNumber: editClient?.phoneNumber ?? "",
       };
       setValues(values);
     }
-  }, [clientData, auth, mode, setValues]);
+  }, [editClient, auth, mode, setValues]);
 
   return (
     <Modal

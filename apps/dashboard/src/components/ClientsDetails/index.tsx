@@ -22,7 +22,7 @@ import { Client } from "@repo/schemas/rest";
 import { IconEdit, IconX } from "@tabler/icons-react";
 
 export interface ClientDetailsProps {
-  onEdit: (id: string) => void;
+  onEdit: (client: Client) => void;
 }
 const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
@@ -90,7 +90,7 @@ const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
         header: "Actions",
         cell: ({ row }) => {
           return (
-            <ActionIcon size="md" variant="default" onClick={() => onEdit(row.original.id)}>
+            <ActionIcon size="md" variant="default" onClick={() => onEdit(row.original)}>
               <IconEdit size={16} />
             </ActionIcon>
           );

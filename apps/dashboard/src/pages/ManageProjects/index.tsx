@@ -3,13 +3,13 @@ import { Button, Group, SegmentedControl, Stack, useMantineTheme } from "@mantin
 import { ProjectTabNames } from "./utilts";
 import { ProjectTabNames as ProjectTabNamesType } from "./utilts";
 import { useDisclosure } from "@mantine/hooks";
-import AddClientModal from "../../components/AddClientModal";
-import AddProjectModal from "../../components/AddProjectModal";
+import ClientModal from "../../components/AddClientModal";
 import { ClientModalMode } from "../../components/AddClientModal/utils";
 import ProjectsDetails from "../../components/ProjectsDetails";
 import ClientDetails from "../../components/ClientsDetails";
 import { ProjectModalMode } from "../../components/AddProjectModal/utils";
-import { ProjectWithInfo } from "@repo/schemas/rest";
+import { Client, ProjectWithInfo } from "@repo/schemas/rest";
+import ProjectModal from "../../components/AddProjectModal";
 
 const ManageProjects = () => {
   const theme = useMantineTheme();
@@ -19,13 +19,13 @@ const ManageProjects = () => {
   const [isProjectModalOpen, { open: openProjectModal, close: closeProjectModal }] =
     useDisclosure(false);
   const [clientModalMode, setClientModalMode] = useState<ClientModalMode>(ClientModalMode.Add);
-  const [clientEditId, setClientEditId] = useState<string>();
+  const [clientEdit, setClientEdit] = useState<Client>();
   const [projectModalMode, setProjectModalMode] = useState<ProjectModalMode>(ProjectModalMode.Add);
   const [projectEdit, setProjectEditProject] = useState<ProjectWithInfo>();
 
-  const handleClientEdit = (id: string) => {
+  const handleClientEdit = (client: Client) => {
     setClientModalMode(ClientModalMode.Edit);
-    setClientEditId(id);
+    setClientEdit(client);
     openClientModal();
   };
 
@@ -67,15 +67,15 @@ const ManageProjects = () => {
       {activeTab === ProjectTabNames.Clients && <ClientDetails onEdit={handleClientEdit} />}
 
       {isClientModalOpen && (
-        <AddClientModal
+        <ClientModal
           opened={isClientModalOpen}
           onClose={closeClientModal}
           mode={clientModalMode}
-          editId={clientEditId}
+          editClient={clientEdit}
         />
       )}
       {isProjectModalOpen && (
-        <AddProjectModal
+        <ProjectModal
           opened={isProjectModalOpen}
           onClose={closeProjectModal}
           mode={projectModalMode}
