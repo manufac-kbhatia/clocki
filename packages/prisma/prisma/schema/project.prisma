@@ -6,4 +6,5 @@ model Project {
     Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
     Client         Client       @relation(fields: [clientId], references: [id])
     clientId       String
+    Timesheet      Timesheet[]
 }

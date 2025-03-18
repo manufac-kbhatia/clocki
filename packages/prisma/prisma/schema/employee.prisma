@@ -22,4 +22,5 @@ model Employee {
 
     organisationId String?
     organisation   Organisation? @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+    Timesheet      Timesheet[]
 }

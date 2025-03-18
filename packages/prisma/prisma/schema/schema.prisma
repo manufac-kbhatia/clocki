@@ -29,3 +29,8 @@ enum Role {
   Manager
   Other
 }
+
+enum Status {
+  Complete
+  InProgress
+}
