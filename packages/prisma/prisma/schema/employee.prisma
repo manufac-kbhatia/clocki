@@ -1,0 +1,25 @@
+model Employee {
+    id           String    @id @default(uuid())
+    firstName    String
+    lastName     String?
+    email        String    @unique
+    password     String
+    address      String?
+    city         String?
+    postalCode   String?
+    phoneNumber  String?
+    dateOfBirth  DateTime?
+    refreshToken String?
+
+    role   Role
+    gender Gender?
+
+    employeeInfo        EmployeeInfo?
+    createdOrganisation Organisation? @relation("OrganisationCreator")
+    teams               Team[]        @relation("EmployeeTeams")
+    projects            Project[]     @relation("AssignedProjects")
+    responsibleTeams    Team[]        @relation("ResponsibleTeams")
+
+    organisationId String?
+    organisation   Organisation? @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+}

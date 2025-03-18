@@ -1,0 +1,9 @@
+model Project {
+    id             String       @id @default(uuid())
+    name           String
+    members        Employee[]   @relation("AssignedProjects")
+    organisationId String
+    Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+    Client         Client       @relation(fields: [clientId], references: [id])
+    clientId       String
+}

@@ -1,0 +1,11 @@
+model Team {
+    id   String @id @default(uuid())
+    name String
+
+    teamLeadId String
+    teamLead   Employee @relation("ResponsibleTeams", fields: [teamLeadId], references: [id], onDelete: Cascade)
+
+    members        Employee[]   @relation("EmployeeTeams")
+    organisationId String
+    Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+}

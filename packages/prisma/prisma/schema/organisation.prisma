@@ -1,0 +1,14 @@
+model Organisation {
+    id        String @id @default(uuid())
+    name      String
+    address   String
+    city      String
+    vatNumber String @unique
+
+    employees   Employee[]
+    clients     Client[]
+    teams       Team[]
+    projects    Project[]
+    createdById String     @unique
+    createdBy   Employee   @relation("OrganisationCreator", fields: [createdById], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,10 @@
+model EmployeeInfo {
+    id           String        @id @default(uuid())
+    hireDate     DateTime?
+    position     String?
+    contractType ContractType?
+    vacationDays Int           @default(0)
+
+    employeeId String   @unique
+    employee   Employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+}

@@ -1,0 +1,31 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  Male
+  Female
+  NonBinary
+  Other
+  PreferNotToSay
+}
+
+enum ContractType {
+  Permanent
+  Intern
+  Contract
+  Other
+}
+
+enum Role {
+  Admin
+  Hr
+  Manager
+  Other
+}
