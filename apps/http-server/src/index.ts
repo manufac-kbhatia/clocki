@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes";
 import teamRoute from "./routes/teamRoutes";
 import clientRoute from "./routes/clientRoutes";
 import projectRoute from "./routes/projectRoutes";
+import timeSheetRoutes from "./routes/timeSheetRoutes";
 import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/error";
 import cors from "cors";
@@ -38,6 +39,7 @@ app.use("/api/v1", organisationRoute);
 app.use("/api/v1", teamRoute);
 app.use("/api/v1", clientRoute);
 app.use("/api/v1", projectRoute);
+app.use("/api/v1", timeSheetRoutes);
 
 app.use(errorMiddleware);
 

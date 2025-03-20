@@ -3,13 +3,24 @@ import { NavLink, useLocation } from "react-router";
 import { Outlet } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
 import { Header } from "../../components/Header";
-import { IconLayout2, IconSettings, IconTools, IconUsersGroup } from "@tabler/icons-react";
+import {
+  IconAlarmPlus,
+  IconLayout2,
+  IconSettings,
+  IconTools,
+  IconUsersGroup,
+} from "@tabler/icons-react";
 
 const NavLinks = [
   {
     path: "/",
     label: "Home",
     icon: <IconLayout2 size={18} />,
+  },
+  {
+    path: "/log-time",
+    label: "Log time",
+    icon: <IconAlarmPlus size={18} />,
   },
   {
     path: "/manage-users",

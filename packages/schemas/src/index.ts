@@ -27,6 +27,12 @@ export const Role = {
 } as const;
 export type Role = (typeof Role)[keyof typeof Role];
 
+export const Status = {
+  Completed: "Completed",
+  InProgress: "InProgress",
+} as const;
+export type Status = (typeof Status)[keyof typeof Status];
+
 // Zod Schemas
 export const RegisterEmployeeSchema = z.object({
   email: z.string().email("Please provide a valid email"),
@@ -131,3 +137,12 @@ export const UpdateProjectSchema = z.object({
     required_error: "Client id is required to create a project",
   }),
 });
+
+
+export const TimeEntrySchema = z.object({
+  description: z.string().min(1, "Descrioption is required for entry to be logged"),
+  loggedHours: z.number().min(1, "Logged hours (in minutes) should be atleat 1 minute").max(1499, "Logged hours (in minutes) should be atmost 1499 minutes"),
+  status: z.nativeEnum(Status),
+  projectId: z.string({required_error: "Please provide the project id for which the entry is logged"}),
+  createdAt: z.date().optional(),
+})

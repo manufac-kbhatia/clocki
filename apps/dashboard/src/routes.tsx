@@ -16,41 +16,7 @@ import CompanySettings from "./pages/CompanySettings/index.tsx";
 import MySettings from "./pages/MySettings/index.tsx";
 import UpdateTeam from "./pages/UpdateTeam/index.tsx";
 import ManageProjects from "./pages/ManageProjects/index.tsx";
-
-// export const Routers = createBrowserRouter([
-//   {
-//     path: "/",
-//     element: (
-//       <ProtectedRoute>
-//         <App />
-//       </ProtectedRoute>
-//     ),
-//     errorElement: <ErrorPage />,
-//     children: [
-//       { path: "/", element: <Dashboard />, errorElement: <ErrorPage /> },
-//       { path: "/page", element: <PageA />, errorElement: <ErrorPage /> },
-//     ],
-//   },
-//   {
-//     path: "/register",
-//     element: <Register />,
-//     errorElement: <ErrorPage />,
-//   },
-//   {
-//     path: "/setup-organisation",
-//     element: (
-//       <ProtectedRoute>
-//         <SetupOrganisation />
-//       </ProtectedRoute>
-//     ),
-//     errorElement: <ErrorPage />,
-//   },
-//   {
-//     path: "/login",
-//     element: <Login />,
-//     errorElement: <ErrorPage />,
-//   },
-// ]);
+import LogTime from "./pages/LogTime/index.tsx";
 
 export const Routers = createBrowserRouter([
   {
@@ -75,6 +41,7 @@ export const Routers = createBrowserRouter([
         children: [
           { path: "/", element: <Home />, errorElement: <ErrorPage /> },
           { path: "/page", element: <PageA />, errorElement: <ErrorPage /> },
+          { path: "/log-time", element: <LogTime />, errorElement: <ErrorPage /> },
           { path: "/manage-users", element: <ManageEmployee />, errorElement: <ErrorPage /> },
           {
             path: "/manage-users/employee/:id",
