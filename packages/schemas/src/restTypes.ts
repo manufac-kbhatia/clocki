@@ -7,7 +7,7 @@ import {
   RegisterEmployeeSchema,
   RegisterOrganisationSchema,
   TeamSchema,
-  TimeEntrySchema,
+  TimeSheetSchema,
   UpdateClientSchema,
   UpdateEmployeeSchema,
   UpdateOrganisationSchema,
@@ -29,7 +29,7 @@ export type UpdateOrganisationPayload = z.infer<typeof UpdateOrganisationSchema>
 export type UpdatePersonalInfoPayload = z.infer<typeof UpdatePersonalInfoSchema>;
 export type UpdateClientPayload = z.infer<typeof UpdateClientSchema>;
 export type UpdateProjectPayload = z.infer<typeof UpdateProjectSchema>;
-export type TimeEntryPayload = z.infer<typeof TimeEntrySchema>;
+export type TimeSheetPayload = z.infer<typeof TimeSheetSchema>;
 
 // Rest Types
 
@@ -153,6 +153,10 @@ export interface CreateTimeEntryResponse extends BaseResponseType {
   timeEntry: TimeEntry;
 }
 
+export interface GetMyTimeEntryResponse extends BaseResponseType {
+  timeEntry: Record<string, TimeEntryWithInfo[]>;
+}
+
 export type EmployeeInfo = Prisma.EmployeeInfoGetPayload<{}>;
 export type Employee = Prisma.EmployeeGetPayload<{ omit: { password: true; refreshToken: true } }>;
 export type EmployeeWithEmployeeInfo = Prisma.EmployeeGetPayload<{
@@ -182,6 +186,7 @@ export type Organisation = Prisma.OrganisationGetPayload<{
 }>;
 export type Client = Prisma.ClientGetPayload<{}>;
 export type TimeEntry = Prisma.TimesheetGetPayload<{}>;
+export type TimeEntryWithInfo = Prisma.TimesheetGetPayload<{ include: { project: true } }>;
 
 export interface ErrorResponse {
   success: boolean;

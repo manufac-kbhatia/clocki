@@ -31,6 +31,6 @@ enum Role {
 }
 
 enum Status {
-  Complete
+  Completed
   InProgress
 }

@@ -9,6 +9,7 @@ const router: Router = express.Router();
 
 router
   .route("/log-time")
+  .get(isAuthenticated, catchAsync(timeSheetControllers.getMyTimeEntries))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(timeSheetControllers.addTimeEntry));
 
 export default router;

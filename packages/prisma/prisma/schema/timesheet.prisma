@@ -8,5 +8,5 @@ model Timesheet {
     employee    Employee @relation(fields: [employeeId], references: [id])
     project     Project  @relation(fields: [projectId], references: [id])
 
-    createdAt DateTime @default(now())
+    createdAt String
 }

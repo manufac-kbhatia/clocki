@@ -138,11 +138,13 @@ export const UpdateProjectSchema = z.object({
   }),
 });
 
-
-export const TimeEntrySchema = z.object({
+export const TimeSheetSchema = z.object({
   description: z.string().min(1, "Descrioption is required for entry to be logged"),
-  loggedHours: z.number().min(1, "Logged hours (in minutes) should be atleat 1 minute").max(1499, "Logged hours (in minutes) should be atmost 1499 minutes"),
+  loggedHours: z
+    .number()
+    .min(1, "Logged hours (in minutes) should be atleat 1 minute")
+    .max(1499, "Logged hours (in minutes) should be atmost 1499 minutes"),
   status: z.nativeEnum(Status),
-  projectId: z.string({required_error: "Please provide the project id for which the entry is logged"}),
-  createdAt: z.date().optional(),
-})
+  projectId: z.string({ required_error: "Please provide the project id for which the entry is logged" }),
+  createdAt: z.string(),
+});
