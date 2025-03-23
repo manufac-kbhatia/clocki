@@ -17,7 +17,7 @@ import {
 import { DateInputProps, DatePicker } from "@mantine/dates";
 import { useDisclosure } from "@mantine/hooks";
 import { IconCalendar, IconChevronLeft, IconChevronRight, IconRefresh } from "@tabler/icons-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import TimeEntryModal from "../../components/TimeSheet/TimeEntryModal";
 import { convertToTime, TimeEntryModalMode } from "../../components/TimeSheet/TimeEntryModal/utils";
 import { useGetMyTimeEntries, useGetProjects } from "../../hooks/api";
@@ -41,7 +41,11 @@ const LogTime = () => {
     endDate: formatDate(currentWeek.endOfWeek),
   });
 
-  console.log("seleDate", selectedDate);
+  const totalLoggedHours = useMemo(() => {
+    return Object.values(timeSheetData?.timeEntry ?? {})
+      .flat()
+      .reduce((sum, entry) => sum + entry.loggedHours, 0);
+  }, [timeSheetData]);
 
   const handleAddEntry = () => {
     setTimeEntryModalMode(TimeEntryModalMode.Add);
@@ -99,7 +103,7 @@ const LogTime = () => {
             <Group>
               <Text>Total this week</Text>
               <Pill fw={800} c="white" bg={theme.colors.oceanBlue[6]}>
-                3:00
+                {convertToTime(totalLoggedHours)}
               </Pill>
             </Group>
             <Group style={{ position: "relative" }}>
