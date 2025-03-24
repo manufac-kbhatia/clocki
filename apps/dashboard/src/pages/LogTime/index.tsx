@@ -79,18 +79,18 @@ const LogTime = () => {
 
   const handleToday = () => {
     const today = new Date();
-    const selectToday = today.toISOString().split("T")[0] as string
-    setCurrentWeek(getCurrentWeekRange(today))
+    const selectToday = today.toISOString().split("T")[0] as string;
+    setCurrentWeek(getCurrentWeekRange(today));
     setSelectedDate(selectToday);
-  }
+  };
 
   const handleCalendarSelect: DateInputProps["onChange"] = (value) => {
     if (value !== null) {
-      const selectToday = value.toISOString().split("T")[0] as string
-      setCurrentWeek(getCurrentWeekRange(value))
+      const selectToday = value.toISOString().split("T")[0] as string;
+      setCurrentWeek(getCurrentWeekRange(value));
       setSelectedDate(selectToday);
     }
-  }
+  };
 
   return (
     <Stack>
@@ -116,11 +116,7 @@ const LogTime = () => {
                 <IconCalendar />
               </ActionIcon>
               <Tooltip label="Today">
-                <ActionIcon
-                  size="lg"
-                  variant="outline"
-                  onClick={handleToday}
-                >
+                <ActionIcon size="lg" variant="outline" onClick={handleToday}>
                   <IconRefresh />
                 </ActionIcon>
               </Tooltip>
@@ -166,9 +162,9 @@ const LogTime = () => {
         </Stack>
       </Card>
       <Card mih={300}>
-        <Stack style={{ overflow: "auto" }}>
+        <Stack style={{ overflow: "auto" }} fw={600}  >
           <Grid>
-            <Grid.Col span={3}>Projec</Grid.Col>
+            <Grid.Col span={3}>Project</Grid.Col>
             <Grid.Col span={5}>Description</Grid.Col>
             <Grid.Col span={2}>Hours</Grid.Col>
             <Grid.Col span={2}>Status</Grid.Col>

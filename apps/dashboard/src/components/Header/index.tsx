@@ -1,4 +1,4 @@
-import { AppShell, ActionIcon, Group, Title, Burger, Image, Text } from "@mantine/core";
+import { AppShell, ActionIcon, Group, Title, Burger, Text } from "@mantine/core";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import type { MantineColorScheme } from "@mantine/core";
 import type React from "react";
@@ -27,18 +27,12 @@ export function Header({
       <Group h="100%" px="sm">
         <Group w={{ base: "fit-content", xs: 200 }}>
           <Burger opened={opened} onClick={onToggleNavBaar} hiddenFrom="sm" size="sm" />
-          <Group gap={2} visibleFrom="xs">
-            <Title size="h2" ta="center">
-              cl
-            </Title>
-            <Image src="/clock.svg" w={25} />
-            <Title size="h2" ta="center">
-              ki
-            </Title>
-          </Group>
+          <Title order={3} ta="center" fw={800}>
+            Cloki
+          </Title>
         </Group>
         <Group flex={1} justify="space-between">
-          <Title order={1}>{auth?.employee?.createdOrganisation?.name}</Title>
+          <Title order={2}>{auth?.employee?.createdOrganisation?.name}</Title>
           <Group gap="xl">
             <Text>{new Date().toLocaleString("default", { dateStyle: "full" })}</Text>
             <Group>

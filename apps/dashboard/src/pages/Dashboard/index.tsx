@@ -1,4 +1,4 @@
-import { AppShell, NavLink as MantineNavLink, useMantineColorScheme } from "@mantine/core";
+import { AppShell, NavLink as MantineNavLink, Stack, useMantineColorScheme } from "@mantine/core";
 import { NavLink, useLocation } from "react-router";
 import { Outlet } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
@@ -61,20 +61,23 @@ export function Dashboard() {
         onToggleNavBaar={toggle}
       />
       <AppShell.Navbar p="md">
-        {NavLinks.map(({ path, label, icon }) => {
-          return (
-            <MantineNavLink
-              styles={{ root: { borderRadius: "10px" } }}
-              leftSection={icon}
-              key={path}
-              component={NavLink}
-              active={location.pathname === path}
-              to={path}
-              label={label}
-              variant="filled"
-            />
-          );
-        })}
+        <Stack gap={5}>
+          {NavLinks.map(({ path, label, icon }) => {
+            return (
+              <MantineNavLink
+                styles={{ root: { borderRadius: "5px" } }}
+                fw={700}
+                leftSection={icon}
+                key={path}
+                component={NavLink}
+                active={location.pathname === path}
+                to={path}
+                label={label}
+                variant="filled"
+              />
+            );
+          })}
+        </Stack>
       </AppShell.Navbar>
       <AppShell.Main>
         <Outlet />
