@@ -1,7 +1,7 @@
 import { Router } from "express";
 import express from "express";
 import { isAuthenticated, isAuthorized } from "../middlewares";
-import * as timeSheetControllers from "../controllers/timeSheetControllers";
+import * as timeSheetControllers from "../controllers/timesheetControllers";
 import catchAsync from "../middlewares/catchAsync";
 import { Role } from "@repo/schemas";
 

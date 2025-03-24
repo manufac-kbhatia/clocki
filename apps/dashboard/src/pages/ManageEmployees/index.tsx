@@ -18,9 +18,19 @@ const ManageEmployee = () => {
           data={[TabNames.Users, TabNames.Teams]}
         />
         {activeTab === TabNames.Users ? (
-          <Button onClick={() => setActiveTab(TabNames.NewUser)} leftSection={<IconUserPlus size={18}/>}>New User</Button>
+          <Button
+            onClick={() => setActiveTab(TabNames.NewUser)}
+            leftSection={<IconUserPlus size={18} />}
+          >
+            New User
+          </Button>
         ) : activeTab === TabNames.Teams ? (
-          <Button onClick={() => setActiveTab(TabNames.NewTeam)} leftSection={<IconUsersPlus size={18}/>}>New Team</Button>
+          <Button
+            onClick={() => setActiveTab(TabNames.NewTeam)}
+            leftSection={<IconUsersPlus size={18} />}
+          >
+            New Team
+          </Button>
         ) : null}
       </Group>
 

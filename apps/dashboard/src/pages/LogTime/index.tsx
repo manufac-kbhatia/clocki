@@ -162,7 +162,7 @@ const LogTime = () => {
         </Stack>
       </Card>
       <Card mih={300}>
-        <Stack style={{ overflow: "auto" }} fw={600}  >
+        <Stack style={{ overflow: "auto" }} fw={600}>
           <Grid>
             <Grid.Col span={3}>Project</Grid.Col>
             <Grid.Col span={5}>Description</Grid.Col>
@@ -170,18 +170,25 @@ const LogTime = () => {
             <Grid.Col span={2}>Status</Grid.Col>
           </Grid>
           <Divider />
-          <Grid>
-            {selectedDateEntry?.map((entry) => {
-              return (
-                <>
-                  <Grid.Col span={3}>{entry.project.name}</Grid.Col>
-                  <Grid.Col span={5}>{entry.description}</Grid.Col>
-                  <Grid.Col span={2}>{convertToTime(entry.loggedHours)}</Grid.Col>
-                  <Grid.Col span={2}>{entry.status}</Grid.Col>
-                </>
-              );
-            })}
-          </Grid>
+
+          <>
+            {selectedDateEntry && selectedDateEntry.length > 0 ? (
+              selectedDateEntry.map((entry) => {
+                return (
+                  <Grid>
+                    <Grid.Col span={3}>{entry.project.name}</Grid.Col>
+                    <Grid.Col span={5}>{entry.description}</Grid.Col>
+                    <Grid.Col span={2}>{convertToTime(entry.loggedHours)}</Grid.Col>
+                    <Grid.Col span={2}>{entry.status}</Grid.Col>
+                  </Grid>
+                );
+              })
+            ) : (
+              <Text ta="center" c="dimmed">
+                No entries
+              </Text>
+            )}
+          </>
         </Stack>
       </Card>
       <TimeEntryModal
