@@ -1,12 +1,13 @@
 import { Button, Card, Grid, Group, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useState } from "react";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
-import { useCreateTeam, useGetEmployees } from "../../../hooks/api";
 import { EmployeeWithEmployeeInfo, TeamPayload } from "@repo/schemas/rest";
 import { Section, SectionType } from "../DnDCards/utils";
 import { Column } from "../DnDCards/Column";
 import { useForm } from "@mantine/form";
 import { useClockiContext } from "../../../context";
+import { useGetEmployees } from "../../../hooks/api/employee";
+import { useCreateTeam } from "../../../hooks/api/team";
 
 const AddTeam = () => {
   const { auth } = useClockiContext();

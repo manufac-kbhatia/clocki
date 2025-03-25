@@ -7,11 +7,12 @@ import {
 } from "./utils";
 import { RegisterOrganisationSchema } from "@repo/schemas";
 import { RegisterOrganisationPayload } from "@repo/schemas/rest";
-import { useGetMe, useSetupOrganisation } from "../../hooks/api";
+import { useGetMe } from "../../hooks/api/auth";
 import { Loader } from "../../components/Loader";
 import { useEffect } from "react";
 import { useClockiContext } from "../../context";
 import { useCustomNavigate } from "../../hooks/location";
+import { useSetupOrganisation } from "../../hooks/api/organisation";
 
 export function SetupOrganisation() {
   const { auth, setAuth } = useClockiContext();

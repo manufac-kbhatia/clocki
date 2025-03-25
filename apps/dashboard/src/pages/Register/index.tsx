@@ -2,7 +2,7 @@ import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@m
 import { useForm, zodResolver } from "@mantine/form";
 import { RegisterEmployeeSchema } from "@repo/schemas";
 import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "./utils";
-import { useSignUp } from "../../hooks/api";
+import { useSignUp } from "../../hooks/api/auth";
 import { useClockiContext } from "../../context";
 import { RegisterEmployeePayload } from "@repo/schemas/rest";
 import { useEffect } from "react";

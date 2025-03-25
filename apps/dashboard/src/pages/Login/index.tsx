@@ -3,7 +3,7 @@ import { useForm, zodResolver } from "@mantine/form";
 import { LoginSchema } from "@repo/schemas";
 import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./utils";
 import { LoginPayload } from "@repo/schemas/rest";
-import { useLogin } from "../../hooks/api";
+import { useLogin } from "../../hooks/api/auth";
 import { useClockiContext } from "../../context";
 import { useEffect } from "react";
 import { Loader } from "../../components/Loader";

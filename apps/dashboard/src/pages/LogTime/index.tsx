@@ -20,10 +20,11 @@ import { IconCalendar, IconChevronLeft, IconChevronRight, IconRefresh } from "@t
 import { useMemo, useState } from "react";
 import TimeEntryModal from "../../components/TimeSheet/TimeEntryModal";
 import { convertToTime, TimeEntryModalMode } from "../../components/TimeSheet/TimeEntryModal/utils";
-import { useGetMyTimeEntries, useGetProjects } from "../../hooks/api";
 import { formatDate, getCurrentWeekRange } from "./utils";
 import { TimeEntryWithInfo } from "@repo/schemas/rest";
 import DateCard from "../../components/TimeSheet/DateCard";
+import { useGetProjects } from "../../hooks/api/project";
+import { useGetMyTimeEntries } from "../../hooks/api/timeSheet";
 
 const LogTime = () => {
   const [showDatePicker, setShowDatePiker] = useState(false);

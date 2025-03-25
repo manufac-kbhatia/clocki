@@ -11,7 +11,6 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
-import { useGetOrganisation } from "../../hooks/api";
 import { useClockiContext } from "../../context";
 import { useForm, zodResolver } from "@mantine/form";
 import { UpdateOrganisationPayload } from "@repo/schemas/rest";
@@ -23,6 +22,7 @@ import {
   UpdateOrganisationFormNames,
   UpdateOrganisationFormPlaceholder,
 } from "./utils";
+import { useGetOrganisation } from "../../hooks/api/organisation";
 
 const CompanySettings = () => {
   const { data } = useGetOrganisation();

@@ -23,8 +23,8 @@ import { Status } from "@repo/schemas";
 import { useForm, zodResolver } from "@mantine/form";
 import { useEffect, useState } from "react";
 import { ProjectWithInfo, TimeSheetPayload } from "@repo/schemas/rest";
-import { useCreateTimeEntry } from "../../../hooks/api";
 import dayjs from "dayjs";
+import { useCreateTimeEntry } from "../../../hooks/api/timeSheet";
 
 export interface TimeEntryModalProps {
   opened: boolean;

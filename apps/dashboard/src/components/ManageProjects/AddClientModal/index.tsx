@@ -8,9 +8,9 @@ import {
   CreateClientFormNames,
   CreateClientFormPlaceholder,
 } from "./utils";
-import { useCreateClient, useUpdateClient } from "../../../hooks/api";
 import { useClockiContext } from "../../../context";
 import { useEffect } from "react";
+import { useCreateClient, useUpdateClient } from "../../../hooks/api/client";
 
 export interface ClientModalProps {
   opened: boolean;

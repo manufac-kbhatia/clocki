@@ -19,7 +19,7 @@ import {
 import { useMemo, useState } from "react";
 import { Client } from "@repo/schemas/rest";
 import { IconEdit, IconX } from "@tabler/icons-react";
-import { useGetClients } from "../../../hooks/api";
+import { useGetClients } from "../../../hooks/api/client";
 
 export interface ClientDetailsProps {
   onEdit: (client: Client) => void;

@@ -21,7 +21,8 @@ import {
 } from "./utils";
 import { DateInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
-import { useCreateEmployee } from "../../../hooks/api";
+import { useCreateEmployee } from "../../../hooks/api/employee";
+
 
 const AddEmployee = () => {
   const { mutate: createEmployee } = useCreateEmployee({

@@ -26,7 +26,8 @@ import { DatePickerInput } from "@mantine/dates";
 import { Role } from "@repo/schemas";
 import { useNavigate } from "react-router";
 import { IconEdit } from "@tabler/icons-react";
-import { useGetEmployees } from "../../../hooks/api";
+import { useGetEmployees } from "../../../hooks/api/employee";
+
 
 const EmployeesDetails = () => {
   const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);

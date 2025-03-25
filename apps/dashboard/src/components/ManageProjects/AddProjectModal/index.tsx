@@ -10,12 +10,10 @@ import {
 } from "./utils";
 import { useEffect } from "react";
 import { useClockiContext } from "../../../context";
-import {
-  useCreateProject,
-  useGetClients,
-  useGetEmployees,
-  useUpdateProject,
-} from "../../../hooks/api";
+import { useGetEmployees } from "../../../hooks/api/employee";
+import { useGetClients } from "../../../hooks/api/client";
+import { useCreateProject, useUpdateProject } from "../../../hooks/api/project";
+
 
 export interface ProjectModalProps {
   opened: boolean;

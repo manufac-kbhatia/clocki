@@ -1,7 +1,8 @@
-import { TimeSheetSchema } from "@repo/schemas";
+import { Role, TimeSheetSchema } from "@repo/schemas";
 import {
   CreateTimeEntryResponse,
   GetMyTimeEntryResponse,
+  GetTimeEntryResponse,
   TimeEntry,
   TimeEntryWithInfo,
   TimeSheetPayload,
@@ -83,4 +84,21 @@ export const getMyTimeEntries = async (
   });
 };
 
-export const getTimeEntries = async (req: Request, res: Response) => {};
+export const getTimeEntries = async (req: Request, res: Response<GetTimeEntryResponse>) => {
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  const teamId = req.params.id;
+  if (organisationId) {
+    const timeEntry = await client.timesheet.findMany({
+      where: {
+        project: {
+          organisationId,
+        }
+      },
+      include: {
+        project: true,
+      }
+    });
+
+    res.status(StatusCodes.OK).json({ success: true, timeEntry });
+  }
+};
