@@ -5,9 +5,9 @@ import { Register } from "./pages/Register/index.tsx";
 import { SetupOrganisation } from "./pages/Setup-Organisation/index.tsx";
 import ProtectedRoute from "./pages/Protected-Route/index.tsx";
 import { Login } from "./pages/Login/index.tsx";
-import { Dashboard } from "./pages/Dashboard/index.tsx";
-import PageA from "./pages/Page-A/index.tsx";
 import { Home } from "./pages/Home/index.tsx";
+import PageA from "./pages/Page-A/index.tsx";
+import { Dashboard } from "./pages/Dashboard/index.tsx";
 import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 import CheckCompanyStatus from "./pages/CheckCompanyStatus/index.tsx";
 import ManageEmployee from "./pages/ManageEmployees/index.tsx";
@@ -34,13 +34,13 @@ export const Routers = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <CheckCompanyStatus>
-              <Dashboard />
+              <Home />
             </CheckCompanyStatus>
           </ProtectedRoute>
         ),
         errorElement: <ErrorPage />,
         children: [
-          { path: "/", element: <Home />, errorElement: <ErrorPage /> },
+          { path: "/", element: <Dashboard />, errorElement: <ErrorPage /> },
           { path: "/page", element: <PageA />, errorElement: <ErrorPage /> },
           { path: "/log-time", element: <LogTime />, errorElement: <ErrorPage /> },
           { path: "/time-logs", element: <TimeLogs />, errorElement: <ErrorPage /> },
