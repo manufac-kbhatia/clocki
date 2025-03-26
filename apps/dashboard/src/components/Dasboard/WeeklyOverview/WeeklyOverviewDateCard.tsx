@@ -24,12 +24,12 @@ const WeeklyOverviewDateCard = ({ entryData, date }: WeeklyOverviewDateCardProps
   }, [date, entryData]);
 
   return (
-    <Card shadow="none" withBorder bg="transparent">
-      <Stack align="center">
-        <Text size="sm">
+    <Card shadow="none" withBorder bg="transparent" w="fit-content" p={10}>
+      <Stack align="center" justify="center">
+        <Text size="xs" ta="center">
           {data.day} {data.dateInNumber}
         </Text>
-        <Pill w="fit-content" bg={theme.primaryColor} c="white" fw={700}>
+        <Pill bg={theme.primaryColor} c="white" size="xs">
           {data.totalLogged}
         </Pill>
       </Stack>

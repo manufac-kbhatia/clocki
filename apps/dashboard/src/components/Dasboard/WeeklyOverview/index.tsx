@@ -72,7 +72,7 @@ const WeeklyOverview = () => {
           </Pill>
         </Group>
         <Paper w="fit-content" p="xs">
-          <Group>
+          <Group wrap="nowrap">
             {dates.map((date) => {
               const formatedDate = date.toISOString().split("T")[0] as string;
               return (
