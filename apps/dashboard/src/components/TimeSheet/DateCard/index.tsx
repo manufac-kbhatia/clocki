@@ -1,4 +1,4 @@
-import { Card, Pill, Stack, Title, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import { Card, Pill, Stack, Title, useMantineTheme } from "@mantine/core";
 import { TimeEntryWithInfo } from "@repo/schemas/rest";
 import type { Dayjs } from "dayjs";
 import { useMemo } from "react";
