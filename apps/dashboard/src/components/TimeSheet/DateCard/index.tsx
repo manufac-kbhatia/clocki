@@ -45,7 +45,7 @@ const DateCard = ({ date, onClick, entryData, selectedDate }: DateCardProps) => 
         <Title order={4} fw={400} c={selectedDate === data.formatedDate ? theme.primaryColor : undefined}>
           {data.dateInNumber}
         </Title>
-        <Pill w={55} bg={theme.primaryColor} fw={700}>
+        <Pill w={55} bg={theme.primaryColor} c="white" fw={700}>
           {data.totalLogged}
         </Pill>
       </Stack>
