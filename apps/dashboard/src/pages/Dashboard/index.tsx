@@ -1,11 +1,63 @@
-import { Text } from "@mantine/core";
-import { Link } from "react-router";
+import {
+  Card,
+  Group,
+  Pill,
+  SimpleGrid,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
+  useMantineTheme,
+} from "@mantine/core";
+import { useClockiContext } from "../../context";
+import { IconExternalLink, IconQuestionMark } from "@tabler/icons-react";
 
 export function Dashboard() {
+  const theme = useMantineTheme();
+  const { auth } = useClockiContext();
   return (
     <>
-      <Text>sasf</Text>
-      <Link to={"/page"}>Page A</Link>
+      <Card withBorder shadow="none" p="xl">
+        <SimpleGrid cols={2}>
+          <Stack>
+            <Text c={theme.primaryColor} fw={400}>
+              {new Date().toLocaleString("default", { dateStyle: "full" })}
+            </Text>
+            <Title order={2}>Hello {`${auth?.employee?.firstName}`}!</Title>
+            <Text size="md">
+              Welcome back! Track working hours, plan projects, and manage your vacations all in one
+              place!
+            </Text>
+          </Stack>
+          <Group wrap="nowrap">
+            <Card withBorder>
+              <Stack>
+                <ThemeIcon size="lg" radius="xl">
+                  <IconQuestionMark />
+                </ThemeIcon>
+                <Title>Usage instructions</Title>
+                <Text>Need help? Find tips to use Cloki better !</Text>
+              </Stack>
+            </Card>
+            <Card withBorder>
+              <Stack align="center">
+                <Pill w="fit-content" size="xl" bg={theme.primaryColor} c="white" fw={700}>
+                  Are you new!
+                </Pill>
+                <Group wrap="nowrap">
+                  <Stack>
+                    <Title>Setting up your organisation</Title>
+                    <Text>Watch video instruction</Text>
+                  </Stack>
+                  <ThemeIcon size="xl" variant="outline" radius="xl">
+                    <IconExternalLink />
+                  </ThemeIcon>
+                </Group>
+              </Stack>
+            </Card>
+          </Group>
+        </SimpleGrid>
+      </Card>
     </>
   );
 }
