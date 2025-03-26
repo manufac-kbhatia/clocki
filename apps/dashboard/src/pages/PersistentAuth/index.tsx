@@ -1,7 +1,8 @@
-import { Loader } from "@mantine/core";
 import { useState, useEffect } from "react";
 import { useClockiContext } from "../../context";
 import useRefreshToken from "../../hooks/token";
+import { Loader } from "@mantine/core";
+import { Center } from "@mantine/core";
 
 interface PersistentAuthProps {
   children: React.ReactNode;
@@ -31,5 +32,5 @@ export const PersistentAuth: React.FC<PersistentAuthProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isLoading === true ? <Loader /> : children;
+  return isLoading === true ? <Center h={"100vh"}><Loader /></Center> : children;
 };

@@ -1,35 +1,42 @@
-import { CreateClientResponse, ClientPayload, GetClientsResponse, GetClientResponse, UpdateClientPayload, UpdateClientResponse } from "@repo/schemas/rest";
+import {
+  CreateClientResponse,
+  ClientPayload,
+  GetClientsResponse,
+  GetClientResponse,
+  UpdateClientPayload,
+  UpdateClientResponse,
+} from "@repo/schemas/rest";
 import { UseMutationOptions, UseMutationResult, useMutation, UseQueryResult, useQuery } from "@tanstack/react-query";
 import useAxiosPrivate from "../../axios/useAxiosPrivate";
 
 export function useCreateClient(
-    params?: UseMutationOptions<CreateClientResponse, Error, ClientPayload>,
-  ): UseMutationResult<CreateClientResponse, Error, ClientPayload> {
-    const axiosPrivate = useAxiosPrivate();
-    const mutation = useMutation({
-      mutationFn: async (payload) => {
-        const reponse = await axiosPrivate.post<CreateClientResponse>("/client", payload);
-        return reponse.data;
-      },
-      ...params,
-    });
-    return mutation;
-  }
-  
-  export function useGetClients(): UseQueryResult<GetClientsResponse> {
-    const axiosPrivate = useAxiosPrivate();
-    const output = useQuery({
-      queryKey: ["clients"],
-      queryFn: async () => {
-        const response = await axiosPrivate.get<GetClientsResponse>("/client");
-        return response.data;
-      },
-      retry: false,
-    });
-    return output;
-  }
+  params?: UseMutationOptions<CreateClientResponse, Error, ClientPayload>,
+): UseMutationResult<CreateClientResponse, Error, ClientPayload> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async (payload) => {
+      const reponse = await axiosPrivate.post<CreateClientResponse>("/client", payload);
+      return reponse.data;
+    },
+    ...params,
+  });
+  return mutation;
+}
 
-  export function useUpdateClient(
+export function useGetClients(): UseQueryResult<GetClientsResponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["clients"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetClientsResponse>("/client");
+      return response.data;
+    },
+    retry: false,
+  });
+  return output;
+}
+
+export function useUpdateClient(
   params?: UseMutationOptions<UpdateClientResponse, Error, { payload: UpdateClientPayload; id: string }>,
 ): UseMutationResult<UpdateClientResponse, Error, { payload: UpdateClientPayload; id: string }> {
   const axiosPrivate = useAxiosPrivate();

@@ -28,7 +28,6 @@ import { useNavigate } from "react-router";
 import { IconEdit } from "@tabler/icons-react";
 import { useGetEmployees } from "../../../hooks/api/employee";
 
-
 const EmployeesDetails = () => {
   const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);
   const [roles, setRoles] = useState<Role[]>([]);

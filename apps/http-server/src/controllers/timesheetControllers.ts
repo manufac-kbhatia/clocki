@@ -92,11 +92,11 @@ export const getTimeEntries = async (req: Request, res: Response<GetTimeEntryRes
       where: {
         project: {
           organisationId,
-        }
+        },
       },
       include: {
         project: true,
-      }
+      },
     });
 
     res.status(StatusCodes.OK).json({ success: true, timeEntry });

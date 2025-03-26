@@ -8,6 +8,9 @@
     "dev": "npm run build && npm run start"
   },
   "dependencies": {
+    "@langchain/core": "^0.3.43",
+    "@langchain/langgraph": "^0.2.59",
+    "@langchain/openai": "^0.5.0",
     "@repo/db": "workspace:*",
     "@repo/schemas": "workspace:*",
     "@types/cookie-parser": "^1.4.8",
@@ -15,6 +18,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "http-status-codes": "^2.3.0",
     "jsonwebtoken": "^9.0.2",
