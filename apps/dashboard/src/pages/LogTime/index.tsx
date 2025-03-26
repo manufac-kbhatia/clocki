@@ -12,6 +12,7 @@ import {
   Text,
   Title,
   Tooltip,
+  useMantineColorScheme,
   useMantineTheme,
 } from "@mantine/core";
 import { DateInputProps, DatePicker } from "@mantine/dates";
@@ -41,6 +42,7 @@ const LogTime = () => {
     startDate: formatDate(currentWeek.startOfWeek),
     endDate: formatDate(currentWeek.endOfWeek),
   });
+  const {colorScheme} = useMantineColorScheme();
 
   const totalLoggedHours = useMemo(() => {
     return Object.values(timeSheetData?.timeEntry ?? {})
@@ -103,7 +105,7 @@ const LogTime = () => {
           <Group justify="space-between">
             <Group>
               <Text>Total this week</Text>
-              <Pill fw={800} c="white" bg={theme.colors.oceanBlue[6]}>
+              <Pill fw={800} c="white" bg={theme.primaryColor}>
                 {convertToTime(totalLoggedHours)}
               </Pill>
             </Group>
@@ -131,8 +133,8 @@ const LogTime = () => {
               </Group>
               {showDatePicker === true ? (
                 <DatePicker
-                  bd="2px solid #424242"
-                  bg="black"
+                  bd={`2px solid ${theme.primaryColor}`}
+                  bg={colorScheme === "dark" ? "#1f1f1f" : "#F8F8F8"}
                   style={{
                     position: "absolute",
                     zIndex: "100",

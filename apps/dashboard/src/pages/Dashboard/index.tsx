@@ -50,8 +50,8 @@ export function Dashboard() {
       navbar={{ width: 200, breakpoint: "sm", collapsed: { mobile: !opened } }}
       padding="md"
       styles={{
-        header: { backgroundColor: colorScheme === "dark" ? "#000000" : undefined },
-        navbar: { backgroundColor: colorScheme === "dark" ? "#000000" : undefined },
+        header: { backgroundColor: colorScheme === "dark" ? "#1f1f1f" : "#F8F8F8" },
+        navbar: { backgroundColor: colorScheme === "dark" ? "#1f1f1f" : "#F8F8F8" },
       }}
     >
       <Header

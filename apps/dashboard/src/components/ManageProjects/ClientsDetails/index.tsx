@@ -2,12 +2,12 @@ import {
   ActionIcon,
   Card,
   Group,
-  Paper,
   Stack,
   Table,
   Text,
   TextInput,
   Title,
+  useMantineColorScheme,
 } from "@mantine/core";
 import {
   createColumnHelper,
@@ -27,6 +27,8 @@ export interface ClientDetailsProps {
 const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetClients();
+  const { colorScheme } = useMantineColorScheme();
+  
 
   const filteredClients: Client[] = useMemo(() => {
     let result: Client[] = data?.clients ?? [];
@@ -123,10 +125,8 @@ const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
             ) : null
           }
         />
-        <Paper withBorder>
-          {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
-          <Table highlightOnHover>
-            <Table.Thead>
+        <Table highlightOnHover withTableBorder>
+        <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
               {getHeaderGroups().map(({ id, headers }) => {
                 return (
                   <Table.Tr key={id}>
@@ -161,7 +161,6 @@ const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
               })}
             </Table.Tbody>
           </Table>
-        </Paper>
       </Stack>
     </Card>
   );

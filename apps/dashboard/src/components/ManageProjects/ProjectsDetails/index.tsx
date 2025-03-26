@@ -3,13 +3,13 @@ import {
   Avatar,
   Card,
   Group,
-  Paper,
   Stack,
   Table,
   Text,
   TextInput,
   Title,
   Tooltip,
+  useMantineColorScheme,
 } from "@mantine/core";
 import {
   createColumnHelper,
@@ -30,6 +30,8 @@ export interface ProjectDetailsProps {
 const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetProjects();
+    const { colorScheme } = useMantineColorScheme();
+  
 
   const filteredClients: ProjectWithInfo[] = useMemo(() => {
     let result: ProjectWithInfo[] = data?.projects ?? [];
@@ -123,10 +125,8 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
             ) : null
           }
         />
-        <Paper withBorder>
-          {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
-          <Table highlightOnHover>
-            <Table.Thead>
+          <Table highlightOnHover withTableBorder>
+          <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
               {getHeaderGroups().map(({ id, headers }) => {
                 return (
                   <Table.Tr key={id}>
@@ -161,7 +161,6 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
               })}
             </Table.Tbody>
           </Table>
-        </Paper>
       </Stack>
     </Card>
   );

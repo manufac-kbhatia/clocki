@@ -3,7 +3,8 @@ import { createTheme, rem } from "@mantine/core";
 export const MantineTheme = createTheme({
   fontSmoothing: true,
   fontFamily: "Red Hat Display, sans-serif",
-  primaryColor: "oceanBlue",
+  primaryColor: "violet",
+  white: "#F2F2F2",
   colors: {
     dark: [
       "#eeeeee", // 0 - Lightest gray (Text color)
@@ -12,15 +13,15 @@ export const MantineTheme = createTheme({
       "#696969", // 3
       "#424242", // 4 - Card border, separator
       "#3b3b3b", // 5 - Button background
-      "#000000", // 6 - Card background
-      "#1f1f1f", // 7 - Primary background (updated to match screenshot)
+      "#1f1f1f", // 6 - Card background
+      "#121212", // 7 - Primary background (updated to match screenshot)
       "#2e2e2e", // 8
       "#141414", // 9 - Darkest backgrounds
     ],
     oceanBlue: [
       "#7AD1DD",
       "#5FCCDB",
-      "#44CADC",
+      "#99e9f2",
       "#2AC9DE",
       "#1AC2D9",
       "#11B7CD",
@@ -40,6 +41,5 @@ export const MantineTheme = createTheme({
       h6: { fontSize: rem(60), fontWeight: "700" },
     },
   },
-
   defaultRadius: "md",
 });

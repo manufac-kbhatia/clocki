@@ -23,7 +23,7 @@ export function Header({
   const name = `${auth?.employee?.firstName} ${auth?.employee?.lastName}`;
 
   return (
-    <AppShell.Header>
+    <AppShell.Header bg={colorScheme === "dark" ? "#1f1f1f" : "#F8F8F8"}>
       <Group h="100%" px="sm">
         <Group w={{ base: "fit-content", xs: 200 }}>
           <Burger opened={opened} onClick={onToggleNavBaar} hiddenFrom="sm" size="sm" />

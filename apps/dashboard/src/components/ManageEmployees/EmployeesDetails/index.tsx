@@ -4,7 +4,6 @@ import {
   Card,
   Group,
   MultiSelect,
-  Paper,
   SimpleGrid,
   Stack,
   Table,
@@ -12,6 +11,7 @@ import {
   TextInput,
   Title,
   Transition,
+  useMantineColorScheme,
 } from "@mantine/core";
 import {
   createColumnHelper,
@@ -35,6 +35,8 @@ const EmployeesDetails = () => {
   const [showFilter, toggleFilter] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
   const { data } = useGetEmployees();
+  const { colorScheme } = useMantineColorScheme();
+  
   const navigate = useNavigate();
 
   const filteredEmployees: EmployeeWithEmployeeInfo[] = useMemo(() => {
@@ -217,11 +219,8 @@ const EmployeesDetails = () => {
             </SimpleGrid>
           )}
         </Transition>
-        <Paper withBorder>
-          {" "}
-          {/* Ref https://github.com/orgs/mantinedev/discussions/5398 */}
-          <Table highlightOnHover>
-            <Table.Thead>
+          <Table highlightOnHover withTableBorder>
+            <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
               {getHeaderGroups().map(({ id, headers }) => {
                 return (
                   <Table.Tr key={id}>
@@ -256,7 +255,6 @@ const EmployeesDetails = () => {
               })}
             </Table.Tbody>
           </Table>
-        </Paper>
       </Stack>
     </Card>
   );
