@@ -42,7 +42,7 @@ export interface BaseResponseType {
 }
 export interface RegisterEmployeeResponse extends BaseResponseType {
   accessToken: string;
-  employeeData: EmployeeWithOrganisation;
+  employeeData: UserWithInfo;
 }
 
 export interface CreateEmployeeResponse extends BaseResponseType {
@@ -50,13 +50,13 @@ export interface CreateEmployeeResponse extends BaseResponseType {
 }
 
 export interface LoginEmployeeResponse extends BaseResponseType {
-  employeeData: EmployeeWithOrganisation;
+  employeeData: UserWithInfo;
   accessToken: string;
 }
 
 export interface RefreshTokenResponse extends BaseResponseType {
   accessToken: string;
-  employeeData: EmployeeWithOrganisation;
+  employeeData: UserWithInfo;
 }
 
 export interface RegisterOrganisationResponse extends BaseResponseType {
@@ -68,7 +68,7 @@ export interface DeleteEmployeeResponse extends BaseResponseType {
 }
 
 export interface GetMeReponse extends BaseResponseType {
-  employeeData: EmployeeWithOrganisation;
+  employeeData: UserWithInfo;
 }
 
 export interface GetEmployeeResponse extends BaseResponseType {
@@ -167,9 +167,15 @@ export type EmployeeWithEmployeeInfo = Prisma.EmployeeGetPayload<{
   omit: { password: true; refreshToken: true };
   include: { employeeInfo: true };
 }>;
-export type EmployeeWithOrganisation = Prisma.EmployeeGetPayload<{
+export type UserWithInfo = Prisma.EmployeeGetPayload<{
   omit: { password: true; refreshToken: true };
-  include: { createdOrganisation: true; organisation: true };
+  include: {
+    createdOrganisation: true;
+    organisation: true;
+    projects: { select: { name: true; members: { select: { firstName: true; lastName: true } } } };
+    teams: { select: { name: true; members: { select: { firstName: true; lastName: true } }, teamLead: {select: { firstName: true, lastName: true}} } };
+    employeeInfo: true;
+  };
 }>;
 
 export type Team = Prisma.TeamGetPayload<{

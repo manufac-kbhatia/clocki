@@ -9,34 +9,28 @@ import {
   Title,
   useMantineTheme,
 } from "@mantine/core";
-import { useMemo, useState } from "react";
-import { useGetMyTimeEntries } from "../../../hooks/api/timeSheet";
-import { getCurrentWeekRange, formatDate } from "../../../pages/LogTime/utils";
+import { useMemo } from "react";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import WeeklyOverviewDateCard from "./WeeklyOverviewDateCard";
 import { convertToTime } from "../../TimeSheet/TimeEntryModal/utils";
-
-const WeeklyOverview = () => {
-  const [currentWeek, setCurrentWeek] = useState(getCurrentWeekRange(new Date()));
+import { GetMyTimeEntryResponse } from "@repo/schemas/rest";
+import { Dayjs } from "dayjs";
+export interface WeeklyOverviewProps {
+  timeSheetData?: GetMyTimeEntryResponse;
+  handlePrevWeek: () => void;
+  handleNextWeek: () => void;
+  currentWeek: {
+    startOfWeek: Dayjs;
+    endOfWeek: Dayjs;
+  };
+}
+const WeeklyOverview = ({
+  timeSheetData,
+  handleNextWeek,
+  handlePrevWeek,
+  currentWeek,
+}: WeeklyOverviewProps) => {
   const theme = useMantineTheme();
-  const { data: timeSheetData } = useGetMyTimeEntries({
-    startDate: formatDate(currentWeek.startOfWeek),
-    endDate: formatDate(currentWeek.endOfWeek),
-  });
-
-  const handlePrevWeek = () => {
-    setCurrentWeek((prev) => ({
-      startOfWeek: prev.startOfWeek.subtract(7, "day"),
-      endOfWeek: prev.endOfWeek.subtract(7, "day"),
-    }));
-  };
-
-  const handleNextWeek = () => {
-    setCurrentWeek((prev) => ({
-      startOfWeek: prev.startOfWeek.add(7, "day"),
-      endOfWeek: prev.endOfWeek.add(7, "day"),
-    }));
-  };
 
   const dates = useMemo(() => {
     return Array.from(

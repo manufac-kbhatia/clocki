@@ -1,11 +1,11 @@
-import { EmployeeWithOrganisation } from "@repo/schemas/rest";
+import { UserWithInfo } from "@repo/schemas/rest";
 import { createContext, useContext, useMemo, useState } from "react";
 import type { PropsWithChildren, JSX, Dispatch, SetStateAction } from "react";
 
 interface Auth {
   accessToken?: string;
   isAuthenticated?: boolean;
-  employee?: EmployeeWithOrganisation;
+  employee?: UserWithInfo;
 }
 interface Context {
   auth?: Auth;

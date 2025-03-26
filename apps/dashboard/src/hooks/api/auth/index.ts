@@ -48,3 +48,17 @@ export function useGetMe(): UseQueryResult<GetMeReponse> {
   });
   return output;
 }
+
+export function useGetMyDetails(): UseQueryResult<GetMeReponse> {
+  const axiosPrivate = useAxiosPrivate();
+  const output = useQuery({
+    queryKey: ["getMe"],
+    queryFn: async () => {
+      const response = await axiosPrivate.get<GetMeReponse>("/me");
+      return response.data;
+    },
+    retry: false,
+    enabled: false,
+  });
+  return output;
+}

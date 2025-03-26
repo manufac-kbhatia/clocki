@@ -37,7 +37,13 @@ export const register = async (
       ...data,
       role: PrismaUtils.Role.Admin,
     },
-    include: { createdOrganisation: true, organisation: true },
+    include: {
+      createdOrganisation: true,
+      organisation: true,
+      projects: { select: { name: true, members: { select: { firstName: true, lastName: true } } } },
+      teams: { select: { name: true, teamLead: {select: {firstName: true, lastName: true}},  members: { select: { firstName: true, lastName: true } }, } },
+      employeeInfo: true,
+    },
   });
 
   const { accessToken, refreshToken } = getJWTTokens({ id: employee.id, role: employee.role });
@@ -210,7 +216,13 @@ export const getMe = async (req: Request, res: Response<GetMeReponse>, next: Nex
     where: {
       id: req.employeeId,
     },
-    include: { createdOrganisation: true, organisation: true },
+    include: {
+      createdOrganisation: true,
+      organisation: true,
+      projects: { select: { name: true, members: { select: { firstName: true, lastName: true } } } },
+      teams: { select: { name: true, teamLead: {select: {firstName: true, lastName: true}},  members: { select: { firstName: true, lastName: true } }, } },
+      employeeInfo: true,
+    },
   });
 
   if (me === null) {

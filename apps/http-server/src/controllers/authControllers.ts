@@ -45,7 +45,13 @@ export const login = async (
   const updatedEmployee = await client.employee.update({
     where: { email: data.email },
     data: { refreshToken },
-    include: { createdOrganisation: true, organisation: true },
+    include: {
+      createdOrganisation: true,
+      organisation: true,
+      projects: { select: { name: true, members: { select: { firstName: true, lastName: true } } } },
+      teams: { select: { name: true, teamLead: {select: {firstName: true, lastName: true}},  members: { select: { firstName: true, lastName: true } }, } },
+      employeeInfo: true,
+    },
   });
 
   res.cookie("refreshToken", refreshToken, {
@@ -69,7 +75,13 @@ export const refreshToken = async (req: Request, res: Response<RefreshTokenRespo
     const employee = await client.employee.findFirst({
       where: { refreshToken },
       omit: { password: true },
-      include: { createdOrganisation: true, organisation: true },
+      include: {
+        createdOrganisation: true,
+        organisation: true,
+        projects: { select: { name: true, members: { select: { firstName: true, lastName: true } } } },
+        teams: { select: { name: true, teamLead: {select: {firstName: true, lastName: true}},  members: { select: { firstName: true, lastName: true } }, } },
+        employeeInfo: true,
+      },
     });
     if (employee === null) {
       next(new ErrorHandler("Unauthorized", StatusCodes.UNAUTHORIZED));

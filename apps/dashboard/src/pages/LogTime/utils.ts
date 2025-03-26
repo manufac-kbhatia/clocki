@@ -47,6 +47,15 @@ export const getCurrentWeekRange = (date: Date) => {
   };
 };
 
+export const getCurrentMonthDateRange = (date: Date) => {
+  const givenDate = dayjs(date);
+
+  return {
+    startOfWeek: givenDate.startOf("month"),
+    endOfWeek: givenDate.endOf("month"),
+  };
+};
+
 export const formatDate = (date: Date | string | Dayjs): string => {
   return dayjs(date).format("YYYY-MM-DD");
 };
