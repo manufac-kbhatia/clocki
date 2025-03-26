@@ -12,4 +12,8 @@ router
   .get(isAuthenticated, catchAsync(timeSheetControllers.getMyTimeEntries))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(timeSheetControllers.addTimeEntry));
 
+router
+  .route("/time-logs")
+  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(timeSheetControllers.getTimeEntries));
+
 export default router;

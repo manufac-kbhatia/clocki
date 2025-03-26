@@ -32,7 +32,7 @@ export function useGetMyTimeEntries(payload: {
     GetMyTimeEntryResponse,
     [string, { startDate?: string; endDate?: string }]
   >({
-    queryKey: ["client", payload],
+    queryKey: ["timeEntries", payload],
     queryFn: async ({ queryKey }) => {
       const [, payload] = queryKey;
       const response = await axiosPrivate.get<GetMyTimeEntryResponse>(
@@ -49,9 +49,9 @@ export function useGetMyTimeEntries(payload: {
 export function useGetTimeEntries(): UseQueryResult<GetTimeEntryResponse> {
   const axiosPrivate = useAxiosPrivate();
   const output = useQuery({
-    queryKey: ["time-entires"],
+    queryKey: ["timeEntries"],
     queryFn: async () => {
-      const response = await axiosPrivate.get<GetTimeEntryResponse>("/log-time");
+      const response = await axiosPrivate.get<GetTimeEntryResponse>("/time-logs");
       return response.data;
     },
     retry: false,

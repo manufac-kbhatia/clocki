@@ -42,7 +42,7 @@ const LogTime = () => {
     startDate: formatDate(currentWeek.startOfWeek),
     endDate: formatDate(currentWeek.endOfWeek),
   });
-  const {colorScheme} = useMantineColorScheme();
+  const { colorScheme } = useMantineColorScheme();
 
   const totalLoggedHours = useMemo(() => {
     return Object.values(timeSheetData?.timeEntry ?? {})

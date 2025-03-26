@@ -32,5 +32,11 @@ export const PersistentAuth: React.FC<PersistentAuthProps> = ({ children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isLoading === true ? <Center h={"100vh"}><Loader /></Center> : children;
+  return isLoading === true ? (
+    <Center h={"100vh"}>
+      <Loader />
+    </Center>
+  ) : (
+    children
+  );
 };

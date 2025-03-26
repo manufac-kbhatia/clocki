@@ -1,19 +1,26 @@
 import { useState } from "react";
 import { TabNames } from "./utils";
 import type { TabNames as TabNamesType } from "./utils";
-import { Button, Group, SegmentedControl, Stack, useMantineColorScheme, useMantineTheme } from "@mantine/core";
+import {
+  Button,
+  Group,
+  SegmentedControl,
+  Stack,
+  useMantineColorScheme,
+  useMantineTheme,
+} from "@mantine/core";
 import { ManageTabs } from "./ManageTabs";
 import { IconUserPlus, IconUsersPlus } from "@tabler/icons-react";
 
 const ManageEmployee = () => {
   const [activeTab, setActiveTab] = useState<TabNamesType>(TabNames.Users);
-  const {colorScheme} = useMantineColorScheme()
+  const { colorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   return (
     <Stack>
       <Group justify="space-between">
         <SegmentedControl
-          bg={colorScheme === "light" ? theme.colors.violet[1] : undefined }
+          bg={colorScheme === "light" ? theme.colors.violet[1] : undefined}
           color={theme.primaryColor}
           value={activeTab}
           onChange={(value) => setActiveTab(value as TabNamesType)}

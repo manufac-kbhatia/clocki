@@ -190,7 +190,9 @@ export type Organisation = Prisma.OrganisationGetPayload<{
 }>;
 export type Client = Prisma.ClientGetPayload<{}>;
 export type TimeEntry = Prisma.TimesheetGetPayload<{}>;
-export type TimeEntryWithInfo = Prisma.TimesheetGetPayload<{ include: { project: true } }>;
+export type TimeEntryWithInfo = Prisma.TimesheetGetPayload<{
+  include: { project: true; employee: { omit: { password: true; refreshToken: true } } };
+}>;
 
 export interface ErrorResponse {
   success: boolean;

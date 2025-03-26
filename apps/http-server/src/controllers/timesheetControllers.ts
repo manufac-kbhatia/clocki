@@ -63,6 +63,7 @@ export const getMyTimeEntries = async (
     },
     include: {
       project: true,
+      employee: true,
     },
   });
 
@@ -96,9 +97,9 @@ export const getTimeEntries = async (req: Request, res: Response<GetTimeEntryRes
       },
       include: {
         project: true,
+        employee: true,
       },
     });
-
     res.status(StatusCodes.OK).json({ success: true, timeEntry });
   }
 };

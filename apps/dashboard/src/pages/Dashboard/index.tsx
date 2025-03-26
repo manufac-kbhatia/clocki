@@ -5,6 +5,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { Header } from "../../components/Header";
 import {
   IconAlarmPlus,
+  IconClock2,
   IconLayout2,
   IconSettings,
   IconTools,
@@ -31,6 +32,11 @@ const NavLinks = [
     path: "/manage-projects",
     label: "Manage projects",
     icon: <IconTools size={18} />,
+  },
+  {
+    path: "/time-logs",
+    label: "Time logs",
+    icon: <IconClock2 size={18} />,
   },
   {
     path: "/settings",

@@ -11,7 +11,7 @@ export interface DateCardProps {
   selectedDate?: string;
 }
 const DateCard = ({ date, onClick, entryData, selectedDate }: DateCardProps) => {
-    const theme = useMantineTheme();
+  const theme = useMantineTheme();
   const data = useMemo(() => {
     const totalLogged = entryData?.reduce((acc, curr) => {
       return acc + curr.loggedHours;
@@ -26,12 +26,16 @@ const DateCard = ({ date, onClick, entryData, selectedDate }: DateCardProps) => 
 
   return (
     <Card
-    shadow="none"
+      shadow="none"
       withBorder
       onClick={() => onClick(data.formatedDate)}
       miw={50}
       bg="transparent"
-      style={{ cursor: "pointer", border: selectedDate === data.formatedDate ? `2px solid ${theme.colors.violet[6]}` : undefined }}
+      style={{
+        cursor: "pointer",
+        border:
+          selectedDate === data.formatedDate ? `2px solid ${theme.colors.violet[6]}` : undefined,
+      }}
     >
       <Stack align="center">
         <Title
@@ -42,7 +46,11 @@ const DateCard = ({ date, onClick, entryData, selectedDate }: DateCardProps) => 
         >
           {data.day}
         </Title>
-        <Title order={4} fw={400} c={selectedDate === data.formatedDate ? theme.primaryColor : undefined}>
+        <Title
+          order={4}
+          fw={400}
+          c={selectedDate === data.formatedDate ? theme.primaryColor : undefined}
+        >
           {data.dateInNumber}
         </Title>
         <Pill w={55} bg={theme.primaryColor} c="white" fw={700}>

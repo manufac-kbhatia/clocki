@@ -1,9 +1,8 @@
 import {
-  ActionIcon,
   Button,
   Card,
   Group,
-  MultiSelect,
+  Select,
   SimpleGrid,
   Stack,
   Table,
@@ -21,143 +20,113 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
-import { EmployeeWithEmployeeInfo } from "@repo/schemas/rest";
+import { TimeEntryWithInfo } from "@repo/schemas/rest";
 import { DatePickerInput } from "@mantine/dates";
-import { Role } from "@repo/schemas";
-import { useNavigate } from "react-router";
-import { IconEdit } from "@tabler/icons-react";
-import { useGetEmployees } from "../../../hooks/api/employee";
+import { Status } from "@repo/schemas";
+import { useGetTimeEntries } from "../../hooks/api/timeSheet";
+import { convertToTime } from "../../components/TimeSheet/TimeEntryModal/utils";
 
-const EmployeesDetails = () => {
-  const [hireDateFilter, setHireDateFilter] = useState<[Date | null, Date | null]>([null, null]);
-  const [roles, setRoles] = useState<Role[]>([]);
-  const [positions, setPositions] = useState<string[]>([]);
+const TimeLogs = () => {
+  const [entryDate, setEntryDate] = useState<[Date | null, Date | null]>([null, null]);
+  const [statusFilter, setStatusFilter] = useState<Status | null>(null);
   const [showFilter, toggleFilter] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
-  const { data } = useGetEmployees();
+  const { data } = useGetTimeEntries();
   const { colorScheme } = useMantineColorScheme();
 
-  const navigate = useNavigate();
-
-  const filteredEmployees: EmployeeWithEmployeeInfo[] = useMemo(() => {
-    let result: EmployeeWithEmployeeInfo[] = data?.employees ?? [];
+  const filteredEntries: TimeEntryWithInfo[] = useMemo(() => {
+    let result: TimeEntryWithInfo[] = data?.timeEntry ?? [];
     if (
-      hireDateFilter[0] === null &&
-      hireDateFilter[1] === null &&
-      roles.length === 0 &&
-      positions.length === 0 &&
-      searchQuery === null
+      entryDate[0] === null &&
+      entryDate[1] === null &&
+      searchQuery === null &&
+      statusFilter === null
     ) {
       return result;
     }
-    const startDate = hireDateFilter[0];
-    const endDate = hireDateFilter[1];
+    const startDate = entryDate[0]?.toISOString().split("T")[0] as string;
+    const endDate = entryDate[1]?.toISOString().split("T")[0] as string;
     if (startDate !== null && endDate !== null) {
-      result = result.filter((employee) => {
-        const hireDate = employee.employeeInfo?.hireDate;
-        return hireDate && hireDate >= startDate && hireDate <= endDate;
+      result = result.filter((entry) => {
+        const createdAt = entry.createdAt;
+        return createdAt && createdAt >= startDate && createdAt <= endDate;
       });
     }
 
     if (searchQuery && searchQuery.length > 0) {
-      result = result.filter((employee) => {
+      result = result.filter((entry) => {
         return (
-          employee.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          employee.lastName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          employee.email.toLowerCase().includes(searchQuery.toLowerCase())
+          entry.project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          entry.description?.toLowerCase().includes(searchQuery.toLowerCase())
         );
       });
     }
 
-    if (positions.length > 0) {
-      result = result.filter((employee) => {
-        const position = employee.employeeInfo?.position;
-        return position && positions.includes(position);
-      });
-    }
-
-    if (roles.length > 0) {
-      result = result.filter((employee) => {
-        const role = employee.role;
-        return roles.includes(role);
+    if (statusFilter) {
+      result = result.filter((entry) => {
+        return entry.status === statusFilter;
       });
     }
 
     return result;
-  }, [data, hireDateFilter, positions, roles, searchQuery]);
+  }, [data, entryDate, searchQuery, statusFilter]);
 
   const handleResetFilter = () => {
     setSearchQuery(null);
-    setHireDateFilter([null, null]);
-    setRoles([]);
-    setPositions([]);
+    setEntryDate([null, null]);
+    setStatusFilter(null);
   };
 
-  const columnHelper = createColumnHelper<EmployeeWithEmployeeInfo>();
+  const columnHelper = createColumnHelper<TimeEntryWithInfo>();
   const columns = useMemo(() => {
     return [
-      columnHelper.accessor("firstName", {
-        id: "firstName",
-        header: "First Name",
+      columnHelper.accessor("project.name", {
+        id: "project.name",
+        header: "Project",
         cell: ({ getValue }) => {
           return getValue();
         },
       }),
-      columnHelper.accessor("lastName", {
-        id: "lastName",
-        header: "Last Name",
+      columnHelper.accessor("employee", {
+        id: "employee.name",
+        header: "User",
+        cell: ({ getValue }) => {
+          return `${getValue().firstName} ${getValue().lastName ?? ""}`;
+        },
+      }),
+      columnHelper.accessor("description", {
+        id: "description",
+        header: "Description",
         cell: ({ getValue }) => {
           return getValue() ?? "-";
         },
       }),
-      columnHelper.accessor("phoneNumber", {
-        id: "phoneNumber",
-        header: "Phone number",
+      columnHelper.accessor("loggedHours", {
+        id: "status",
+        header: "Logged hours",
         cell: ({ getValue }) => {
-          return getValue() ?? "-";
+          return convertToTime(getValue()) ?? "-";
         },
       }),
-      columnHelper.accessor("email", {
-        id: "email",
-        header: "Email",
+      columnHelper.accessor("createdAt", {
+        id: "createdAt",
+        header: "Logged At",
         cell: ({ getValue }) => {
           return getValue();
         },
       }),
-      columnHelper.accessor("employeeInfo", {
-        id: "position",
-        header: "Position",
+      columnHelper.accessor("status", {
+        id: "project.id",
+        header: "Status",
         cell: ({ getValue }) => {
-          return getValue()?.position ?? "-";
-        },
-      }),
-      columnHelper.accessor("employeeInfo", {
-        id: "hireDate",
-        header: "Hire Date",
-        cell: ({ getValue }) => {
-          return getValue()?.hireDate ?? "-";
-        },
-      }),
-      columnHelper.display({
-        id: "actions",
-        header: "Actions",
-        cell: ({ row }) => {
-          return (
-            <ActionIcon
-              size="md"
-              variant="default"
-              onClick={() => navigate(`/manage-users/employee/${row.original.id}`)}
-            >
-              <IconEdit size={16} />
-            </ActionIcon>
-          );
+          return getValue() ?? "-";
         },
       }),
     ];
-  }, [columnHelper, navigate]);
+  }, [columnHelper]);
 
   const { getRowModel, getHeaderGroups } = useReactTable({
-    data: filteredEmployees,
+    data: filteredEntries,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -167,7 +136,7 @@ const EmployeesDetails = () => {
     <Card shadow="none" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Group justify="space-between">
-          <Title>Users</Title>
+          <Title>Time Logs</Title>
           <Group gap={5}>
             <Button variant="light" onClick={handleResetFilter}>
               Clear
@@ -197,24 +166,17 @@ const EmployeesDetails = () => {
               />
               <DatePickerInput
                 type="range"
-                label="Hire date"
-                placeholder="Filter by hire date"
-                value={hireDateFilter}
-                onChange={setHireDateFilter}
+                label="Entry date"
+                placeholder="Filter by entry date"
+                value={entryDate}
+                onChange={setEntryDate}
               />
-              <MultiSelect
+              <Select
                 placeholder="Select roles"
                 label="Roles"
-                data={[Role.Admin, Role.Other, Role.Hr, Role.Manager]}
-                value={roles}
-                onChange={(value) => setRoles(value as Role[])}
-              />
-              <MultiSelect
-                data={["a"]}
-                placeholder="Select positions"
-                label="Positions"
-                value={positions}
-                onChange={setPositions}
+                data={Object.values(Status)}
+                value={statusFilter}
+                onChange={(value) => setStatusFilter(value as Status)}
               />
             </SimpleGrid>
           )}
@@ -260,4 +222,4 @@ const EmployeesDetails = () => {
   );
 };
 
-export default EmployeesDetails;
+export default TimeLogs;

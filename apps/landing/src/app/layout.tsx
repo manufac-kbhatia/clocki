@@ -14,7 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Cloki",
-  description: "Simplify time tracking: Effortlessly track absences, remote work, logged hours, and team performance while focusing on growing your business. An AI agent will assist in discussing and approving or rejecting leave requests and provide detailed time reports on demand.",
+  description:
+    "Simplify time tracking: Effortlessly track absences, remote work, logged hours, and team performance while focusing on growing your business. An AI agent will assist in discussing and approving or rejecting leave requests and provide detailed time reports on demand.",
 };
 
 export default function RootLayout({
@@ -24,11 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
     </html>
   );
 }
