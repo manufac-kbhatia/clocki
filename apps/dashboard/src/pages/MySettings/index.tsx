@@ -48,14 +48,14 @@ const MySettings = () => {
   };
 
   return (
-    <Card withBorder shadow="xl">
+    <Card withBorder shadow="none">
       <Stack>
         <Text size="xl" fw={700}>
           My settings
         </Text>
         <Grid>
           <Grid.Col span={2}>
-            <Card withBorder>
+            <Card withBorder shadow="none">
               <Avatar
                 name={`${auth?.employee?.firstName} ${auth?.employee?.lastName ?? ""}`}
                 size={150}
@@ -66,7 +66,7 @@ const MySettings = () => {
           <Grid.Col span={10}>
             <form onSubmit={onSubmit(handleSubmit)}>
               <Stack>
-                <Card withBorder>
+                <Card withBorder shadow="none">
                   <Stack gap={5}>
                     <Group justify="space-between">
                       <Text size="xl" fw={700}>

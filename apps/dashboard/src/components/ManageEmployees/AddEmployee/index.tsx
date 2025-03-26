@@ -39,13 +39,13 @@ const AddEmployee = () => {
   };
 
   return (
-    <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
+    <Card shadow="none" padding="xl" radius="md" withBorder m="xs">
       <Title order={1} fw={800} mb="xs">
         Add new user
       </Title>
       <form onSubmit={onSubmit(handleSubmit)}>
         <Stack gap={50}>
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
+          <Card shadow="none" padding="lg" radius="md" withBorder>
             <Text fw={700} mb="xs">
               Personal info
             </Text>
@@ -113,7 +113,7 @@ const AddEmployee = () => {
             </SimpleGrid>
           </Card>
 
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
+          <Card shadow="none" padding="lg" radius="md" withBorder>
             <Text fw={700} mb="xs">
               Employment info
             </Text>

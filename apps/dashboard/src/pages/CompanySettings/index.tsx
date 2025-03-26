@@ -53,14 +53,14 @@ const CompanySettings = () => {
   }, [data, setValues]);
 
   return (
-    <Card withBorder shadow="xl">
+    <Card withBorder shadow="none">
       <Stack gap="xs">
         <Title>Company Settings</Title>
         <Grid>
           <Grid.Col span={6}>
             <form onSubmit={onSubmit(handleSubmit)}>
               <Stack>
-                <Card withBorder>
+                <Card withBorder shadow="none">
                   <Stack gap={5}>
                     <Group justify="space-between">
                       <Text size="xl" fw={700}>
@@ -139,7 +139,7 @@ const CompanySettings = () => {
             </form>
           </Grid.Col>
           <Grid.Col span={6}>
-            <Card withBorder>
+            <Card withBorder shadow="none">
               <Stack gap="xs">
                 <Text size="xl" fw={700}>
                   Admins

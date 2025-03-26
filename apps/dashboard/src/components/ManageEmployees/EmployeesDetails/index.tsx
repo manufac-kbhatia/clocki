@@ -164,7 +164,7 @@ const EmployeesDetails = () => {
   });
 
   return (
-    <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
+    <Card shadow="none" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Group justify="space-between">
           <Title>Users</Title>

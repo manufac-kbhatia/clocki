@@ -22,7 +22,7 @@ export function EmployeeCard({ employee, section }: EmployeeCardProps) {
     : undefined;
 
   return (
-    <Card ref={setNodeRef} {...listeners} {...attributes} style={style} withBorder maw={300}>
+    <Card shadow="none" ref={setNodeRef} {...listeners} {...attributes} style={style} withBorder maw={300}>
       <Text>
         {employee.firstName} {employee.lastName}
       </Text>

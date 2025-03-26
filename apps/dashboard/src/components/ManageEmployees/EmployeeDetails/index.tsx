@@ -81,19 +81,19 @@ const EmployeeDetails = () => {
           <Text>Users list</Text>
         </Group>
       </Link>
-      <Card shadow="xl" withBorder>
+      <Card shadow="none" withBorder>
         <Group>
           <Avatar variant="filled" radius={500} name={name} size={"xl"} />
           <Title>{name}</Title>
         </Group>
       </Card>
 
-      <Card withBorder shadow="xl">
+      <Card withBorder shadow="none">
         <Text>User details</Text>
         <form onSubmit={onSubmit(handleSubmit)}>
           <Grid grow>
             <Grid.Col span={6}>
-              <Card shadow="xl" withBorder>
+              <Card shadow="none" withBorder>
                 <Stack gap={5}>
                   <Group justify="space-between">
                     <Text>Personal info</Text>
@@ -188,7 +188,7 @@ const EmployeeDetails = () => {
             </Grid.Col>
             <Grid.Col span={6}>
               <Stack>
-                <Card shadow="xl" withBorder>
+                <Card shadow="none" withBorder>
                   <Stack gap={5}>
                     <Group justify="space-between">
                       <Text>Employment info</Text>
@@ -247,7 +247,7 @@ const EmployeeDetails = () => {
                     </Group>
                   </Stack>
                 </Card>
-                <Card shadow="xl" withBorder>
+                <Card shadow="none" withBorder>
                   <Stack gap={5}>
                     <Group justify="space-between">
                       <Text>Address</Text>

@@ -97,7 +97,7 @@ const LogTime = () => {
 
   return (
     <Stack>
-      <Card withBorder shadow="md" h={410}>
+      <Card withBorder shadow="none" h={410}>
         <Stack>
           <Group>
             <Title>Log Time</Title>
@@ -164,7 +164,7 @@ const LogTime = () => {
           </Paper>
         </Stack>
       </Card>
-      <Card mih={300}>
+      <Card mih={300} shadow="none" withBorder>
         <Stack style={{ overflow: "auto" }} fw={600}>
           <Grid>
             <Grid.Col span={3}>Project</Grid.Col>

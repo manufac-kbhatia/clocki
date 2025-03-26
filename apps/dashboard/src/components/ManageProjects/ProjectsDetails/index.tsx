@@ -109,7 +109,7 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
   });
 
   return (
-    <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
+    <Card shadow="none" padding="xl" radius="md" withBorder m="xs">
       <Stack>
         <Title>Clients</Title>
         <TextInput

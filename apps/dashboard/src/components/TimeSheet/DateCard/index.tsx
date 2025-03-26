@@ -26,6 +26,7 @@ const DateCard = ({ date, onClick, entryData, selectedDate }: DateCardProps) => 
 
   return (
     <Card
+    shadow="none"
       withBorder
       onClick={() => onClick(data.formatedDate)}
       miw={50}

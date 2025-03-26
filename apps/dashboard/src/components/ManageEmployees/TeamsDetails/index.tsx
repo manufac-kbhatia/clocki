@@ -36,7 +36,7 @@ const TeamsDetails = () => {
           const teamLeadName = `${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`;
           return (
             <Grid.Col span={4}>
-              <Card withBorder shadow="md" mih={500} radius="lg">
+              <Card withBorder shadow="none" mih={500} radius="lg">
                 <Stack>
                   <Group justify="space-between">
                     <Text>{team.name}</Text>
@@ -55,7 +55,7 @@ const TeamsDetails = () => {
                   </Group>
                   <>
                     <Text>Team Lead</Text>
-                    <Card m="xs" withBorder p={5}>
+                    <Card m="xs" withBorder p={5} shadow="none">
                       <Group>
                         <Avatar variant="filled" radius="xl" name={teamLeadName} size="md" />
 
@@ -70,7 +70,7 @@ const TeamsDetails = () => {
                       {team.members.map((member) => {
                         const name = `${member.firstName} ${member.lastName ?? ""}`;
                         return (
-                          <Card m="xs" withBorder p={5}>
+                          <Card m="xs" withBorder p={5} shadow="none">
                             <Group>
                               <Avatar variant="filled" radius="xl" name={name} size="md" />
                               <Text>{name}</Text>

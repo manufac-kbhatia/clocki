@@ -80,7 +80,7 @@ const AddTeam = () => {
   };
 
   return (
-    <Card shadow="sm" padding="xl" radius="md" withBorder m="xs">
+    <Card shadow="none" padding="xl" radius="md" withBorder m="xs">
       <Title order={1} fw={800} mb="xs">
         Add new team
       </Title>
