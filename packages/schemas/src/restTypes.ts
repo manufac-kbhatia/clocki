@@ -161,6 +161,10 @@ export interface GetTimeEntryResponse extends BaseResponseType {
   timeEntry: TimeEntryWithInfo[];
 }
 
+export interface AgentResponse extends BaseResponseType {
+  response: string;
+}
+
 export type EmployeeInfo = Prisma.EmployeeInfoGetPayload<{}>;
 export type Employee = Prisma.EmployeeGetPayload<{ omit: { password: true; refreshToken: true } }>;
 export type EmployeeWithEmployeeInfo = Prisma.EmployeeGetPayload<{

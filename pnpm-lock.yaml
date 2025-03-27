@@ -26,6 +26,9 @@ importers:
       '@chatscope/chat-ui-kit-react':
         specifier: ^2.0.3
         version: 2.0.3(prop-types@15.8.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@chatscope/chat-ui-kit-styles':
+        specifier: ^1.4.0
+        version: 1.4.0
       '@dnd-kit/core':
         specifier: ^6.3.1
         version: 6.3.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

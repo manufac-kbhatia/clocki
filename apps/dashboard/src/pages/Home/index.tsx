@@ -7,6 +7,7 @@ import {
   IconAlarmPlus,
   IconClock2,
   IconLayout2,
+  IconRobot,
   IconSettings,
   IconTools,
   IconUsersGroup,
@@ -17,6 +18,11 @@ const NavLinks = [
     path: "/",
     label: "Dashboard",
     icon: <IconLayout2 size={18} />,
+  },
+  {
+    path: "/assistant",
+    label: "Assistant",
+    icon: <IconRobot size={18} />,
   },
   {
     path: "/log-time",

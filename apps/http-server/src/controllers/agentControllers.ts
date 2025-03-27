@@ -2,10 +2,13 @@ import { MessagesAnnotation, StateGraph } from "@langchain/langgraph";
 import { AIMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { ChatOpenAI } from "@langchain/openai";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { multiply } from "../agentTools";
 import { setContextVariable } from "@langchain/core/context";
 import { Role } from "@repo/schemas";
+import { AgentResponse } from "@repo/schemas/rest";
+import ErrorHandler from "../utils/errorHandler";
+import { StatusCodes } from "http-status-codes";
 
 config();
 const llm = new ChatOpenAI({
@@ -76,7 +79,7 @@ const agentBuilder = new StateGraph(MessagesAnnotation)
 
 const conversationHistory = new Map<string, { role: string; content: string }[]>();
 
-export const agent = async (req: Request<unknown, unknown, { prompt: string }>, res: Response) => {
+export const agent = async (req: Request<unknown, unknown, { prompt: string }>, res: Response<AgentResponse>, next: NextFunction) => {
   const employeeId = req.employeeId;
   const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
 
@@ -84,7 +87,8 @@ export const agent = async (req: Request<unknown, unknown, { prompt: string }>, 
   setContextVariable("organisationId", organisationId);
 
   if (!employeeId) {
-    return res.status(400).json({ error: "employeeId is required" });
+    next(new ErrorHandler("Employee not found", StatusCodes.NOT_FOUND))
+    return 
   }
 
   let messages = conversationHistory.get(employeeId) || [];
@@ -100,5 +104,5 @@ export const agent = async (req: Request<unknown, unknown, { prompt: string }>, 
 
   conversationHistory.set(employeeId, messages);
 
-  res.status(200).json({ message: result.messages });
+  res.status(200).json({ success: true, response: JSON.stringify(lastMessage.content) });
 };

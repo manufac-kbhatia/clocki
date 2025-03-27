@@ -18,6 +18,7 @@ import UpdateTeam from "./pages/UpdateTeam/index.tsx";
 import ManageProjects from "./pages/ManageProjects/index.tsx";
 import LogTime from "./pages/LogTime/index.tsx";
 import TimeLogs from "./pages/TimeLogs/index.tsx";
+import Assistant from "./pages/Assistant/index.tsx";
 
 export const Routers = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ export const Routers = createBrowserRouter([
           { path: "/page", element: <PageA />, errorElement: <ErrorPage /> },
           { path: "/log-time", element: <LogTime />, errorElement: <ErrorPage /> },
           { path: "/time-logs", element: <TimeLogs />, errorElement: <ErrorPage /> },
+          { path: "/assistant", element: <Assistant />, errorElement: <ErrorPage /> },
           { path: "/manage-users", element: <ManageEmployee />, errorElement: <ErrorPage /> },
           {
             path: "/manage-users/employee/:id",
