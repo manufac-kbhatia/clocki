@@ -70,16 +70,16 @@ export function Assistant() {
           <Center h={"800"}>
             <SimpleGrid cols={2}>
               <Card withBorder shadow="none">
-                <Text size="sm" ta="center">Want to log your work hours for today? I can help</Text>
+                <Text size="sm" ta="center">Is there any employee named Harkirat?</Text>
               </Card>
               <Card withBorder shadow="none">
-               <Text size="sm" ta="center"> Who do you need to email? I can draft the message and send it for you!</Text>
+               <Text size="sm" ta="center">Send a mail to Harkirat</Text>
               </Card>
               <Card withBorder shadow="none">
-                <Text size="sm" ta="center">Who are you looking for? I can fetch details on any employee!</Text>
+                <Text size="sm" ta="center">Can you tell me about the team members of 100xDevs project?</Text>
               </Card>
               <Card withBorder shadow="none">
-                <Text size="sm" ta="center">Looking for details on a team, project, or client?</Text>
+                <Text size="sm" ta="center">Do we have an android developer or we have talent gap in this field?</Text>
               </Card>
             </SimpleGrid>
           </Center>
