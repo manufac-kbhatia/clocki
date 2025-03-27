@@ -1,33 +1,18 @@
-import { tool } from "@langchain/core/tools";
-import { z } from "zod";
 import { MessagesAnnotation, StateGraph } from "@langchain/langgraph";
 import { AIMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
-
-config();
-
 import { ChatOpenAI } from "@langchain/openai";
 import { Request, Response } from "express";
+import { multiply } from "../agentTools";
+import { setContextVariable } from "@langchain/core/context";
+import { Role } from "@repo/schemas";
 
+config();
 const llm = new ChatOpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   modelName: "gpt-4o",
   temperature: 0,
 });
-
-const multiply = tool(
-  async ({ a, b }: { a: number; b: number }) => {
-    return a * b;
-  },
-  {
-    name: "mutiply",
-    description: "Mutiply two number together",
-    schema: z.object({
-      a: z.number().describe("first number"),
-      b: z.number().describe("second number"),
-    }),
-  },
-);
 
 const tools = [multiply];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
@@ -89,17 +74,31 @@ const agentBuilder = new StateGraph(MessagesAnnotation)
   .addEdge("tools", "llmCall")
   .compile();
 
+const conversationHistory = new Map<string, { role: string; content: string }[]>();
+
 export const agent = async (req: Request<unknown, unknown, { prompt: string }>, res: Response) => {
-  console.log("openai", process.env.OPENAI_API_KEY);
-  const prompt = req.body.prompt;
-  const messages = [
-    {
-      role: "user",
-      content: prompt,
-    },
-  ];
-  const result = await agentBuilder.invoke({ messages: prompt });
-  res.status(200).json({
-    message: result.messages,
-  });
+  const employeeId = req.employeeId;
+  const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+
+  setContextVariable("userId", req.employeeId);
+  setContextVariable("organisationId", organisationId);
+
+  if (!employeeId) {
+    return res.status(400).json({ error: "employeeId is required" });
+  }
+
+  let messages = conversationHistory.get(employeeId) || [];
+  messages.push({ role: "user", content: req.body.prompt });
+
+  // Invoke LLM
+  const result = await agentBuilder.invoke({ messages });
+
+  const lastMessage = result.messages.at(-1) as AIMessage;
+  if (lastMessage) {
+    messages.push({ role: "system", content: JSON.stringify(lastMessage.content) });
+  }
+
+  conversationHistory.set(employeeId, messages);
+
+  res.status(200).json({ message: result.messages });
 };

@@ -173,7 +173,13 @@ export type UserWithInfo = Prisma.EmployeeGetPayload<{
     createdOrganisation: true;
     organisation: true;
     projects: { select: { name: true; members: { select: { firstName: true; lastName: true } } } };
-    teams: { select: { name: true; members: { select: { firstName: true; lastName: true } }, teamLead: {select: { firstName: true, lastName: true}} } };
+    teams: {
+      select: {
+        name: true;
+        members: { select: { firstName: true; lastName: true } };
+        teamLead: { select: { firstName: true; lastName: true } };
+      };
+    };
     employeeInfo: true;
   };
 }>;

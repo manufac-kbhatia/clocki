@@ -18,7 +18,14 @@ const MyTeams = () => {
             return (
               <Grid>
                 <Grid.Col span={6}>{team.name}</Grid.Col>
-                <Grid.Col span={6}> <Avatar variant="filled" color="initials" name={`${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`} /></Grid.Col>
+                <Grid.Col span={6}>
+                  {" "}
+                  <Avatar
+                    variant="filled"
+                    color="initials"
+                    name={`${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`}
+                  />
+                </Grid.Col>
                 <Grid.Col span={6}>
                   {
                     <Avatar.Group>
