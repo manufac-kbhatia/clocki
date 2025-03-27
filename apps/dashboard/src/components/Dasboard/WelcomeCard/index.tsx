@@ -47,8 +47,8 @@ const WelcomeCard = ({ userName }: WelcomeCardProps) => {
               </Pill>
               <Group wrap="nowrap">
                 <Stack>
-                  <Title>Setting up your organisation</Title>
-                  <Text>Watch video instruction</Text>
+                  <Title>Setting up your organisation?</Title>
+                  <Text>Watch video instructions</Text>
                 </Stack>
                 <ThemeIcon size="xl" variant="outline" radius="xl">
                   <IconExternalLink />
