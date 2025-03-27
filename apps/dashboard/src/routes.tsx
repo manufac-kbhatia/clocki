@@ -6,7 +6,7 @@ import { SetupOrganisation } from "./pages/Setup-Organisation/index.tsx";
 import ProtectedRoute from "./pages/Protected-Route/index.tsx";
 import { Login } from "./pages/Login/index.tsx";
 import { Home } from "./pages/Home/index.tsx";
-import PageA from "./pages/Page-A/index.tsx";
+import { NewFeature } from "./pages/NewFeature/index.tsx";
 import { Dashboard } from "./pages/Dashboard/index.tsx";
 import { PersistentAuth } from "./pages/PersistentAuth/index.tsx";
 import CheckCompanyStatus from "./pages/CheckCompanyStatus/index.tsx";
@@ -42,7 +42,6 @@ export const Routers = createBrowserRouter([
         errorElement: <ErrorPage />,
         children: [
           { path: "/", element: <Dashboard />, errorElement: <ErrorPage /> },
-          { path: "/page", element: <PageA />, errorElement: <ErrorPage /> },
           { path: "/log-time", element: <LogTime />, errorElement: <ErrorPage /> },
           { path: "/time-logs", element: <TimeLogs />, errorElement: <ErrorPage /> },
           { path: "/assistant", element: <Assistant />, errorElement: <ErrorPage /> },
@@ -60,6 +59,8 @@ export const Routers = createBrowserRouter([
           { path: "/manage-projects", element: <ManageProjects />, errorElement: <ErrorPage /> },
           { path: "/settings", element: <CompanySettings />, errorElement: <ErrorPage /> },
           { path: "/my-settings", element: <MySettings />, errorElement: <ErrorPage /> },
+          { path: "/absence", element: <NewFeature />, errorElement: <ErrorPage /> },
+          { path: "/manage-absence", element: <NewFeature />, errorElement: <ErrorPage /> },
         ],
       },
       { path: "/register", element: <Register />, errorElement: <ErrorPage /> },

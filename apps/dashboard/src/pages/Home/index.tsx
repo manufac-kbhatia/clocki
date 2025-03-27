@@ -5,7 +5,9 @@ import { useDisclosure } from "@mantine/hooks";
 import { Header } from "../../components/Header";
 import {
   IconAlarmPlus,
+  IconCalendarSearch,
   IconClock2,
+  IconFileSpark,
   IconLayout2,
   IconRobot,
   IconSettings,
@@ -29,6 +31,11 @@ const PanelNavLinks = [
     label: "Assistant",
     icon: <IconRobot size={18} />,
   },
+  {
+    path: "/absence",
+    label: "New absence",
+    icon: <IconFileSpark size={18} />,
+  },
 ];
 
 
@@ -49,10 +56,16 @@ const ManageNavLinks = [
     icon: <IconClock2 size={18} />,
   },
   {
+    path: "/manage-absence",
+    label: "Manage absence",
+    icon: <IconCalendarSearch size={18} />,
+  },
+  {
     path: "/settings",
     label: "Settings",
     icon: <IconSettings size={18} />,
   },
+  
 ];
 
 export function Home() {
