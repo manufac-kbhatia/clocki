@@ -14,6 +14,7 @@ import {
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import type { MessageModel } from "@chatscope/chat-ui-kit-react";
 import { useChatAgent } from "../../hooks/api/agent";
+import "./index.css";
 
 export function Assistant() {
   const [messages, setMessages] = useState<MessageModel[]>([]);
@@ -68,7 +69,7 @@ export function Assistant() {
         {messages.length > 0 ? (
           <MessageList style={{ backgroundColor: "inherit" }}>
             {messages.map((message) => {
-              return <Message model={message} key={message.sentTime ?? ""} />;
+              return <Message model={message} key={message.sentTime ?? ""} className="" />;
             })}
           </MessageList>
         ) : null}
@@ -76,7 +77,7 @@ export function Assistant() {
           <Stack w="100%">
             {/* Please Note: TypingIndicator is not a valid children of ChatContainer and MessageList and will throw error if directly placed inside them  */}
             {isPending === true ? (
-              <TypingIndicator style={{ paddingLeft: "20px" }} content="Looking" />
+              <TypingIndicator style={{ paddingLeft: "20px", backgroundColor: "inherit" }} content="Looking" />
             ) : null}
             <Group>
               <MessageInput
