@@ -1,4 +1,4 @@
-import { AppShell, NavLink as MantineNavLink, Stack, useMantineColorScheme } from "@mantine/core";
+import { AppShell, Divider, NavLink as MantineNavLink, Stack, Title, useMantineColorScheme } from "@mantine/core";
 import { NavLink, useLocation } from "react-router";
 import { Outlet } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
@@ -13,22 +13,26 @@ import {
   IconUsersGroup,
 } from "@tabler/icons-react";
 
-const NavLinks = [
+const PanelNavLinks = [
   {
     path: "/",
     label: "Dashboard",
     icon: <IconLayout2 size={18} />,
   },
   {
-    path: "/assistant",
-    label: "Assistant",
-    icon: <IconRobot size={18} />,
-  },
-  {
     path: "/log-time",
     label: "Log time",
     icon: <IconAlarmPlus size={18} />,
   },
+  {
+    path: "/assistant",
+    label: "Assistant",
+    icon: <IconRobot size={18} />,
+  },
+];
+
+
+const ManageNavLinks = [
   {
     path: "/manage-users",
     label: "Manage users",
@@ -74,7 +78,25 @@ export function Home() {
       />
       <AppShell.Navbar p="md">
         <Stack gap={5}>
-          {NavLinks.map(({ path, label, icon }) => {
+        <Title>Panel</Title>
+          {PanelNavLinks.map(({ path, label, icon }) => {
+            return (
+              <MantineNavLink
+                styles={{ root: { borderRadius: "5px" } }}
+                fw={700}
+                leftSection={icon}
+                key={path}
+                component={NavLink}
+                active={location.pathname === path}
+                to={path}
+                label={label}
+                variant="filled"
+              />
+            );
+          })}
+          <Divider />
+          <Title>Manage</Title>
+          {ManageNavLinks.map(({ path, label, icon }) => {
             return (
               <MantineNavLink
                 styles={{ root: { borderRadius: "5px" } }}
