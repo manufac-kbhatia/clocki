@@ -2,17 +2,17 @@ import { Group, Stack, ActionIcon } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import {
-    MainContainer,
-    ChatContainer,
-    MessageList,
-    Message,
-    MessageInput,
-    TypingIndicator,
-    InputToolbox,
-    SendButton,
-  } from "@chatscope/chat-ui-kit-react";
-  import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-  import type { MessageModel } from "@chatscope/chat-ui-kit-react";
+  MainContainer,
+  ChatContainer,
+  MessageList,
+  Message,
+  MessageInput,
+  TypingIndicator,
+  InputToolbox,
+  SendButton,
+} from "@chatscope/chat-ui-kit-react";
+import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import type { MessageModel } from "@chatscope/chat-ui-kit-react";
 import { useChatAgent } from "../../hooks/api/agent";
 
 export function Assistant() {
@@ -20,9 +20,12 @@ export function Assistant() {
   const [inputText, setInputText] = useState("");
   const { mutate: SendPrompt, isPending } = useChatAgent({
     onSuccess: (data) => {
+      const cleanedResponse = data.response
+        .replace(/^"|"$/g, "") // Remove leading & trailing quotes
+        .replace(/\\n/g, "\n");
       setMessages((prev) => {
         const newMessage: MessageModel = {
-          message: data.response,
+          message: cleanedResponse,
           direction: "incoming",
           position: "normal",
           type: "text",
@@ -43,6 +46,7 @@ export function Assistant() {
     });
 
     SendPrompt(prompt);
+    setInputText("");
   };
 
   const handleClearChat = () => {
@@ -55,18 +59,20 @@ export function Assistant() {
       style={{
         height: "90vh",
         backgroundColor: "transparent",
-        border: "none"
+        border: "none",
       }}
     >
-      <ChatContainer style={{ display: "flex", justifyContent: "center", backgroundColor: "inherit" }}>
+      <ChatContainer
+        style={{ display: "flex", justifyContent: "center", backgroundColor: "inherit" }}
+      >
         {messages.length > 0 ? (
-          <MessageList style={{backgroundColor: "inherit"}}>
+          <MessageList style={{ backgroundColor: "inherit" }}>
             {messages.map((message) => {
               return <Message model={message} key={message.sentTime ?? ""} />;
             })}
           </MessageList>
         ) : null}
-        <InputToolbox style={{backgroundColor: "inherit"}}>
+        <InputToolbox style={{ backgroundColor: "inherit" }}>
           <Stack w="100%">
             {/* Please Note: TypingIndicator is not a valid children of ChatContainer and MessageList and will throw error if directly placed inside them  */}
             {isPending === true ? (

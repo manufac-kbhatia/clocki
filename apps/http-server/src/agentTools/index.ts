@@ -35,14 +35,32 @@ export const findEmployee = tool(
       },
     });
 
-    return results;
+    if (results.length === 0) {
+      return `No employees found matching "${searchQuery}".`;
+    }
+
+    return results
+      .map(({ employeeInfo, ...rest }) => {
+        return `
+Name: ${rest.firstName} ${rest.lastName ?? ""}
+Date of Birth: ${rest.dateOfBirth?.toISOString() ?? "N/A"}
+Email: ${rest.email}
+Address: ${rest.address ?? "N/A"}, ${rest.city ?? "N/A"} (${rest.postalCode ?? "N/A"})
+Phone: ${rest.phoneNumber ?? "N/A"}
+Role: ${rest.role ?? "N/A"}
+Gender: ${rest.gender ?? "N/A"}
+Position: ${employeeInfo?.position ?? "N/A"}
+Hire Date: ${employeeInfo?.hireDate?.toISOString() ?? "N/A"}
+        `.trim();
+      })
+      .join("\n");
   },
   {
     name: "findEmployee",
     description:
-      "Finds employees in a given organization that match the search query across multiple fields (first name, last name, email, position).",
+      "Finds employees that match the search query across multiple fields (first name, last name, email, position, etc).",
     schema: z.object({
-      searchQuery: z.string().describe("Search query for the employee name, email, or position"),
+      searchQuery: z.string().describe("Search query for the employee name, email, or position etc"),
     }),
   },
 );

@@ -3,7 +3,7 @@ import { AIMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { ChatOpenAI } from "@langchain/openai";
 import { NextFunction, Request, Response } from "express";
-import { multiply } from "../agentTools";
+import { findEmployee, multiply } from "../agentTools";
 import { setContextVariable } from "@langchain/core/context";
 import { Role } from "@repo/schemas";
 import { AgentResponse } from "@repo/schemas/rest";
@@ -17,7 +17,7 @@ const llm = new ChatOpenAI({
   temperature: 0,
 });
 
-const tools = [multiply];
+const tools = [multiply, findEmployee];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 
@@ -79,7 +79,11 @@ const agentBuilder = new StateGraph(MessagesAnnotation)
 
 const conversationHistory = new Map<string, { role: string; content: string }[]>();
 
-export const agent = async (req: Request<unknown, unknown, { prompt: string }>, res: Response<AgentResponse>, next: NextFunction) => {
+export const agent = async (
+  req: Request<unknown, unknown, { prompt: string }>,
+  res: Response<AgentResponse>,
+  next: NextFunction,
+) => {
   const employeeId = req.employeeId;
   const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
 
@@ -87,8 +91,8 @@ export const agent = async (req: Request<unknown, unknown, { prompt: string }>, 
   setContextVariable("organisationId", organisationId);
 
   if (!employeeId) {
-    next(new ErrorHandler("Employee not found", StatusCodes.NOT_FOUND))
-    return 
+    next(new ErrorHandler("Employee not found", StatusCodes.NOT_FOUND));
+    return;
   }
 
   let messages = conversationHistory.get(employeeId) || [];
