@@ -115,6 +115,8 @@ export const UpdateEmployeeSchema = CreateEmployeeSchema.omit({
   email: true,
 }).partial();
 
+
+
 export const UpdateOrganisationSchema = RegisterOrganisationSchema.partial();
 
 export const UpdatePersonalInfoSchema = z.object({

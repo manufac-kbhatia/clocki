@@ -135,7 +135,7 @@ const EmployeesDetails = () => {
         id: "hireDate",
         header: "Hire Date",
         cell: ({ getValue }) => {
-          return getValue()?.hireDate ?? "-";
+          return getValue()?.hireDate?.toLocaleString().split("T")[0]
         },
       }),
       columnHelper.display({
