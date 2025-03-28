@@ -1,5 +1,4 @@
 import {
-  IconArrowRight,
   IconBeach,
   IconCalendarClock,
   IconClock,
