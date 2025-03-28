@@ -22,12 +22,19 @@ export const findEmployee = tool(
     const organisationId = getContextVariable("organisationId") as string;
     const results = await client.employee.findMany({
       where: {
-        organisationId,
         OR: [
-          { firstName: { contains: searchQuery, mode: "insensitive" } },
-          { lastName: { contains: searchQuery, mode: "insensitive" } },
-          { email: { contains: searchQuery, mode: "insensitive" } },
-          { employeeInfo: { position: { contains: searchQuery, mode: "insensitive" } } },
+          { organisationId },
+          { createdOrganisation: { id: organisationId } }
+        ],
+        AND: [
+          {
+            OR: [
+              { firstName: { contains: searchQuery, mode: "insensitive" } },
+              { lastName: { contains: searchQuery, mode: "insensitive" } },
+              { email: { contains: searchQuery, mode: "insensitive" } },
+              { employeeInfo: { position: { contains: searchQuery, mode: "insensitive" } } },
+            ],
+          }
         ],
       },
       include: {
@@ -70,7 +77,10 @@ export const getAllEmployeeDetails = tool(
     const organisationId = getContextVariable("organisationId") as string;
     const results = await client.employee.findMany({
       where: {
-        organisationId,
+        OR: [
+          { organisationId },
+          { createdOrganisation: { id: organisationId } },
+        ],
       },
       include: {
         employeeInfo: true,
