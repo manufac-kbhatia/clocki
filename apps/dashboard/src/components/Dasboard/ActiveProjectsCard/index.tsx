@@ -3,7 +3,7 @@ import { Card, Stack, Group, Title, Pill, Text, useMantineTheme } from "@mantine
 const ActiveProjectsCard = ({ totalActiveProjects }: { totalActiveProjects: number }) => {
   const theme = useMantineTheme();
   return (
-    <Card>
+    <Card withBorder shadow="none">
       <Stack>
         <Group justify="space-between">
           <Title>Active projects</Title>

@@ -3,7 +3,7 @@ import { Card, Group, Pill, Stack, Text, Title, useMantineTheme } from "@mantine
 const LoggedTimeCard = ({ totalLoggedHours }: { totalLoggedHours: string }) => {
   const theme = useMantineTheme();
   return (
-    <Card>
+    <Card withBorder shadow="none">
       <Stack>
         <Group justify="space-between">
           <Title>Logged hours</Title>
