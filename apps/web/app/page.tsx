@@ -106,7 +106,9 @@ export default function Home() {
               <IconHome size={40} />
               <div className="text-3xl">Remote work</div>
             </div>
-            <div className="text-2xl font-[400]">Easily manage hybrid teams with insights into who’s working remotely.</div>
+            <div className="text-2xl font-[400]">
+              Easily manage hybrid teams with insights into who’s working remotely.
+            </div>
           </div>
           <div className="shadow-lg rounded-2xl p-5 flex flex-col gap-5">
             <div className="flex gap-4 items-center text-2xl font-bold">
@@ -148,7 +150,8 @@ export default function Home() {
               </div>
               <h3 className="text-3xl font-bold text-gray-900 mb-3">Create your account</h3>
               <p className="text-2xl">
-                Invite team members and set up departments, roles, and permissions in just a few clicks.
+                Invite team members and set up departments, roles, and permissions in just a few
+                clicks.
               </p>
             </div>
 
@@ -158,9 +161,7 @@ export default function Home() {
                 2
               </div>
               <h3 className="text-3xl font-bold text-gray-900 mb-3">Setup your organisation</h3>
-              <p className="text-2xl">
-                Setup of organisation by submitting details
-              </p>
+              <p className="text-2xl">Setup of organisation by submitting details</p>
             </div>
 
             {/* Step 3 */}
@@ -170,7 +171,8 @@ export default function Home() {
               </div>
               <h3 className="text-3xl font-bold text-gray-900 mb-3">Start Tracking</h3>
               <p className="text-2xl">
-                Your team can immediately begin logging hours and requesting time off through our intuitive interface once you add and invite them.
+                Your team can immediately begin logging hours and requesting time off through our
+                intuitive interface once you add and invite them.
               </p>
             </div>
           </div>
@@ -187,11 +189,11 @@ export default function Home() {
               Join thousands of businesses that have streamlined their time management with Cloki.
             </p>
             <Link
-          href="http://localhost:5173/register"
-          className="text-3xl bg-primaryPurple p-4 rounded-md border-2 border-violet-200"
-        >
-            Sign up for free
-        </Link>
+              href="http://localhost:5173/register"
+              className="text-3xl bg-violet-200 p-4 rounded-md border-2 border-violet-200"
+            >
+              Sign up for free
+            </Link>
           </div>
         </div>
       </section>
@@ -206,7 +208,9 @@ export default function Home() {
                 <IconClock className="h-6 w-6" />
                 <span className="text-xl font-bold">Cloki</span>
               </div>
-              <p className="text-white">Simplifying time tracking for growing businesses around the world.</p>
+              <p className="text-white">
+                Simplifying time tracking for growing businesses around the world.
+              </p>
             </div>
 
             <div>
