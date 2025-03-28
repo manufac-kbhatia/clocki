@@ -1,4 +1,4 @@
-import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Button, Center, Group, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { RegisterEmployeeSchema } from "@repo/schemas";
 import { RegisterFormLabels, RegisterFormNames, RegisterFormPlaceholder } from "./utils";
@@ -8,6 +8,7 @@ import { RegisterEmployeePayload } from "@repo/schemas/rest";
 import { useEffect } from "react";
 import { Loader } from "../../components/Loader";
 import { useCustomNavigate } from "../../hooks/location";
+import { Link } from "react-router";
 
 export function Register() {
   const { setAuth, auth } = useClockiContext();
@@ -92,6 +93,10 @@ export function Register() {
             </Button>
           </Stack>
         </form>
+        <Group justify="center" gap={5}>
+        <Text ta="center">Already have an account?</Text>
+        <Link to="/login" >Sign up here</Link>
+        </Group>
       </Stack>
     </Center>
   );
