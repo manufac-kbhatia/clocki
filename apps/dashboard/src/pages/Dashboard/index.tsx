@@ -67,32 +67,40 @@ export function Dashboard() {
         </Grid>
       </Grid.Col>
       <Grid.Col span={12}>
-          <Grid>
-            <Grid.Col span={6}>
-              <Card mih={350} withBorder shadow="none">
-                  <Title>Requests pending decision</Title>
-                  <Text ta="center" m="xl">No requests pending decision</Text>
-              </Card>
-            </Grid.Col>
-            <Grid.Col span={6}>
+        <Grid>
+          <Grid.Col span={6}>
             <Card mih={350} withBorder shadow="none">
-                  <Title>Vacation leave</Title>
-                  <Text ta="center" m="xl">You have not been granted any vacation days</Text>
-              </Card>
-            </Grid.Col>
-            <Grid.Col span={6}>
+              <Title>Requests pending decision</Title>
+              <Text ta="center" m="xl">
+                No requests pending decision
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={6}>
             <Card mih={350} withBorder shadow="none">
-                  <Title>Work from home</Title>
-                  <Text ta="center" m="xl">Nobody is working from home</Text>
-              </Card>
-            </Grid.Col>
-            <Grid.Col span={6}>
+              <Title>Vacation leave</Title>
+              <Text ta="center" m="xl">
+                You have not been granted any vacation days
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={6}>
             <Card mih={350} withBorder shadow="none">
-                  <Title>Absences</Title>
-                  <Text ta="center" m="xl">No absences recorded</Text>
-              </Card>
-            </Grid.Col>
-          </Grid>
+              <Title>Work from home</Title>
+              <Text ta="center" m="xl">
+                Nobody is working from home
+              </Text>
+            </Card>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <Card mih={350} withBorder shadow="none">
+              <Title>Absences</Title>
+              <Text ta="center" m="xl">
+                No absences recorded
+              </Text>
+            </Card>
+          </Grid.Col>
+        </Grid>
       </Grid.Col>
     </Grid>
   );

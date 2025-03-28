@@ -1,4 +1,11 @@
-import { AppShell, Divider, NavLink as MantineNavLink, Stack, Title, useMantineColorScheme } from "@mantine/core";
+import {
+  AppShell,
+  Divider,
+  NavLink as MantineNavLink,
+  Stack,
+  Title,
+  useMantineColorScheme,
+} from "@mantine/core";
 import { NavLink, useLocation } from "react-router";
 import { Outlet } from "react-router";
 import { useDisclosure } from "@mantine/hooks";
@@ -38,7 +45,6 @@ const PanelNavLinks = [
   },
 ];
 
-
 const ManageNavLinks = [
   {
     path: "/manage-users",
@@ -65,7 +71,6 @@ const ManageNavLinks = [
     label: "Settings",
     icon: <IconSettings size={18} />,
   },
-  
 ];
 
 export function Home() {
@@ -91,7 +96,7 @@ export function Home() {
       />
       <AppShell.Navbar p="md">
         <Stack gap={5}>
-        <Title>Panel</Title>
+          <Title>Panel</Title>
           {PanelNavLinks.map(({ path, label, icon }) => {
             return (
               <MantineNavLink

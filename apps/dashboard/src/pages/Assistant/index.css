@@ -1,5 +1,7 @@
 .cs-message.cs-message--outgoing.cs-message--first .cs-message__content,
-.cs-message--incoming .cs-message__content, .cs-message-input__content-editor-wrapper, .cs-message-input__content-editor[data-placeholder]:empty:before {
+.cs-message--incoming .cs-message__content,
+.cs-message-input__content-editor-wrapper,
+.cs-message-input__content-editor[data-placeholder]:empty:before {
   color: white;
   font-size: 15px;
   font-weight: 700;
