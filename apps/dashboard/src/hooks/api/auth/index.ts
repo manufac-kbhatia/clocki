@@ -35,6 +35,19 @@ export function useLogin(
   return mutation;
 }
 
+export function useLogout(
+  params?: UseMutationOptions,
+): UseMutationResult<unknown, Error, void> {
+  const axiosPrivate = useAxiosPrivate();
+  const mutation = useMutation({
+    mutationFn: async () => {
+      await axiosPrivate.post("/auth/logout", { withCredentials: true });
+    },
+    ...params,
+  });
+  return mutation;
+}
+
 export function useGetMe(): UseQueryResult<GetMeReponse> {
   const axiosPrivate = useAxiosPrivate();
   const output = useQuery({

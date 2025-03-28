@@ -1,13 +1,27 @@
 import { Avatar, Menu, Text, useMantineTheme } from "@mantine/core";
 import { IconLogout, IconQuestionMark, IconSettings } from "@tabler/icons-react";
 import { Link } from "react-router";
+import { useLogout } from "../../hooks/api/auth";
+import { useClockiContext } from "../../context";
 
 export interface AvatarProps {
   name: string;
   size?: string | number;
   radius?: string | number;
 }
+
 const CustomAvatar = ({ name, size = "md", radius = "xl" }: AvatarProps) => {
+
+  const {setAuth} = useClockiContext();
+  const {mutate: logout} = useLogout({
+    onSuccess: () => {
+      setAuth(undefined);
+    }
+  });
+
+  const handleLogout = () => {
+    logout();
+  }
   const theme = useMantineTheme();
   return (
     <Menu>
@@ -34,7 +48,7 @@ const CustomAvatar = ({ name, size = "md", radius = "xl" }: AvatarProps) => {
           </Link>
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item leftSection={<IconLogout size={14} />}>
+        <Menu.Item leftSection={<IconLogout size={14} />} onClick={handleLogout}>
           <Text>Sign out</Text>
         </Menu.Item>
       </Menu.Dropdown>
