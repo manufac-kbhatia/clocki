@@ -17,6 +17,7 @@ import ClientDetails from "../../components/ManageProjects/ClientsDetails";
 import { ProjectModalMode } from "../../components/ManageProjects/AddProjectModal/utils";
 import { Client, ProjectWithInfo } from "@repo/schemas/rest";
 import ProjectModal from "../../components/ManageProjects/AddProjectModal";
+import { IconPlus } from "@tabler/icons-react";
 
 const ManageProjects = () => {
   const [activeTab, setActiveTab] = useState<ProjectTabNamesType>(ProjectTabNames.Projects);
@@ -64,9 +65,9 @@ const ManageProjects = () => {
           data={[ProjectTabNames.Projects, ProjectTabNames.Clients]}
         />
         {activeTab === ProjectTabNames.Projects ? (
-          <Button onClick={handleOpenProjectModal}>New Project</Button>
+          <Button onClick={handleOpenProjectModal} leftSection={<IconPlus size={18} />}>New Project</Button>
         ) : (
-          <Button onClick={handleOpenClientModal}>New Client</Button>
+          <Button onClick={handleOpenClientModal} leftSection={<IconPlus size={18}/>} >New Client</Button>
         )}
       </Group>
 
