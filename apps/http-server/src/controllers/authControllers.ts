@@ -116,7 +116,6 @@ export const refreshToken = async (req: Request, res: Response<RefreshTokenRespo
 
 export const logout = async (req: Request, res: Response) => {
   const { refreshToken } = req.cookies;
-  console.log(refreshToken);
   if (refreshToken === undefined) {
     res.sendStatus(StatusCodes.NO_CONTENT);
     return;
