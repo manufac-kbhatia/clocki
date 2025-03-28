@@ -1,4 +1,4 @@
-import { Avatar, Menu, Text, useMantineTheme } from "@mantine/core";
+import { Avatar, Menu, Text } from "@mantine/core";
 import { IconLogout, IconQuestionMark, IconSettings } from "@tabler/icons-react";
 import { Link } from "react-router";
 import { useLogout } from "../../hooks/api/auth";
@@ -11,26 +11,25 @@ export interface AvatarProps {
 }
 
 const CustomAvatar = ({ name, size = "md", radius = "xl" }: AvatarProps) => {
-
-  const {setAuth} = useClockiContext();
-  const {mutate: logout} = useLogout({
+  const { setAuth } = useClockiContext();
+  const { mutate: logout } = useLogout({
     onSuccess: () => {
       setAuth(undefined);
-    }
+    },
   });
 
   const handleLogout = () => {
     logout();
-  }
-  const theme = useMantineTheme();
+  };
+
   return (
     <Menu>
       <Menu.Target>
         <Avatar
-          variant="filled"
+          variant="light"
           radius={radius}
           name={name}
-          color={theme.primaryColor}
+          color="initials"
           size={size}
         />
       </Menu.Target>

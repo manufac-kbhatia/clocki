@@ -94,8 +94,8 @@ export function Register() {
           </Stack>
         </form>
         <Group justify="center" gap={5}>
-        <Text ta="center">Already have an account?</Text>
-        <Link to="/login" >Sign up here</Link>
+          <Text ta="center">Already have an account?</Text>
+          <Link to="/login">Sign up here</Link>
         </Group>
       </Stack>
     </Center>

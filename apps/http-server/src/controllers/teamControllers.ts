@@ -42,8 +42,8 @@ export const createTeam = async (
       },
     },
     include: {
-      teamLead: true,
-      members: true,
+      teamLead: { include: { employeeInfo: true } },
+      members: { include: { employeeInfo: true } },
     },
   });
 
@@ -58,7 +58,7 @@ export const getTeams = async (req: Request, res: Response<GetTeamsResponse>) =>
   if (organisationId) {
     const teams = await client.team.findMany({
       where: { organisationId: organisationId },
-      include: { members: true, teamLead: true },
+      include: { members: { include: { employeeInfo: true } }, teamLead: { include: { employeeInfo: true } } },
     });
     res.status(StatusCodes.OK).json({ success: true, teams });
   }
@@ -70,7 +70,7 @@ export const getTeam = async (req: Request<{ id: string }>, res: Response<GetTea
   if (organisationId) {
     const team = await client.team.findUnique({
       where: { id: teamId, organisationId: organisationId },
-      include: { members: true, teamLead: true },
+      include: { members: { include: { employeeInfo: true } }, teamLead: { include: { employeeInfo: true } } },
     });
 
     if (team === null) {

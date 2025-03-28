@@ -35,9 +35,7 @@ export function useLogin(
   return mutation;
 }
 
-export function useLogout(
-  params?: UseMutationOptions,
-): UseMutationResult<unknown, Error, void> {
+export function useLogout(params?: UseMutationOptions): UseMutationResult<unknown, Error, void> {
   const axiosPrivate = useAxiosPrivate();
   const mutation = useMutation({
     mutationFn: async () => {

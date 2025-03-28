@@ -22,10 +22,16 @@ export default function Home() {
           <div>Demo</div>
         </div>
         <div className="flex  gap-3 sm:gap-5 text-base sm:text-xl font-semibold">
-          <Link href="http://localhost:5173/register" className="bg-violet-200 p-2 rounded-sm text-center">
+          <Link
+            href="http://localhost:5173/register"
+            className="bg-violet-200 p-2 rounded-sm text-center"
+          >
             <div className="text-primaryPurple">Sign in</div>
           </Link>
-          <Link href="http://localhost:5173/register" className="bg-primaryPurple p-2 rounded-sm text-center">
+          <Link
+            href="http://localhost:5173/register"
+            className="bg-primaryPurple p-2 rounded-sm text-center"
+          >
             <div className="text-white">Sign up free</div>
           </Link>
         </div>
@@ -76,42 +82,45 @@ export default function Home() {
             {
               icon: <IconCalendarClock size={40} />,
               title: "Time Tracking",
-              description: "Simplify time tracking for accurate invoicing and payroll, with detailed timesheets and exportable reports."
+              description:
+                "Simplify time tracking for accurate invoicing and payroll, with detailed timesheets and exportable reports.",
             },
             {
               icon: <IconUsers size={40} />,
               title: "Team organization",
-              description: "Organize your team into groups, assign roles, and make quick adjustments as projects evolve."
+              description:
+                "Organize your team into groups, assign roles, and make quick adjustments as projects evolve.",
             },
             {
               icon: <IconRobot size={40} />,
               title: "AI Assistance",
-              description: "Use AI to manage tasks — find employees, teams, projects, or clients, send emails, and handle leave requests effortlessly."
+              description:
+                "Use AI to manage tasks — find employees, teams, projects, or clients, send emails, and handle leave requests effortlessly.",
             },
             {
               icon: <IconHome size={40} />,
               title: "Remote work",
-              description: "Easily manage hybrid teams with insights into who's working remotely."
+              description: "Easily manage hybrid teams with insights into who's working remotely.",
             },
             {
               icon: <IconFaceMask size={40} />,
               title: "Sick leave tracking",
-              description: "Log sick days instantly and notify managers in real-time for better resource planning."
+              description:
+                "Log sick days instantly and notify managers in real-time for better resource planning.",
             },
             {
               icon: <IconBeach size={40} />,
               title: "Time management",
-              description: "Track vacation balances, approve leave requests, and plan ahead with clear visibility into time off usage."
-            }
+              description:
+                "Track vacation balances, approve leave requests, and plan ahead with clear visibility into time off usage.",
+            },
           ].map((feature, index) => (
             <div key={index} className="shadow-lg rounded-2xl p-5 flex flex-col gap-5">
               <div className="flex gap-4 items-center text-xl sm:text-2xl font-bold">
                 {feature.icon}
                 <div className="text-2xl sm:text-3xl">{feature.title}</div>
               </div>
-              <div className="text-base sm:text-2xl font-[400]">
-                {feature.description}
-              </div>
+              <div className="text-base sm:text-2xl font-[400]">{feature.description}</div>
             </div>
           ))}
         </div>
@@ -132,18 +141,20 @@ export default function Home() {
               {
                 number: "1",
                 title: "Create your account",
-                description: "Invite team members and set up departments, roles, and permissions in just a few clicks."
+                description:
+                  "Invite team members and set up departments, roles, and permissions in just a few clicks.",
               },
               {
                 number: "2",
                 title: "Setup your organisation",
-                description: "Setup of organisation by submitting details"
+                description: "Setup of organisation by submitting details",
               },
               {
                 number: "3",
                 title: "Start Tracking",
-                description: "Your team can immediately begin logging hours and requesting time off through our intuitive interface once you add and invite them."
-              }
+                description:
+                  "Your team can immediately begin logging hours and requesting time off through our intuitive interface once you add and invite them.",
+              },
             ].map((step, index) => (
               <div key={index} className="text-center">
                 <div className="bg-violet-200 text-primaryPurple w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 text-xl sm:text-2xl font-bold">
@@ -192,23 +203,26 @@ export default function Home() {
             {[
               {
                 title: "Product",
-                links: ["Features", "Pricing", "Integrations", "Enterprise"]
+                links: ["Features", "Pricing", "Integrations", "Enterprise"],
               },
               {
                 title: "Resources",
-                links: ["Documentation", "Guides", "API Reference", "Blog"]
+                links: ["Documentation", "Guides", "API Reference", "Blog"],
               },
               {
                 title: "Company",
-                links: ["About Us", "Careers", "Contact", "Privacy Policy"]
-              }
+                links: ["About Us", "Careers", "Contact", "Privacy Policy"],
+              },
             ].map((section, index) => (
               <div key={index} className="col-span-1 sm:col-span-1">
                 <h3 className="text-base sm:text-lg font-bold mb-4">{section.title}</h3>
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
-                      <Link href="#" className="text-xs sm:text-base text-gray-400 hover:text-white transition">
+                      <Link
+                        href="#"
+                        className="text-xs sm:text-base text-gray-400 hover:text-white transition"
+                      >
                         {link}
                       </Link>
                     </li>

@@ -22,10 +22,7 @@ export const findEmployee = tool(
     const organisationId = getContextVariable("organisationId") as string;
     const results = await client.employee.findMany({
       where: {
-        OR: [
-          { organisationId },
-          { createdOrganisation: { id: organisationId } }
-        ],
+        OR: [{ organisationId }, { createdOrganisation: { id: organisationId } }],
         AND: [
           {
             OR: [
@@ -34,7 +31,7 @@ export const findEmployee = tool(
               { email: { contains: searchQuery, mode: "insensitive" } },
               { employeeInfo: { position: { contains: searchQuery, mode: "insensitive" } } },
             ],
-          }
+          },
         ],
       },
       include: {
@@ -77,10 +74,7 @@ export const getAllEmployeeDetails = tool(
     const organisationId = getContextVariable("organisationId") as string;
     const results = await client.employee.findMany({
       where: {
-        OR: [
-          { organisationId },
-          { createdOrganisation: { id: organisationId } },
-        ],
+        OR: [{ organisationId }, { createdOrganisation: { id: organisationId } }],
       },
       include: {
         employeeInfo: true,
@@ -112,7 +106,6 @@ Hire Date: ${employeeInfo?.hireDate?.toISOString() ?? "N/A"}
     description: "Fetches and returns details of all employees in the organization.",
   },
 );
-
 
 export const getAllTeamsDetails = tool(
   async () => {
@@ -151,15 +144,17 @@ Team Lead:
   Role: ${teamLead?.role ?? "N/A"}
 
 Members:
-${members.length > 0
-  ? members
-      .map(
-        (member) => `  - ${member.firstName} ${member.lastName ?? ""}
+${
+  members.length > 0
+    ? members
+        .map(
+          (member) => `  - ${member.firstName} ${member.lastName ?? ""}
     Email: ${member.email ?? "N/A"}
-    Position: ${member.employeeInfo?.position ?? "N/A"}`
-      )
-      .join("\n")
-  : "  No members in this team."}
+    Position: ${member.employeeInfo?.position ?? "N/A"}`,
+        )
+        .join("\n")
+    : "  No members in this team."
+}
         `.trim();
       })
       .join("\n\n");
@@ -202,15 +197,17 @@ Client:
   Address: ${Client.address ?? "N/A"}, ${Client.city ?? "N/A"})
 
 Members:
-${members.length > 0
-  ? members
-      .map(
-        (member) => `  - ${member.firstName} ${member.lastName ?? ""}
+${
+  members.length > 0
+    ? members
+        .map(
+          (member) => `  - ${member.firstName} ${member.lastName ?? ""}
     Email: ${member.email ?? "N/A"}
-    Position: ${member.employeeInfo?.position ?? "N/A"}`
-      )
-      .join("\n")
-  : "  No members in this team."}
+    Position: ${member.employeeInfo?.position ?? "N/A"}`,
+        )
+        .join("\n")
+    : "  No members in this team."
+}
         `.trim();
       })
       .join("\n\n");
@@ -253,4 +250,6 @@ Client:
   },
 );
 
-
+// Email tool
+// data creation
+// test the toolss

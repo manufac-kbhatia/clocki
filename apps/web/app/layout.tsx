@@ -3,7 +3,6 @@ import { Red_Hat_Display } from "next/font/google";
 
 import "./globals.css";
 
-
 const redHatDisplay = Red_Hat_Display();
 
 export const metadata: Metadata = {

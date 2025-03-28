@@ -190,8 +190,8 @@ export type UserWithInfo = Prisma.EmployeeGetPayload<{
 
 export type Team = Prisma.TeamGetPayload<{
   include: {
-    members: { omit: { password: true; refreshToken: true } };
-    teamLead: { omit: { password: true; refreshToken: true } };
+    members: { omit: { password: true; refreshToken: true }; include: { employeeInfo: true } };
+    teamLead: { omit: { password: true; refreshToken: true }; include: { employeeInfo: true } };
   };
 }>;
 export type Project = Prisma.ProjectGetPayload<{}>;

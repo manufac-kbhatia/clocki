@@ -39,7 +39,7 @@ const TeamsDetails = () => {
               <Card withBorder shadow="none" mih={500} radius="lg">
                 <Stack>
                   <Group justify="space-between">
-                    <Text>{team.name}</Text>
+                    <Text size="lg" fw={700}>{team.name}</Text>
                     <Group>
                       <ActionIcon size="md" variant="default" onClick={() => handleDelete(team.id)}>
                         <IconTrash size={16} />
@@ -54,26 +54,41 @@ const TeamsDetails = () => {
                     </Group>
                   </Group>
                   <>
-                    <Text>Team Lead</Text>
+                    <Text fw={600}>Team Lead</Text>
                     <Card m="xs" withBorder p={5} shadow="none">
-                      <Group>
-                        <Avatar variant="filled" radius="xl" name={teamLeadName} size="md" />
+                      <Group justify="space-between">
+                        <Group>
+                          <Avatar color="initials" name={teamLeadName} />
+                          <Stack gap={1}>
+                            <Text size="sm">{teamLeadName}</Text>
 
-                        <Text>{teamLeadName}</Text>
+                            <Text size="sm" fw={700}>
+                              {team.teamLead.employeeInfo?.position ?? ""}
+                            </Text>
+                          </Stack>
+                        </Group>
                       </Group>
                     </Card>
                   </>
                   <Divider />
                   <>
-                    <Text>Members</Text>
+                    <Text fw={600}>Members</Text>
                     <ScrollArea h={200} scrollbars="y">
                       {team.members.map((member) => {
                         const name = `${member.firstName} ${member.lastName ?? ""}`;
                         return (
                           <Card m="xs" withBorder p={5} shadow="none">
-                            <Group>
-                              <Avatar variant="filled" radius="xl" name={name} size="md" />
-                              <Text>{name}</Text>
+                            <Group justify="space-between">
+                              <Group>
+                                <Avatar color="initials" name={name} />
+                                <Stack gap={1}>
+                                  <Text size="sm">{name}</Text>
+
+                                  <Text size="sm" fw={700}>
+                                    {member.employeeInfo?.position ?? ""}
+                                  </Text>
+                                </Stack>
+                              </Group>
                             </Group>
                           </Card>
                         );
