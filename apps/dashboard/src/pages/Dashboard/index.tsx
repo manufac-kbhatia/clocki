@@ -1,7 +1,7 @@
 import { useClockiContext } from "../../context";
 import WelcomeCard from "../../components/Dasboard/WelcomeCard";
 import WeeklyOverview from "../../components/Dasboard/WeeklyOverview";
-import { Grid, Group, Stack } from "@mantine/core";
+import { Card, Grid, Group, Stack, Text, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { useGetMyTimeEntries } from "../../hooks/api/timeSheet";
 import { formatDate, getCurrentWeekRange } from "../LogTime/utils";
@@ -65,6 +65,34 @@ export function Dashboard() {
             <ProjectsAndTeams />
           </Grid.Col>
         </Grid>
+      </Grid.Col>
+      <Grid.Col span={12}>
+          <Grid>
+            <Grid.Col span={6}>
+              <Card mih={350}>
+                  <Title>Requests pending decision</Title>
+                  <Text ta="center" m="xl">No requests pending decision</Text>
+              </Card>
+            </Grid.Col>
+            <Grid.Col span={6}>
+            <Card mih={350}>
+                  <Title>Vacation leave</Title>
+                  <Text ta="center" m="xl">You have not been granted any vacation days</Text>
+              </Card>
+            </Grid.Col>
+            <Grid.Col span={6}>
+            <Card mih={350}>
+                  <Title>Work from home</Title>
+                  <Text ta="center" m="xl">Nobody is working from home</Text>
+              </Card>
+            </Grid.Col>
+            <Grid.Col span={6}>
+            <Card mih={350}>
+                  <Title>Absences</Title>
+                  <Text ta="center" m="xl">No absences recorded</Text>
+              </Card>
+            </Grid.Col>
+          </Grid>
       </Grid.Col>
     </Grid>
   );
