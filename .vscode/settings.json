@@ -25,7 +25,7 @@
         "command": "pnpm pretty" // This is executed in the terminal.
       },
       {
-        "name": "migrate",
+        "name": "Migrate",
         "singleInstance": true,
         "command": "cd packages/prisma && npx prisma migrate dev" // This is executed in the terminal.
       },
@@ -40,14 +40,19 @@
         "command": "cd packages/prisma && npx prisma studio" // This is executed in the terminal.
       },
       {
-        "name": "react-app",
+        "name": "Dashboard",
         "singleInstance": true,
         "command": "cd apps/dashboard && pnpm dev" // This is executed in the terminal.
       },
       {
-        "name": "express-app",
+        "name": "Server",
         "singleInstance": true,
         "command": "cd apps/http-server && pnpm dev" // This is executed in the terminal.
+      },
+      {
+        "name": "Landing",
+        "singleInstance": true,
+        "command": "cd apps/web && pnpm dev" // This is executed in the terminal.
       }
     ]
   }
