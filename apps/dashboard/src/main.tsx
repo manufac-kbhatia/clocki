@@ -25,7 +25,7 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <ContextProvider>
-        <MantineProvider theme={MantineTheme}>
+        <MantineProvider theme={MantineTheme} defaultColorScheme="dark">
           <Notifications />
           <RouterProvider router={Routers} />
         </MantineProvider>

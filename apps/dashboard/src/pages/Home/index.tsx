@@ -51,14 +51,14 @@ const ManageNavLinks = [
     icon: <IconTools size={18} />,
   },
   {
-    path: "/time-logs",
-    label: "Time logs",
-    icon: <IconClock2 size={18} />,
-  },
-  {
     path: "/manage-absence",
     label: "Manage absence",
     icon: <IconCalendarSearch size={18} />,
+  },
+  {
+    path: "/time-logs",
+    label: "Time logs",
+    icon: <IconClock2 size={18} />,
   },
   {
     path: "/settings",
