@@ -1,9 +1,12 @@
-import type { Metadata } from "next";
-import { Red_Hat_Display } from "next/font/google";
+import type React from "react"
+import "./globals.css"
+import { Red_Hat_Display } from "next/font/google"
+import { cn } from "@/lib/utils"
+import { Metadata } from "next"
 
-import "./globals.css";
-
-const redHatDisplay = Red_Hat_Display({subsets: ["latin"]});
+const playfair = Red_Hat_Display({
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "Cloki: Simplify time tracking",
@@ -13,12 +16,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body className={`${redHatDisplay.className} text-primaryTextColor`}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn("min-h-screen bg-background font-sans antialiased", playfair.className)}>
+          {children}
+      </body>
     </html>
-  );
+  )
 }

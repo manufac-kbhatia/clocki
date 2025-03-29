@@ -1,83 +1,121 @@
 import {
   IconBeach,
+  IconBrain,
   IconCalendarClock,
+  IconChartBar,
   IconClock,
+  IconCode,
   IconFaceMask,
   IconHome,
   IconRobot,
+  IconServer,
   IconUsers,
-} from "@tabler/icons-react";
-import Image from "next/image";
-import Link from "next/link";
+  IconWand,
+} from "@tabler/icons-react"
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 
 export default function Home() {
   return (
-    <div className="space-y-8 sm:space-y-16">
+    <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="flex justify-between items-center p-4 sm:p-8">
-        <div className="text-4xl sm:text-5xl font-bold mb-4 sm:mb-0">Cloki</div>
-        <div className="hidden sm:flex gap-8 lg:gap-14 text-base lg:text-xl mb-4 sm:mb-0">
-          <div>Features</div>
-          <div>Pricing</div>
-          <div>Demo</div>
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-2">
+            <IconClock className="h-10 w-10 text-primary" />
+            <span className="text-4xl font-bold">Cloki</span>
+          </div>
+
+          <nav className="hidden md:flex items-center gap-8">
+            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
+              Features
+            </Link>
+            <Link href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">
+              How It Works
+            </Link>
+            <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
+              Pricing
+            </Link>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/login">Sign in</Link>
+            </Button>
+            <Button size="sm" asChild>
+              <Link href="/register">Sign up free</Link>
+            </Button>
+          </div>
         </div>
-        <div className="flex  gap-3 sm:gap-5 text-base sm:text-xl font-semibold">
-          <Link
-            href="http://localhost:5173/register"
-            className="bg-violet-200 p-2 rounded-sm text-center"
-          >
-            <div className="text-primaryPurple">Sign in</div>
-          </Link>
-          <Link
-            href="http://localhost:5173/register"
-            className="bg-primaryPurple p-2 rounded-sm text-center"
-          >
-            <div className="text-white">Sign up free</div>
-          </Link>
-        </div>
-      </div>
+      </header>
 
       {/* Hero Section */}
-      <div className="max-w-6xl mx-auto space-y-6 sm:space-y-10 font-semibold flex flex-col items-center px-4">
-        <div className="text-base sm:text-2xl text-primaryPurple bg-violet-200 text-center w-fit mx-auto p-2 sm:p-4 rounded-full">
-          Free for 5 Users. One Rate Beyond
-        </div>
-        <div className="text-4xl sm:text-6xl lg:text-7xl font-bold text-center">
-          Stop overpaying for time tracking!
-        </div>
-        <div className="text-base sm:text-2xl text-center max-w-2xl">
-          Setup your organisation with Cloki, manage your data and start tracking instantly
-        </div>
-        <Link
-          href="http://localhost:5173/register"
-          className="text-xl sm:text-3xl bg-primaryPurple p-3 sm:p-4 rounded-md"
-        >
-          <div className="text-white">Start for free</div>
-        </Link>
-      </div>
+      <section className="relative overflow-hidden py-20 md:py-28 ai-grid-bg">
+        <div className="container relative z-10">
+          <div className="flex flex-col items-center text-center space-y-6 max-w-4xl mx-auto">
+            <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+              <IconRobot className="h-4 w-4 mr-2" />
+              <span>AI-Powered Time Tracking</span>
+            </div>
 
-      {/* Dashboard Image */}
-      <Image
-        src="/dashboard.png"
-        alt="dashboard"
-        width={1100}
-        height={1000}
-        className="rounded-2xl mx-auto w-full max-w-6xl px-4"
-      />
+            <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+              Intelligent Time Management for Modern Teams
+            </h1>
+
+            <p className="text-xl text-muted-foreground max-w-2xl">
+              Cloki uses artificial intelligence to transform how your team tracks time, manages projects, and optimizes
+              productivity
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button size="lg" className="gap-2" asChild>
+                <Link href="/register">
+                  <IconWand className="h-4 w-4" />
+                  Start for free
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link href="#demo">Watch demo</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Dashboard Preview */}
+      <section className="container py-12 md:py-16">
+        <div className="relative rounded-lg border bg-card p-2 shadow-lg">
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg" />
+          <Image
+            src="/dashboard.png"
+            alt="Cloki AI dashboard"
+            width={1200}
+            height={800}
+            className="rounded-md w-full h-auto relative z-10"
+            priority
+          />
+          <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-xs font-medium px-4 py-1 rounded-full">
+            AI-Powered Dashboard
+          </div>
+        </div>
+      </section>
 
       {/* Features */}
-      <div className="max-w-7xl mx-auto space-y-8 font-semibold mt-16 sm:mt-36 flex flex-col items-center px-4">
-        <div className="text-base sm:text-2xl text-primaryPurple bg-violet-200 text-center w-fit mx-auto p-2 sm:p-4 rounded-full">
-          Features
+      <section id="features" className="container py-20 md:py-28">
+        <div className="flex flex-col items-center text-center space-y-4 mb-16">
+          <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+            <IconBrain className="h-4 w-4 mr-2" />
+            <span>Smart Features</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">AI-Enhanced Time Tracking</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl">
+            Leverage artificial intelligence to transform how you track time, manage teams, and boost productivity
+          </p>
         </div>
-        <div className="text-4xl sm:text-6xl font-bold text-center">Simplify time tracking</div>
-        <div className="text-base sm:text-lg text-center text-neutral-400 max-w-4xl">
-          Simplify time tracking: Effortlessly manage absences, remote work, logged hours, and team
-          performance while focusing on growing your business. Use AI to help you with your daily
-          tasks — ask about employees, teams, projects, or clients, send emails directly via AI, and
-          easily approve or reject leave requests with AI-powered assistance.
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
               icon: <IconCalendarClock size={40} />,
@@ -96,6 +134,7 @@ export default function Home() {
               title: "AI Assistance",
               description:
                 "Use AI to manage tasks — find employees, teams, projects, or clients, send emails, and handle leave requests effortlessly.",
+              primary: true,
             },
             {
               icon: <IconHome size={40} />,
@@ -115,114 +154,340 @@ export default function Home() {
                 "Track vacation balances, approve leave requests, and plan ahead with clear visibility into time off usage.",
             },
           ].map((feature, index) => (
-            <div key={index} className="shadow-lg rounded-2xl p-5 flex flex-col gap-5">
-              <div className="flex gap-4 items-center text-xl sm:text-2xl font-bold">
-                {feature.icon}
-                <div className="text-2xl sm:text-3xl">{feature.title}</div>
+            <Card key={index} className={`ai-card ${feature.primary ? "ai-glow" : ""}`}>
+              <CardContent className="p-6 flex flex-col gap-4">
+                <div className={`p-3 rounded-full w-fit ${feature.primary ? "bg-primary/10" : "bg-muted"}`}>
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold">{feature.title}</h3>
+                <p className="text-muted-foreground">{feature.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* AI Demo Section */}
+      <section className="bg-muted/50 py-20 md:py-28 ai-grid-bg">
+        <div className="container">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+                <IconCode className="h-4 w-4 mr-2" />
+                <span>AI Technology</span>
               </div>
-              <div className="text-base sm:text-2xl font-[400]">{feature.description}</div>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Work Smarter with AI Assistance</h2>
+              <p className="text-xl text-muted-foreground">
+                Ask questions in natural language and get instant insights about your team's time, projects, and
+                productivity.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Generate reports with a simple prompt",
+                  "Identify productivity patterns across teams",
+                  "Get AI recommendations for resource allocation",
+                  "Automate routine time tracking tasks",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <div className="rounded-full bg-primary/20 p-1 mt-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button size="lg" className="mt-4">
+                Try AI Assistant
+              </Button>
+            </div>
+            <div className="relative rounded-lg border bg-card p-2 shadow-lg">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg" />
+              <div className="relative z-10 bg-card rounded-md p-6 space-y-4">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center">
+                    <IconRobot className="h-6 w-6 text-primary" />
+                  </div>
+                  <div className="font-medium">Cloki AI Assistant</div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="bg-muted p-3 rounded-lg rounded-tl-none max-w-[80%]">
+                    <p className="text-sm">Show me which team members worked the most hours last week</p>
+                  </div>
+
+                  <div className="bg-primary/10 p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%]">
+                    <p className="text-sm">Here's the breakdown of hours worked last week:</p>
+                    <ul className="text-sm mt-2 space-y-1">
+                      <li>1. Sarah Chen: 42.5 hours</li>
+                      <li>2. Michael Johnson: 39.2 hours</li>
+                      <li>3. David Kim: 38.7 hours</li>
+                      <li>4. Emma Wilson: 37.5 hours</li>
+                      <li>5. James Taylor: 36.8 hours</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How Cloki Works Section */}
+      <section id="how-it-works" className="container py-20 md:py-28">
+        <div className="flex flex-col items-center text-center space-y-4 mb-16">
+          <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+            <IconServer className="h-4 w-4 mr-2" />
+            <span>Simple Process</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">How Cloki Works</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl">
+            Get started in minutes with our simple setup process
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {[
+            {
+              number: "1",
+              title: "Create your account",
+              description: "Sign up in seconds with your email for free",
+              icon: <IconUsers className="h-6 w-6" />,
+            },
+            {
+              number: "2",
+              title: "Setup your organisation",
+              description: "Create your organisation and add team members based on their roles",
+              icon: <IconClock className="h-6 w-6" />,
+            },
+            {
+              number: "3",
+              title: "Start Tracking",
+              description: "Begin logging hours and let AI provide insights to optimize your team's productivity.",
+              icon: <IconChartBar className="h-6 w-6" />,
+            },
+          ].map((step, index) => (
+            <div key={index} className="flex flex-col items-center text-center">
+              <div className="relative mb-8">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-xl font-bold text-primary">
+                  {step.number}
+                </div>
+                {index < 2 && (
+                  <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-primary/50 to-transparent" />
+                )}
+              </div>
+              <div className="p-3 rounded-full bg-muted mb-4">{step.icon}</div>
+              <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+              <p className="text-muted-foreground">{step.description}</p>
             </div>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* How Cloki Works Section */}
-      <section className="max-w-7xl mx-auto mt-16 sm:mt-36 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-10 sm:mb-16">
-            <h2 className="text-3xl sm:text-6xl font-bold text-gray-900 mb-4">How Cloki Works</h2>
-            <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
-              Get started in minutes with our simple setup process.
-            </p>
+      {/* Pricing Section */}
+      <section id="pricing" className="container py-20 md:py-28">
+        <div className="flex flex-col items-center text-center space-y-4 mb-16">
+          <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+            <IconServer className="h-4 w-4 mr-2" />
+            <span>Pricing</span>
           </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Simple, Transparent Pricing</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl">Start for free, upgrade as your team grows</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                number: "1",
-                title: "Create your account",
-                description:
-                  "Invite team members and set up departments, roles, and permissions in just a few clicks.",
-              },
-              {
-                number: "2",
-                title: "Setup your organisation",
-                description: "Setup of organisation by submitting details",
-              },
-              {
-                number: "3",
-                title: "Start Tracking",
-                description:
-                  "Your team can immediately begin logging hours and requesting time off through our intuitive interface once you add and invite them.",
-              },
-            ].map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="bg-violet-200 text-primaryPurple w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 text-xl sm:text-2xl font-bold">
-                  {step.number}
+        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <Card className="border">
+            <CardContent className="pt-6">
+              <div className="mb-4 text-center">
+                <h3 className="text-lg font-medium">Free</h3>
+                <div className="mt-4 flex items-baseline justify-center">
+                  <span className="text-4xl font-bold">$0</span>
+                  <span className="ml-1 text-muted-foreground">/month</span>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-base sm:text-2xl">{step.description}</p>
+                <p className="mt-1 text-sm text-muted-foreground">For up to 5 users</p>
               </div>
-            ))}
-          </div>
+              <ul className="mt-6 space-y-3">
+                {[
+                  "Basic time tracking",
+                  "Team management",
+                  "Basic reporting",
+                  "Mobile app access",
+                  "Email support",
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <div className="rounded-full bg-primary/20 p-1 mt-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button variant="outline" className="w-full mt-8">
+                Get started
+              </Button>
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary shadow-lg relative">
+            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
+              Most Popular
+            </div>
+            <CardContent className="pt-6">
+              <div className="mb-4 text-center">
+                <h3 className="text-lg font-medium">Pro</h3>
+                <div className="mt-4 flex items-baseline justify-center">
+                  <span className="text-4xl font-bold">$5</span>
+                  <span className="ml-1 text-muted-foreground">/user/month</span>
+                </div>
+                <p className="mt-1 text-sm text-muted-foreground">Billed annually</p>
+              </div>
+              <ul className="mt-6 space-y-3">
+                {[
+                  "Everything in Free",
+                  "AI-powered insights",
+                  "AI Based leaves approval",
+                  "Time off management",
+                  "Send Emails with help Cloki's AI assistance",
+                ].map((feature, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <div className="rounded-full bg-primary/20 p-1 mt-1">
+                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <Button className="w-full mt-8">Get started</Button>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-12 sm:py-20 px-4">
-        <div className="container mx-auto">
-          <div className="bg-primaryPurple rounded-2xl p-8 sm:p-16 text-center">
-            <h2 className="text-4xl sm:text-8xl font-bold text-white mb-4 sm:mb-6">Try it out</h2>
-            <p className="text-base sm:text-2xl text-white mb-6 sm:mb-8 max-w-3xl mx-auto">
-              Join thousands of businesses that have streamlined their time management with Cloki.
-            </p>
-            <Link
-              href="http://localhost:5173/register"
-              className="text-base sm:text-3xl bg-violet-200 p-3 sm:p-4 rounded-md border-2 border-violet-200"
+      <section className="container py-16 md:py-20">
+        <div className="rounded-2xl bg-gradient-to-r from-primary to-primary-foreground/90 p-8 md:p-16 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Experience the Future of Time Tracking</h2>
+          <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
+            Join thousands of businesses that have transformed their productivity with Cloki's AI-powered time tracking.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/register">Start for free</Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-transparent text-white border-white hover:bg-white/10"
+              asChild
             >
-              Sign up for free
-            </Link>
+              <Link href="#demo">Schedule demo</Link>
+            </Button>
           </div>
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="container py-16 md:py-20">
+        <div className="flex flex-col items-center text-center space-y-4 mb-12">
+          <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+            <IconUsers className="h-4 w-4 mr-2" />
+            <span>Testimonials</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Trusted by Teams Worldwide</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl">See what our customers have to say</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              quote:
+                "Cloki's AI assistant has transformed how our team manages time. We've seen a 30% increase in productivity since implementation.",
+              author: "Sarah Chen",
+              title: "CTO, TechNova",
+            },
+            {
+              quote:
+                "The AI-powered insights have given us unprecedented visibility into our project timelines and resource allocation.",
+              author: "Michael Johnson",
+              title: "Director of Operations, Quantum Solutions",
+            },
+            {
+              quote:
+                "From the seamless onboarding to the intuitive AI features, Cloki delivers an exceptional user experience for our entire team.",
+              author: "Emma Wilson",
+              title: "HR Manager, Innovate Inc.",
+            },
+          ].map((testimonial, index) => (
+            <Card key={index} className="ai-card">
+              <CardContent className="p-6 flex flex-col gap-6">
+                <div className="text-primary">
+                  <svg width="45" height="36" viewBox="0 0 45 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M13.95 36C9.975 36 6.75 34.65 4.275 31.95C1.425 28.8 0 24.9 0 20.25C0 14.85 1.8 10.2 5.4 6.3C9 2.4 13.725 0.15 19.575 -0.000000298023L21.15 4.05C16.575 4.65 13.05 6.225 10.575 8.775C8.1 11.325 6.75 14.4 6.525 18C7.575 17.1 9 16.65 10.8 16.65C13.05 16.65 14.925 17.475 16.425 19.125C17.925 20.775 18.675 22.8 18.675 25.2C18.675 27.75 17.85 29.85 16.2 31.5C14.55 34.5 12.45 36 13.95 36ZM38.025 36C34.05 36 30.825 34.65 28.35 31.95C25.5 28.8 24.075 24.9 24.075 20.25C24.075 14.85 25.875 10.2 29.475 6.3C33.075 2.4 37.8 0.15 43.65 -0.000000298023L45.225 4.05C40.65 4.65 37.125 6.225 34.65 8.775C32.175 11.325 30.825 14.4 30.6 18C31.65 17.1 33.075 16.65 34.875 16.65C37.125 16.65 39 17.475 40.5 19.125C42 20.775 42.75 22.8 42.75 25.2C42.75 27.75 41.925 29.85 40.275 31.5C38.625 34.5 36.525 36 38.025 36Z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </div>
+                <p className="text-base">{testimonial.quote}</p>
+                <div>
+                  <p className="font-medium">{testimonial.author}</p>
+                  <p className="text-sm text-muted-foreground">{testimonial.title}</p>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Footer */}
-      <footer className="bg-primaryPurple text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="col-span-1 md:col-span-1">
-              <div className="flex items-center space-x-2 mb-4 sm:mb-6">
-                <IconClock className="h-5 w-5 sm:h-6 sm:w-6" />
-                <span className="text-lg sm:text-xl font-bold">Cloki</span>
+      <footer className="border-t bg-muted/30">
+        <div className="container py-12 md:py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="col-span-2 md:col-span-1">
+              <div className="flex items-center gap-2 mb-4">
+                <IconClock className="h-6 w-6 text-primary" />
+                <span className="text-xl font-bold">Cloki</span>
               </div>
-              <p className="text-sm sm:text-base text-white">
-                Simplifying time tracking for growing businesses around the world.
-              </p>
+              <p className="text-sm text-muted-foreground mb-4">AI-powered time tracking for modern teams</p>
+              <div className="flex space-x-4">
+                {["twitter", "facebook", "instagram", "linkedin"].map((social) => (
+                  <Link key={social} href={`#${social}`} className="text-muted-foreground hover:text-primary">
+                    <span className="sr-only">{social}</span>
+                    <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
+                      <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z" />
+                      </svg>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
 
             {[
               {
                 title: "Product",
-                links: ["Features", "Pricing", "Integrations", "Enterprise"],
+                links: ["Features", "Pricing", "Integrations", "Enterprise", "Security"],
               },
               {
                 title: "Resources",
-                links: ["Documentation", "Guides", "API Reference", "Blog"],
+                links: ["Documentation", "Guides", "API Reference", "Blog", "Community"],
               },
               {
                 title: "Company",
-                links: ["About Us", "Careers", "Contact", "Privacy Policy"],
+                links: ["About Us", "Careers", "Contact", "Privacy Policy", "Terms of Service"],
               },
             ].map((section, index) => (
-              <div key={index} className="col-span-1 sm:col-span-1">
-                <h3 className="text-base sm:text-lg font-bold mb-4">{section.title}</h3>
+              <div key={index} className="col-span-1">
+                <h3 className="font-medium mb-4">{section.title}</h3>
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
-                      <Link
-                        href="#"
-                        className="text-xs sm:text-base text-gray-400 hover:text-white transition"
-                      >
+                      <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
                         {link}
                       </Link>
                     </li>
@@ -232,11 +497,12 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="border-t border-gray-800 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-xs sm:text-base text-gray-400">
+          <div className="border-t mt-12 pt-8 text-center text-sm text-muted-foreground">
             <p>© {new Date().getFullYear()} Cloki. All rights reserved.</p>
           </div>
         </div>
       </footer>
     </div>
-  );
+  )
 }
+
