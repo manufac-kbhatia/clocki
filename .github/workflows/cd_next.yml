@@ -21,4 +21,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile.landing
           push: true
-          tags: manufac-kbhatia/cloki-landing:${{ github.sha }}
+          tags: kunal3256/cloki-landing:${{ github.sha }}
