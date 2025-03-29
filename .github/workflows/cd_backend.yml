@@ -23,4 +23,4 @@ jobs:
           build-args:
             - DATABASE_URL=${{ secrets.DATABASE_URL }}
           push: true
-          tags: manufac-kbhatia/cloki-backend:${{ github.sha }}
+          tags: kunal3256/cloki-backend:${{ github.sha }}

@@ -21,4 +21,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile.dashboard
           push: true
-          tags: manufac-kbhatia/cloki-dashboard:${{ github.sha }}
+          tags: kunal3256/cloki-dashboard:${{ github.sha }}
