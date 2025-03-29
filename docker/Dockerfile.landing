@@ -2,18 +2,20 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-COPY ./packages ./packages
-COPY ./pnpm-lock.yaml ./pnpm-lock.yaml
+COPY ./packages /usr/src/app/packages
+COPY ./apps/web /usr/src/app/apps/web
+COPY package.json /usr/src/app/package.json
+COPY pnpm-lock.yaml /usr/src/app/pnpm-lock.yaml
+COPY turbo.json /usr/src/app/turbo.json
 
-COPY ./package.json ./package.json
-COPY ./turbo.json ./turbo.json
-
-COPY ./apps/web ./apps/web
 
 
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
-RUN pnpm build
 
 EXPOSE 3001
 
-CMD ["pnpm", "start:landing"]
+WORKDIR /usr/src/app/apps/web
+
+RUN pnpm build
+
+CMD ["pnpm", "start"]
