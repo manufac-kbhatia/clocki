@@ -3,7 +3,7 @@ import { Red_Hat_Display } from "next/font/google";
 
 import "./globals.css";
 
-const redHatDisplay = Red_Hat_Display();
+const redHatDisplay = Red_Hat_Display({subsets: ["latin"]});
 
 export const metadata: Metadata = {
   title: "Cloki: Simplify time tracking",
