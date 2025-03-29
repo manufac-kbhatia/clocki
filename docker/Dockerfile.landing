@@ -1,21 +1,23 @@
 FROM node:20-alpine
 
+
 WORKDIR /usr/src/app
 
+# Copy the necessary files from the correct locations
 COPY ./packages /usr/src/app/packages
 COPY ./apps/web /usr/src/app/apps/web
-COPY package.json /usr/src/app/package.json
-COPY pnpm-lock.yaml /usr/src/app/pnpm-lock.yaml
-COPY turbo.json /usr/src/app/turbo.json
+COPY package.json /usr/src/app/package.json  
+COPY package-lock.json /usr/src/app/package-lock.json  
+COPY turbo.json /usr/src/app/turbo.json  
 
+# Install dependencies
+RUN npm install
 
-
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
-
-EXPOSE 3001
+# Expose port for the web app
+EXPOSE 3000
 
 WORKDIR /usr/src/app/apps/web
 
-RUN pnpm build
-
-CMD ["pnpm", "start"]
+# Build and start the web app
+RUN npm run build 
+CMD ["npm", "run", "start"]

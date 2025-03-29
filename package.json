@@ -9,9 +9,9 @@
     "pretty": "prettier --cache --write .",
     "check-types": "turbo run check-types",
     "db:generate": "cd packages/prisma && npx prisma generate && cd ../..",
-    "start:server": "cd apps/http-server && pnpm start",
-    "start:landing": "cd apps/web && pnpm start",
-    "start:dashboard": "cd apps/dashboard && pnpm preview"
+    "start:server": "cd apps/http-server && npm run start",
+    "start:landing": "cd apps/web && npm run start",
+    "start:dashboard": "cd apps/dashboard && npm run preview"
   },
   "devDependencies": {
     "codepolish-prettier-config": "^1.0.0",
@@ -19,7 +19,11 @@
     "turbo": "^2.4.2",
     "typescript": "5.7.3"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "npm@10.9.2",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "engines": {
     "node": ">=18"
   }

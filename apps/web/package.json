@@ -11,8 +11,8 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/db": "workspace:*",
-    "@repo/ui": "workspace:*",
+    "@repo/db": "*",
+    "@repo/ui": "*",
     "@tabler/icons-react": "^3.30.0",
     "@tailwindcss/postcss": "^4",
     "next": "^15.1.6",
@@ -20,8 +20,8 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
     "@types/node": "^22",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",

@@ -2,18 +2,23 @@ FROM node:20-alpine
 
 WORKDIR /usr/src/app
 
-COPY ./packages ./packages
-COPY ./pnpm-lock.yaml ./pnpm-lock.yaml
+# Copy the necessary files from the correct locations
+COPY ./packages /usr/src/app/packages
+COPY ./apps/dashboard /usr/src/app/apps/dashboard
+COPY package.json /usr/src/app/package.json  
+COPY package-lock.json /usr/src/app/package-lock.json  
+COPY turbo.json /usr/src/app/turbo.json  
 
-COPY ./package.json ./package.json
-COPY ./turbo.json ./turbo.json
+# Install dependencies
+RUN npm install
 
-COPY ./apps/dashboard ./apps/dashboard
+RUN cd packages/prisma && npx prisma generate
 
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
-
-RUN pnpm db:generate
-RUN pnpm build
-
+# Expose port for the dashboard app
 EXPOSE 3000
-CMD ["pnpm", "start:dashboard"]
+
+WORKDIR /usr/src/app/apps/dashboard
+
+# Build and start the dashboard app
+RUN npm run build 
+CMD ["npm", "run", "start"]

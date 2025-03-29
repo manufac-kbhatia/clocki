@@ -1,24 +1,26 @@
 FROM node:20-alpine
 
+ARG DATABASE_URL
+
 WORKDIR /usr/src/app
 
-COPY ./packages ./packages
-COPY ./pnpm-lock.yaml ./pnpm-lock.yaml
+# Copy the necessary files from the correct locations
+COPY ./packages /usr/src/app/packages
+COPY ./apps/http-server /usr/src/app/apps/http-server
+COPY package.json /usr/src/app/package.json  
+COPY package-lock.json /usr/src/app/package-lock.json  
+COPY turbo.json /usr/src/app/turbo.json  
 
-COPY ./package.json ./package.json
-COPY ./turbo.json ./turbo.json
+# Install dependencies
+RUN npm install
 
-COPY ./apps/http-server ./apps/http-server
+RUN cd packages/prisma && DATABASE_URL=$DATABASE_URL npx prisma generate
 
-
-RUN npm install -g pnpm && pnpm install --frozen-lockfile
-RUN pnpm db:generate
-RUN pnpm build
-
-
+# Expose port for the http-server app
 EXPOSE 8080
 
-CMD ["pnpm", "start:server"]
+WORKDIR /usr/src/app/apps/http-server
 
-
-
+# Build and start the http-server app
+RUN npm run build 
+CMD ["npm", "run", "start"]

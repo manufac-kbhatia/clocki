@@ -8,11 +8,13 @@
     "dev": "npm run build && npm run start"
   },
   "dependencies": {
+    "@chatscope/chat-ui-kit-react": "^2.0.3",
+    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@langchain/core": "^0.3.43",
     "@langchain/langgraph": "^0.2.59",
     "@langchain/openai": "^0.5.0",
-    "@repo/db": "workspace:*",
-    "@repo/schemas": "workspace:*",
+    "@repo/db": "*",
+    "@repo/schemas": "*",
     "@types/cookie-parser": "^1.4.8",
     "@types/jsonwebtoken": "^9.0.8",
     "cookie-parser": "^1.4.7",
@@ -25,7 +27,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
+    "@repo/typescript-config": "*",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/http-status-codes": "^1.2.0"

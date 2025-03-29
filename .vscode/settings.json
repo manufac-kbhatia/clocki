@@ -12,17 +12,17 @@
       {
         "name": "Compile",
         "singleInstance": true,
-        "command": "pnpm compile" // This is executed in the terminal.
+        "command": "npm run compile" // This is executed in the terminal.
       },
       {
         "name": "Lint",
         "singleInstance": true,
-        "command": "pnpm lint" // This is executed in the terminal.
+        "command": "npm run lint" // This is executed in the terminal.
       },
       {
         "name": "Prettify",
         "singleInstance": true,
-        "command": "pnpm pretty" // This is executed in the terminal.
+        "command": "npm run pretty" // This is executed in the terminal.
       },
       {
         "name": "Migrate",
@@ -42,17 +42,17 @@
       {
         "name": "Dashboard",
         "singleInstance": true,
-        "command": "cd apps/dashboard && pnpm dev" // This is executed in the terminal.
+        "command": "cd apps/dashboard && npm run dev" // This is executed in the terminal.
       },
       {
         "name": "Server",
         "singleInstance": true,
-        "command": "cd apps/http-server && pnpm dev" // This is executed in the terminal.
+        "command": "cd apps/http-server && npm run dev" // This is executed in the terminal.
       },
       {
         "name": "Landing",
         "singleInstance": true,
-        "command": "cd apps/web && pnpm dev" // This is executed in the terminal.
+        "command": "cd apps/web && npm run dev" // This is executed in the terminal.
       }
     ]
   }
