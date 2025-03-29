@@ -3,7 +3,7 @@ import { AIMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { ChatOpenAI } from "@langchain/openai";
 import { NextFunction, Request, Response } from "express";
-import { findEmployee, multiply } from "../agentTools";
+import { findEmployee, getAllClientsDetails, getAllEmployeeDetails, getAllProjectsDetails, getAllTeamsDetails} from "../agentTools";
 import { setContextVariable } from "@langchain/core/context";
 import { Role } from "@repo/schemas";
 import { AgentResponse } from "@repo/schemas/rest";
@@ -17,7 +17,7 @@ const llm = new ChatOpenAI({
   temperature: 0,
 });
 
-const tools = [multiply, findEmployee];
+const tools = [findEmployee, getAllClientsDetails, getAllEmployeeDetails, getAllProjectsDetails, getAllTeamsDetails];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 

@@ -3,20 +3,6 @@ import { tool } from "@langchain/core/tools";
 import { client } from "@repo/db";
 import { z } from "zod";
 
-export const multiply = tool(
-  async ({ a, b }: { a: number; b: number }) => {
-    return (a * b).toString();
-  },
-  {
-    name: "multiply",
-    description: "Multiply two number together",
-    schema: z.object({
-      a: z.number().describe("first number"),
-      b: z.number().describe("second number"),
-    }),
-  },
-);
-
 export const findEmployee = tool(
   async ({ searchQuery }: { searchQuery: string }) => {
     const organisationId = getContextVariable("organisationId") as string;
