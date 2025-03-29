@@ -1,3 +1,4 @@
+import { CardContent, Card } from "@/components/ui/card"
 import {
   IconBeach,
   IconBrain,
@@ -14,8 +15,7 @@ import {
 } from "@tabler/icons-react"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+
 
 export default function Home() {
   return (
@@ -41,12 +41,12 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-3">
-            <Button variant="outline" size="sm" asChild>
+            <button className="bg-primary p-2 rounded-md text-white font-semibold" >
               <Link href="/login">Sign in</Link>
-            </Button>
-            <Button size="sm" asChild>
+            </button>
+            <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold">
               <Link href="/register">Sign up free</Link>
-            </Button>
+            </button>
           </div>
         </div>
       </header>
@@ -70,15 +70,15 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button size="lg" className="gap-2" asChild>
-                <Link href="/register">
+              <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
+                <Link href="/register" className="flex justify-center gap-2 items-center">
                   <IconWand className="h-4 w-4" />
                   Start for free
                 </Link>
-              </Button>
-              <Button variant="outline" size="lg" asChild>
+              </button>
+              <button className="p-2 rounded-md shadow-neutral-500 shadow-sm font-semibold" >
                 <Link href="#demo">Watch demo</Link>
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -198,9 +198,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Button size="lg" className="mt-4">
+              <button className="mt-4 bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
                 Try AI Assistant
-              </Button>
+              </button>
             </div>
             <div className="relative rounded-lg border bg-card p-2 shadow-lg">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg" />
@@ -325,9 +325,9 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Button variant="outline" className="w-full mt-8">
+              <button className="w-full mt-8 bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
                 Get started
-              </Button>
+              </button>
             </CardContent>
           </Card>
 
@@ -362,7 +362,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Button className="w-full mt-8">Get started</Button>
+              <button className="w-full mt-8 bg-primary text-white p-2 rounded-md font-semibold shadow-primary shadow-sm">Get started</button>
             </CardContent>
           </Card>
         </div>
@@ -376,17 +376,16 @@ export default function Home() {
             Join thousands of businesses that have transformed their productivity with Cloki's AI-powered time tracking.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
+            <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm" >
               <Link href="/register">Start for free</Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-transparent text-white border-white hover:bg-white/10"
-              asChild
+            </button>
+            <button
+              
+              className="bg-transparent text-white border-white hover:bg-white/10 p-4 rounded-md "
+              
             >
               <Link href="#demo">Schedule demo</Link>
-            </Button>
+            </button>
           </div>
         </div>
       </section>
