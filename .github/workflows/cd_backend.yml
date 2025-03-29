@@ -21,6 +21,6 @@ jobs:
           context: .
           file: ./docker/Dockerfile.server
           build-args:
-            - DATABASE_URL=${{ secrets.DATABASE_URL }}
+            DATABASE_URL: ${{ secrets.DATABASE_URL }}
           push: true
           tags: kunal3256/cloki-backend:${{ github.sha }}
