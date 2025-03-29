@@ -13,7 +13,7 @@ COPY ./apps/http-server ./apps/http-server
 
 RUN npm install -g pnpm && pnpm install --frozen-lockfile
 RUN pnpm db:generate
-RUN DATABASE_URL=${DATABASE_URL} pnpm build
+RUN pnpm build
 
 
 EXPOSE 8080
