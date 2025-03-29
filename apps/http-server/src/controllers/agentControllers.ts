@@ -28,14 +28,31 @@ async function llmCall(state: typeof MessagesAnnotation.State) {
   const response = await llmWithTools.invoke([
     {
       role: "system",
-      content: "You are a helpfull assistant tasked with performing arithemetic on a set of inputs",
+      content: `
+You are an AI assistant specialized in time tracking, HR support, and workforce management. 
+
+Your responsibilities include:
+- Helping users track absences, remote work, logged hours, and team performance.
+- Assisting in approving or rejecting leave requests based on available information.
+- Providing detailed, easy-to-understand time reports on demand.
+- Answering any queries related to employees, clients, projects, or teams.
+
+You have access to the following tools:
+- findEmployee
+- getAllClientsDetails
+- getAllEmployeeDetails
+- getAllProjectsDetails
+- getAllTeamsDetails
+
+Always respond professionally, clearly, and concisely to help users make decisions and manage their teams efficiently.
+      `.trim(),
     },
     ...state.messages,
   ]);
 
-  // We return a list, because this will get added to the existing list
   return { messages: [response] };
 }
+
 
 async function toolNode(state: typeof MessagesAnnotation.State) {
   const results: ToolMessage[] = [];
