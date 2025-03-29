@@ -7,7 +7,11 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "pretty": "prettier --cache --write .",
-    "check-types": "turbo check-types"
+    "check-types": "turbo check-types",
+    "db:generate": "cd packages/prisma && npx prisma generate && cd ../..",
+    "start:server": "cd apps/http-server && pnpm start",
+    "start:landing": "cd apps/web && pnpm start",
+    "start:dashboard": "cd apps/dashboard && pnpm preview"
   },
   "devDependencies": {
     "codepolish-prettier-config": "^1.0.0",
