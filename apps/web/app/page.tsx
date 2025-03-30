@@ -178,7 +178,7 @@ export default function Home() {
               </div>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Work Smarter with AI Assistance</h2>
               <p className="text-xl text-muted-foreground">
-                Ask questions in natural language and get instant insights about your team's time, projects, and
+                Ask questions in natural language and get instant insights about your team&apos;s time, projects, and
                 productivity.
               </p>
               <ul className="space-y-3">
@@ -218,7 +218,7 @@ export default function Home() {
                   </div>
 
                   <div className="bg-primary/10 p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%]">
-                    <p className="text-sm">Here's the breakdown of hours worked last week:</p>
+                    <p className="text-sm">Here&apos;s the breakdown of hours worked last week:</p>
                     <ul className="text-sm mt-2 space-y-1">
                       <li>1. Sarah Chen: 42.5 hours</li>
                       <li>2. Michael Johnson: 39.2 hours</li>
@@ -373,7 +373,7 @@ export default function Home() {
         <div className="rounded-2xl bg-gradient-to-r from-primary to-primary-foreground/90 p-8 md:p-16 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Experience the Future of Time Tracking</h2>
           <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-            Join thousands of businesses that have transformed their productivity with Cloki's AI-powered time tracking.
+            Join thousands of businesses that have transformed their productivity with Cloki&apos;s AI-powered time tracking.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm" >
