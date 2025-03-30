@@ -42,10 +42,10 @@ export default function Home() {
 
           <div className="flex items-center gap-3">
             <button className="bg-primary p-2 rounded-md text-white font-semibold" >
-              <Link href="/login">Sign in</Link>
+              <Link href="https://app-cloki.b-cdn.net">Sign in</Link>
             </button>
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold">
-              <Link href="/register">Sign up free</Link>
+              <Link href="https://app-cloki.b-cdn.net">Sign up free</Link>
             </button>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
-                <Link href="/register" className="flex justify-center gap-2 items-center">
+                <Link href="https://app-cloki.b-cdn.net" className="flex justify-center gap-2 items-center">
                   <IconWand className="h-4 w-4" />
                   Start for free
                 </Link>
@@ -377,7 +377,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm" >
-              <Link href="/register">Start for free</Link>
+              <Link href="https://app-cloki.b-cdn.net">Start for free</Link>
             </button>
             <button
               
