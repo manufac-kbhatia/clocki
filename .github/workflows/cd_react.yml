@@ -22,3 +22,19 @@ jobs:
           file: ./docker/Dockerfile.dashboard
           push: true
           tags: kunal3256/cloki-dashboard:${{ github.sha }}
+
+      - name: Deploy react to the VM
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 700 ~/ssh_key
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.60.172.68 -t "
+            sudo docker stop cloki-dashboard || true
+            sudo docker rm cloki-dashboard || true
+
+            # Remove old unused images
+            sudo docker image prune -f
+
+            # Run the new container
+            sudo docker run --name cloki-dashboard -d -p 8080:8080 \
+            kunal3256/cloki-backend:${{ github.sha }}
+          "
