@@ -14,11 +14,11 @@ import { StatusCodes } from "http-status-codes";
 import { config } from "dotenv";
 
 config();
-const PORT = process.env.PORT;
+const PORT = 8080;
 
 const app = express();
 
-const whitelist = ["http://localhost:5173", "http://localhost:4173", "http://localhost:5174"];
+const whitelist = ["http://localhost:5173", "app-cloki.b-cdn.net"];
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
