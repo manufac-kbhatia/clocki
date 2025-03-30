@@ -11,8 +11,10 @@ import cookieParser from "cookie-parser";
 import errorMiddleware from "./middlewares/error";
 import cors from "cors";
 import { StatusCodes } from "http-status-codes";
+import { config } from "dotenv";
 
-const PORT = 8080;
+config();
+const PORT = process.env.PORT;
 
 const app = express();
 
