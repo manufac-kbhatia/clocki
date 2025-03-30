@@ -7,4 +7,6 @@ model Project {
     Client         Client       @relation(fields: [clientId], references: [id])
     clientId       String
     Timesheet      Timesheet[]
+
+    @@unique([name, organisationId])
 }

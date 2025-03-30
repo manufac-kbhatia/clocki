@@ -8,4 +8,6 @@ model Team {
     members        Employee[]   @relation("EmployeeTeams")
     organisationId String
     Organisation   Organisation @relation(fields: [organisationId], references: [id], onDelete: Cascade)
+
+    @@unique([name, organisationId])
 }
