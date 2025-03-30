@@ -28,4 +28,4 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
           chmod 700 /home/runner/ssh_key
-          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.60.172.68 -t "sudo docker run --name cloki-server -d -p 8080:8080 -e DATABASE_URL=${{ secrets.DATABASE_URL }} OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} LANGSMITH_ENDPOINT=${{secrets.LANGSMITH_ENDPOINT}} LANGSMITH_API_KEY=${{secrets.LANGSMITH_API_KEY}} LANGSMITH_TRACING=${{secrets.LANGSMITH_TRACING}} kunal3256/cloki-backend:${{ github.sha }}"      
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.60.172.68 -t "sudo docker run --name cloki-server -d -p 8080:8080 -e DATABASE_URL=${{ secrets.DATABASE_URL }} -e OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} -e LANGSMITH_ENDPOINT=${{secrets.LANGSMITH_ENDPOINT}} -e LANGSMITH_API_KEY=${{secrets.LANGSMITH_API_KEY}} -e LANGSMITH_TRACING=${{secrets.LANGSMITH_TRACING}} kunal3256/cloki-backend:${{ github.sha }}"      
