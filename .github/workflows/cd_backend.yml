@@ -26,13 +26,16 @@ jobs:
 
       - name: Deploy to the VM
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
-          chmod 700 /home/runner/ssh_key
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
+          chmod 700 ~/ssh_key
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.60.172.68 -t "
             sudo docker stop cloki-server || true
             sudo docker rm cloki-server || true
-            
-            # Now, run the new container
+
+            # Remove old unused images
+            sudo docker image prune -f
+
+            # Run the new container
             sudo docker run --name cloki-server -d -p 3000:3000 \
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
