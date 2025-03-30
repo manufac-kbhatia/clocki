@@ -28,4 +28,4 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" &> ~/ssh_key
           chmod 700 /home/runner/ssh_key
-          ssh -o StrictHostKeyChecking=no -i ~/ssh_key root@13.60.172.68 -t "sudo docker stop cloki-server && sudo docker run --name cloki-server -d -p 8080:8080 kunal3256/cloki-backend:${{ github.sha }}"      
+          ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.60.172.68 -t "sudo docker stop cloki-server && sudo docker run --name cloki-server -d -p 8080:8080 kunal3256/cloki-backend:${{ github.sha }}"      
