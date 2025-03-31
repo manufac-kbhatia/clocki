@@ -21,4 +21,4 @@ WORKDIR /usr/src/app/apps/dashboard
 
 # Build and start the dashboard app
 RUN npm run build 
-CMD ["npm", "run", "start"]
+CMD ["npx", "serve", "-s", "dist", "-l", "3000"]
