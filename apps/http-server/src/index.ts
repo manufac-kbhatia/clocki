@@ -18,7 +18,7 @@ const PORT = 8080;
 
 const app = express();
 
-const whitelist = ["http://localhost:5173"];
+const whitelist = ["http://localhost:5173", "http://ec2-13-60-172-68.eu-north-1.compute.amazonaws.com:3000"];
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
