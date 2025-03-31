@@ -1,9 +1,6 @@
 name: Deploy the Dashboard
 on:
   push:
-    paths:
-      - "apps/dashboard/**"
-      - "packages/**"
     branches:
       - main
 jobs: 

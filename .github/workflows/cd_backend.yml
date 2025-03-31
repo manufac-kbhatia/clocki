@@ -1,9 +1,6 @@
 name: Deploy the backend
 on:
   push:
-    paths:
-      - "apps/http-server/**"
-      - "packages/**"
     branches:
       - main
 

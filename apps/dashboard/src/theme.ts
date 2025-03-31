@@ -14,7 +14,7 @@ export const MantineTheme = createTheme({
       "#424242", // 4 - Card border, separator
       "#3b3b3b", // 5 - Button background
       "#1f1f1f", // 6 - Card background
-      "#121212", // 7 - Primary background (updated to match screenshot)
+      "#121212", // 7 - Primary background
       "#2e2e2e", // 8
       "#141414", // 9 - Darkest backgrounds
     ],

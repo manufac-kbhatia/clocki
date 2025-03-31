@@ -1,7 +1,5 @@
 FROM node:23.9.0-alpine
 
-ARG DATABASE_URL
-
 WORKDIR /usr/src/app
 
 # Copy the necessary files from the correct locations
@@ -14,7 +12,7 @@ COPY turbo.json /usr/src/app/turbo.json
 # Install dependencies
 RUN npm install
 
-RUN cd packages/prisma && DATABASE_URL=$DATABASE_URL npx prisma generate
+RUN cd packages/prisma && npx prisma generate
 
 # Expose port for the http-server app
 EXPOSE 8080

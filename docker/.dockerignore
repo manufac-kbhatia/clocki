@@ -1,0 +1,9 @@
+# Ignore node_modules everywhere
+node_modules
+**/node_modules
+
+# Ignore all .env files regardless of depth
+.env
+.env.*
+**/.env
+**/.env.*
