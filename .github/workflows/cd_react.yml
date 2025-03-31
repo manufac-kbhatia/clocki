@@ -35,6 +35,6 @@ jobs:
             sudo docker image prune -f
 
             # Run the new container
-            sudo docker run --name cloki-dashboard -d -p 8080:8080 \
+            sudo docker run --name cloki-dashboard -d -p 3000:3000 \
             kunal3256/cloki-backend:${{ github.sha }}
           "
