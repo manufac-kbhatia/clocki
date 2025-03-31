@@ -39,6 +39,7 @@ jobs:
 
             # Run the new container
             sudo docker run --name cloki-server -d -p 8080:8080 \
+            -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
             -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
             -e LANGSMITH_ENDPOINT=${{ secrets.LANGSMITH_ENDPOINT }} \
             -e LANGSMITH_API_KEY=${{ secrets.LANGSMITH_API_KEY }} \
