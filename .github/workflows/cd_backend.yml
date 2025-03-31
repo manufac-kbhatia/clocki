@@ -1,7 +1,12 @@
 name: Deploy the backend
 on:
   push:
-    branches: [ main ]
+    paths:
+      - "apps/http-server/**"
+      - "packages/**"
+    branches:
+      - main
+
 jobs: 
   build:
     runs-on: ubuntu-latest

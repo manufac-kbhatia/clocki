@@ -1,7 +1,11 @@
 name: Deploy the Dashboard
 on:
   push:
-    branches: [ main ]
+    paths:
+      - "apps/dashboard/**"
+      - "packages/**"
+    branches:
+      - main
 jobs: 
   build:
     runs-on: ubuntu-latest
