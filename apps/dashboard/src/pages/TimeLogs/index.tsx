@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   Group,
+  ScrollArea,
   Select,
   SimpleGrid,
   Stack,
@@ -181,6 +182,7 @@ const TimeLogs = () => {
             </SimpleGrid>
           )}
         </Transition>
+        <ScrollArea>
         <Table highlightOnHover withTableBorder>
           <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
             {getHeaderGroups().map(({ id, headers }) => {
@@ -217,6 +219,7 @@ const TimeLogs = () => {
             })}
           </Table.Tbody>
         </Table>
+        </ScrollArea> 
       </Stack>
     </Card>
   );

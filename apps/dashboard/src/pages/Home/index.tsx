@@ -95,40 +95,45 @@ export function Home() {
         onToggleNavBaar={toggle}
       />
       <AppShell.Navbar p="md">
-        <Stack gap={5}>
-          <Title>Panel</Title>
-          {PanelNavLinks.map(({ path, label, icon }) => {
-            return (
-              <MantineNavLink
-                styles={{ root: { borderRadius: "5px" } }}
-                fw={700}
-                leftSection={icon}
-                key={path}
-                component={NavLink}
-                active={location.pathname === path}
-                to={path}
-                label={label}
-                variant="filled"
-              />
-            );
-          })}
-          <Divider />
-          <Title>Manage</Title>
-          {ManageNavLinks.map(({ path, label, icon }) => {
-            return (
-              <MantineNavLink
-                styles={{ root: { borderRadius: "5px" } }}
-                fw={700}
-                leftSection={icon}
-                key={path}
-                component={NavLink}
-                active={location.pathname === path}
-                to={path}
-                label={label}
-                variant="filled"
-              />
-            );
-          })}
+        <Stack justify="space-between" h="100%">
+          <Stack gap={5}>
+            <Title>Panel</Title>
+            {PanelNavLinks.map(({ path, label, icon }) => {
+              return (
+                <MantineNavLink
+                  styles={{ root: { borderRadius: "5px" } }}
+                  fw={700}
+                  leftSection={icon}
+                  key={path}
+                  component={NavLink}
+                  active={location.pathname === path}
+                  to={path}
+                  label={label}
+                  variant="filled"
+                />
+              );
+            })}
+            <Divider />
+            <Title>Manage</Title>
+            {ManageNavLinks.map(({ path, label, icon }) => {
+              return (
+                <MantineNavLink
+                  styles={{ root: { borderRadius: "5px" } }}
+                  fw={700}
+                  leftSection={icon}
+                  key={path}
+                  component={NavLink}
+                  active={location.pathname === path}
+                  to={path}
+                  label={label}
+                  variant="filled"
+                />
+              );
+            })}
+          </Stack>
+          <Title hiddenFrom="sm" order={3} fw={800}>
+            Cloki
+          </Title>
         </Stack>
       </AppShell.Navbar>
       <AppShell.Main>

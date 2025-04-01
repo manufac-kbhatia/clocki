@@ -3,6 +3,7 @@ import {
   Avatar,
   Card,
   Group,
+  ScrollArea,
   Stack,
   Table,
   Text,
@@ -77,7 +78,7 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
               {row.original.members.map((member) => {
                 const name = `${member.firstName} ${member.lastName ?? ""}`;
                 return (
-                  <Tooltip label={name}>
+                  <Tooltip label={name} key={member.id}>
                     <Avatar variant="filled" color="initials" name={name} />
                   </Tooltip>
                 );
@@ -124,6 +125,7 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
             ) : null
           }
         />
+        <ScrollArea>
         <Table highlightOnHover withTableBorder>
           <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
             {getHeaderGroups().map(({ id, headers }) => {
@@ -160,6 +162,7 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
             })}
           </Table.Tbody>
         </Table>
+        </ScrollArea>
       </Stack>
     </Card>
   );

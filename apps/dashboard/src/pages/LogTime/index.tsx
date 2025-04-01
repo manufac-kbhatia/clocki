@@ -153,6 +153,7 @@ const LogTime = () => {
                 const formatedDate = date.toISOString().split("T")[0] as string;
                 return (
                   <DateCard
+                    key={formatedDate}
                     date={date}
                     onClick={handleDateSelect}
                     entryData={timeSheetData?.timeEntry[formatedDate]}
@@ -178,7 +179,7 @@ const LogTime = () => {
             {selectedDateEntry && selectedDateEntry.length > 0 ? (
               selectedDateEntry.map((entry) => {
                 return (
-                  <Grid>
+                  <Grid key={entry.id}>
                     <Grid.Col span={3}>{entry.project.name}</Grid.Col>
                     <Grid.Col span={5}>{entry.description}</Grid.Col>
                     <Grid.Col span={2}>{convertToTime(entry.loggedHours)}</Grid.Col>

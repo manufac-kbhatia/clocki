@@ -4,6 +4,7 @@ import {
   Card,
   Group,
   MultiSelect,
+  ScrollArea,
   SimpleGrid,
   Stack,
   Table,
@@ -219,6 +220,7 @@ const EmployeesDetails = () => {
             </SimpleGrid>
           )}
         </Transition>
+        <ScrollArea>
         <Table highlightOnHover withTableBorder>
           <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
             {getHeaderGroups().map(({ id, headers }) => {
@@ -255,6 +257,7 @@ const EmployeesDetails = () => {
             })}
           </Table.Tbody>
         </Table>
+        </ScrollArea>
       </Stack>
     </Card>
   );

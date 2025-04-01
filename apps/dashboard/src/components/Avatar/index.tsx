@@ -25,13 +25,7 @@ const CustomAvatar = ({ name, size = "md", radius = "xl" }: AvatarProps) => {
   return (
     <Menu>
       <Menu.Target>
-        <Avatar
-          variant="light"
-          radius={radius}
-          name={name}
-          color="initials"
-          size={size}
-        />
+        <Avatar variant="light" radius={radius} name={name} color="initials" size={size} />
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>

@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Card,
   Group,
+  ScrollArea,
   Stack,
   Table,
   Text,
@@ -124,6 +125,7 @@ const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
             ) : null
           }
         />
+        <ScrollArea>
         <Table highlightOnHover withTableBorder>
           <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
             {getHeaderGroups().map(({ id, headers }) => {
@@ -160,6 +162,7 @@ const ClientDetails = ({ onEdit }: ClientDetailsProps) => {
             })}
           </Table.Tbody>
         </Table>
+        </ScrollArea>
       </Stack>
     </Card>
   );

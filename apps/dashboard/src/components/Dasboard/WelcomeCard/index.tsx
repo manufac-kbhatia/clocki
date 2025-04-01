@@ -19,9 +19,9 @@ const WelcomeCard = ({ userName }: WelcomeCardProps) => {
 
   return (
     <Card withBorder shadow="none">
-      <SimpleGrid cols={2}>
+      <SimpleGrid cols={{ base: 1, lg: 2 }}>
         <Stack>
-          <Text c={theme.primaryColor} fw={400}>
+          <Text c={theme.primaryColor} fw={400} visibleFrom="sm">
             {new Date().toLocaleString("default", { dateStyle: "full" })}
           </Text>
           <Title order={2}>Hello {userName}!</Title>
@@ -30,8 +30,8 @@ const WelcomeCard = ({ userName }: WelcomeCardProps) => {
             place!
           </Text>
         </Stack>
-        <Group wrap="nowrap">
-          <Card withBorder>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
+          <Card withBorder h="100%">
             <Stack>
               <ThemeIcon size="lg" radius="xl">
                 <IconQuestionMark />
@@ -40,12 +40,12 @@ const WelcomeCard = ({ userName }: WelcomeCardProps) => {
               <Text>Need help? Find tips to use Cloki better !</Text>
             </Stack>
           </Card>
-          <Card withBorder>
-            <Stack align="center">
+          <Card withBorder h="100%">
+            <Stack>
               <Pill w="fit-content" size="xl" bg={theme.primaryColor} c="white" fw={700}>
                 Are you new?
               </Pill>
-              <Group wrap="nowrap">
+              <Group wrap="nowrap" justify="space-between">
                 <Stack>
                   <Title>Setting up your organisation?</Title>
                   <Text>Watch video instructions</Text>
@@ -56,7 +56,7 @@ const WelcomeCard = ({ userName }: WelcomeCardProps) => {
               </Group>
             </Stack>
           </Card>
-        </Group>
+        </SimpleGrid>
       </SimpleGrid>
     </Card>
   );

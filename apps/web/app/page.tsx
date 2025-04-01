@@ -1,4 +1,4 @@
-import { CardContent, Card } from "@/components/ui/card"
+import { CardContent, Card } from "@/components/ui/card";
 import {
   IconBeach,
   IconBrain,
@@ -12,10 +12,9 @@ import {
   IconServer,
   IconUsers,
   IconWand,
-} from "@tabler/icons-react"
-import Image from "next/image"
-import Link from "next/link"
-
+} from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -29,19 +28,28 @@ export default function Home() {
           </div>
 
           <nav className="hidden md:flex items-center gap-8">
-            <Link href="#features" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link
+              href="#features"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Features
             </Link>
-            <Link href="#how-it-works" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link
+              href="#how-it-works"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               How It Works
             </Link>
-            <Link href="#pricing" className="text-sm font-medium hover:text-primary transition-colors">
+            <Link
+              href="#pricing"
+              className="text-sm font-medium hover:text-primary transition-colors"
+            >
               Pricing
             </Link>
           </nav>
 
           <div className="flex items-center gap-3">
-            <button className="bg-primary p-2 rounded-md text-white font-semibold" >
+            <button className="bg-primary p-2 rounded-md text-white font-semibold">
               <Link href="https://app-cloki.b-cdn.net">Sign in</Link>
             </button>
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold">
@@ -65,18 +73,21 @@ export default function Home() {
             </h1>
 
             <p className="text-xl text-muted-foreground max-w-2xl">
-              Cloki uses artificial intelligence to transform how your team tracks time, manages projects, and optimizes
-              productivity
+              Cloki uses artificial intelligence to transform how your team tracks time, manages
+              projects, and optimizes productivity
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
-                <Link href="https://app-cloki.b-cdn.net" className="flex justify-center gap-2 items-center">
+                <Link
+                  href="https://app-cloki.b-cdn.net"
+                  className="flex justify-center gap-2 items-center"
+                >
                   <IconWand className="h-4 w-4" />
                   Start for free
                 </Link>
               </button>
-              <button className="p-2 rounded-md shadow-neutral-500 shadow-sm font-semibold" >
+              <button className="p-2 rounded-md shadow-neutral-500 shadow-sm font-semibold">
                 <Link href="#demo">Watch demo</Link>
               </button>
             </div>
@@ -109,9 +120,12 @@ export default function Home() {
             <IconBrain className="h-4 w-4 mr-2" />
             <span>Smart Features</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">AI-Enhanced Time Tracking</h2>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            AI-Enhanced Time Tracking
+          </h2>
           <p className="text-xl text-muted-foreground max-w-3xl">
-            Leverage artificial intelligence to transform how you track time, manage teams, and boost productivity
+            Leverage artificial intelligence to transform how you track time, manage teams, and
+            boost productivity
           </p>
         </div>
 
@@ -156,7 +170,9 @@ export default function Home() {
           ].map((feature, index) => (
             <Card key={index} className={`ai-card ${feature.primary ? "ai-glow" : ""}`}>
               <CardContent className="p-6 flex flex-col gap-4">
-                <div className={`p-3 rounded-full w-fit ${feature.primary ? "bg-primary/10" : "bg-muted"}`}>
+                <div
+                  className={`p-3 rounded-full w-fit ${feature.primary ? "bg-primary/10" : "bg-muted"}`}
+                >
                   {feature.icon}
                 </div>
                 <h3 className="text-xl font-semibold">{feature.title}</h3>
@@ -176,10 +192,12 @@ export default function Home() {
                 <IconCode className="h-4 w-4 mr-2" />
                 <span>AI Technology</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Work Smarter with AI Assistance</h2>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+                Work Smarter with AI Assistance
+              </h2>
               <p className="text-xl text-muted-foreground">
-                Ask questions in natural language and get instant insights about your team&apos;s time, projects, and
-                productivity.
+                Ask questions in natural language and get instant insights about your team&apos;s
+                time, projects, and productivity.
               </p>
               <ul className="space-y-3">
                 {[
@@ -190,8 +208,18 @@ export default function Home() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <div className="rounded-full bg-primary/20 p-1 mt-1">
-                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="h-3 w-3 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                     </div>
                     <span>{item}</span>
@@ -214,7 +242,9 @@ export default function Home() {
 
                 <div className="space-y-4">
                   <div className="bg-muted p-3 rounded-lg rounded-tl-none max-w-[80%]">
-                    <p className="text-sm">Show me which team members worked the most hours last week</p>
+                    <p className="text-sm">
+                      Show me which team members worked the most hours last week
+                    </p>
                   </div>
 
                   <div className="bg-primary/10 p-3 rounded-lg rounded-tr-none ml-auto max-w-[80%]">
@@ -264,7 +294,8 @@ export default function Home() {
             {
               number: "3",
               title: "Start Tracking",
-              description: "Begin logging hours and let AI provide insights to optimize your team's productivity.",
+              description:
+                "Begin logging hours and let AI provide insights to optimize your team's productivity.",
               icon: <IconChartBar className="h-6 w-6" />,
             },
           ].map((step, index) => (
@@ -292,8 +323,12 @@ export default function Home() {
             <IconServer className="h-4 w-4 mr-2" />
             <span>Pricing</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Simple, Transparent Pricing</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl">Start for free, upgrade as your team grows</p>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            Simple, Transparent Pricing
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl">
+            Start for free, upgrade as your team grows
+          </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
@@ -317,8 +352,18 @@ export default function Home() {
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <div className="rounded-full bg-primary/20 p-1 mt-1">
-                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="h-3 w-3 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                     </div>
                     <span className="text-sm">{feature}</span>
@@ -354,15 +399,27 @@ export default function Home() {
                 ].map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
                     <div className="rounded-full bg-primary/20 p-1 mt-1">
-                      <svg className="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      <svg
+                        className="h-3 w-3 text-primary"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
                       </svg>
                     </div>
                     <span className="text-sm">{feature}</span>
                   </li>
                 ))}
               </ul>
-              <button className="w-full mt-8 bg-primary text-white p-2 rounded-md font-semibold shadow-primary shadow-sm">Get started</button>
+              <button className="w-full mt-8 bg-primary text-white p-2 rounded-md font-semibold shadow-primary shadow-sm">
+                Get started
+              </button>
             </CardContent>
           </Card>
         </div>
@@ -371,19 +428,18 @@ export default function Home() {
       {/* CTA */}
       <section className="container py-16 md:py-20">
         <div className="rounded-2xl bg-gradient-to-r from-primary to-primary-foreground/90 p-8 md:p-16 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Experience the Future of Time Tracking</h2>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
+            Experience the Future of Time Tracking
+          </h2>
           <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-            Join thousands of businesses that have transformed their productivity with Cloki&apos;s AI-powered time tracking.
+            Join thousands of businesses that have transformed their productivity with Cloki&apos;s
+            AI-powered time tracking.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm" >
+            <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
               <Link href="https://app-cloki.b-cdn.net">Start for free</Link>
             </button>
-            <button
-              
-              className="bg-transparent text-white border-white hover:bg-white/10 p-4 rounded-md "
-              
-            >
+            <button className="bg-transparent text-white border-white hover:bg-white/10 p-4 rounded-md ">
               <Link href="#demo">Schedule demo</Link>
             </button>
           </div>
@@ -397,8 +453,12 @@ export default function Home() {
             <IconUsers className="h-4 w-4 mr-2" />
             <span>Testimonials</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Trusted by Teams Worldwide</h2>
-          <p className="text-xl text-muted-foreground max-w-3xl">See what our customers have to say</p>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
+            Trusted by Teams Worldwide
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-3xl">
+            See what our customers have to say
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -425,7 +485,13 @@ export default function Home() {
             <Card key={index} className="ai-card">
               <CardContent className="p-6 flex flex-col gap-6">
                 <div className="text-primary">
-                  <svg width="45" height="36" viewBox="0 0 45 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="45"
+                    height="36"
+                    viewBox="0 0 45 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M13.95 36C9.975 36 6.75 34.65 4.275 31.95C1.425 28.8 0 24.9 0 20.25C0 14.85 1.8 10.2 5.4 6.3C9 2.4 13.725 0.15 19.575 -0.000000298023L21.15 4.05C16.575 4.65 13.05 6.225 10.575 8.775C8.1 11.325 6.75 14.4 6.525 18C7.575 17.1 9 16.65 10.8 16.65C13.05 16.65 14.925 17.475 16.425 19.125C17.925 20.775 18.675 22.8 18.675 25.2C18.675 27.75 17.85 29.85 16.2 31.5C14.55 34.5 12.45 36 13.95 36ZM38.025 36C34.05 36 30.825 34.65 28.35 31.95C25.5 28.8 24.075 24.9 24.075 20.25C24.075 14.85 25.875 10.2 29.475 6.3C33.075 2.4 37.8 0.15 43.65 -0.000000298023L45.225 4.05C40.65 4.65 37.125 6.225 34.65 8.775C32.175 11.325 30.825 14.4 30.6 18C31.65 17.1 33.075 16.65 34.875 16.65C37.125 16.65 39 17.475 40.5 19.125C42 20.775 42.75 22.8 42.75 25.2C42.75 27.75 41.925 29.85 40.275 31.5C38.625 34.5 36.525 36 38.025 36Z"
                       fill="currentColor"
@@ -452,10 +518,16 @@ export default function Home() {
                 <IconClock className="h-6 w-6 text-primary" />
                 <span className="text-xl font-bold">Cloki</span>
               </div>
-              <p className="text-sm text-muted-foreground mb-4">AI-powered time tracking for modern teams</p>
+              <p className="text-sm text-muted-foreground mb-4">
+                AI-powered time tracking for modern teams
+              </p>
               <div className="flex space-x-4">
                 {["twitter", "facebook", "instagram", "linkedin"].map((social) => (
-                  <Link key={social} href={`#${social}`} className="text-muted-foreground hover:text-primary">
+                  <Link
+                    key={social}
+                    href={`#${social}`}
+                    className="text-muted-foreground hover:text-primary"
+                  >
                     <span className="sr-only">{social}</span>
                     <div className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
                       <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
@@ -486,7 +558,10 @@ export default function Home() {
                 <ul className="space-y-2">
                   {section.links.map((link, linkIndex) => (
                     <li key={linkIndex}>
-                      <Link href="#" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      <Link
+                        href="#"
+                        className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                      >
                         {link}
                       </Link>
                     </li>
@@ -502,6 +577,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
-

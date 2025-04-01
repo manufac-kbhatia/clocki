@@ -15,7 +15,7 @@ const MyProjects = () => {
         {auth?.employee?.projects && auth.employee.projects.length > 0 ? (
           auth.employee.projects.map((project) => {
             return (
-              <Grid>
+              <Grid key={project.name}>
                 <Grid.Col span={6}>{project.name}</Grid.Col>
                 <Grid.Col span={6}>
                   {
@@ -23,7 +23,7 @@ const MyProjects = () => {
                       {project.members.map((member) => {
                         const name = `${member.firstName} ${member.lastName ?? ""}`;
                         return (
-                          <Tooltip label={name}>
+                          <Tooltip key={name} label={name}>
                             <Avatar variant="filled" color="initials" name={name} />
                           </Tooltip>
                         );

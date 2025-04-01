@@ -6,8 +6,7 @@ import { z } from "zod";
 
 export const convertToMinutes = (time: string): number => {
   const [hours, minutes] = time.split(":").map(Number);
-  if (hours && minutes)
-  return hours * 60 + minutes;
+  if (hours && minutes) return hours * 60 + minutes;
 
   return 0;
 };
@@ -246,16 +245,16 @@ Client:
 );
 
 export const createProject = tool(
-  async ({ name, membersEmail, clientEmail }: { name: string, membersEmail: string[], clientEmail: string }) => {
+  async ({ name, membersEmail, clientEmail }: { name: string; membersEmail: string[]; clientEmail: string }) => {
     const organisationId = getContextVariable("organisationId") as string;
-    
+
     if (!membersEmail.length) {
       return "At least one member email must be provided.";
     }
 
     // Fetch all employees in a single query instead of multiple `findUnique` calls
     const assignees = await client.employee.findMany({
-      where: { email: { in: membersEmail } }
+      where: { email: { in: membersEmail } },
     });
 
     if (assignees.length === 0) {
@@ -268,8 +267,8 @@ export const createProject = tool(
         email_organisationId: {
           email: clientEmail,
           organisationId,
-        }
-      }
+        },
+      },
     });
 
     if (!associatedClient) {
@@ -285,43 +284,45 @@ export const createProject = tool(
           connect: assignees.map(({ id }) => ({ id })),
         },
         organisationId,
-      }
+      },
     });
 
     return JSON.stringify(project);
   },
   {
     name: "createProject",
-    description:
-      "Creates a new project in the system with the specified name, client, and assigned team members.",
+    description: "Creates a new project in the system with the specified name, client, and assigned team members.",
     schema: z.object({
       name: z.string().describe("The name of the project to be created."),
       membersEmail: z
         .array(z.string().email())
         .min(1, "At least one email is required.")
         .describe("A list of employee emails to be assigned to the project."),
-      clientEmail: z
-        .string()
-        .email()
-        .describe("The email of the client associated with the project."),
+      clientEmail: z.string().email().describe("The email of the client associated with the project."),
     }),
   },
 );
 
 export const logTimeEntry = tool(
-  async ({ projectName, description, loggedHours, createdAt, status }: { 
-    projectName: string; 
-    description: string; 
-    loggedHours: string; 
-    createdAt: string; 
-    status: Status; 
+  async ({
+    projectName,
+    description,
+    loggedHours,
+    createdAt,
+    status,
+  }: {
+    projectName: string;
+    description: string;
+    loggedHours: string;
+    createdAt: string;
+    status: Status;
   }) => {
     const organisationId = getContextVariable("organisationId") as string;
     const userId = getContextVariable("userId") as string;
-    
+
     // Fetch the employee
     const employee = await client.employee.findUnique({
-      where: { id: userId } 
+      where: { id: userId },
     });
 
     if (!employee) {
@@ -334,8 +335,8 @@ export const logTimeEntry = tool(
         name_organisationId: {
           name: projectName,
           organisationId,
-        }
-      } 
+        },
+      },
     });
 
     if (!selectedProject) {
@@ -350,8 +351,8 @@ export const logTimeEntry = tool(
         loggedHours: convertToMinutes(loggedHours),
         status,
         employeeId: employee.id,
-        projectId: selectedProject.id
-      }
+        projectId: selectedProject.id,
+      },
     });
 
     return JSON.stringify(createdTimeEntry);
@@ -386,7 +387,7 @@ export const getAllTimeEntriesOfGivenProject = tool(
         name_organisationId: {
           name,
           organisationId,
-        }
+        },
       },
       include: {
         Timesheet: {
@@ -396,11 +397,11 @@ export const getAllTimeEntriesOfGivenProject = tool(
                 email: true,
                 firstName: true,
                 lastName: true,
-              }
-            }
-          }
-        }
-      }
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!project) {
@@ -419,7 +420,7 @@ ${project.Timesheet.map(
     `${index + 1}. ${entry.employee.firstName} ${entry.employee.lastName ?? ""} (${entry.employee.email}) logged time on ${entry.createdAt}.
    - Note: ${entry.description}
    - Logged Hours: ${entry.loggedHours}
-   - Status: ${entry.status}`
+   - Status: ${entry.status}`,
 ).join("\n")}`;
   },
   {

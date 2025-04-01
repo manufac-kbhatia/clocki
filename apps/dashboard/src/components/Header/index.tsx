@@ -25,16 +25,18 @@ export function Header({
   return (
     <AppShell.Header bg={colorScheme === "dark" ? "#1f1f1f" : "#F8F8F8"}>
       <Group h="100%" px="sm">
-        <Group w={{ base: "fit-content", xs: 200 }}>
+        <Group w={{ base: "fit-content", sm: 200 }}>
           <Burger opened={opened} onClick={onToggleNavBaar} hiddenFrom="sm" size="sm" />
-          <Title order={3} ta="center" fw={800}>
+          <Title visibleFrom="sm" order={3} ta="center" fw={800}>
             Cloki
           </Title>
         </Group>
         <Group flex={1} justify="space-between">
           <Title order={2}>{auth?.employee?.createdOrganisation?.name}</Title>
           <Group gap="xl">
-            <Text>{new Date().toLocaleString("default", { dateStyle: "full" })}</Text>
+            <Text visibleFrom="sm">
+              {new Date().toLocaleString("default", { dateStyle: "full" })}
+            </Text>
             <Group>
               <ActionIcon size="lg" onClick={onToggleColorScheme} variant="default">
                 {colorScheme === "dark" ? <IconSun /> : <IconMoonStars />}

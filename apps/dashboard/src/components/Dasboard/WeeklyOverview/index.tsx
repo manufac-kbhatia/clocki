@@ -4,6 +4,7 @@ import {
   Group,
   Paper,
   Pill,
+  ScrollArea,
   Stack,
   Text,
   Title,
@@ -65,19 +66,22 @@ const WeeklyOverview = ({
             {convertToTime(totalLoggedHours)}
           </Pill>
         </Group>
-        <Paper w="fit-content" p="xs">
-          <Group wrap="nowrap">
-            {dates.map((date) => {
-              const formatedDate = date.toISOString().split("T")[0] as string;
-              return (
-                <WeeklyOverviewDateCard
-                  date={date}
-                  entryData={timeSheetData?.timeEntry[formatedDate]}
-                />
-              );
-            })}
-          </Group>
-        </Paper>
+        <ScrollArea>
+          <Paper p="sm" w="fit-content" mx="auto">
+            <Group wrap="nowrap" gap={14}>
+              {dates.map((date) => {
+                const formatedDate = date.toISOString().split("T")[0] as string;
+                return (
+                  <WeeklyOverviewDateCard
+                    key={formatedDate}
+                    date={date}
+                    entryData={timeSheetData?.timeEntry[formatedDate]}
+                  />
+                );
+              })}
+            </Group>
+          </Paper>
+        </ScrollArea>
       </Stack>
     </Card>
   );

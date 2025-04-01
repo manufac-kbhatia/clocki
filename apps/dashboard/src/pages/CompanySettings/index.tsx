@@ -57,7 +57,7 @@ const CompanySettings = () => {
       <Stack gap="xs">
         <Title>Company Settings</Title>
         <Grid>
-          <Grid.Col span={6}>
+          <Grid.Col span={{base:12, lg: 6}}>
             <form onSubmit={onSubmit(handleSubmit)}>
               <Stack>
                 <Card withBorder shadow="none">
@@ -138,7 +138,7 @@ const CompanySettings = () => {
               </Stack>
             </form>
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={{base:12, lg: 6}}>
             <Card withBorder shadow="none">
               <Stack gap="xs">
                 <Text size="xl" fw={700}>

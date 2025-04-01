@@ -3,7 +3,16 @@ import { AIMessage, ToolMessage } from "@langchain/core/messages";
 import { config } from "dotenv";
 import { ChatOpenAI } from "@langchain/openai";
 import { NextFunction, Request, Response } from "express";
-import { findEmployee, getAllClientsDetails, getAllEmployeeDetails, getAllProjectsDetails, getAllTeamsDetails,createProject,getAllTimeEntriesOfGivenProject,logTimeEntry} from "../agentTools";
+import {
+  findEmployee,
+  getAllClientsDetails,
+  getAllEmployeeDetails,
+  getAllProjectsDetails,
+  getAllTeamsDetails,
+  createProject,
+  getAllTimeEntriesOfGivenProject,
+  logTimeEntry,
+} from "../agentTools";
 import { setContextVariable } from "@langchain/core/context";
 import { Role } from "@repo/schemas";
 import { AgentResponse } from "@repo/schemas/rest";
@@ -17,7 +26,16 @@ const llm = new ChatOpenAI({
   temperature: 0,
 });
 
-const tools = [findEmployee, getAllClientsDetails, getAllEmployeeDetails, getAllProjectsDetails, getAllTeamsDetails, createProject, getAllTimeEntriesOfGivenProject,logTimeEntry ];
+const tools = [
+  findEmployee,
+  getAllClientsDetails,
+  getAllEmployeeDetails,
+  getAllProjectsDetails,
+  getAllTeamsDetails,
+  createProject,
+  getAllTimeEntriesOfGivenProject,
+  logTimeEntry,
+];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
 
@@ -52,7 +70,6 @@ Always respond professionally, clearly, and concisely to help users make decisio
 
   return { messages: [response] };
 }
-
 
 async function toolNode(state: typeof MessagesAnnotation.State) {
   const results: ToolMessage[] = [];

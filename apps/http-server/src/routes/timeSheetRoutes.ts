@@ -15,7 +15,6 @@ import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
 import { client, PrismaUtils } from "@repo/db";
 
-
 const router: Router = express.Router();
 
 export const addTimeEntry = async (
@@ -110,14 +109,11 @@ export const getTimeEntries = async (req: Request, res: Response<GetTimeEntryRes
   }
 };
 
-
 router
   .route("/log-time")
   .get(isAuthenticated, catchAsync(getMyTimeEntries))
   .post(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(addTimeEntry));
 
-router
-  .route("/time-logs")
-  .get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(getTimeEntries));
+router.route("/time-logs").get(isAuthenticated, isAuthorized([Role.Admin, Role.Manager]), catchAsync(getTimeEntries));
 
 export default router;

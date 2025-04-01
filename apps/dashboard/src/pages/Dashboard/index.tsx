@@ -1,7 +1,7 @@
 import { useClockiContext } from "../../context";
 import WelcomeCard from "../../components/Dasboard/WelcomeCard";
 import WeeklyOverview from "../../components/Dasboard/WeeklyOverview";
-import { Card, Grid, Group, Stack, Text, Title } from "@mantine/core";
+import { Card, Grid, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { useGetMyTimeEntries } from "../../hooks/api/timeSheet";
 import { formatDate, getCurrentWeekRange } from "../LogTime/utils";
@@ -47,7 +47,7 @@ export function Dashboard() {
       </Grid.Col>
       <Grid.Col span={12}>
         <Grid>
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, lg: 6 }}>
             <Stack>
               <WeeklyOverview
                 timeSheetData={timeSheetData}
@@ -55,20 +55,20 @@ export function Dashboard() {
                 handlePrevWeek={handlePrevWeek}
                 currentWeek={currentWeek}
               />
-              <Group grow>
+              <SimpleGrid cols={{ base: 1, xs: 2 }}>
                 <LoggedTimeCard totalLoggedHours={totalLoggedHours} />
                 <ActiveProjectsCard totalActiveProjects={auth?.employee?.projects.length ?? 0} />
-              </Group>
+              </SimpleGrid>
             </Stack>
           </Grid.Col>
-          <Grid.Col span={6} h={350}>
+          <Grid.Col span={{ base: 12, lg: 6 }} mih={350}>
             <ProjectsAndTeams />
           </Grid.Col>
         </Grid>
       </Grid.Col>
       <Grid.Col span={12}>
         <Grid>
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, lg: 6 }}>
             <Card mih={350} withBorder shadow="none">
               <Title>Requests pending decision</Title>
               <Text ta="center" m="xl">
@@ -76,7 +76,7 @@ export function Dashboard() {
               </Text>
             </Card>
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, lg: 6 }}>
             <Card mih={350} withBorder shadow="none">
               <Title>Vacation leave</Title>
               <Text ta="center" m="xl">
@@ -84,7 +84,7 @@ export function Dashboard() {
               </Text>
             </Card>
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, lg: 6 }}>
             <Card mih={350} withBorder shadow="none">
               <Title>Work from home</Title>
               <Text ta="center" m="xl">
@@ -92,7 +92,7 @@ export function Dashboard() {
               </Text>
             </Card>
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={{ base: 12, lg: 6 }}>
             <Card mih={350} withBorder shadow="none">
               <Title>Absences</Title>
               <Text ta="center" m="xl">

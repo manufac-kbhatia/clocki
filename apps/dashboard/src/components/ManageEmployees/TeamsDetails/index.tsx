@@ -8,6 +8,7 @@ import {
   Group,
   Modal,
   ScrollArea,
+  SimpleGrid,
   Stack,
   Text,
 } from "@mantine/core";
@@ -30,16 +31,17 @@ const TeamsDetails = () => {
   };
 
   return (
-    <>
-      <Grid m="xs">
+    <ScrollArea h={650}>
+      <SimpleGrid cols={{base: 1, xs: 2, lg: 3}} m="xs">
         {data?.teams.map((team) => {
           const teamLeadName = `${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`;
           return (
-            <Grid.Col span={4}>
-              <Card withBorder shadow="none" mih={500} radius="lg">
+              <Card withBorder shadow="none" mih={500} radius="lg" key={team.id}>
                 <Stack>
                   <Group justify="space-between">
-                    <Text size="lg" fw={700}>{team.name}</Text>
+                    <Text size="lg" fw={700}>
+                      {team.name}
+                    </Text>
                     <Group>
                       <ActionIcon size="md" variant="default" onClick={() => handleDelete(team.id)}>
                         <IconTrash size={16} />
@@ -77,7 +79,7 @@ const TeamsDetails = () => {
                       {team.members.map((member) => {
                         const name = `${member.firstName} ${member.lastName ?? ""}`;
                         return (
-                          <Card m="xs" withBorder p={5} shadow="none">
+                          <Card m="xs" withBorder p={5} shadow="none" key={member.id}>
                             <Group justify="space-between">
                               <Group>
                                 <Avatar color="initials" name={name} />
@@ -97,10 +99,9 @@ const TeamsDetails = () => {
                   </>
                 </Stack>
               </Card>
-            </Grid.Col>
           );
         })}
-      </Grid>
+      </SimpleGrid>
       <Modal
         opened={opened}
         onClose={close}
@@ -129,7 +130,7 @@ const TeamsDetails = () => {
           </Group>
         </Stack>
       </Modal>
-    </>
+    </ScrollArea>
   );
 };
 
