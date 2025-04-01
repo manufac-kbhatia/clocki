@@ -4,7 +4,6 @@ import {
   Button,
   Card,
   Divider,
-  Grid,
   Group,
   Modal,
   ScrollArea,
