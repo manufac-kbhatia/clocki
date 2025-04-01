@@ -11,6 +11,12 @@ export const convertToMinutes = (time: string): number => {
   return 0;
 };
 
+export const convertToTime = (minutes: number): string => {
+  const hours = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return `${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+};
+
 export const findEmployee = tool(
   async ({ searchQuery }: { searchQuery: string }) => {
     const organisationId = getContextVariable("organisationId") as string;
@@ -419,7 +425,7 @@ ${project.Timesheet.map(
   (entry, index) =>
     `${index + 1}. ${entry.employee.firstName} ${entry.employee.lastName ?? ""} (${entry.employee.email}) logged time on ${entry.createdAt}.
    - Note: ${entry.description}
-   - Logged Hours: ${entry.loggedHours}
+   - Logged Hours: ${convertToTime(entry.loggedHours)}
    - Status: ${entry.status}`,
 ).join("\n")}`;
   },
