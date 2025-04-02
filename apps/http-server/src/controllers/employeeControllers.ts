@@ -136,7 +136,7 @@ export const getEmployees = async (req: Request, res: Response<GetEmployeesRespo
   const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
   const employees = await client.employee.findMany({
     where: {
-      organisationId,
+      OR: [{ organisationId }, { createdOrganisation: { id: organisationId ?? "" } }],
     },
     include: {
       employeeInfo: true,

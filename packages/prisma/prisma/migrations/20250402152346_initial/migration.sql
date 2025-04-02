@@ -8,7 +8,7 @@ CREATE TYPE "ContractType" AS ENUM ('Permanent', 'Intern', 'Contract', 'Other');
 CREATE TYPE "Role" AS ENUM ('Admin', 'Hr', 'Manager', 'Other');
 
 -- CreateEnum
-CREATE TYPE "Status" AS ENUM ('Complete', 'InProgress');
+CREATE TYPE "Status" AS ENUM ('Completed', 'InProgress');
 
 -- CreateTable
 CREATE TABLE "Client" (
@@ -95,7 +95,7 @@ CREATE TABLE "Timesheet" (
     "status" "Status" NOT NULL,
     "employeeId" TEXT NOT NULL,
     "projectId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TEXT NOT NULL,
 
     CONSTRAINT "Timesheet_pkey" PRIMARY KEY ("id")
 );
@@ -130,6 +130,12 @@ CREATE UNIQUE INDEX "Organisation_vatNumber_key" ON "Organisation"("vatNumber");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Organisation_createdById_key" ON "Organisation"("createdById");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Project_name_organisationId_key" ON "Project"("name", "organisationId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Team_name_organisationId_key" ON "Team"("name", "organisationId");
 
 -- CreateIndex
 CREATE INDEX "_EmployeeTeams_B_index" ON "_EmployeeTeams"("B");

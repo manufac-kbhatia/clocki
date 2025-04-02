@@ -11,6 +11,7 @@ import {
 import { useClockiContext } from "../../../context";
 import { useEffect } from "react";
 import { useCreateClient, useUpdateClient } from "../../../hooks/api/client";
+import { notifications } from "@mantine/notifications";
 
 export interface ClientModalProps {
   opened: boolean;
@@ -20,8 +21,40 @@ export interface ClientModalProps {
 }
 const ClientModal = ({ opened, onClose, mode, editClient }: ClientModalProps) => {
   const { auth } = useClockiContext();
-  const { mutate: createClient } = useCreateClient();
-  const { mutate: updateClient } = useUpdateClient();
+  const { mutate: createClient } = useCreateClient({
+        onSuccess: () => {
+              notifications.show({
+                title: "Client added",
+                message: "",
+              });
+              onClose();
+            },
+        
+            onError: () => {
+              notifications.show({
+                title: "Failed",
+                message: "",
+                color: "red",
+              })
+            }
+  });
+  const { mutate: updateClient } = useUpdateClient({
+    onSuccess: () => {
+      notifications.show({
+        title: "Client updated",
+        message: "",
+      })
+      onClose();
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      })
+    }
+  });
   const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ClientPayload>({
     mode: "uncontrolled",
     validate: zodResolver(ClientSchema),

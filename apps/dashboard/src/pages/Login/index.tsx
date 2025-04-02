@@ -1,4 +1,4 @@
-import { Button, Center, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Button, Center, Group, PasswordInput, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { LoginSchema } from "@repo/schemas";
 import { SignInFormNames, SignInFormLabels, SignInFormPlaceholder } from "./utils";
@@ -8,6 +8,9 @@ import { useClockiContext } from "../../context";
 import { useEffect } from "react";
 import { Loader } from "../../components/Loader";
 import { useCustomNavigate } from "../../hooks/location";
+import { notifications } from "@mantine/notifications";
+import { isAxiosError } from "axios";
+import { Link } from "react-router";
 
 export function Login() {
   const { setAuth, auth } = useClockiContext();
@@ -23,6 +26,22 @@ export function Login() {
           employee: data.employeeData,
         };
       });
+
+      notifications.show({
+        title: "Logged in",
+        message: "You are successfully logged in",
+      });
+    },
+
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        console.log(error);
+        notifications.show({
+          title: "Login falid",
+          message: error.response?.data.message as string,
+          color: "red",
+        });
+      }
     },
   });
 
@@ -80,6 +99,10 @@ export function Login() {
             </Button>
           </Stack>
         </form>
+        <Group justify="center" gap={5}>
+          <Text ta="center">Don't have an account?</Text>
+          <Link to="/login">Register</Link>
+        </Group>
       </Stack>
     </Center>
   );

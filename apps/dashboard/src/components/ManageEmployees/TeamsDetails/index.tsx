@@ -8,6 +8,7 @@ import {
   Modal,
   ScrollArea,
   SimpleGrid,
+  Skeleton,
   Stack,
   Text,
 } from "@mantine/core";
@@ -18,7 +19,7 @@ import { useNavigate } from "react-router";
 import { useDeleteTeam, useGetTeams } from "../../../hooks/api/team";
 
 const TeamsDetails = () => {
-  const { data } = useGetTeams();
+  const { data, isLoading: isGetTeamLoading } = useGetTeams();
   const { mutate: deleteTeam } = useDeleteTeam();
   const [opened, { open, close }] = useDisclosure(false);
   const [deletedTeamId, setDeleteTeamId] = useState<string | null>(null);
@@ -29,75 +30,86 @@ const TeamsDetails = () => {
     open();
   };
 
+  if (isGetTeamLoading)
+    return (
+      <ScrollArea h={650}>
+        <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }} m="xs">
+          {[...Array(3)].map((_, index) => (
+            <Skeleton key={index} visible={isGetTeamLoading} h={500} w={400} />
+          ))}
+        </SimpleGrid>
+      </ScrollArea>
+    );
+
   return (
     <ScrollArea h={650}>
-      <SimpleGrid cols={{base: 1, xs: 2, lg: 3}} m="xs">
+      <SimpleGrid cols={{ base: 1, xs: 2, lg: 3 }} m="xs">
         {data?.teams.map((team) => {
           const teamLeadName = `${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`;
           return (
-              <Card withBorder shadow="none" mih={500} radius="lg" key={team.id}>
-                <Stack>
-                  <Group justify="space-between">
-                    <Text size="lg" fw={700}>
-                      {team.name}
-                    </Text>
-                    <Group>
-                      <ActionIcon size="md" variant="default" onClick={() => handleDelete(team.id)}>
-                        <IconTrash size={16} />
-                      </ActionIcon>
-                      <ActionIcon
-                        size="md"
-                        variant="default"
-                        onClick={() => navigate(`/manage-users/team/${team.id}`)}
-                      >
-                        <IconEdit size={16} />
-                      </ActionIcon>
-                    </Group>
+            <Card withBorder shadow="none" mih={500} radius="lg" key={team.id}>
+              <Stack>
+                <Group justify="space-between">
+                  <Text size="lg" fw={700}>
+                    {team.name}
+                  </Text>
+                  <Group>
+                    <ActionIcon size="md" variant="default" onClick={() => handleDelete(team.id)}>
+                      <IconTrash size={16} />
+                    </ActionIcon>
+                    <ActionIcon
+                      size="md"
+                      variant="default"
+                      onClick={() => navigate(`/manage-users/team/${team.id}`)}
+                    >
+                      <IconEdit size={16} />
+                    </ActionIcon>
                   </Group>
-                  <>
-                    <Text fw={600}>Team Lead</Text>
-                    <Card m="xs" withBorder p={5} shadow="none">
-                      <Group justify="space-between">
-                        <Group>
-                          <Avatar color="initials" name={teamLeadName} />
-                          <Stack gap={1}>
-                            <Text size="sm">{teamLeadName}</Text>
+                </Group>
+                <>
+                  <Text fw={600}>Team Lead</Text>
+                  <Card m="xs" withBorder p={5} shadow="none">
+                    <Group justify="space-between">
+                      <Group>
+                        <Avatar color="initials" name={teamLeadName} />
+                        <Stack gap={1}>
+                          <Text size="sm">{teamLeadName}</Text>
 
-                            <Text size="sm" fw={700}>
-                              {team.teamLead.employeeInfo?.position ?? ""}
-                            </Text>
-                          </Stack>
-                        </Group>
+                          <Text size="sm" fw={700}>
+                            {team.teamLead.employeeInfo?.position ?? ""}
+                          </Text>
+                        </Stack>
                       </Group>
-                    </Card>
-                  </>
-                  <Divider />
-                  <>
-                    <Text fw={600}>Members</Text>
-                    <ScrollArea h={200} scrollbars="y">
-                      {team.members.map((member) => {
-                        const name = `${member.firstName} ${member.lastName ?? ""}`;
-                        return (
-                          <Card m="xs" withBorder p={5} shadow="none" key={member.id}>
-                            <Group justify="space-between">
-                              <Group>
-                                <Avatar color="initials" name={name} />
-                                <Stack gap={1}>
-                                  <Text size="sm">{name}</Text>
+                    </Group>
+                  </Card>
+                </>
+                <Divider />
+                <>
+                  <Text fw={600}>Members</Text>
+                  <ScrollArea h={200} scrollbars="y">
+                    {team.members.map((member) => {
+                      const name = `${member.firstName} ${member.lastName ?? ""}`;
+                      return (
+                        <Card m="xs" withBorder p={5} shadow="none" key={member.id}>
+                          <Group justify="space-between">
+                            <Group>
+                              <Avatar color="initials" name={name} />
+                              <Stack gap={1}>
+                                <Text size="sm">{name}</Text>
 
-                                  <Text size="sm" fw={700}>
-                                    {member.employeeInfo?.position ?? ""}
-                                  </Text>
-                                </Stack>
-                              </Group>
+                                <Text size="sm" fw={700}>
+                                  {member.employeeInfo?.position ?? ""}
+                                </Text>
+                              </Stack>
                             </Group>
-                          </Card>
-                        );
-                      })}
-                    </ScrollArea>
-                  </>
-                </Stack>
-              </Card>
+                          </Group>
+                        </Card>
+                      );
+                    })}
+                  </ScrollArea>
+                </>
+              </Stack>
+            </Card>
           );
         })}
       </SimpleGrid>

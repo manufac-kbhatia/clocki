@@ -4,6 +4,7 @@ import {
   Card,
   Group,
   ScrollArea,
+  Skeleton,
   Stack,
   Table,
   Text,
@@ -30,7 +31,7 @@ export interface ProjectDetailsProps {
 
 const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
   const [searchQuery, setSearchQuery] = useState<string | null>(null);
-  const { data } = useGetProjects();
+  const { data, isLoading } = useGetProjects();
   const { colorScheme } = useMantineColorScheme();
 
   const filteredClients: ProjectWithInfo[] = useMemo(() => {
@@ -125,44 +126,46 @@ const ProjectDetails = ({ onEdit }: ProjectDetailsProps) => {
             ) : null
           }
         />
-        <ScrollArea>
-        <Table highlightOnHover withTableBorder>
-          <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
-            {getHeaderGroups().map(({ id, headers }) => {
-              return (
-                <Table.Tr key={id}>
-                  {headers.map(({ id: headerID, column, getContext }) => {
-                    return (
-                      <Table.Th key={headerID} onClick={column.getToggleSortingHandler()}>
-                        <Group wrap="nowrap">
-                          <Text size="md" fw="bold">
-                            {flexRender(column.columnDef.header, getContext())}
-                          </Text>
-                        </Group>
-                      </Table.Th>
-                    );
-                  })}
-                </Table.Tr>
-              );
-            })}
-          </Table.Thead>
-          <Table.Tbody>
-            {getRowModel().rows.map(({ id, getVisibleCells }) => {
-              return (
-                <Table.Tr key={id}>
-                  {getVisibleCells().map(({ id: dataID, column, getContext }) => {
-                    return (
-                      <Table.Td key={dataID}>
-                        {flexRender(column.columnDef.cell, getContext())}
-                      </Table.Td>
-                    );
-                  })}
-                </Table.Tr>
-              );
-            })}
-          </Table.Tbody>
-        </Table>
-        </ScrollArea>
+        <Skeleton visible={isLoading}>
+          <ScrollArea>
+            <Table highlightOnHover withTableBorder>
+              <Table.Thead bg={colorScheme === "dark" ? "#383838" : "#ECECEC"}>
+                {getHeaderGroups().map(({ id, headers }) => {
+                  return (
+                    <Table.Tr key={id}>
+                      {headers.map(({ id: headerID, column, getContext }) => {
+                        return (
+                          <Table.Th key={headerID} onClick={column.getToggleSortingHandler()}>
+                            <Group wrap="nowrap">
+                              <Text size="md" fw="bold">
+                                {flexRender(column.columnDef.header, getContext())}
+                              </Text>
+                            </Group>
+                          </Table.Th>
+                        );
+                      })}
+                    </Table.Tr>
+                  );
+                })}
+              </Table.Thead>
+              <Table.Tbody>
+                {getRowModel().rows.map(({ id, getVisibleCells }) => {
+                  return (
+                    <Table.Tr key={id}>
+                      {getVisibleCells().map(({ id: dataID, column, getContext }) => {
+                        return (
+                          <Table.Td key={dataID}>
+                            {flexRender(column.columnDef.cell, getContext())}
+                          </Table.Td>
+                        );
+                      })}
+                    </Table.Tr>
+                  );
+                })}
+              </Table.Tbody>
+            </Table>
+          </ScrollArea>
+        </Skeleton>
       </Stack>
     </Card>
   );

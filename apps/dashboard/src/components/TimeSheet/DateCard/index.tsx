@@ -29,7 +29,7 @@ const DateCard = ({ date, onClick, entryData, selectedDate }: DateCardProps) => 
       shadow="none"
       withBorder
       onClick={() => onClick(data.formatedDate)}
-      miw={50}
+      miw={150}
       bg="transparent"
       style={{
         cursor: "pointer",

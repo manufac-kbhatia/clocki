@@ -106,10 +106,7 @@ export function Assistant() {
             <Stack w="100%">
               {/* Please Note: TypingIndicator is not a valid children of ChatContainer and MessageList and will throw error if directly placed inside them  */}
               {isPending === true ? (
-                <TypingIndicator
-                  style={{ paddingLeft: "20px", backgroundColor: "inherit" }}
-                  content="Looking"
-                />
+                <TypingIndicator style={{ paddingLeft: "20px", backgroundColor: "inherit" }} />
               ) : null}
               <Group>
                 <MessageInput

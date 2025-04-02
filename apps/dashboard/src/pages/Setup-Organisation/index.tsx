@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import { useClockiContext } from "../../context";
 import { useCustomNavigate } from "../../hooks/location";
 import { useSetupOrganisation } from "../../hooks/api/organisation";
+import { isAxiosError } from "axios";
+import { notifications } from "@mantine/notifications";
 
 export function SetupOrganisation() {
   const { auth, setAuth } = useClockiContext();
@@ -25,6 +27,21 @@ export function SetupOrganisation() {
       setAuth((prev) => {
         return { ...prev, employee: data?.employeeData };
       });
+
+      notifications.show({
+        title: "Registration completed successfully",
+        message: "Let's begin",
+      });
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        console.log(error);
+        notifications.show({
+          title: "Organisation regsitraion failed",
+          message: error.response?.data.message as string,
+          color: "red",
+        });
+      }
     },
   });
   const { getInputProps, key, onSubmit } = useForm<RegisterOrganisationPayload>({

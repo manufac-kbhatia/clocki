@@ -3,6 +3,8 @@ import { IconLogout, IconQuestionMark, IconSettings } from "@tabler/icons-react"
 import { Link } from "react-router";
 import { useLogout } from "../../hooks/api/auth";
 import { useClockiContext } from "../../context";
+import { notifications } from "@mantine/notifications";
+import { isAxiosError } from "axios";
 
 export interface AvatarProps {
   name: string;
@@ -15,6 +17,22 @@ const CustomAvatar = ({ name, size = "md", radius = "xl" }: AvatarProps) => {
   const { mutate: logout } = useLogout({
     onSuccess: () => {
       setAuth(undefined);
+
+      notifications.show({
+        title: "Logged out successfully",
+        message: "",
+      });
+    },
+
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        console.log(error);
+        notifications.show({
+          title: "Logout failed",
+          message: error.response?.data.message as string,
+          color: "red",
+        });
+      }
     },
   });
 

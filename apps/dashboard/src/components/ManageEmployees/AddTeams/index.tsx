@@ -8,11 +8,27 @@ import { useForm } from "@mantine/form";
 import { useClockiContext } from "../../../context";
 import { useGetEmployees } from "../../../hooks/api/employee";
 import { useCreateTeam } from "../../../hooks/api/team";
+import { notifications } from "@mantine/notifications";
 
 const AddTeam = () => {
   const { auth } = useClockiContext();
   const { data } = useGetEmployees();
-  const { mutate: createTeam } = useCreateTeam();
+  const { mutate: createTeam } = useCreateTeam({
+        onSuccess: () => {
+              notifications.show({
+                title: "Team created",
+                message: "",
+              })
+            },
+        
+            onError: () => {
+              notifications.show({
+                title: "Failed",
+                message: "",
+                color: "red",
+              })
+            }
+  });
   const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>(data?.employees ?? []);
   const [teamLead, setTeamLead] = useState<EmployeeWithEmployeeInfo | null>(null);
   const [members, setMembers] = useState<EmployeeWithEmployeeInfo[]>([]);

@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { Loader } from "../../components/Loader";
 import { useCustomNavigate } from "../../hooks/location";
 import { Link } from "react-router";
+import { isAxiosError } from "axios";
+import { notifications } from "@mantine/notifications";
 
 export function Register() {
   const { setAuth, auth } = useClockiContext();
@@ -21,6 +23,22 @@ export function Register() {
         isAuthenticated: data.success,
         employee: data.employeeData,
       });
+
+      notifications.show({
+        title: "Account created",
+        message: "Let's setup the organisation",
+      });
+    },
+
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        console.log(error);
+        notifications.show({
+          title: "Regsitraion failed",
+          message: error.response?.data.message as string,
+          color: "red",
+        });
+      }
     },
   });
   const { getInputProps, key, onSubmit } = useForm<RegisterEmployeePayload>({
@@ -95,7 +113,7 @@ export function Register() {
         </form>
         <Group justify="center" gap={5}>
           <Text ta="center">Already have an account?</Text>
-          <Link to="/login">Sign up here</Link>
+          <Link to="/login">Login</Link>
         </Group>
       </Stack>
     </Center>

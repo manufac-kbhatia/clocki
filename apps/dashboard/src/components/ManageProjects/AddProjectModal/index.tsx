@@ -13,6 +13,7 @@ import { useClockiContext } from "../../../context";
 import { useGetEmployees } from "../../../hooks/api/employee";
 import { useGetClients } from "../../../hooks/api/client";
 import { useCreateProject, useUpdateProject } from "../../../hooks/api/project";
+import { notifications } from "@mantine/notifications";
 
 export interface ProjectModalProps {
   opened: boolean;
@@ -24,8 +25,38 @@ const ProjectModal = ({ opened, onClose, editProject, mode }: ProjectModalProps)
   const { auth } = useClockiContext();
   const { data: employeeData } = useGetEmployees();
   const { data: clientData } = useGetClients();
-  const { mutate: createProject } = useCreateProject();
-  const { mutate: updateProject } = useUpdateProject();
+  const { mutate: createProject } = useCreateProject({
+        onSuccess: () => {
+              notifications.show({
+                title: "Project created",
+                message: "",
+              })
+            },
+        
+            onError: () => {
+              notifications.show({
+                title: "Failed",
+                message: "",
+                color: "red",
+              })
+            }
+  });
+  const { mutate: updateProject } = useUpdateProject({
+    onSuccess: () => {
+      notifications.show({
+        title: "Project Updated",
+        message: "",
+      })
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      })
+    }
+  });
   const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ProjectPayload>({
     mode: "uncontrolled",
     validate: zodResolver(ProjectSchema),

@@ -5,6 +5,7 @@ import {
   Paper,
   Pill,
   ScrollArea,
+  Skeleton,
   Stack,
   Text,
   Title,
@@ -24,12 +25,14 @@ export interface WeeklyOverviewProps {
     startOfWeek: Dayjs;
     endOfWeek: Dayjs;
   };
+  isLoading: boolean;
 }
 const WeeklyOverview = ({
   timeSheetData,
   handleNextWeek,
   handlePrevWeek,
   currentWeek,
+  isLoading,
 }: WeeklyOverviewProps) => {
   const theme = useMantineTheme();
 
@@ -47,43 +50,45 @@ const WeeklyOverview = ({
   }, [timeSheetData]);
 
   return (
-    <Card withBorder shadow="none">
-      <Stack>
-        <Group justify="space-between">
-          <Title>Weekly Overview</Title>
-          <Group gap="xs">
-            <ActionIcon size="sm" variant="outline" onClick={handlePrevWeek}>
-              <IconChevronLeft />
-            </ActionIcon>
-            <ActionIcon size="sm" variant="outline" onClick={handleNextWeek}>
-              <IconChevronRight />
-            </ActionIcon>
-          </Group>
-        </Group>
-        <Group>
-          <Text>Total this week</Text>
-          <Pill fw={800} c="white" bg={theme.primaryColor}>
-            {convertToTime(totalLoggedHours)}
-          </Pill>
-        </Group>
-        <ScrollArea>
-          <Paper p="sm" w="fit-content" mx="auto">
-            <Group wrap="nowrap" gap={14}>
-              {dates.map((date) => {
-                const formatedDate = date.toISOString().split("T")[0] as string;
-                return (
-                  <WeeklyOverviewDateCard
-                    key={formatedDate}
-                    date={date}
-                    entryData={timeSheetData?.timeEntry[formatedDate]}
-                  />
-                );
-              })}
+    <Skeleton visible={isLoading}>
+      <Card withBorder shadow="none">
+        <Stack>
+          <Group justify="space-between">
+            <Title>Weekly Overview</Title>
+            <Group gap="xs">
+              <ActionIcon size="sm" variant="outline" onClick={handlePrevWeek}>
+                <IconChevronLeft />
+              </ActionIcon>
+              <ActionIcon size="sm" variant="outline" onClick={handleNextWeek}>
+                <IconChevronRight />
+              </ActionIcon>
             </Group>
-          </Paper>
-        </ScrollArea>
-      </Stack>
-    </Card>
+          </Group>
+          <Group>
+            <Text>Total this week</Text>
+            <Pill fw={800} c="white" bg={theme.primaryColor}>
+              {convertToTime(totalLoggedHours)}
+            </Pill>
+          </Group>
+          <ScrollArea>
+            <Paper p="sm" w="fit-content" mx="auto">
+              <Group wrap="nowrap" gap={14}>
+                {dates.map((date) => {
+                  const formatedDate = date.toISOString().split("T")[0] as string;
+                  return (
+                    <WeeklyOverviewDateCard
+                      key={formatedDate}
+                      date={date}
+                      entryData={timeSheetData?.timeEntry[formatedDate]}
+                    />
+                  );
+                })}
+              </Group>
+            </Paper>
+          </ScrollArea>
+        </Stack>
+      </Card>
+    </Skeleton>
   );
 };
 

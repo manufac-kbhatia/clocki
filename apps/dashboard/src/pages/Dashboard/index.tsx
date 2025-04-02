@@ -1,7 +1,7 @@
 import { useClockiContext } from "../../context";
 import WelcomeCard from "../../components/Dasboard/WelcomeCard";
 import WeeklyOverview from "../../components/Dasboard/WeeklyOverview";
-import { Card, Grid, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { Card, Grid, SimpleGrid, Skeleton, Stack, Text, Title } from "@mantine/core";
 import { useMemo, useState } from "react";
 import { useGetMyTimeEntries } from "../../hooks/api/timeSheet";
 import { formatDate, getCurrentWeekRange } from "../LogTime/utils";
@@ -13,7 +13,7 @@ import ProjectsAndTeams from "../../components/Dasboard/ProjectsAndTeams";
 export function Dashboard() {
   const { auth } = useClockiContext();
   const [currentWeek, setCurrentWeek] = useState(getCurrentWeekRange(new Date()));
-  const { data: timeSheetData } = useGetMyTimeEntries({
+  const { data: timeSheetData, isLoading } = useGetMyTimeEntries({
     startDate: formatDate(currentWeek.startOfWeek),
     endDate: formatDate(currentWeek.endOfWeek),
   });
@@ -54,10 +54,15 @@ export function Dashboard() {
                 handleNextWeek={handleNextWeek}
                 handlePrevWeek={handlePrevWeek}
                 currentWeek={currentWeek}
+                isLoading={isLoading}
               />
               <SimpleGrid cols={{ base: 1, xs: 2 }}>
-                <LoggedTimeCard totalLoggedHours={totalLoggedHours} />
-                <ActiveProjectsCard totalActiveProjects={auth?.employee?.projects.length ?? 0} />
+                <Skeleton visible={isLoading}>
+                  <LoggedTimeCard totalLoggedHours={totalLoggedHours} />
+                </Skeleton>
+                <Skeleton visible={isLoading}>
+                  <ActiveProjectsCard totalActiveProjects={auth?.employee?.projects.length ?? 0} />
+                </Skeleton>
               </SimpleGrid>
             </Stack>
           </Grid.Col>

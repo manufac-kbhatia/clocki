@@ -22,14 +22,26 @@ import {
 import { DateInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
 import { useCreateEmployee } from "../../../hooks/api/employee";
+import { notifications } from "@mantine/notifications";
 
 const AddEmployee = () => {
   const { mutate: createEmployee } = useCreateEmployee({
-    onSuccess: (data) => {
-      console.log(data);
-    },
+    onSuccess: () => {
+          notifications.show({
+            title: "User added",
+            message: "",
+          })
+        },
+    
+        onError: () => {
+          notifications.show({
+            title: "Failed",
+            message: "",
+            color: "red",
+          })
+        }
   });
-  const { getInputProps, key, onSubmit } = useForm<CreateEmployeePayload>({
+  const { getInputProps, key, onSubmit, reset } = useForm<CreateEmployeePayload>({
     mode: "uncontrolled",
     validate: zodResolver(CreateEmployeeSchema),
   });
@@ -165,7 +177,7 @@ const AddEmployee = () => {
             </SimpleGrid>
           </Card>
           <Group justify="center">
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" onClick={reset}>
               Cancel
             </Button>
             <Button variant="filled" type="submit">

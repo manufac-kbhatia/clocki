@@ -7,7 +7,7 @@ import {
   Group,
   Paper,
   Pill,
-  SimpleGrid,
+  ScrollArea,
   Stack,
   Text,
   Title,
@@ -147,22 +147,24 @@ const LogTime = () => {
               ) : null}
             </Group>
           </Group>
-          <Paper p="xl">
-            <SimpleGrid cols={{ base: 3, xs: 4, lg: 7 }}>
-              {dates.map((date) => {
-                const formatedDate = date.toISOString().split("T")[0] as string;
-                return (
-                  <DateCard
-                    key={formatedDate}
-                    date={date}
-                    onClick={handleDateSelect}
-                    entryData={timeSheetData?.timeEntry[formatedDate]}
-                    selectedDate={selectedDate}
-                  />
-                );
-              })}
-            </SimpleGrid>
-          </Paper>
+          <ScrollArea>
+            <Paper p="sm">
+              <Group wrap="nowrap" gap="lg">
+                {dates.map((date) => {
+                  const formatedDate = date.toISOString().split("T")[0] as string;
+                  return (
+                    <DateCard
+                      key={formatedDate}
+                      date={date}
+                      onClick={handleDateSelect}
+                      entryData={timeSheetData?.timeEntry[formatedDate]}
+                      selectedDate={selectedDate}
+                    />
+                  );
+                })}
+              </Group>
+            </Paper>
+          </ScrollArea>
         </Stack>
       </Card>
       <Card mih={300} shadow="none" withBorder>

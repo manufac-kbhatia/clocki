@@ -11,6 +11,7 @@ import {
 } from "@mantine/core";
 import {
   convertToMinutes,
+  convertToTime,
   CreateTimeSheetEntryNames,
   CreateTimeSheetEntryPlaceholders,
   TimeEntryModalMode,
@@ -25,6 +26,7 @@ import { useEffect, useState } from "react";
 import { ProjectWithInfo, TimeSheetPayload } from "@repo/schemas/rest";
 import dayjs from "dayjs";
 import { useCreateTimeEntry } from "../../../hooks/api/timeSheet";
+import { notifications } from "@mantine/notifications";
 
 export interface TimeEntryModalProps {
   opened: boolean;
@@ -41,14 +43,29 @@ const TimeEntryModal = ({
   projects,
   editTimeEntry,
 }: TimeEntryModalProps) => {
-  const { getInputProps, key, onSubmit, setValues } = useForm<TimeSheetEntryPayload>({
+  const { getInputProps, key, onSubmit, setValues, reset } = useForm<TimeSheetEntryPayload>({
     mode: "uncontrolled",
     validate: zodResolver(TimeSheetEntrySchema),
   });
 
   const [time, setTime] = useState<string>("");
   const [timeError, setTimeError] = useState<string | null>(null);
-  const { mutate: createEntry } = useCreateTimeEntry();
+  const { mutate: createEntry } = useCreateTimeEntry({
+    onSuccess: (data) => {
+      notifications.show({
+        title: "Entry logged",
+        message: `${convertToTime(data.timeEntry.loggedHours)} hours logged`
+      })
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      })
+    }
+  });
 
   const handleChange: TextInputProps["onChange"] = (e) => {
     let value = e.target.value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
@@ -162,7 +179,7 @@ const TimeEntryModal = ({
             label={CreateTimeSheetEntryPlaceholders.status}
           />
           <Group justify="center">
-            <Button variant="outline" type="button">
+            <Button variant="outline" type="button" onClick={reset}>
               Cancel
             </Button>
             <Button type="submit">Submit</Button>
