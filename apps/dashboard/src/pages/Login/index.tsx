@@ -28,8 +28,8 @@ export function Login() {
 
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({
     initialValues: {
-      email: "bhatiakbkb@gmail.com",
-      password: "12345678",
+      email: "",
+      password: "",
     },
     validate: zodResolver(LoginSchema),
     validateInputOnBlur: true,
