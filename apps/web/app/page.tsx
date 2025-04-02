@@ -52,7 +52,7 @@ export default function Home() {
               <Link href="https://app.cloki.space">Sign in</Link>
             </button>
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold">
-              <Link href="https://app.cloki.space">Sign up free</Link>
+              <Link href="https://app.cloki.space/register">Sign up free</Link>
             </button>
           </div>
         </div>
