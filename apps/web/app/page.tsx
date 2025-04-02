@@ -23,10 +23,9 @@ export default function Home() {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <IconClock className="h-10 w-10 text-primary" />
-            <span className="text-4xl font-bold">Cloki</span>
+            <IconClock className="h-10 w-10 text-primary hidden md:block" />
+            <span className="text-3xl md:text-4xl font-bold">Cloki</span>
           </div>
-
           <nav className="hidden md:flex items-center gap-8">
             <Link
               href="#features"
@@ -48,12 +47,12 @@ export default function Home() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 text-sm md:text-xl">
             <button className="bg-primary p-2 rounded-md text-white font-semibold">
-              <Link href="https://app.clok.space">Sign in</Link>
+              <Link href="https://app.cloki.space">Sign in</Link>
             </button>
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold">
-              <Link href="https://app.clok.space">Sign up free</Link>
+              <Link href="https://app.cloki.space">Sign up free</Link>
             </button>
           </div>
         </div>
@@ -80,7 +79,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
                 <Link
-                  href="https://app.clok.space"
+                  href="https://app.cloki.space"
                   className="flex justify-center gap-2 items-center"
                 >
                   <IconWand className="h-4 w-4" />
@@ -437,7 +436,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-violet-200 text-primary p-2 rounded-md font-semibold shadow-primary shadow-sm">
-              <Link href="https://app.clok.space">Start for free</Link>
+              <Link href="https://app.cloki.space">Start for free</Link>
             </button>
             <button className="bg-transparent text-white border-white hover:bg-white/10 p-4 rounded-md ">
               <Link href="#demo">Schedule demo</Link>
