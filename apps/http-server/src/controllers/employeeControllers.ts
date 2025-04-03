@@ -18,6 +18,7 @@ import {
   GetEmployeesResponse,
 } from "@repo/schemas/rest";
 import { getJWTTokens } from "../utils/jwt";
+import { sendMail } from "../utils";
 
 export const register = async (
   req: Request<unknown, unknown, RegisterEmployeePayload>,
@@ -76,6 +77,7 @@ export const createEmployee = async (
   next: NextFunction,
 ) => {
   const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  const orgName = req.role === Role.Admin ? req.employee?.createdOrganisation?.name : req.employee?.organisation?.name;
   const payload = req.body;
   const parseResult = CreateEmployeeSchema.safeParse(payload);
   if (parseResult.success === false) {
@@ -88,7 +90,7 @@ export const createEmployee = async (
     return;
   }
   const { hireDate, position, vacationDays, contractType, teamsId, role, ...rest } = parseResult.data;
-  const password = "123456789"; // TODO: generate random password
+  const password = "qweytrui"; // TODO: generate random password
   const employee = await client.employee.create({
     data: {
       ...rest,
@@ -108,6 +110,20 @@ export const createEmployee = async (
       organisationId,
     },
   });
+
+  const response  = await sendMail({
+    to: employee.email,
+    subject: `Welcome to ${orgName}`,
+    text: `Hello ${employee.firstName} ${employee.lastName ?? ""},\n\nYour account has been created under the organisation: ${orgName}.\n\nEmail: ${employee.email}\nPassword: ${password}\n\nPlease change your password after logging in.`,
+    html: `<p>Hello ${employee.firstName} ${employee.lastName ?? ""},</p>
+           <p>Your account has been created under the organisation: <strong>${orgName}</strong>.</p>
+           <p><strong>Email:</strong> ${employee.email}</p>
+           <p><strong>Password:</strong> ${password}</p>
+           <p>Please change your password after logging in.</p>`,
+  });
+
+  console.log(response);
+
   res.status(200).json({
     success: true,
     employee,

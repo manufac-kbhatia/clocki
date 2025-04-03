@@ -2,7 +2,9 @@ import { getContextVariable } from "@langchain/core/context";
 import { tool } from "@langchain/core/tools";
 import { client } from "@repo/db";
 import { Status } from "@repo/schemas";
+import { MailOptions } from "nodemailer/lib/json-transport";
 import { z } from "zod";
+import { sendMail } from "../utils";
 
 export const convertToMinutes = (time: string): number => {
   const [hours, minutes] = time.split(":").map(Number);
@@ -437,4 +439,21 @@ ${project.Timesheet.map(
       name: z.string().describe("The name of the project whose time entries you want to fetch."),
     }),
   },
+);
+
+export const sendMailTool = tool(
+  async ({ to, subject, html, sendIt }: {to: string, subject: string, html?: string, sendIt: boolean}) => {
+    await sendMail({ to, subject, html });
+    return "Email sent successfully.";
+  },
+  {
+    name: "sendMailTool",
+    description: "Sends an email with the given recipient, subject, and content.",
+    schema: z.object({
+      to: z.string().email().describe("Recipient email address"),
+      subject: z.string().describe("Subject of the email"),
+      html: z.string().optional().describe("content of email"),
+      sendIt: z.boolean().describe("Is the user sure to send the mail"),
+    }),
+  }
 );

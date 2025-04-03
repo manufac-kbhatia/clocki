@@ -8,7 +8,7 @@ declare global {
       employeeId?: string;
       role?: Role;
       employee?: Prisma.EmployeeGetPayload<{
-        include: { createdOrganisation: true };
+        include: { createdOrganisation: true; organisation: true };
         omit: { password: true; refreshToken: true };
       }>;
     }

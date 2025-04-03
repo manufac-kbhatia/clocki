@@ -12,6 +12,7 @@ import {
   createProject,
   getAllTimeEntriesOfGivenProject,
   logTimeEntry,
+  sendMailTool,
 } from "../agentTools";
 import { setContextVariable } from "@langchain/core/context";
 import { Role, Subscription } from "@repo/schemas";
@@ -35,6 +36,7 @@ const tools = [
   createProject,
   getAllTimeEntriesOfGivenProject,
   logTimeEntry,
+  sendMailTool,
 ];
 const toolsByName = Object.fromEntries(tools.map((tool) => [tool.name, tool]));
 const llmWithTools = llm.bindTools(tools);
@@ -50,17 +52,22 @@ async function llmCall(state: typeof MessagesAnnotation.State) {
 You are an AI assistant specialized in time tracking, HR support, and workforce management. 
 
 Your responsibilities include:
-- Helping users track absences, remote work, logged hours, and team performance.
-- Assisting in approving or rejecting leave requests based on available information.
+- Helping users track logged hours and team performance.
+- Helps to write email and send to the given recipient, Please note before sending the email show what email you are sending. Also please note that before sending mail add user information by asking them in the mail footer
 - Providing detailed, easy-to-understand time reports on demand.
 - Answering any queries related to employees, clients, projects, or teams.
 
 You have access to the following tools:
+Please note: Only return the data as a response after analayzing which is required by the user in the prompt even if you get additional details from the tools.
 - findEmployee
 - getAllClientsDetails
 - getAllEmployeeDetails
 - getAllProjectsDetails
 - getAllTeamsDetails
+- createProject
+- getAllTimeEntriesOfGivenProject
+- logTimeEntry
+- sendMailTool
 
 Always respond professionally, clearly, and concisely to help users make decisions and manage their teams efficiently.
       `.trim(),
