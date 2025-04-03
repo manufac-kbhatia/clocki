@@ -54,8 +54,8 @@ const TimeEntryModal = ({
     onSuccess: (data) => {
       notifications.show({
         title: "Entry logged",
-        message: `${convertToTime(data.timeEntry.loggedHours)} hours logged`
-      })
+        message: `${convertToTime(data.timeEntry.loggedHours)} hours logged`,
+      });
     },
 
     onError: () => {
@@ -63,8 +63,8 @@ const TimeEntryModal = ({
         title: "Failed",
         message: "",
         color: "red",
-      })
-    }
+      });
+    },
   });
 
   const handleChange: TextInputProps["onChange"] = (e) => {

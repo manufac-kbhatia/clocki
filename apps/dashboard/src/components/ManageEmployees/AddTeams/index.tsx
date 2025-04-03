@@ -9,25 +9,29 @@ import { useClockiContext } from "../../../context";
 import { useGetEmployees } from "../../../hooks/api/employee";
 import { useCreateTeam } from "../../../hooks/api/team";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddTeam = () => {
   const { auth } = useClockiContext();
   const { data } = useGetEmployees();
-  const { mutate: createTeam } = useCreateTeam({
-        onSuccess: () => {
-              notifications.show({
-                title: "Team created",
-                message: "",
-              })
-            },
-        
-            onError: () => {
-              notifications.show({
-                title: "Failed",
-                message: "",
-                color: "red",
-              })
-            }
+  const queryClient = useQueryClient();
+
+  const { mutate: createTeam, isPending } = useCreateTeam({
+    onSuccess: async () => {
+      notifications.show({
+        title: "Team created",
+        message: "",
+      });
+      await queryClient.invalidateQueries({ queryKey: ["teams"] });
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      });
+    },
   });
   const [candidate, setCandidate] = useState<EmployeeWithEmployeeInfo[]>(data?.employees ?? []);
   const [teamLead, setTeamLead] = useState<EmployeeWithEmployeeInfo | null>(null);
@@ -118,7 +122,9 @@ const AddTeam = () => {
           </Grid>
         </DndContext>
         <Group>
-          <Button type="submit">Save</Button>
+          <Button type="submit" loading={isPending}>
+            Save
+          </Button>
         </Group>
       </form>
     </Card>

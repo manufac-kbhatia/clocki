@@ -12,6 +12,7 @@ import { useClockiContext } from "../../../context";
 import { useEffect } from "react";
 import { useCreateClient, useUpdateClient } from "../../../hooks/api/client";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface ClientModalProps {
   opened: boolean;
@@ -21,30 +22,15 @@ export interface ClientModalProps {
 }
 const ClientModal = ({ opened, onClose, mode, editClient }: ClientModalProps) => {
   const { auth } = useClockiContext();
-  const { mutate: createClient } = useCreateClient({
-        onSuccess: () => {
-              notifications.show({
-                title: "Client added",
-                message: "",
-              });
-              onClose();
-            },
-        
-            onError: () => {
-              notifications.show({
-                title: "Failed",
-                message: "",
-                color: "red",
-              })
-            }
-  });
-  const { mutate: updateClient } = useUpdateClient({
-    onSuccess: () => {
+  const queryClient = useQueryClient();
+  const { mutate: createClient, isPending } = useCreateClient({
+    onSuccess: async () => {
       notifications.show({
-        title: "Client updated",
+        title: "Client added",
         message: "",
-      })
+      });
       onClose();
+      await queryClient.invalidateQueries({ queryKey: ["clients"] });
     },
 
     onError: () => {
@@ -52,8 +38,26 @@ const ClientModal = ({ opened, onClose, mode, editClient }: ClientModalProps) =>
         title: "Failed",
         message: "",
         color: "red",
-      })
-    }
+      });
+    },
+  });
+  const { mutate: updateClient, isPending: isClientUpdating } = useUpdateClient({
+    onSuccess: async () => {
+      notifications.show({
+        title: "Client updated",
+        message: "",
+      });
+      onClose();
+      await queryClient.invalidateQueries({ queryKey: ["clients"] });
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      });
+    },
   });
   const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ClientPayload>({
     mode: "uncontrolled",
@@ -63,8 +67,8 @@ const ClientModal = ({ opened, onClose, mode, editClient }: ClientModalProps) =>
   const handleSubmit = (values: ClientPayload) => {
     if (mode === ClientModalMode.Add) {
       createClient(values);
-    } else if (mode === ClientModalMode.Edit && typeof editClient === "string") {
-      updateClient({ payload: values, id: editClient });
+    } else if (mode === ClientModalMode.Edit && editClient) {
+      updateClient({ payload: values, id: editClient.id });
     }
   };
 
@@ -137,7 +141,7 @@ const ClientModal = ({ opened, onClose, mode, editClient }: ClientModalProps) =>
             <Button variant="outline" onClick={onClose} type="button">
               Cancel
             </Button>
-            <Button variant="filled" type="submit">
+            <Button variant="filled" type="submit" loading={isPending || isClientUpdating}>
               Save
             </Button>
           </Group>

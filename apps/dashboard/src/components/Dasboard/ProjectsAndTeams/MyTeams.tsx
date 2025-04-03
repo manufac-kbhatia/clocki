@@ -3,6 +3,10 @@ import { useClockiContext } from "../../../context";
 
 const MyTeams = () => {
   const { auth } = useClockiContext();
+
+  const teams = [...(auth?.employee?.teams ?? []), ...(auth?.employee?.responsibleTeams ?? [])];
+
+  console.log("teams", teams);
   return (
     <Stack fw={600}>
       <Grid>
@@ -13,20 +17,21 @@ const MyTeams = () => {
       <Divider />
 
       <>
-        {auth?.employee?.teams && auth.employee.teams.length > 0 ? (
-          auth.employee.teams.map((team) => {
+        {teams.length > 0 ? (
+          teams.map((team) => {
             return (
               <Grid key={team.name}>
-                <Grid.Col span={6}>{team.name}</Grid.Col>
-                <Grid.Col span={6}>
-                  {" "}
-                  <Avatar
-                    variant="filled"
-                    color="initials"
-                    name={`${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`}
-                  />
+                <Grid.Col span={4}>{team.name}</Grid.Col>
+                <Grid.Col span={4}>
+                  <Tooltip label={`${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`}>
+                    <Avatar
+                      variant="filled"
+                      color="initials"
+                      name={`${team.teamLead.firstName} ${team.teamLead.lastName ?? ""}`}
+                    />
+                  </Tooltip>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col span={4}>
                   {
                     <Avatar.Group>
                       {team.members.map((member) => {

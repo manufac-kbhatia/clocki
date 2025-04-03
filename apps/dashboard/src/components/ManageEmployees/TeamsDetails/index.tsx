@@ -17,10 +17,29 @@ import { useDisclosure } from "@mantine/hooks";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useDeleteTeam, useGetTeams } from "../../../hooks/api/team";
+import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 const TeamsDetails = () => {
   const { data, isLoading: isGetTeamLoading } = useGetTeams();
-  const { mutate: deleteTeam } = useDeleteTeam();
+  const queryClient = useQueryClient();
+  const { mutate: deleteTeam } = useDeleteTeam({
+    onSuccess: async () => {
+      notifications.show({
+        title: "Team deleted",
+        message: "",
+      });
+      await queryClient.invalidateQueries({ queryKey: ["teams"] });
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      });
+    },
+  });
   const [opened, { open, close }] = useDisclosure(false);
   const [deletedTeamId, setDeleteTeamId] = useState<string | null>(null);
   const navigate = useNavigate();

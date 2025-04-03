@@ -14,6 +14,7 @@ import { useGetEmployees } from "../../../hooks/api/employee";
 import { useGetClients } from "../../../hooks/api/client";
 import { useCreateProject, useUpdateProject } from "../../../hooks/api/project";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface ProjectModalProps {
   opened: boolean;
@@ -23,30 +24,17 @@ export interface ProjectModalProps {
 }
 const ProjectModal = ({ opened, onClose, editProject, mode }: ProjectModalProps) => {
   const { auth } = useClockiContext();
+  const queryClient = useQueryClient();
   const { data: employeeData } = useGetEmployees();
   const { data: clientData } = useGetClients();
-  const { mutate: createProject } = useCreateProject({
-        onSuccess: () => {
-              notifications.show({
-                title: "Project created",
-                message: "",
-              })
-            },
-        
-            onError: () => {
-              notifications.show({
-                title: "Failed",
-                message: "",
-                color: "red",
-              })
-            }
-  });
-  const { mutate: updateProject } = useUpdateProject({
-    onSuccess: () => {
+  const { mutate: createProject, isPending } = useCreateProject({
+    onSuccess: async () => {
       notifications.show({
-        title: "Project Updated",
+        title: "Project created",
         message: "",
-      })
+      });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      onClose();
     },
 
     onError: () => {
@@ -54,8 +42,26 @@ const ProjectModal = ({ opened, onClose, editProject, mode }: ProjectModalProps)
         title: "Failed",
         message: "",
         color: "red",
-      })
-    }
+      });
+    },
+  });
+  const { mutate: updateProject, isPending: isProjectUpdating } = useUpdateProject({
+    onSuccess: async () => {
+      notifications.show({
+        title: "Project Updated",
+        message: "",
+      });
+      await queryClient.invalidateQueries({ queryKey: ["projects"] });
+      onClose();
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      });
+    },
   });
   const { getInputProps, key, onSubmit, setFieldValue, setValues } = useForm<ProjectPayload>({
     mode: "uncontrolled",
@@ -139,7 +145,7 @@ const ProjectModal = ({ opened, onClose, editProject, mode }: ProjectModalProps)
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button variant="filled" type="submit">
+            <Button variant="filled" type="submit" loading={isPending || isProjectUpdating}>
               Save
             </Button>
           </Group>

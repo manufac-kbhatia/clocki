@@ -23,23 +23,27 @@ import { DateInput } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
 import { useCreateEmployee } from "../../../hooks/api/employee";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddEmployee = () => {
-  const { mutate: createEmployee } = useCreateEmployee({
-    onSuccess: () => {
-          notifications.show({
-            title: "User added",
-            message: "",
-          })
-        },
-    
-        onError: () => {
-          notifications.show({
-            title: "Failed",
-            message: "",
-            color: "red",
-          })
-        }
+  const queryClient = useQueryClient();
+
+  const { mutate: createEmployee, isPending } = useCreateEmployee({
+    onSuccess: async () => {
+      notifications.show({
+        title: "User added",
+        message: "",
+      });
+      await queryClient.invalidateQueries({ queryKey: ["employees"] });
+    },
+
+    onError: () => {
+      notifications.show({
+        title: "Failed",
+        message: "",
+        color: "red",
+      });
+    },
   });
   const { getInputProps, key, onSubmit, reset } = useForm<CreateEmployeePayload>({
     mode: "uncontrolled",
@@ -180,7 +184,7 @@ const AddEmployee = () => {
             <Button variant="outline" type="button" onClick={reset}>
               Cancel
             </Button>
-            <Button variant="filled" type="submit">
+            <Button variant="filled" type="submit" loading={isPending}>
               Save
             </Button>
           </Group>

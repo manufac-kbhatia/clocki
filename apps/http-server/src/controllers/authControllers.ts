@@ -56,6 +56,13 @@ export const login = async (
           members: { select: { firstName: true, lastName: true } },
         },
       },
+      responsibleTeams: {
+        select: {
+          name: true,
+          teamLead: { select: { firstName: true, lastName: true } },
+          members: { select: { firstName: true, lastName: true } },
+        },
+      },
       employeeInfo: true,
     },
   });
@@ -86,6 +93,13 @@ export const refreshToken = async (req: Request, res: Response<RefreshTokenRespo
         organisation: true,
         projects: { select: { name: true, members: { select: { firstName: true, lastName: true } } } },
         teams: {
+          select: {
+            name: true,
+            teamLead: { select: { firstName: true, lastName: true } },
+            members: { select: { firstName: true, lastName: true } },
+          },
+        },
+        responsibleTeams: {
           select: {
             name: true,
             teamLead: { select: { firstName: true, lastName: true } },
