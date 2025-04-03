@@ -101,7 +101,7 @@ export function Login() {
         </form>
         <Group justify="center" gap={5}>
           <Text ta="center">Don't have an account?</Text>
-          <Link to="/login">Register</Link>
+          <Link to="/register">Register</Link>
         </Group>
       </Stack>
     </Center>

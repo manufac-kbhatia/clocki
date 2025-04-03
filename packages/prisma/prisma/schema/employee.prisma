@@ -11,8 +11,9 @@ model Employee {
     dateOfBirth  DateTime?
     refreshToken String?
 
-    role   Role
-    gender Gender?
+    role         Role
+    gender       Gender?
+    subscription Subscription @default(Free)
 
     employeeInfo        EmployeeInfo?
     createdOrganisation Organisation? @relation("OrganisationCreator")

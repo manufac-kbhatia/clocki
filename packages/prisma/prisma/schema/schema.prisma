@@ -8,6 +8,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Subscription {
+  Free
+  Paid
+}
+
 enum Gender {
   Male
   Female

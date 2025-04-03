@@ -14,7 +14,7 @@ import {
   logTimeEntry,
 } from "../agentTools";
 import { setContextVariable } from "@langchain/core/context";
-import { Role } from "@repo/schemas";
+import { Role, Subscription } from "@repo/schemas";
 import { AgentResponse } from "@repo/schemas/rest";
 import ErrorHandler from "../utils/errorHandler";
 import { StatusCodes } from "http-status-codes";
@@ -120,6 +120,10 @@ export const agent = async (
 ) => {
   const employeeId = req.employeeId;
   const organisationId = req.role === Role.Admin ? req.employee?.createdOrganisation?.id : req.employee?.organisationId;
+  if (req.employee?.subscription === Subscription.Free) {
+    res.status(200).json({ success: true, response: "Please upgrade to premium to access Cloki AI Assistant." });
+    return;
+  }
 
   setContextVariable("userId", req.employeeId);
   setContextVariable("organisationId", organisationId);

@@ -54,7 +54,7 @@ const MySettings = () => {
           My settings
         </Text>
         <Grid>
-          <Grid.Col span={2}>
+          <Grid.Col span={{base: 12, lg: 2}}>
             <Card withBorder shadow="none">
               <Avatar
                 name={`${auth?.employee?.firstName} ${auth?.employee?.lastName ?? ""}`}
@@ -63,7 +63,7 @@ const MySettings = () => {
               />
             </Card>
           </Grid.Col>
-          <Grid.Col span={10}>
+          <Grid.Col span={{base: 12, lg:10}}>
             <form onSubmit={onSubmit(handleSubmit)}>
               <Stack>
                 <Card withBorder shadow="none">
@@ -79,6 +79,15 @@ const MySettings = () => {
                       >
                         <IconEdit size={16} />
                       </ActionIcon>
+                    </Group>
+                    <Group>
+                      <Text miw={150}>Subscription</Text>
+                      <TextInput
+                        variant="filled"
+                        flex={1}
+                        defaultValue={`${auth?.employee?.subscription} Account`}
+                        disabled={true}
+                      />
                     </Group>
                     <Group>
                       <Text miw={150}>Email</Text>

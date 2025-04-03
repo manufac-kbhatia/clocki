@@ -1,4 +1,10 @@
 import { z } from "zod";
+export const Subscription = {
+  Free: "Free",
+  Paid: "Paid",
+} as const;
+
+export type Subscription = (typeof Subscription)[keyof typeof Subscription];
 
 export const Gender = {
   Male: "Male",
