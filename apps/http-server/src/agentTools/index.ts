@@ -442,7 +442,7 @@ ${project.Timesheet.map(
 );
 
 export const sendMailTool = tool(
-  async ({ to, subject, html, sendIt }: {to: string, subject: string, html?: string, sendIt: boolean}) => {
+  async ({ to, subject, html, sendIt }: { to: string; subject: string; html?: string; sendIt: boolean }) => {
     await sendMail({ to, subject, html });
     return "Email sent successfully.";
   },
@@ -455,5 +455,5 @@ export const sendMailTool = tool(
       html: z.string().optional().describe("content of email"),
       sendIt: z.boolean().describe("Is the user sure to send the mail"),
     }),
-  }
+  },
 );

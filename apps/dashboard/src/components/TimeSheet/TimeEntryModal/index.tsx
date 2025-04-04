@@ -43,12 +43,13 @@ const TimeEntryModal = ({
   mode,
   projects,
   editTimeEntry,
-  selectedDate
+  selectedDate,
 }: TimeEntryModalProps) => {
-  const { getInputProps, key, onSubmit, setValues, reset, setFieldValue } = useForm<TimeSheetEntryPayload>({
-    mode: "uncontrolled",
-    validate: zodResolver(TimeSheetEntrySchema),
-  });
+  const { getInputProps, key, onSubmit, setValues, reset, setFieldValue } =
+    useForm<TimeSheetEntryPayload>({
+      mode: "uncontrolled",
+      validate: zodResolver(TimeSheetEntrySchema),
+    });
   const queryClient = useQueryClient();
   const [time, setTime] = useState<string>("");
   const [timeError, setTimeError] = useState<string | null>(null);
@@ -58,7 +59,7 @@ const TimeEntryModal = ({
         title: "Entry logged",
         message: `${convertToTime(data.timeEntry.loggedHours)} hours logged`,
       });
-      await queryClient.invalidateQueries({queryKey: ["timeEntries"]})
+      await queryClient.invalidateQueries({ queryKey: ["timeEntries"] });
       onClose();
     },
 
@@ -113,7 +114,7 @@ const TimeEntryModal = ({
       createdAt: entryDate,
       loggedHours,
     };
-  
+
     if (mode === TimeEntryModalMode.Add) {
       createEntry(payload);
     } else if (mode === TimeEntryModalMode.Edit) {
@@ -134,11 +135,10 @@ const TimeEntryModal = ({
   }, [editTimeEntry, mode, setValues]);
 
   useEffect(() => {
-    if (selectedDate)
-    setFieldValue("createdAt", new Date(selectedDate))
+    if (selectedDate) setFieldValue("createdAt", new Date(selectedDate));
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedDate])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate]);
 
   return (
     <Modal
@@ -198,7 +198,9 @@ const TimeEntryModal = ({
             <Button variant="outline" type="button" onClick={reset}>
               Cancel
             </Button>
-            <Button type="submit" loading={isPending}>Save</Button>
+            <Button type="submit" loading={isPending}>
+              Save
+            </Button>
           </Group>
         </Stack>
       </form>

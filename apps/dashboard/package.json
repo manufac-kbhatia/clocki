@@ -10,8 +10,6 @@
     "preview": "vite preview --port 3000"
   },
   "dependencies": {
-    "@chatscope/chat-ui-kit-react": "^2.0.3",
-    "@chatscope/chat-ui-kit-styles": "^1.4.0",
     "@dnd-kit/core": "^6.3.1",
     "@fontsource/red-hat-display": "^5.1.1",
     "@mantine/core": "^7.17.0",
@@ -30,6 +28,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
     "react-router": "^7.2.0",
     "serve": "^14.2.4",
     "zod": "^3.24.2"

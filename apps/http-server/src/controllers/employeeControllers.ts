@@ -111,7 +111,7 @@ export const createEmployee = async (
     },
   });
 
-  const response  = await sendMail({
+  const response = await sendMail({
     to: employee.email,
     subject: `Welcome to ${orgName}`,
     text: `Hello ${employee.firstName} ${employee.lastName ?? ""},\n\nYour account has been created under the organisation: ${orgName}.\n\nEmail: ${employee.email}\nPassword: ${password}\n\nPlease change your password after logging in.`,
