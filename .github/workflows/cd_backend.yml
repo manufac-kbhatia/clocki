@@ -31,17 +31,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/ssh_key
           chmod 700 ~/ssh_key
           ssh -o StrictHostKeyChecking=no -i ~/ssh_key ubuntu@13.60.172.68 -t "
-            sudo docker stop cloki-server || true
-            sudo docker rm cloki-server || true
-
-            # Remove old unused images
-            sudo docker image prune -f
 
             # Run the new container
             sudo docker run --name cloki-server -d -p 8080:8080 \
             -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            -e EMAIL_USER=${{ secrets.EMAIL_USER }} \
-            -e EMAIL_PASS=${{ secrets.EMAIL_PASS }} \
             -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
             -e LANGSMITH_ENDPOINT=${{ secrets.LANGSMITH_ENDPOINT }} \
             -e LANGSMITH_API_KEY=${{ secrets.LANGSMITH_API_KEY }} \
