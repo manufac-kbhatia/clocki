@@ -11,6 +11,7 @@ import {
   IconRobot,
   IconServer,
   IconUsers,
+  IconVideo,
   IconWand,
 } from "@tabler/icons-react";
 import Image from "next/image";
@@ -87,7 +88,7 @@ export default function Home() {
                 </Link>
               </button>
               <button className="p-2 rounded-md shadow-neutral-500 shadow-sm font-semibold">
-                <Link href="#demo">Watch demo</Link>
+                <Link href="#watch">Watch demo</Link>
               </button>
             </div>
           </div>
@@ -313,6 +314,31 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Demo */}
+      <section
+        id="watch"
+        className="container py-20 md:py-28 flex flex-col gap-10 items-center"
+      >
+        <div className="flex flex-col items-center text-center space-y-4 mb-16">
+          <div className="inline-flex items-center rounded-full border px-4 py-1.5 text-sm font-medium bg-primary/10 text-primary">
+            <IconVideo className="h-4 w-4 mr-2" />
+            <span>Watch Demo</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Watch How Cloki Works</h2>
+        </div>
+        <iframe
+          width="1200"
+          height="700"
+          src="https://www.youtube.com/embed/teagtCtWiNw?si=nmhLl0YhY_IGv-BP"
+          className="shadow-lg rounded-lg"
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
+          allowFullScreen
+        ></iframe>
       </section>
 
       {/* Pricing Section */}

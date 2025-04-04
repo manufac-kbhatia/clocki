@@ -10,6 +10,7 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { IconQuestionMark, IconExternalLink } from "@tabler/icons-react";
+import { Link } from "react-router";
 
 export interface WelcomeCardProps {
   userName?: string;
@@ -51,7 +52,9 @@ const WelcomeCard = ({ userName }: WelcomeCardProps) => {
                   <Text>Watch video instructions</Text>
                 </Stack>
                 <ThemeIcon size="xl" variant="outline" radius="xl">
-                  <IconExternalLink />
+                  <Link to="https://www.youtube.com/watch?v=teagtCtWiNw">
+                    <IconExternalLink />
+                  </Link>
                 </ThemeIcon>
               </Group>
             </Stack>

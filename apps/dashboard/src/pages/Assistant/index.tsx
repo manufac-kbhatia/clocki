@@ -16,7 +16,6 @@ import { useState } from "react";
 import { useChatAgent } from "../../hooks/api/agent";
 import ReactMarkdown from "react-markdown";
 
-
 export interface Message {
   content: string;
   direction: "incoming" | "outgoing";
@@ -111,7 +110,11 @@ export function Assistant() {
           </Stack>
         </ScrollArea>
       ) : null}
-      {messages.length === 0 ? <Title order={3} ta="center">What can I help with?</Title> : null}
+      {messages.length === 0 ? (
+        <Title order={3} ta="center">
+          What can I help with?
+        </Title>
+      ) : null}
       <Group>
         <TextInput
           placeholder={isPending ? "Working..." : "Ask anything"}
