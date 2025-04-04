@@ -24,9 +24,9 @@ import { Status } from "@repo/schemas";
 import { useForm, zodResolver } from "@mantine/form";
 import { useEffect, useState } from "react";
 import { ProjectWithInfo, TimeSheetPayload } from "@repo/schemas/rest";
-import dayjs from "dayjs";
 import { useCreateTimeEntry } from "../../../hooks/api/timeSheet";
 import { notifications } from "@mantine/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 export interface TimeEntryModalProps {
   opened: boolean;
@@ -34,6 +34,7 @@ export interface TimeEntryModalProps {
   mode?: TimeEntryModalMode;
   editTimeEntry?: TimeSheetEntryPayload;
   projects?: ProjectWithInfo[];
+  selectedDate?: string;
 }
 
 const TimeEntryModal = ({
@@ -42,20 +43,23 @@ const TimeEntryModal = ({
   mode,
   projects,
   editTimeEntry,
+  selectedDate
 }: TimeEntryModalProps) => {
-  const { getInputProps, key, onSubmit, setValues, reset } = useForm<TimeSheetEntryPayload>({
+  const { getInputProps, key, onSubmit, setValues, reset, setFieldValue } = useForm<TimeSheetEntryPayload>({
     mode: "uncontrolled",
     validate: zodResolver(TimeSheetEntrySchema),
   });
-
+  const queryClient = useQueryClient();
   const [time, setTime] = useState<string>("");
   const [timeError, setTimeError] = useState<string | null>(null);
-  const { mutate: createEntry } = useCreateTimeEntry({
-    onSuccess: (data) => {
+  const { mutate: createEntry, isPending } = useCreateTimeEntry({
+    onSuccess: async (data) => {
       notifications.show({
         title: "Entry logged",
         message: `${convertToTime(data.timeEntry.loggedHours)} hours logged`,
       });
+      await queryClient.invalidateQueries({queryKey: ["timeEntries"]})
+      onClose();
     },
 
     onError: () => {
@@ -98,18 +102,23 @@ const TimeEntryModal = ({
 
     const loggedHours = convertToMinutes(time);
     const { createdAt, ...rest } = value;
+    if (createdAt === undefined) return;
+    const entryDate = createdAt?.toLocaleString("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
     const payload: TimeSheetPayload = {
       ...rest,
-      createdAt: dayjs(createdAt).toISOString().split("T")[0],
+      createdAt: entryDate,
       loggedHours,
     };
-
+  
     if (mode === TimeEntryModalMode.Add) {
       createEntry(payload);
     } else if (mode === TimeEntryModalMode.Edit) {
       // updateEntry(value);
     }
-    console.log(value);
   };
 
   useEffect(() => {
@@ -123,6 +132,13 @@ const TimeEntryModal = ({
       setValues(values);
     }
   }, [editTimeEntry, mode, setValues]);
+
+  useEffect(() => {
+    if (selectedDate)
+    setFieldValue("createdAt", new Date(selectedDate))
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedDate])
 
   return (
     <Modal
@@ -182,7 +198,7 @@ const TimeEntryModal = ({
             <Button variant="outline" type="button" onClick={reset}>
               Cancel
             </Button>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" loading={isPending}>Save</Button>
           </Group>
         </Stack>
       </form>

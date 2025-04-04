@@ -198,6 +198,7 @@ const LogTime = () => {
         </Stack>
       </Card>
       <TimeEntryModal
+        selectedDate={selectedDate}
         opened={opened}
         onClose={close}
         mode={timeEntryModalMode}
