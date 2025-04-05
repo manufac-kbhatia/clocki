@@ -329,10 +329,8 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Watch How Cloki Works</h2>
         </div>
         <iframe
-          width="1200"
-          height="700"
           src="https://www.youtube.com/embed/teagtCtWiNw?si=nmhLl0YhY_IGv-BP"
-          className="shadow-lg rounded-lg"
+          className="shadow-lg rounded-lg w-[80%] md:h-[600]"
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

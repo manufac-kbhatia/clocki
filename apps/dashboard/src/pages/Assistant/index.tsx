@@ -12,7 +12,7 @@ import {
   Loader,
 } from "@mantine/core";
 import { IconSend, IconTrash } from "@tabler/icons-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChatAgent } from "../../hooks/api/agent";
 import ReactMarkdown from "react-markdown";
 
@@ -22,12 +22,13 @@ export interface Message {
 }
 
 export function Assistant() {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState("");
   const { mutate: SendPrompt, isPending } = useChatAgent({
     onSuccess: (data) => {
       const cleanedResponse = data.response
-        .replace(/^"|"$/g, "") // Remove leading & trailing quotes
+        .replace(/^"|"$/g, "")
         .replace(/\\n/g, "\n");
       setMessages((prev) => {
         const newMessage: Message = {
@@ -40,6 +41,7 @@ export function Assistant() {
   });
 
   const handleSendPrompt = (prompt: string) => {
+    if (prompt.length === 0) return;
     setMessages((prev) => {
       const newMessage: Message = {
         content: prompt,
@@ -56,8 +58,14 @@ export function Assistant() {
     setMessages([]);
   };
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   return (
-    <Stack h={700} justify="center">
+    <Stack h="85vh" justify="center">
       {messages.length === 0 ? (
         <SimpleGrid cols={2}>
           <Card withBorder shadow="none">
@@ -107,6 +115,7 @@ export function Assistant() {
                 </Box>
               );
             })}
+            <div ref={scrollRef} />
           </Stack>
         </ScrollArea>
       ) : null}
