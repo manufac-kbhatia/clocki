@@ -47,14 +47,14 @@ export function Login() {
 
   const { getInputProps, key, onSubmit } = useForm<LoginPayload>({
     initialValues: {
-      email: "",
-      password: "",
+      email: "harkirat@gmail.com",
+      password: "12345678",
     },
     validate: zodResolver(LoginSchema),
     validateInputOnBlur: true,
     validateInputOnChange: true,
   });
-
+  
   const handlesubmit = (payload: LoginPayload) => {
     login(payload);
   };
